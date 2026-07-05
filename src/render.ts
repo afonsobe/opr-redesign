@@ -103,9 +103,14 @@ function getTough(unit: Unit): string {
   return rule?.rating?.toString() ?? '-';
 }
 
-function getBaseLabel(unit: Unit): string {
+// The base-info line doubles as the card's "which army / which game" label, so a
+// player who mixes printed cards from several lists can sort them back — e.g.
+// "Eternal Dynasty - GF - 60x35mm". Army name and game system come from the list;
+// the base size is the unit's round base.
+function getBaseLabel(unit: Unit, armyName: string, gameSystem: string): string {
   const roundBase = unit.bases?.round;
-  return roundBase ? `Base ${roundBase} mm` : 'Base ?';
+  const baseSize = roundBase ? `${roundBase}mm` : '?';
+  return [armyName, gameSystem.toUpperCase(), baseSize].filter(Boolean).join(' - ');
 }
 
 // Army Forge's `unit.cost` is only the base profile cost — the points paid for
@@ -736,6 +741,9 @@ function unitSignature(unit: Unit, useCustomNames: boolean): string {
     name: unit.name,
     custom: useCustomNames ? unit.customName ?? '' : '',
     generic: unit.genericName,
+    // Keep heroes joined to different units on separate cards — otherwise two
+    // identical heroes would collapse into one and lose their distinct marker.
+    joinToUnit: unit.joinToUnit ?? '',
     cost: unit.cost,
     size: unit.size,
     quality: unit.quality,
@@ -743,6 +751,14 @@ function unitSignature(unit: Unit, useCustomNames: boolean): string {
     rules,
     loadout,
   });
+}
+
+// The title Army Forge shows for a unit: its custom name when renamed and custom
+// names are on, otherwise the book name. Shared by the card title and the
+// "Joined to ..." marker, so both name the same unit the same way.
+function unitDisplayName(unit: Unit, useCustomNames: boolean): string {
+  const customName = useCustomNames ? unit.customName?.trim() : '';
+  return customName || unit.name || 'Unnamed unit';
 }
 
 interface UnitGroup {
@@ -849,7 +865,49 @@ function combineUnits(units: Unit[], useCustomNames: boolean): UnitGroup[] {
   return result;
 }
 
-function createCard(unit: Unit, count = 1, armyId = '', useCustomNames = false): HTMLDivElement {
+// Order the cards for the sheet: alphabetically by unit name, but keeping each
+// joined Hero next to the unit it joins (Army Forge's `joinToUnit`). Every card
+// is anchored to a host: a joined hero borrows its host's name and id so the two
+// cluster together (and the hero sits just after its unit); everything else
+// anchors to itself. Sorting by (host name, host id, host-before-hero) gives an
+// A→Z list where each unit/hero pair stays side by side.
+function orderGroups(
+  groups: UnitGroup[],
+  nameBySelectionId: Map<string, string>,
+  useCustomNames: boolean,
+): UnitGroup[] {
+  const anchorOf = (unit: Unit) => {
+    const host = unit.joinToUnit;
+    const isJoinedHero = !!host && nameBySelectionId.has(host);
+    return {
+      name: isJoinedHero
+        ? nameBySelectionId.get(host as string) ?? ''
+        : unitDisplayName(unit, useCustomNames),
+      id: isJoinedHero ? (host as string) : unit.selectionId || '',
+      role: isJoinedHero ? 1 : 0, // host unit first, joined hero right after it
+    };
+  };
+
+  return [...groups].sort((a, b) => {
+    const ka = anchorOf(a.unit);
+    const kb = anchorOf(b.unit);
+    return (
+      ka.name.localeCompare(kb.name, undefined, { sensitivity: 'base' }) ||
+      ka.id.localeCompare(kb.id) ||
+      ka.role - kb.role
+    );
+  });
+}
+
+function createCard(
+  unit: Unit,
+  count = 1,
+  armyId = '',
+  useCustomNames = false,
+  joinedToName = '',
+  armyName = '',
+  gameSystem = '',
+): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
 
@@ -864,7 +922,7 @@ function createCard(unit: Unit, count = 1, armyId = '', useCustomNames = false):
   // and drop `name` to the subtitle (as Army Forge does); otherwise show the
   // book name over the generic name.
   const customName = useCustomNames ? unit.customName?.trim() : '';
-  const baseName = customName || unit.name || 'Unnamed unit';
+  const baseName = unitDisplayName(unit, useCustomNames);
   const subtitle = customName ? unit.name : unit.genericName;
   // A combined card stands in for `count` identical units but keeps the original
   // card's profile, points and loadout — combining is purely cosmetic (to save
@@ -895,6 +953,13 @@ function createCard(unit: Unit, count = 1, armyId = '', useCustomNames = false):
     costElement,
   );
 
+  // A hero that joins a unit (Army Forge's `joinToUnit`, kept as its own card)
+  // gets a "Joined to <unit>" marker, matching Army Forge so it's clear the two
+  // activate together.
+  if (joinedToName) {
+    header.append(createTextElement('card-joined', `🔗 Joined to ${joinedToName}`));
+  }
+
   const stats = document.createElement('div');
   stats.className = 'stats';
   stats.append(
@@ -917,7 +982,7 @@ function createCard(unit: Unit, count = 1, armyId = '', useCustomNames = false):
 
   card.append(
     header,
-    createTextElement('base-info', getBaseLabel(unit)),
+    createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
     stats,
     createTextElement('section-title', 'Special Rules'),
     createRulesContainer(unit),
@@ -952,13 +1017,35 @@ export function renderCards(
   const armyId = army.id || '';
   // Fold "Combine Units" halves into single units first — that's an in-game merge
   // that applies whether or not the cosmetic "combine similar units" option is on.
-  const units = mergeJoinedUnits(Array.isArray(army.units) ? army.units : []);
+  const sourceUnits = Array.isArray(army.units) ? army.units : [];
+  const units = mergeJoinedUnits(sourceUnits);
   const groups = combineSimilar
     ? combineUnits(units, useCustomNames)
     : units.map((unit) => ({ unit, count: 1 }));
 
-  for (const group of groups) {
-    const card = createCard(group.unit, group.count, armyId, useCustomNames);
+  // Resolve each `joinToUnit` (a selectionId) to the host unit's name, so a
+  // joined hero's card can name the unit it fights with — as Army Forge does.
+  const nameBySelectionId = new Map<string, string>();
+  for (const unit of sourceUnits) {
+    if (unit.selectionId) nameBySelectionId.set(unit.selectionId, unitDisplayName(unit, useCustomNames));
+  }
+
+  // Alphabetical order, with joined hero/unit pairs kept side by side.
+  const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames);
+
+  for (const group of orderedGroups) {
+    const joinedToName = group.unit.joinToUnit
+      ? nameBySelectionId.get(group.unit.joinToUnit) ?? ''
+      : '';
+    const card = createCard(
+      group.unit,
+      group.count,
+      armyId,
+      useCustomNames,
+      joinedToName,
+      army.name || '',
+      army.gameSystem || '',
+    );
     container.appendChild(wrapCardWithToolbar(card));
     // Restore after wrapping so the toolbar's sliders exist to reflect the
     // stored zoom / opacity.

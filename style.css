@@ -537,6 +537,14 @@ body.nav-open .nav-overlay {
   letter-spacing: 0.2px;
 }
 
+.card-joined {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: bold;
+  color: #ccc;
+  letter-spacing: 0.2px;
+}
+
 .combined-badge {
   display: inline-block;
   padding: 0 5px;
@@ -558,6 +566,7 @@ body.nav-open .nav-overlay {
   padding: 2px 8px;
   border-bottom: 1px solid #ccc;
   flex-shrink: 0;
+  overflow-wrap: anywhere;
 }
 
 .stats {
