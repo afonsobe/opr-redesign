@@ -1,5 +1,11 @@
 [
   {
+    "date": "July 6, 2026",
+    "items": [
+      "Fixed a list **failing to load** (blank sheet) when a unit carried an item that grants a weapon but has no label of its own — e.g. an **Energy Shield** that also gives a **Bash** attack. The card now shows the bundled weapon (e.g. **5x Bash (A1)**) instead of crashing."
+    ]
+  },
+  {
     "date": "July 5, 2026",
     "items": [
       "A **Hero** joined to a unit in Army Forge now shows a **🔗 Joined to <unit>** marker on its card (e.g. **Joined to Warriors**), matching Army Forge — so it's clear the hero and its unit **activate together** and the activation count adds up.",

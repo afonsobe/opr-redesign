@@ -41,6 +41,25 @@ function getWeapons(unit: Unit): Weapon[] {
   return Array.isArray(unit.loadout) ? unit.loadout.filter(isWeapon) : [];
 }
 
+// The label a weapon renders under. A plain weapon ships its own `label` (e.g.
+// "Shock Pistol (12\", A1, AP(4))"). A bundled item counts as a weapon because a
+// weapon lives nested in its `content` (e.g. an "Energy Shield" carrying a "Bash"
+// attack, or a "Weapon Team") — but such an item may omit its own top-level
+// label, so we fall back to the nested weapon profiles' labels, then to the bare
+// name. Without this fallback `mergeWeapons` reads `label` off `undefined` and
+// the whole sheet fails to render.
+function getWeaponLabel(weapon: Weapon): string {
+  if (weapon.label?.trim()) return weapon.label;
+
+  const nested = (Array.isArray(weapon.content) ? weapon.content : [])
+    .filter(hasWeaponProfile)
+    .map((item) => item.label?.trim() || item.name?.trim() || '')
+    .filter(Boolean);
+  if (nested.length > 0) return nested.join(', ');
+
+  return weapon.name?.trim() ?? '';
+}
+
 function getUpgrades(unit: Unit): Weapon[] {
   return Array.isArray(unit.loadout) ? unit.loadout.filter((item) => !isWeapon(item)) : [];
 }
@@ -175,7 +194,7 @@ function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
   const byLabel = new Map<string, MergedWeapon>();
 
   for (const weapon of weapons) {
-    const label = weapon.label.replace(/^\s*\d+x\s+/, '');
+    const label = getWeaponLabel(weapon).replace(/^\s*\d+x\s+/, '');
     const count = typeof weapon.count === 'number' ? weapon.count : 0;
     const existing = byLabel.get(label);
     if (existing) {
