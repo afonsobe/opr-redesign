@@ -1202,9 +1202,18 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   const used = armySpecialRules.filter(
     (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)),
   );
-  const sorted = expandGrantedRules(used, grantedIds, armySpecialRules).sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  const expanded = expandGrantedRules(used, grantedIds, armySpecialRules);
+  // Rated rules (AP, Regeneration Aura, ...) exist as one army.specialRules entry
+  // per X value, but the table shows the generic name/description without the
+  // rating, so distinct-X instances of the same rule would otherwise print as
+  // identical duplicate rows.
+  const seenNames = new Set<string>();
+  const deduped = expanded.filter((rule) => {
+    if (seenNames.has(rule.name)) return false;
+    seenNames.add(rule.name);
+    return true;
+  });
+  const sorted = deduped.sort((a, b) => a.name.localeCompare(b.name));
 
   const table = document.createElement('table');
   table.className = 'special-rules-table';

@@ -1,5 +1,11 @@
 [
   {
+    "date": "July 22, 2026",
+    "items": [
+      "Fixed **duplicate rows** in the special-rules table for rated rules like **AP** and **Regeneration Aura**: a rule with several rating values (e.g. AP(1) and AP(2)) now shows up **once**, instead of once per value."
+    ]
+  },
+  {
     "date": "July 6, 2026",
     "items": [
       "Fixed a list **failing to load** (blank sheet) when a unit carried an item that grants a weapon but has no label of its own — e.g. an **Energy Shield** that also gives a **Bash** attack. The card now shows the bundled weapon (e.g. **5x Bash (A1)**) instead of crashing."
