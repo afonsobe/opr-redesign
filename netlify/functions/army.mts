@@ -1,7 +1,7 @@
 import type { Config } from '@netlify/functions';
 import { loadArmy, RelayError } from '../../api/src/relay';
 
-const PRIMARY_ORIGIN = 'https://jeanomeg.github.io';
+const PRIMARY_ORIGIN = 'https://afonsobe.github.io';
 const ALLOWED_ORIGINS = new Set<string>([PRIMARY_ORIGIN]);
 
 function corsHeaders(origin: string | null): Record<string, string> {
