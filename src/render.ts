@@ -158,6 +158,14 @@ function getUnitTotalCost(unit: Unit): number {
 
 // --- Small DOM helpers -------------------------------------------------------
 
+function createSectionHeading(text: string): HTMLHeadingElement {
+  const heading = document.createElement('h3');
+  heading.className = 'sheet-heading';
+  heading.textContent = text;
+  return heading;
+}
+
+
 function createTextElement(className: string, text: string): HTMLDivElement {
   const element = document.createElement('div');
   element.className = className;
@@ -176,41 +184,79 @@ function createStat(label: string, value: string): HTMLDivElement {
 }
 
 interface MergedWeapon {
-  label: string;
+  name: string;
+  range: string;
+  attacks: string;
+  ap: string;
+  special: string;
   count: number;
 }
 
-// Army Forge collapses identical weapon profiles into one line with a summed
-// quantity — three models each carrying a Dagger show as "3x Dagger", not three
-// "1x Dagger" lines. We mirror that: group the loadout by profile (the label,
-// which already encodes name + range + attacks + special rules) and add up the
-// counts. The leading "Nx " is stripped first, both so it becomes the grouping
-// key and because Army Forge sometimes bakes the multiplier into the label of a
-// count>1 weapon, which would otherwise render as "2x 2x Hand Weapon".
-// Combining identical units is purely cosmetic, so weapon counts stay at the
-// single-unit values — a combined card keeps the original card's loadout.
+// Mesma ideia de antes: armas com o mesmo perfil viram uma linha só, com a
+// quantidade somada. O "Nx " do começo do label é removido pra não duplicar.
 function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
   const order: string[] = [];
-  const byLabel = new Map<string, MergedWeapon>();
+  const byKey = new Map<string, MergedWeapon>();
 
   for (const weapon of weapons) {
-    const label = getWeaponLabel(weapon).replace(/^\s*\d+x\s+/, '');
+    const key = getWeaponLabel(weapon).replace(/^\s*\d+x\s+/, '');
     const count = typeof weapon.count === 'number' ? weapon.count : 0;
-    const existing = byLabel.get(label);
+    const existing = byKey.get(key);
     if (existing) {
       existing.count += count;
-    } else {
-      byLabel.set(label, { label, count });
-      order.push(label);
+      continue;
+    }
+
+    const rules = getWeaponSpecialRules(weapon);
+    const apRule = rules.find((rule) => rule.name === 'AP');
+    const others = rules
+      .filter((rule) => rule.name !== 'AP')
+      .map((rule) => rule.label || rule.name)
+      .filter(Boolean);
+
+    byKey.set(key, {
+      name: weapon.name?.trim() || key,
+      range: weapon.range > 0 ? `${weapon.range}"` : '-',
+      attacks: typeof weapon.attacks === 'number' ? `A${weapon.attacks}` : '-',
+      ap: apRule?.rating != null ? String(apRule.rating) : '-',
+      special: others.length > 0 ? others.join(', ') : '-',
+      count,
+    });
+    order.push(key);
+  }
+
+  return order.map((key) => byKey.get(key) as MergedWeapon);
+}
+
+function createWeaponsTable(weapons: MergedWeapon[]): HTMLTableElement {
+  const table = document.createElement('table');
+  table.className = 'weapons-table';
+
+  const head = table.createTHead().insertRow();
+  for (const text of ['Weapon', 'RNG', 'ATK', 'AP', 'Special rules']) {
+    const th = document.createElement('th');
+    th.textContent = text;
+    head.appendChild(th);
+  }
+
+  const body = table.createTBody();
+  for (const weapon of weapons) {
+    const row = body.insertRow();
+    const cells: [string, string][] = [
+      [weapon.count > 0 ? `${weapon.count}x ${weapon.name}` : weapon.name, 'w-name'],
+      [weapon.range, 'w-num'],
+      [weapon.attacks, 'w-num'],
+      [weapon.ap, 'w-num'],
+      [weapon.special, 'w-special'],
+    ];
+    for (const [text, className] of cells) {
+      const td = row.insertCell();
+      td.className = className;
+      td.textContent = text;
     }
   }
 
-  return order.map((label) => byLabel.get(label) as MergedWeapon);
-}
-
-function createWeaponElement(weapon: MergedWeapon): HTMLDivElement {
-  const label = weapon.count > 0 ? `${weapon.count}x ${weapon.label}` : weapon.label;
-  return createTextElement('weapon-chip', label);
+  return table;
 }
 
 function createRulesContainer(unit: Unit): HTMLDivElement {
@@ -929,6 +975,7 @@ function createCard(
 ): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
+    if (getRules(unit).some((rule) => rule.name === 'Hero')) card.classList.add('card--hero');
 
   // Identify the card for image persistence. A combined card uses its first
   // unit's id, so its image is the one shown; the other units keep their own
@@ -994,9 +1041,7 @@ function createCard(
   if (weapons.length === 0) {
     weaponsContainer.appendChild(createTextElement('muted', 'No weapons'));
   } else {
-    for (const weapon of weapons) {
-      weaponsContainer.appendChild(createWeaponElement(weapon));
-    }
+     weaponsContainer.appendChild(createWeaponsTable(weapons));
   }
 
   card.append(
@@ -1250,6 +1295,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   }
 
   table.append(thead, tbody);
+    if (sorted.length > 0) section.append(createSectionHeading('Special Rules'));
   section.append(table);
 }
 
@@ -1300,5 +1346,6 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   }
 
   table.append(thead, tbody);
+    section.append(createSectionHeading('Spells'));
   section.append(table);
 }

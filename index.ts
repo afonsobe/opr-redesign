@@ -157,35 +157,7 @@ function displayArmy(army: ArmyList, input: string): void {
   if (spellsSection) renderSpellsTable(spellsSection, army);
 }
 
-/** Fetch from the relay, then render and cache the result. */
-async function fetchAndShow(armyId: string, input: string): Promise<void> {
-  setMessage('Loading army list...', 'loading');
-  generateButton?.setAttribute('disabled', 'true');
 
-  try {
-    const army = await fetchArmy(armyId);
-    displayArmy(army, input);
-
-    if (army.id) {
-      try {
-        await saveList(army, input);
-        // Capture the toggle states this list was generated with, so reloading
-        // it later restores them rather than resetting to defaults.
-        await saveListSettings(army.id, getCurrentSettings());
-      } catch (saveError) {
-        console.error('Failed to save list:', saveError);
-      }
-    }
-  } catch (error) {
-    console.error(error);
-    setMessage(
-      'Could not load this army list. Check the link, try again, or verify whether the browser blocked the request.',
-      'error',
-    );
-  } finally {
-    generateButton?.removeAttribute('disabled');
-  }
-}
 
 async function loadArmy(): Promise<void> {
   const input = inputElement.value.trim();
@@ -199,20 +171,46 @@ async function loadArmy(): Promise<void> {
 
   localStorage.setItem('lastArmyInput', input);
 
-  // Cache-first: if this list is already saved, show it instantly (works
-  // offline). The user clicks "Refresh List" to pull the latest when needed.
+  // Cópia salva: usada pra restaurar as opções da lista e como reserva se a
+  // busca online falhar (ex.: sem internet).
+  let cached: SavedList | undefined;
   try {
-    const cached = await getList(armyId);
-    if (cached) {
-      applySettings(cached.settings);
-      displayArmy(cached.payload, cached.input);
-      return;
-    }
+    cached = (await getList(armyId)) ?? undefined;
   } catch (error) {
     console.error('Failed to read cached list:', error);
   }
+  if (cached) applySettings(cached.settings);
 
-  await fetchAndShow(armyId, input);
+  setMessage('Loading army list...', 'loading');
+  generateButton?.setAttribute('disabled', 'true');
+
+  try {
+    // Sempre busca a versão mais recente no Army Forge.
+    const army = await fetchArmy(armyId);
+    await pruneRemovedUnitImages(army);
+    displayArmy(army, input);
+
+    try {
+      await saveList(army, input);
+      // Só grava as opções na primeira vez; depois mantém as que já existiam.
+      if (!cached && army.id) await saveListSettings(army.id, getCurrentSettings());
+    } catch (saveError) {
+      console.error('Failed to save list:', saveError);
+    }
+  } catch (error) {
+    console.error(error);
+    if (cached) {
+      // Falhou a busca: mostra a cópia salva em vez de dar erro.
+      displayArmy(cached.payload, cached.input);
+    } else {
+      setMessage(
+        'Could not load this army list. Check the link, try again, or verify whether the browser blocked the request.',
+        'error',
+      );
+    }
+  } finally {
+    generateButton?.removeAttribute('disabled');
+  }
 }
 
 // After a refresh, drop saved card images for units no longer in the list.
