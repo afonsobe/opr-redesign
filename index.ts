@@ -77,6 +77,8 @@ paletteSelect.innerHTML =
   paletteGroup('Grimdark Future', 'GF') +
   paletteGroup('Age of Fantasy', 'AoF') +
   paletteGroup('Geral', 'geral');
+  // A primeira opção ("Automática") mostra qual paleta está valendo no momento.
+const autoOption = paletteSelect.options[0];
 
 const paletteLabel = document.createElement('label');
 paletteLabel.append('Paleta de cores: ', paletteSelect);
@@ -88,12 +90,24 @@ function paletteStorageKey(): string {
 
 function currentPalette(): Palette {
   const chosen = PALETTES.find((p) => p.id === paletteSelect.value);
-  return chosen ?? detectPalette(currentArmy?.name ?? '');
+  if (chosen) return chosen;
+
+  // Automática: primeiro pelo nome do livro do exército (ex.: "Battle Brothers"),
+  // depois, se nada combinar, pelo nome que você deu à lista.
+  const bookNames = (currentArmy?.armyBooks ?? []).map((book) => book.name).join(' ');
+  const fromBook = detectPalette(bookNames);
+  if (fromBook.id !== 'default') return fromBook;
+  return detectPalette(currentArmy?.name ?? '');
 }
 
-// Aplica a paleta de acordo com o que está escolhido no seletor.
+// Aplica a paleta e deixa visível, no seletor, qual está em uso.
 function refreshPalette(): void {
-  applyPalette(currentPalette());
+  const palette = currentPalette();
+  applyPalette(palette);
+  autoOption.textContent =
+    paletteSelect.value === 'auto'
+      ? `Automática → ${palette.label}`
+      : 'Automática (pelo livro ou nome da lista)';
 }
 
 paletteSelect.addEventListener('change', () => {
