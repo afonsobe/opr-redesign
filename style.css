@@ -852,9 +852,7 @@ body {
 }
 
 .card {
-  --c1: #7a1f4a; /* vinho: pontos, heróis, títulos */
-  --c2: #2a6b66; /* verde-azulado: unidades comuns */
-  border: 1px solid #c9c2cc;
+   border: 1px solid #c9c2cc;
   border-left: 4px solid var(--c2);
   border-radius: 4px;
 }
@@ -1157,4 +1155,40 @@ body {
   }
 
   .army-summary { display: block !important; }
+}
+
+/* Fundo branco e cores controladas pelo seletor de paleta */
+body {
+  background: #fff;
+}
+
+:root {
+  --c1: #7a1f4a;
+  --c2: #2a6b66;
+}
+
+.army-info-name { color: var(--c1); }
+.army-info-meta { color: var(--c2); }
+
+.army-summary:not(:empty) {
+  border-left-color: var(--c1);
+  border-bottom-color: var(--c1);
+}
+
+.special-rules-table th {
+  color: var(--c2);
+  border-bottom-color: var(--c2);
+}
+
+.special-rules-table .army-header-cell { border-bottom-color: var(--c1); }
+.special-rules-table .rule-name { color: var(--c1); }
+
+.sheet-heading {
+  color: var(--c1);
+  border-bottom-color: var(--c2);
+}
+
+.print-options select {
+  padding: 4px 6px;
+  font-size: 13px;
 }

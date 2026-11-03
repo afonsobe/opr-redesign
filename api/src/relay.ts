@@ -41,7 +41,16 @@ export interface Spell {
 }
 
 export interface ArmyBook {
+  name?: string;
+  versionString?: string;
+  version?: string | number;
   spells?: Spell[];
+}
+
+export interface BookInfo {
+  id: string;
+  name: string;
+  version: string;
 }
 
 export interface ArmyPayload {
@@ -87,50 +96,79 @@ function unitHasCaster(unit: UnitLike): boolean {
   return hasCasterRule(unit.rules) || hasCasterRule(unit.loadout);
 }
 
-async function fetchSpells(army: ArmyPayload): Promise<Spell[]> {
+// Busca o livro de cada exército usado na lista (normalmente 1; mais de um se a
+// lista misturar livros). Dele saem as magias e o nome/versão do exército.
+async function fetchBooks(
+  army: ArmyPayload,
+): Promise<{ armyId: string; book: ArmyBook }[]> {
   const id = army.gameSystem ? GAME_SYSTEM_IDS[army.gameSystem.toLowerCase()] : undefined;
   if (id === undefined) return [];
 
   const units = Array.isArray(army.units) ? army.units : [];
-  const casterArmyIds = [
-    ...new Set(
-      units
-        .filter((unit) => unit.armyId && unitHasCaster(unit))
-        .map((unit) => unit.armyId as string),
-    ),
+  const armyIds = [
+    ...new Set(units.map((unit) => unit.armyId).filter((value): value is string => !!value)),
   ];
-  if (casterArmyIds.length === 0) return [];
 
-  const books = await Promise.all(
-    casterArmyIds.map(async (armyId) => {
+  const results = await Promise.all(
+    armyIds.map(async (armyId) => {
       try {
         const response = await fetch(
           `${OPR_ARMY_BOOKS_URL}/${encodeURIComponent(armyId)}?gameSystem=${id}`,
         );
-        if (!response.ok) return [] as Spell[];
-        const data = (await response.json()) as ArmyBook;
-        return Array.isArray(data.spells) ? data.spells : [];
+        if (!response.ok) return null;
+        return { armyId, book: (await response.json()) as ArmyBook };
       } catch (error) {
         console.error(`Failed to fetch army book ${armyId}:`, error);
-        return [] as Spell[];
+        return null;
       }
     }),
   );
 
+  return results.filter(
+    (entry): entry is { armyId: string; book: ArmyBook } => entry !== null,
+  );
+}
+
+// Magias: só dos livros que têm unidades Conjuradoras (comportamento de antes).
+function collectSpells(
+  army: ArmyPayload,
+  books: { armyId: string; book: ArmyBook }[],
+): Spell[] {
+  const units = Array.isArray(army.units) ? army.units : [];
+  const casterArmyIds = new Set(
+    units
+      .filter((unit) => unit.armyId && unitHasCaster(unit))
+      .map((unit) => unit.armyId as string),
+  );
+
   const seen = new Set<string>();
   const spells: Spell[] = [];
-  for (const spell of books.flat()) {
-    const key = spell.id ?? spell.name;
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
-    spells.push({
-      id: spell.id,
-      name: spell.name,
-      threshold: spell.threshold,
-      effect: spell.effect,
-    });
+  for (const { armyId, book } of books) {
+    if (!casterArmyIds.has(armyId)) continue;
+    for (const spell of Array.isArray(book.spells) ? book.spells : []) {
+      const key = spell.id ?? spell.name;
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      spells.push({
+        id: spell.id,
+        name: spell.name,
+        threshold: spell.threshold,
+        effect: spell.effect,
+      });
+    }
   }
   return spells;
+}
+
+// Nome e versão de cada livro usado, ex.: { name: "Havoc Brothers", version: "3.6.0" }.
+function collectBookInfo(books: { armyId: string; book: ArmyBook }[]): BookInfo[] {
+  return books
+    .map(({ armyId, book }) => ({
+      id: armyId,
+      name: book.name?.trim() ?? '',
+      version: book.versionString ?? (book.version != null ? String(book.version) : ''),
+    }))
+    .filter((info) => info.name);
 }
 
 function mergeRules(army: ArmyPayload, commonRules: RuleLike[]): ArmyPayload {
@@ -170,11 +208,15 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
     throw new RelayError(502, `Army Forge returned ${ttsResponse.status}.`);
   }
 
-  const army = (await ttsResponse.json()) as ArmyPayload;
-  const [commonRules, spells] = await Promise.all([
+    const army = (await ttsResponse.json()) as ArmyPayload;
+  const [commonRules, books] = await Promise.all([
     fetchCommonRules(army.gameSystem),
-    fetchSpells(army),
+    fetchBooks(army),
   ]);
 
-  return { ...mergeRules(army, commonRules), spells };
+  return {
+    ...mergeRules(army, commonRules),
+    spells: collectSpells(army, books),
+    armyBooks: collectBookInfo(books),
+  };
 }

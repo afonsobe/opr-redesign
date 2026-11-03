@@ -21,6 +21,7 @@ import { initRouter, onRouteChange, onRouteEnter } from './src/router';
 import type { ArmyList } from './src/types';
 import { renderChangelog } from './src/views/changelog';
 import { renderListsView, type ListsViewCallbacks } from './src/views/lists';
+import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palettes';
 
 const cardsContainerElement = document.getElementById('cards');
 const inputElementElement = document.getElementById('armyLink');
@@ -60,6 +61,49 @@ const DEFAULT_DOCUMENT_TITLE = document.title;
 let currentArmyId: string | null = null;
 let currentInput = '';
 let currentArmy: ArmyList | null = null;
+
+// Seletor de paleta, criado aqui e colocado junto das opções de impressão.
+const paletteSelect = document.createElement('select');
+paletteSelect.id = 'optPalette';
+const paletteGroup = (title: string, game: Palette['game']): string =>
+  `<optgroup label="${title}">` +
+  PALETTES.filter((p) => p.game === game)
+    .map((p) => `<option value="${p.id}">${p.label}</option>`)
+    .join('') +
+  '</optgroup>';
+
+paletteSelect.innerHTML =
+  '<option value="auto">Automática (pelo nome da lista)</option>' +
+  paletteGroup('Grimdark Future', 'GF') +
+  paletteGroup('Age of Fantasy', 'AoF') +
+  paletteGroup('Geral', 'geral');
+
+const paletteLabel = document.createElement('label');
+paletteLabel.append('Paleta de cores: ', paletteSelect);
+printOptions?.appendChild(paletteLabel);
+
+function paletteStorageKey(): string {
+  return `palette:${currentArmyId ?? ''}`;
+}
+
+function currentPalette(): Palette {
+  const chosen = PALETTES.find((p) => p.id === paletteSelect.value);
+  return chosen ?? detectPalette(currentArmy?.name ?? '');
+}
+
+// Aplica a paleta de acordo com o que está escolhido no seletor.
+function refreshPalette(): void {
+  applyPalette(currentPalette());
+}
+
+paletteSelect.addEventListener('change', () => {
+  try {
+    localStorage.setItem(paletteStorageKey(), paletteSelect.value);
+  } catch (error) {
+    console.error('Failed to save palette:', error);
+  }
+  refreshPalette();
+});
 
 // Default toggle states, matching the `checked` attributes in index.html. Used
 // when a saved list predates per-army settings, so it loads predictably.
@@ -137,6 +181,11 @@ function displayArmy(army: ArmyList, input: string): void {
   currentArmyId = army.id || null;
   currentInput = input;
   currentArmy = army;
+
+    // Restaura a paleta escolhida antes para esta lista (ou "automática").
+  const savedPalette = localStorage.getItem(paletteStorageKey());
+  paletteSelect.value = PALETTES.some((p) => p.id === savedPalette) ? (savedPalette as string) : 'auto';
+  refreshPalette();
 
   const unitCount = renderCards(
     cardsContainer,

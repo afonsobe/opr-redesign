@@ -146,4 +146,6 @@ export interface ArmyList {
   specialRules: ArmySpecialRule[];
   forceOrgErrors: unknown[];
   spells?: Spell[];
+    // Livro(s) de exército OPR usado(s) na lista, ex.: "Havoc Brothers" 3.6.0.
+  armyBooks?: { id: string; name: string; version: string }[];
 }

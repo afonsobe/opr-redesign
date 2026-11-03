@@ -1164,13 +1164,35 @@ function expandGrantedRules(
 // spells table headers and the on-screen summary. "Combine similar units" hides
 // how many units there really are, so the activation tally (matching Army Forge)
 // is the unambiguous count.
+
+// Código do sistema de jogo (como o Army Forge manda) -> nome completo.
+// Códigos que não estiverem aqui aparecem como vieram, em maiúsculas.
+const GAME_SYSTEM_NAMES: Record<string, string> = {
+  gf: 'Grimdark Future',
+  gff: 'Grimdark Future: Firefight',
+  aof: 'Age of Fantasy',
+  aofs: 'Age of Fantasy: Skirmish',
+  aofr: 'Age of Fantasy: Regiments',
+};
+
+function gameSystemName(code: string): string {
+  return GAME_SYSTEM_NAMES[(code || '').toLowerCase()] ?? (code || '').toUpperCase();
+}
+
+
+
 function armyInfoMeta(army: ArmyList): string {
   const activations = army.activationCount;
   const activationsPart =
     typeof activations === 'number' && activations > 0
       ? `${activations} ${activations === 1 ? 'activation' : 'activations'} · `
       : '';
-  return `${army.listPoints} / ${army.pointsLimit} pts · ${activationsPart}${army.gameSystem.toUpperCase()}`;
+  const books = (Array.isArray(army.armyBooks) ? army.armyBooks : [])
+    .map((book) => [book.name, book.version].filter(Boolean).join(' '))
+    .filter(Boolean)
+    .join(' + ');
+  const bookPart = books ? `${books} · ` : '';
+  return `${bookPart}${army.listPoints} / ${army.pointsLimit} pts · ${activationsPart}${gameSystemName(army.gameSystem)}`;
 }
 
 // A table-header cell holding the army name and info line, spanning the table's
