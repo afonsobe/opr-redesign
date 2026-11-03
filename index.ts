@@ -10,6 +10,7 @@ import {
   type SavedList,
 } from './src/db';
 import {
+  createAvatarSizeControl,
   downloadAllCards,
   renderArmySummary,
   renderCards,
@@ -83,6 +84,9 @@ const autoOption = paletteSelect.options[0];
 const paletteLabel = document.createElement('label');
 paletteLabel.append('Paleta de cores: ', paletteSelect);
 printOptions?.appendChild(paletteLabel);
+// Barra de tamanho da imagem: fica abaixo das opções de impressão e só aparece
+// quando há pelo menos uma foto (controlado pelo CSS).
+printOptions?.insertAdjacentElement('afterend', createAvatarSizeControl());
 
 function paletteStorageKey(): string {
   return `palette:${currentArmyId ?? ''}`;

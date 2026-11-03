@@ -289,11 +289,11 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
   return container;
 }
 
-// --- Card background image: pan / zoom / upload ------------------------------
+// --- Card avatar image: círculo com pan / zoom / upload ----------------------
 
 const DEFAULT_BG_OPACITY = 1;
 
-const MIN_BG_SCALE = 0.1;
+const MIN_BG_SCALE = 1;
 const MAX_BG_SCALE = 4;
 const DEFAULT_BG_SCALE = 1;
 
@@ -307,7 +307,7 @@ interface CardImageState {
   panYSlider?: HTMLInputElement;
 }
 
-// The largest background image we accept, to keep IndexedDB lean.
+// The largest image we accept, to keep IndexedDB lean.
 const MAX_IMAGE_MB = 2;
 const MAX_IMAGE_BYTES = MAX_IMAGE_MB * 1024 * 1024;
 
@@ -322,31 +322,145 @@ function getCardImageState(card: HTMLDivElement): CardImageState {
   return state;
 }
 
+// --- Tamanho do círculo: escala de 1 a 10, vale para todas as cartas ----------
+
+const AVATAR_SIZE_KEY = 'avatarSizeLevel';
+const MIN_AVATAR_LEVEL = 1;
+const MAX_AVATAR_LEVEL = 10;
+const DEFAULT_AVATAR_LEVEL = 2; // 58 px
+
+function diameterFor(level: number): number {
+  return 48 + (level - 1) * 10; // nível 1 = 48px, nível 2 = 58px, nível 10 = 138px
+}
+
+function loadAvatarLevel(): number {
+  try {
+    const raw = localStorage.getItem(AVATAR_SIZE_KEY);
+    const value = raw === null ? NaN : parseInt(raw, 10);
+    if (Number.isFinite(value)) {
+      return Math.max(MIN_AVATAR_LEVEL, Math.min(MAX_AVATAR_LEVEL, value));
+    }
+  } catch (error) {
+    console.error('Failed to read avatar size:', error);
+  }
+  return DEFAULT_AVATAR_LEVEL;
+}
+
+let avatarLevel = loadAvatarLevel();
+const avatarSizeButtons: HTMLButtonElement[] = [];
+
+function avatarDiameter(): number {
+  return diameterFor(avatarLevel);
+}
+
+function applyAvatarSize(): void {
+  document.documentElement.style.setProperty('--avatar-size', `${avatarDiameter()}px`);
+}
+applyAvatarSize();
+
+function syncAvatarButtons(): void {
+  for (const button of avatarSizeButtons) {
+    const active = Number(button.dataset.level) === avatarLevel;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-pressed', String(active));
+  }
+}
+
+// Muda o tamanho de todos os círculos de uma vez e reenquadra as imagens,
+// mantendo cada foto na mesma posição relativa.
+function setAvatarLevel(level: number): void {
+  const oldDiameter = avatarDiameter();
+  avatarLevel = Math.max(MIN_AVATAR_LEVEL, Math.min(MAX_AVATAR_LEVEL, level));
+  try {
+    localStorage.setItem(AVATAR_SIZE_KEY, avatarLevel.toString());
+  } catch (error) {
+    console.error('Failed to save avatar size:', error);
+  }
+  applyAvatarSize();
+  syncAvatarButtons();
+  const ratio = avatarDiameter() / oldDiameter;
+
+  for (const card of Array.from(document.querySelectorAll<HTMLDivElement>('.card--has-image'))) {
+    const img = card.querySelector<HTMLImageElement>('.card-bg');
+    if (!img) continue;
+    const state = getCardImageState(card);
+    state.tx *= ratio;
+    state.ty *= ratio;
+    fitBgCover(card, img);
+    clampPan(card, state);
+    applyBgTransform(card);
+    scheduleCardImagePersist(card);
+  }
+}
+
+/** Barra com os botões 1 a 10. Quem chama decide onde ela fica na página. */
+export function createAvatarSizeControl(): HTMLDivElement {
+  const bar = document.createElement('div');
+  bar.className = 'avatar-size-bar';
+
+  const label = document.createElement('span');
+  label.className = 'avatar-size-label';
+  label.textContent = 'Tamanho da imagem:';
+
+  const options = document.createElement('div');
+  options.className = 'avatar-size-options';
+
+  for (let level = MIN_AVATAR_LEVEL; level <= MAX_AVATAR_LEVEL; level++) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'avatar-size-btn';
+    button.dataset.level = level.toString();
+    button.textContent = level.toString();
+    button.title = `${diameterFor(level)} px`;
+    button.addEventListener('click', () => setAvatarLevel(level));
+    avatarSizeButtons.push(button);
+    options.appendChild(button);
+
+    if (level === DEFAULT_AVATAR_LEVEL) {
+      const note = document.createElement('span');
+      note.className = 'avatar-size-default';
+      note.textContent = 'padrão';
+      options.appendChild(note);
+    }
+  }
+
+  bar.append(label, options);
+  syncAvatarButtons();
+  return bar;
+}
+
+
+// O círculo onde a imagem aparece.
+function getAvatar(card: HTMLDivElement): HTMLDivElement | null {
+  return card.querySelector<HTMLDivElement>('.card-avatar');
+}
+
 function fitBgCover(card: HTMLDivElement, img: HTMLImageElement): void {
-  const cardW = card.clientWidth;
-  const cardH = card.clientHeight;
+  const avatar = getAvatar(card);
+  if (!avatar) return;
+  const boxW = avatar.clientWidth;
+  const boxH = avatar.clientHeight;
   const natW = img.naturalWidth;
   const natH = img.naturalHeight;
-  if (!cardW || !cardH || !natW || !natH) return;
+  if (!boxW || !boxH || !natW || !natH) return;
 
-  const coverScale = Math.max(cardW / natW, cardH / natH);
+  const coverScale = Math.max(boxW / natW, boxH / natH);
   img.style.width = `${natW * coverScale}px`;
   img.style.height = `${natH * coverScale}px`;
 }
 
-const MIN_VISIBLE_FRACTION = 0.25;
-
+// Quanto a imagem pode se mover: só o que sobra além do círculo, para nunca
+// aparecerem espaços vazios.
 function getPanBounds(card: HTMLDivElement): { maxX: number; maxY: number } {
   const img = card.querySelector<HTMLImageElement>('.card-bg');
-  if (!img) return { maxX: 0, maxY: 0 };
+  const avatar = getAvatar(card);
+  if (!img || !avatar) return { maxX: 0, maxY: 0 };
   const state = getCardImageState(card);
-  const overflowX = (img.offsetWidth * state.scale - card.clientWidth) / 2;
-  const overflowY = (img.offsetHeight * state.scale - card.clientHeight) / 2;
-  const freeX = card.clientWidth * (1 - MIN_VISIBLE_FRACTION);
-  const freeY = card.clientHeight * (1 - MIN_VISIBLE_FRACTION);
+  const overflowX = (img.offsetWidth * state.scale - avatar.clientWidth) / 2;
+  const overflowY = (img.offsetHeight * state.scale - avatar.clientHeight) / 2;
   return {
-    maxX: Math.max(0, overflowX + freeX),
-    maxY: Math.max(0, overflowY + freeY),
+    maxX: Math.max(0, overflowX),
+    maxY: Math.max(0, overflowY),
   };
 }
 
@@ -366,9 +480,8 @@ function applyBgTransform(card: HTMLDivElement): void {
   syncPanSliders(card, maxX, maxY);
 }
 
-// The pan sliders show position as a percentage of the available travel, so the
-// px offset stays the source of truth (shared with drag) while the slider just
-// reflects it. With no room to pan (maxX/maxY 0) they sit centered at 0.
+// Os sliders de posição mostram a posição como porcentagem do deslocamento
+// possível; o valor em px continua sendo a fonte da verdade.
 function syncPanSliders(card: HTMLDivElement, maxX: number, maxY: number): void {
   const state = getCardImageState(card);
   if (state.panXSlider) {
@@ -379,9 +492,6 @@ function syncPanSliders(card: HTMLDivElement, maxX: number, maxY: number): void 
   }
 }
 
-// Move the image along one axis from a slider value (-100..100), mapping that
-// percentage onto the current pan range. Recomputed live because the range
-// shrinks/grows with zoom.
 function setCardPan(card: HTMLDivElement, axis: 'x' | 'y', percent: number): void {
   const state = getCardImageState(card);
   const { maxX, maxY } = getPanBounds(card);
@@ -414,16 +524,17 @@ function resetCardFraming(card: HTMLDivElement): void {
   if (state.zoomSlider) state.zoomSlider.value = state.scale.toString();
 }
 
-// `resetFraming` is true for a fresh upload (start centered at 1x) and false
-// when restoring a saved image, where the caller has already applied the stored
-// zoom/pan/opacity that the load handler then renders.
+// `resetFraming` é true para um upload novo (começa centralizado em 1x) e false
+// ao restaurar uma imagem salva, quando o enquadramento já foi aplicado.
 function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = true): void {
-  let img = card.querySelector<HTMLImageElement>('.card-bg');
+  const avatar = getAvatar(card);
+  if (!avatar) return;
+  let img = avatar.querySelector<HTMLImageElement>('.card-bg');
 
   if (!src) {
     img?.remove();
     card.classList.remove('card--has-image');
-    card.title = 'Click to add a background image';
+    avatar.title = 'Click to add an image';
     return;
   }
 
@@ -431,7 +542,7 @@ function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = t
     img = document.createElement('img');
     img.className = 'card-bg';
     img.alt = '';
-    card.insertBefore(img, card.firstChild);
+    avatar.appendChild(img);
   }
 
   const imageEl = img;
@@ -439,6 +550,7 @@ function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = t
     'load',
     () => {
       fitBgCover(card, imageEl);
+      clampPan(card, getCardImageState(card));
       applyBgTransform(card);
     },
     { once: true },
@@ -446,20 +558,16 @@ function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = t
 
   img.src = src;
   card.classList.add('card--has-image');
-  card.title = 'Drag to move · scroll to zoom · ✕ to remove';
+  avatar.title = 'Drag to move · scroll to zoom';
   if (resetFraming) resetCardFraming(card);
 }
 
 // --- Card image persistence (Localbase) --------------------------------------
 
-function getCardOpacity(card: HTMLDivElement): number {
-  const raw = card.style.getPropertyValue('--card-bg-opacity').trim();
-  const value = raw ? parseFloat(raw) : DEFAULT_BG_OPACITY;
-  return Number.isFinite(value) ? value : DEFAULT_BG_OPACITY;
-}
 
-// Write the card's current image + framing to storage, or delete the record if
-// the card no longer has an image.
+
+// Grava a imagem e o enquadramento atuais, ou apaga o registro se a carta
+// não tiver mais imagem.
 function persistCardImage(card: HTMLDivElement): void {
   const { armyId, unitId } = card.dataset;
   if (!armyId || !unitId) return;
@@ -476,14 +584,14 @@ function persistCardImage(card: HTMLDivElement): void {
     unitId,
     src: img.src,
     scale: state.scale,
-    tx: state.tx,
-    ty: state.ty,
-    opacity: getCardOpacity(card),
+       // A posição é guardada em proporção do círculo, para valer em qualquer tamanho.
+    tx: state.tx / avatarDiameter(),
+    ty: state.ty / avatarDiameter(),
+    opacity: DEFAULT_BG_OPACITY,
   }).catch((error) => console.error(error));
 }
 
-// Coalesce the rapid-fire changes of dragging / zoom & opacity sliders into one
-// write shortly after the user stops.
+// Junta as mudanças rápidas (arrastar, sliders) em uma gravação só.
 const persistTimers = new WeakMap<HTMLDivElement, number>();
 function scheduleCardImagePersist(card: HTMLDivElement): void {
   const pending = persistTimers.get(card);
@@ -493,12 +601,12 @@ function scheduleCardImagePersist(card: HTMLDivElement): void {
 
 function removeCardImage(card: HTMLDivElement): void {
   setCardImage(card, null);
+  resetCardFraming(card);
   const { armyId, unitId } = card.dataset;
   if (armyId && unitId) void deleteCardImage(armyId, unitId).catch((error) => console.error(error));
 }
 
-// Load a unit's saved image (if any) and apply its stored framing without
-// resetting it. Safe to call on a card that has no saved image.
+// Carrega a imagem salva da unidade (se houver) e aplica o enquadramento.
 async function restoreCardImage(card: HTMLDivElement, armyId: string, unitId: string): Promise<void> {
   let record;
   try {
@@ -510,27 +618,24 @@ async function restoreCardImage(card: HTMLDivElement, armyId: string, unitId: st
   if (!record) return;
 
   const state = getCardImageState(card);
-  state.scale = record.scale;
-  state.tx = record.tx;
-  state.ty = record.ty;
+  state.scale = Math.max(MIN_BG_SCALE, Math.min(MAX_BG_SCALE, record.scale));
+   state.tx = record.tx * avatarDiameter();
+  state.ty = record.ty * avatarDiameter();
 
-  card.style.setProperty('--card-bg-opacity', record.opacity.toString());
-  if (state.opacitySlider) state.opacitySlider.value = record.opacity.toString();
-  if (state.zoomSlider) state.zoomSlider.value = record.scale.toString();
+  if (state.zoomSlider) state.zoomSlider.value = state.scale.toString();
 
   setCardImage(card, record.src, false);
 }
 
-function enableCardImagePanZoom(card: HTMLDivElement): void {
+function enableCardImagePanZoom(card: HTMLDivElement, avatar: HTMLDivElement): void {
   let active = false;
   let startX = 0;
   let startY = 0;
   let baseTx = 0;
   let baseTy = 0;
 
-  card.addEventListener('pointerdown', (event) => {
+  avatar.addEventListener('pointerdown', (event) => {
     if (!card.classList.contains('card--has-image')) return;
-    if ((event.target as HTMLElement).closest('.card-bg-remove')) return;
 
     const state = getCardImageState(card);
     active = true;
@@ -538,17 +643,15 @@ function enableCardImagePanZoom(card: HTMLDivElement): void {
     startY = event.clientY;
     baseTx = state.tx;
     baseTy = state.ty;
-    card.setPointerCapture(event.pointerId);
+    avatar.setPointerCapture(event.pointerId);
     card.classList.add('card--panning');
   });
 
-  card.addEventListener('pointermove', (event) => {
+  avatar.addEventListener('pointermove', (event) => {
     if (!active) return;
-    const dx = event.clientX - startX;
-    const dy = event.clientY - startY;
     const state = getCardImageState(card);
-    state.tx = baseTx + dx;
-    state.ty = baseTy + dy;
+    state.tx = baseTx + (event.clientX - startX);
+    state.ty = baseTy + (event.clientY - startY);
     clampPan(card, state);
     applyBgTransform(card);
   });
@@ -557,15 +660,15 @@ function enableCardImagePanZoom(card: HTMLDivElement): void {
     if (!active) return;
     active = false;
     card.classList.remove('card--panning');
-    if (card.hasPointerCapture(event.pointerId)) {
-      card.releasePointerCapture(event.pointerId);
+    if (avatar.hasPointerCapture(event.pointerId)) {
+      avatar.releasePointerCapture(event.pointerId);
     }
     scheduleCardImagePersist(card);
   };
-  card.addEventListener('pointerup', endDrag);
-  card.addEventListener('pointercancel', endDrag);
+  avatar.addEventListener('pointerup', endDrag);
+  avatar.addEventListener('pointercancel', endDrag);
 
-  card.addEventListener(
+  avatar.addEventListener(
     'wheel',
     (event) => {
       if (!card.classList.contains('card--has-image')) return;
@@ -578,24 +681,17 @@ function enableCardImagePanZoom(card: HTMLDivElement): void {
   );
 }
 
+// Cria o círculo no cabeçalho da carta; clicar nele (sem imagem) abre a janela
+// de escolher arquivo.
 function enableCardImageUpload(card: HTMLDivElement): void {
-  card.classList.add('card--clickable');
-  card.title = 'Click to add a background image';
+  const avatar = document.createElement('div');
+  avatar.className = 'card-avatar';
+  avatar.title = 'Click to add an image';
+  card.querySelector('.card-header')?.prepend(avatar);
 
-  const removeButton = document.createElement('button');
-  removeButton.type = 'button';
-  removeButton.className = 'card-bg-remove';
-  removeButton.textContent = '✕';
-  removeButton.title = 'Remove image';
-  removeButton.addEventListener('click', (event) => {
-    event.stopPropagation();
-    removeCardImage(card);
-  });
-  card.appendChild(removeButton);
+  enableCardImagePanZoom(card, avatar);
 
-  enableCardImagePanZoom(card);
-
-  card.addEventListener('click', () => {
+  avatar.addEventListener('click', () => {
     if (card.classList.contains('card--has-image')) return;
 
     const input = document.createElement('input');
@@ -724,15 +820,7 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
   const toolbar = document.createElement('div');
   toolbar.className = 'card-toolbar';
 
-  const opacity = createSliderRow(
-    'Opacity',
-    { min: '0', max: '1', step: '0.05', value: DEFAULT_BG_OPACITY.toString() },
-    (value) => {
-      card.style.setProperty('--card-bg-opacity', value);
-      scheduleCardImagePersist(card);
-    },
-  );
-  getCardImageState(card).opacitySlider = opacity.slider;
+
 
   const zoom = createSliderRow(
     'Zoom',
@@ -772,15 +860,17 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
     scheduleCardImagePersist(card);
   });
 
+  const remove = document.createElement('button');
+  remove.type = 'button';
+  remove.className = 'toolbar-reset';
+  remove.textContent = 'Remove image';
+  remove.addEventListener('click', () => removeCardImage(card));
+
   const imageControls = document.createElement('div');
   imageControls.className = 'card-toolbar-image-controls';
-  imageControls.append(opacity.row, zoom.row, panX.row, panY.row, reset);
+    imageControls.append(zoom.row, panX.row, panY.row, reset, remove);
 
-  const actions = document.createElement('div');
-  actions.className = 'card-toolbar-actions';
-  actions.append(createDownloadButton(card));
-
-  toolbar.append(imageControls, actions);
+    toolbar.append(imageControls);
   wrapper.append(card, toolbar);
   return wrapper;
 }
@@ -1077,7 +1167,7 @@ export function renderCards(
   useCustomNames = false,
 ): number {
   container.replaceChildren();
-
+  
   const armyId = army.id || '';
   // Fold "Combine Units" halves into single units first — that's an in-game merge
   // that applies whether or not the cosmetic "combine similar units" option is on.

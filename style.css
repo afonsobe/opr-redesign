@@ -1192,3 +1192,141 @@ body {
   padding: 4px 6px;
   font-size: 13px;
 }
+
+/* ===== Avatar circular ===== */
+.card-header {
+  grid-template-columns: auto 1fr auto;
+  column-gap: 8px;
+}
+
+.card-avatar {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--c2);
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: none;
+  background: #ececec url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='25' r='11' fill='%23a8a8a8'/%3E%3Cpath d='M10 64c2-16 12-24 22-24s20 8 22 24z' fill='%23a8a8a8'/%3E%3C/svg%3E") center / cover no-repeat;
+}
+
+.card--has-image .card-avatar {
+  background-image: none;
+  cursor: default;
+}
+
+.card--pannable .card-avatar { cursor: grab; }
+.card--panning .card-avatar { cursor: grabbing; }
+
+.card.card--pannable,
+.card.card--panning,
+.card.card--has-image {
+  cursor: default;
+}
+
+.card-name,
+.card-subtitle { grid-column: 2; }
+
+.card-cost {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.card-joined { grid-column: 1 / -1; }
+
+/* Sem foto não há controles, então a barra vazia some */
+.card-wrapper:not(:has(.card--has-image)) .card-toolbar { display: none; }
+
+/* Círculo da imagem maior */
+.card-avatar {
+  width: 58px;
+  height: 58px;
+}
+
+/* Na impressão, carta sem imagem não mostra o círculo */
+@media print {
+  .card:not(.card--has-image) .card-avatar {
+    display: none;
+  }
+
+  .card:not(.card--has-image) .card-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .card:not(.card--has-image) .card-name,
+  .card:not(.card--has-image) .card-subtitle {
+    grid-column: 1;
+  }
+
+  .card:not(.card--has-image) .card-cost {
+    grid-column: 2;
+  }
+}
+
+/* Tamanho do círculo controlado pelo slider "Size" */
+:root {
+  --avatar-size: 58px;
+}
+
+.card-avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+}
+
+/* Escala de tamanho da imagem (1 a 10) */
+.avatar-size-bar {
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Só aparece quando alguma carta tem foto */
+body:has(.card--has-image) .avatar-size-bar {
+  display: flex;
+}
+
+.avatar-size-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.avatar-size-btn {
+  min-width: 30px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.avatar-size-btn:hover {
+  background: #f3f3f3;
+}
+
+.avatar-size-btn.is-active {
+  background: var(--c1);
+  border-color: var(--c1);
+  color: #fff;
+  font-weight: bold;
+}
+
+.avatar-size-default {
+  margin-right: 6px;
+  font-size: 12px;
+  color: #666;
+}
+
+@media print {
+  .avatar-size-bar {
+    display: none !important;
+  }
+}
