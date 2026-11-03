@@ -45,6 +45,7 @@ export interface ArmyBook {
   versionString?: string;
   version?: string | number;
   spells?: Spell[];
+  gameSystemSlug?: string;
 }
 
 export interface BookInfo {
@@ -218,5 +219,8 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
     ...mergeRules(army, commonRules),
     spells: collectSpells(army, books),
     armyBooks: collectBookInfo(books),
+     gameSystemSlug: books
+      .map(({ book }) => book.gameSystemSlug)
+      .find((slug): slug is string => !!slug),
   };
 }

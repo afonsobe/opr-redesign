@@ -1175,8 +1175,35 @@ const GAME_SYSTEM_NAMES: Record<string, string> = {
   aofr: 'Age of Fantasy: Regiments',
 };
 
-function gameSystemName(code: string): string {
-  return GAME_SYSTEM_NAMES[(code || '').toLowerCase()] ?? (code || '').toUpperCase();
+const SMALL_WORDS = new Set(['of', 'the', 'and']);
+
+function titleCaseSlug(slug: string): string {
+  return slug
+    .split('-')
+    .filter(Boolean)
+    .map((word, index) =>
+      index > 0 && SMALL_WORDS.has(word) ? word : word.charAt(0).toUpperCase() + word.slice(1),
+    )
+    .join(' ');
+}
+
+// "grimdark-future-firefight" -> "Grimdark Future: Firefight"
+// "age-of-fantasy" -> "Age of Fantasy"
+function gameNameFromSlug(slug: string): string {
+  const base = ['grimdark-future', 'age-of-fantasy'].find(
+    (prefix) => slug === prefix || slug.startsWith(`${prefix}-`),
+  );
+  if (!base) return titleCaseSlug(slug);
+  const rest = slug.slice(base.length + 1);
+  return rest ? `${titleCaseSlug(base)}: ${titleCaseSlug(rest)}` : titleCaseSlug(base);
+}
+
+// Usa o nome que o Army Forge informou; sem ele (listas salvas antes dessa
+// mudança), cai na tabela de siglas.
+function gameSystemName(army: ArmyList): string {
+  if (army.gameSystemSlug) return gameNameFromSlug(army.gameSystemSlug);
+  const code = (army.gameSystem || '').toLowerCase();
+  return GAME_SYSTEM_NAMES[code] ?? code.toUpperCase();
 }
 
 
@@ -1192,7 +1219,7 @@ function armyInfoMeta(army: ArmyList): string {
     .filter(Boolean)
     .join(' + ');
   const bookPart = books ? `${books} · ` : '';
-  return `${bookPart}${army.listPoints} / ${army.pointsLimit} pts · ${activationsPart}${gameSystemName(army.gameSystem)}`;
+  return `${bookPart}${army.listPoints} / ${army.pointsLimit} pts · ${activationsPart}${gameSystemName(army)}`;
 }
 
 // A table-header cell holding the army name and info line, spanning the table's
