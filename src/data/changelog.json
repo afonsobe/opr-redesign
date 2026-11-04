@@ -10,7 +10,9 @@
       "**Unit content translation (pt-BR):** special rules, weapon special rules and spells are now translated when the language is set to Português (BR). Rule and spell names keep the original English term in parentheses (e.g. **Explosão (Blast)**) so you can match them to the English rulebook. Unit names and subtitles stay in English, as most players use the English rules.",
       "**Language choice is remembered:** once you pick a language it becomes the default on this device.",
       "Terms follow the community Brazilian Portuguese translation of the OPR rules; descriptions stay faithful to the original wording.",
-      "Added a translation memory file (`src/i18n/content.pt-BR.json`) plus a collector script (`scripts/collect-content.mjs`) so new rules from other army books can be translated and reviewed the same way."
+      "Added a translation memory file (`src/i18n/content.pt-BR.json`) plus a collector script (`scripts/collect-content.mjs`) so new rules from other army books can be translated and reviewed the same way.",
+      "**Translation dictionary expanded:** harvested 8 more army books (Robot Legions, Chaos Dwarfs, Dark Elves, Deep-Sea Elves, Human Defense Force, Depth One Reavers, Jackals, Human Defense Force 200pts). The dictionary now covers **178 special rules, 447 weapons, 42 spells and 154 upgrade items**, all translated to pt-BR.",
+      "Fixed an encoding issue that caused accented characters to display incorrectly; the dictionary file is now stored as ASCII-escaped JSON for safety."
     ]
   },
   {
