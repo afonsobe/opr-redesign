@@ -2,19 +2,19 @@
   "rules": {
     "_mrPya5SXSqW": {
       "name": "Mortal",
-      "description": "Atribua cada ferimento a um \u00fanico modelo e multiplique-o por X. Os acertos de Mortal devem ser resolvidos primeiro, e esses ferimentos n\u00e3o passam para outros modelos se o alvo original for morto."
+      "description": "Atribua cada ferimento a um único modelo e multiplique-o por X. Os acertos de Mortal devem ser resolvidos primeiro, e esses ferimentos não passam para outros modelos se o alvo original for morto."
     },
     "_T07iXWo4VwJ": {
       "name": "Aparar",
-      "description": "Quando esta unidade recebe acertos em combate corpo a corpo de inimigos que a carregaram pela frente, role X dados por modelo com esta regra na unidade, at\ufffd? o n\u00famero de acertos recebidos. Para cada 6+, um acerto \ufffd? ignorado (o defensor escolhe qual)."
+      "description": "Quando esta unidade recebe acertos em combate corpo a corpo de inimigos que a carregaram pela frente, role X dados por modelo com esta regra na unidade, até o número de acertos recebidos. Para cada 6+, um acerto é ignorado (o defensor escolhe qual)."
     },
     "-eXDDTCrrQ6n": {
       "name": "Esquivar",
-      "description": "Se a maioria dos modelos desta unidade tem esta regra, desde que n\u00e3o estejam Fatigados, as unidades inimigas recebem -1 nas rolagens de acerto em combate corpo a corpo contra eles."
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, desde que não estejam Fatigados, as unidades inimigas recebem -1 nas rolagens de acerto em combate corpo a corpo contra eles."
     },
     "-QJdqJEKjIpE": {
       "name": "Voador",
-      "description": "Pode se mover atrav\ufffd?s de unidades e terreno, e ignora os efeitos de terreno Dif\u00edcil e Perigoso."
+      "description": "Pode se mover através de unidades e terreno, e ignora os efeitos de terreno Difícil e Perigoso."
     },
     "0bcGY4Xr4NE0": {
       "name": "Firmar",
@@ -30,23 +30,23 @@
     },
     "3FeiOe3krHMa": {
       "name": "Aeronave",
-      "description": "S\u00f3 pode usar a\u00e7\ufffd?es de Avan\u00e7o, movendo em linha reta e adicionando 30\" ao seu movimento total (mesmo se Abalada). Aeronaves ignoram todas as unidades e terrenos ao se mover e parar, n\u00e3o podem tomar ou contestar objetivos, n\u00e3o podem ser carregadas, e unidades que as mirarem recebem -12\" de alcance e -1 nas rolagens de acerto."
+      "description": "Só pode usar ações de Avanço, movendo em linha reta e adicionando 30\" ao seu movimento total (mesmo se Abalada). Aeronaves ignoram todas as unidades e terrenos ao se mover e parar, não podem tomar ou contestar objetivos, não podem ser carregadas, e unidades que as mirarem recebem -12\" de alcance e -1 nas rolagens de acerto."
     },
     "3m7tAtbczrnQ": {
       "name": "Passo de Onda Aprimorado",
-      "description": "Se este modelo tem Passo de Onda, ele pode se mover at\u00e9 2D3\" por Passo de Onda (em vez de apenas D3\")."
+      "description": "Se este modelo tem Passo de Onda, ele pode se mover até 2D3\" por Passo de Onda (em vez de apenas D3\")."
     },
     "47CAqf7ySlfc": {
       "name": "Conjurador",
-      "description": "Recebe X fichas de magia no in\u00edcio de cada rodada, mas n\u00e3o pode ter mais de 6 ao mesmo tempo. Uma vez por ativa\u00e7\u00e3o, antes de atacar, gaste tantas fichas quanto o valor da magia para tentar conjurar uma ou mais magias (apenas uma tentativa por magia). Escolha um alvo e role um dado; em 4+, resolva o efeito da magia. Modelos a at\ufffd? 18\" do Conjurador podem gastar qualquer quantidade de fichas de magia ao mesmo tempo antes da rolagem para dar +1/-1 ao Conjurador por ficha."
+      "description": "Recebe X fichas de magia no início de cada rodada, mas não pode ter mais de 6 ao mesmo tempo. Uma vez por ativação, antes de atacar, gaste tantas fichas quanto o valor da magia para tentar conjurar uma ou mais magias (apenas uma tentativa por magia). Escolha um alvo e role um dado; em 4+, resolva o efeito da magia. Modelos a até 18\" do Conjurador podem gastar qualquer quantidade de fichas de magia ao mesmo tempo antes da rolagem para dar +1/-1 ao Conjurador por ficha."
     },
     "4Q1owB6yNFz1": {
       "name": "Amplificador de Magia",
-      "description": "Recebe +1 nas rolagens de conjura\u00e7\u00e3o."
+      "description": "Recebe +1 nas rolagens de conjuração."
     },
     "5v6oaGfrdf29": {
       "name": "Surto",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, esta arma causa 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+      "description": "Para cada resultado não modificado de 6 para acertar, esta arma causa 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
     },
     "62-mYKVM9MLd": {
       "name": "Impacto",
@@ -54,7 +54,7 @@
     },
     "6mJw5IdqSqNC": {
       "name": "Emboscada",
-      "description": "Pode ser separada antes da implanta\u00e7\u00e3o. No in\u00edcio de qualquer rodada ap\u00f3s a primeira, pode ser implantada em qualquer lugar a mais de 9\" de unidades inimigas. Os jogadores se alternam para posicionar unidades em Emboscada, come\u00e7ando pelo jogador que ativa em seguida. Unidades que entram por Emboscada n\u00e3o podem tomar ou contestar objetivos na rodada em que entram."
+      "description": "Pode ser separada antes da implantação. No início de qualquer rodada após a primeira, pode ser implantada em qualquer lugar a mais de 9\" de unidades inimigas. Os jogadores se alternam para posicionar unidades em Emboscada, começando pelo jogador que ativa em seguida. Unidades que entram por Emboscada não podem tomar ou contestar objetivos na rodada em que entram."
     },
     "74RjQ1k41DoO": {
       "name": "Armadura",
@@ -62,43 +62,43 @@
     },
     "8Ck9GAwUK824": {
       "name": "Indireto",
-      "description": "Ao usar a\u00e7\ufffd?es de Manter e atirar, pode mirar inimigos que n\u00e3o est\u00e3o na linha de vis\u00e3o como se estivessem, e ignora Cobertura de Bloqueadores de Vis\u00e3o."
+      "description": "Ao usar ações de Manter e atirar, pode mirar inimigos que não estão na linha de visão como se estivessem, e ignora Cobertura de Bloqueadores de Visão."
     },
     "8Hjy54TYtwb7": {
       "name": "Derrubar",
-      "description": "Este modelo pode escolher qualquer modelo da unidade alvo como alvo individual para os ataques desta arma, o que \ufffd? resolvido como se fosse uma unidade de [1]. Os ataques de Derrubar devem ser resolvidos antes das outras armas."
+      "description": "Este modelo pode escolher qualquer modelo da unidade alvo como alvo individual para os ataques desta arma, o que é resolvido como se fosse uma unidade de [1]. Os ataques de Derrubar devem ser resolvidos antes das outras armas."
     },
     "8HWdOwMYcI0p": {
       "name": "Sargento",
       "description": "Este modelo recebe PA(+1) ao atacar."
     },
     "8KujvrTG8k9p": {
-      "name": "Regenera\u00e7\u00e3o",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 5+, ele \ufffd? ignorado."
+      "name": "Regeneração",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 5+, ele é ignorado."
     },
     "9042COVrLCsI": {
       "name": "Limitado",
-      "description": "S\u00f3 pode ser usado uma vez por jogo."
+      "description": "Só pode ser usado uma vez por jogo."
     },
     "9jyvRoBODD-O": {
       "name": "Furtivo",
-      "description": "Quando unidades em que a maioria dos modelos tem esta regra s\u00e3o atingidas por tiros a mais de 9\" de dist\u00e2ncia, as unidades inimigas recebem -1 nas rolagens de acerto."
+      "description": "Quando unidades em que a maioria dos modelos tem esta regra são atingidas por tiros a mais de 9\" de distância, as unidades inimigas recebem -1 nas rolagens de acerto."
     },
     "9tX9-9gULZSe": {
       "name": "Aura de Passo de Onda Aprimorado",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Passo de Onda Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Passo de Onda Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "a0YtInGiUDd6": {
-      "name": "Resist\u00eancia",
-      "description": "Este modelo precisa sofrer X ferimentos antes de ser morto. Se um modelo com Resist\u00eancia se junta a uma unidade sem ela, ele \ufffd? removido por \u00faltimo quando a unidade sofre ferimentos. Voc\u00ea deve continuar colocando ferimentos no modelo com Resist\u00eancia que tiver mais ferimentos na unidade at\ufffd? que ele morra, antes de come\u00e7ar a coloc\u00e1-los no pr\u00f3ximo modelo com Resist\u00eancia (Her\u00f3is devem receber ferimentos por \u00faltimo, mesmo que j\u00e1 estejam feridos)."
+      "name": "Resistência",
+      "description": "Este modelo precisa sofrer X ferimentos antes de ser morto. Se um modelo com Resistência se junta a uma unidade sem ela, ele é removido por último quando a unidade sofre ferimentos. Você deve continuar colocando ferimentos no modelo com Resistência que tiver mais ferimentos na unidade até que ele morra, antes de começar a colocá-los no próximo modelo com Resistência (Heróis devem receber ferimentos por último, mesmo que já estejam feridos)."
     },
     "aogQZcOOQrDI": {
       "name": "Transporte",
-      "description": "Pode transportar at\ufffd? X modelos aliados ou Her\u00f3is com at\ufffd? Resist\u00eancia(6), e n\u00e3o-Her\u00f3is com at\ufffd? Resist\u00eancia(3) que ocupam 3 espa\u00e7os cada. Transportes podem ser implantados com unidades dentro, e unidades podem entrar/sair usando qualquer a\u00e7\u00e3o de movimento, chegando a at\ufffd? 2\" para entrar e permanecendo totalmente a at\ufffd? 6\" ao sair. Unidades dentro/fora de transportes n\u00e3o podem mirar outras unidades que estejam fora/dentro, mas podem mirar o pr\u00f3prio transporte. Quando um transporte \ufffd? destru\u00eddo, as unidades dentro devem fazer um Teste de Terreno Perigoso, ficam Abaladas e devem ser posicionadas totalmente a at\ufffd? 6\" do transporte antes de ele ser removido."
+      "description": "Pode transportar até X modelos aliados ou Heróis com até Resistência(6), e não-Heróis com até Resistência(3) que ocupam 3 espaços cada. Transportes podem ser implantados com unidades dentro, e unidades podem entrar/sair usando qualquer ação de movimento, chegando a até 2\" para entrar e permanecendo totalmente a até 6\" ao sair. Unidades dentro/fora de transportes não podem mirar outras unidades que estejam fora/dentro, mas podem mirar o próprio transporte. Quando um transporte é destruído, as unidades dentro devem fazer um Teste de Terreno Perigoso, ficam Abaladas e devem ser posicionadas totalmente a até 6\" do transporte antes de ele ser removido."
     },
     "C0UHMLhvoXXj": {
       "name": "Aura de Destemido",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Destemido. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Destemido. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "c45Fw0D2oGOk": {
       "name": "Contra-ataque",
@@ -110,15 +110,15 @@
     },
     "cavWDboL4ubs": {
       "name": "Dilacerante",
-      "description": "Ignora Regenera\u00e7\u00e3o e, para cada resultado n\u00e3o modificado de 6 para acertar, esses acertos recebem PA(+4)."
+      "description": "Ignora Regeneração e, para cada resultado não modificado de 6 para acertar, esses acertos recebem PA(+4)."
     },
     "CQes0mDvF4bV": {
       "name": "PA",
       "description": "PA"
     },
     "D7SpkY7mQLAe": {
-      "name": "?gil",
-      "description": "Quando esta unidade \u00e9 ativada, voc\u00ea pode mover todos os modelos com esta regra nela em at\u00e9 D3\"."
+      "name": "Ágil",
+      "description": "Quando esta unidade é ativada, você pode mover todos os modelos com esta regra nela em até D3\"."
     },
     "dIQ3SGl2J2Ew": {
       "name": "Medo",
@@ -130,71 +130,71 @@
     },
     "FAMbscK5vhSu": {
       "name": "Batedor",
-      "description": "Pode ser separado antes da implanta\u00e7\u00e3o. Depois que todas as outras unidades forem implantadas, pode ser implantado em qualquer lugar totalmente a at\ufffd? 9\" da sua zona de implanta\u00e7\u00e3o, a mais de 9\" de unidades inimigas que n\u00e3o sejam Batedoras. Os jogadores se alternam para posicionar unidades Batedoras, come\u00e7ando pelo jogador que ativa em seguida."
+      "description": "Pode ser separado antes da implantação. Depois que todas as outras unidades forem implantadas, pode ser implantado em qualquer lugar totalmente a até 9\" da sua zona de implantação, a mais de 9\" de unidades inimigas que não sejam Batedoras. Os jogadores se alternam para posicionar unidades Batedoras, começando pelo jogador que ativa em seguida."
     },
     "FF5ddXgx75lI": {
       "name": "Assalto",
-      "description": "Conta tanto como arma \u00e0 dist\u00e2ncia quanto como arma corpo a corpo."
+      "description": "Conta tanto como arma à distância quanto como arma corpo a corpo."
     },
     "GRuFoZiyjY5f": {
       "name": "Artilharia",
-      "description": "Quando este modelo usa a\u00e7\ufffd?es de Manter e atira em inimigos a mais de 12\" de dist\u00e2ncia, recebe +1 nas rolagens de acerto. Se a maioria dos modelos nesta unidade tem esta regra, desde que n\u00e3o tenham se movido durante esta rodada, as unidades inimigas que atirarem neles a mais de 12\" recebem -1 nas rolagens de acerto."
+      "description": "Quando este modelo usa ações de Manter e atira em inimigos a mais de 12\" de distância, recebe +1 nas rolagens de acerto. Se a maioria dos modelos nesta unidade tem esta regra, desde que não tenham se movido durante esta rodada, as unidades inimigas que atirarem neles a mais de 12\" recebem -1 nas rolagens de acerto."
     },
     "H9E9PIWpGRdw": {
-      "name": "Implac\u00e1vel",
-      "description": "Quando este modelo atira em inimigos a mais de 9\" de dist\u00e2ncia, resultados n\u00e3o modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+      "name": "Implacável",
+      "description": "Quando este modelo atira em inimigos a mais de 9\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
     },
     "HWtnPV9LQF1D": {
-      "name": "Im\u00f3vel",
-      "description": "S\u00f3 pode usar a\u00e7\ufffd?es de Manter."
+      "name": "Imóvel",
+      "description": "Só pode usar ações de Manter."
     },
     "IEJp3a4vE0CB": {
       "name": "Destruir",
-      "description": "Para cada resultado n\u00e3o modificado de 1 para bloquear acertos, esta arma causa 1 ferimento extra."
+      "description": "Para cada resultado não modificado de 1 para bloquear acertos, esta arma causa 1 ferimento extra."
     },
     "JoOCVPx1xT1G": {
       "name": "Furioso",
-      "description": "Ao carregar, resultados n\u00e3o modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+      "description": "Ao carregar, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
     },
     "JSKVyurtWIyW": {
       "name": "Andarilho",
-      "description": "Pode ignorar os efeitos de terreno Dif\u00edcil."
+      "description": "Pode ignorar os efeitos de terreno Difícil."
     },
     "KdgwlPb8LuD2": {
-      "name": "R\u00e1pido",
-      "description": "Move +2\" ao usar Avan\u00e7o, e +4\" ao usar Corrida/Carga."
+      "name": "Rápido",
+      "description": "Move +2\" ao usar Avanço, e +4\" ao usar Corrida/Carga."
     },
     "kpuEyaul7J3Z": {
-      "name": "Reimplanta\u00e7\u00e3o de Emboscada",
-      "description": "Uma vez por jogo, quando uma unidade em que todos os modelos t\u00eam esta regra termina sua ativa\u00e7\u00e3o, voc\u00ea pode remov\u00ea-la imediatamente da mesa (largando quaisquer objetivos que possa estar segurando a at\u00e9 1\") e implant\u00e1-la como se tivesse Emboscada no in\u00edcio da pr\u00f3xima rodada."
+      "name": "Reimplantação de Emboscada",
+      "description": "Uma vez por jogo, quando uma unidade em que todos os modelos têm esta regra termina sua ativação, você pode removê-la imediatamente da mesa (largando quaisquer objetivos que possa estar segurando a até 1\") e implantá-la como se tivesse Emboscada no início da próxima rodada."
     },
     "Ldhtmr4H8b6G": {
       "name": "Lento",
-      "description": "Move -2\" ao usar Avan\u00e7o, e -4\" ao usar Corrida/Carga."
+      "description": "Move -2\" ao usar Avanço, e -4\" ao usar Corrida/Carga."
     },
     "lEFjh4V7XGVV": {
       "name": "Aura de Triturar ao Atirar",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Triturar em suas armas ao atirar. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Triturar em suas armas ao atirar. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "Naqc5mga9Uha": {
-      "name": "Ru\u00edna",
-      "description": "Ignora Regenera\u00e7\u00e3o e, ao atacar, o alvo deve rerrolar resultados de Defesa n\u00e3o modificados de 6."
+      "name": "Ruína",
+      "description": "Ignora Regeneração e, ao atacar, o alvo deve rerrolar resultados de Defesa não modificados de 6."
     },
     "okU8qW-h2rau": {
-      "name": "Encobrimento \u00e0 Dist\u00e2ncia",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra \u00e9 alvo de uma unidade inimiga para tiro, essa unidade inimiga recebe -4\" de alcance, no m\u00ednimo 6\"."
+      "name": "Encobrimento à Distância",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de uma unidade inimiga para tiro, essa unidade inimiga recebe -4\" de alcance, no mínimo 6\"."
     },
     "oZewV0wGuebE": {
-      "name": "Aura de Encobrimento \u00e0 Dist\u00e2ncia",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Encobrimento \u00e0 Dist\u00e2ncia. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Encobrimento à Distância",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Encobrimento à Distância. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "qrG_DXJez5Dg": {
-      "name": "M\u00fasico",
-      "description": "Este modelo e sua unidade movem +1\" ao usar a\u00e7\ufffd?es de movimento."
+      "name": "Músico",
+      "description": "Este modelo e sua unidade movem +1\" ao usar ações de movimento."
     },
     "rtRapnaM86LH": {
       "name": "Ceifar",
-      "description": "Ao atacar unidades Abaladas ou Fatigadas, o alvo deve rerrolar resultados de Defesa n\u00e3o modificados bem-sucedidos de 5-6."
+      "description": "Ao atacar unidades Abaladas ou Fatigadas, o alvo deve rerrolar resultados de Defesa não modificados bem-sucedidos de 5-6."
     },
     "s6MgSfmgylXU": {
       "name": "Defesa",
@@ -202,39 +202,39 @@
     },
     "sHIDSc5b37Jm": {
       "name": "Acumulador de Magias",
-      "description": "Recebe X fichas de acumulador no in\u00edcio de cada rodada, mas n\u00e3o pode ter mais de 6 fichas ao mesmo tempo. Conjuradores de outras unidades aliadas a at\u00e9 12\" podem gastar as fichas de acumulador deste modelo como se fossem suas pr\u00f3prias fichas de magia. Conjuradores aliados s\u00f3 podem usar esta regra se esta unidade n\u00e3o estiver Abalada."
+      "description": "Recebe X fichas de acumulador no início de cada rodada, mas não pode ter mais de 6 fichas ao mesmo tempo. Conjuradores de outras unidades aliadas a até 12\" podem gastar as fichas de acumulador deste modelo como se fossem suas próprias fichas de magia. Conjuradores aliados só podem usar esta regra se esta unidade não estiver Abalada."
     },
     "SPhAaWwefTmH": {
       "name": "Passo de Onda",
-      "description": "Quando esta unidade \u00e9 ativada, voc\u00ea pode mover todos os modelos com esta regra nela em at\u00e9 D3\"."
+      "description": "Quando esta unidade é ativada, você pode mover todos os modelos com esta regra nela em até D3\"."
     },
     "T08VkBuVmNZ_": {
-      "name": "Her\u00f3i",
-      "description": "Unidades a at\ufffd? 6\" de Her\u00f3is aliados podem usar a Qualidade do Her\u00f3i para Testes de Moral, desde que o Her\u00f3i n\u00e3o esteja Abalado."
+      "name": "Herói",
+      "description": "Unidades a até 6\" de Heróis aliados podem usar a Qualidade do Herói para Testes de Moral, desde que o Herói não esteja Abalado."
     },
     "umbiz4tnEyF8": {
       "name": "Estocada",
       "description": "Ao carregar, recebe +1 nas rolagens de acerto e PA(+1) em combate corpo a corpo."
     },
     "w_vX0mi58KKt": {
-      "name": "Explos\u00e3o",
-      "description": "Ignora Cobertura e, ap\u00f3s resolver outras regras especiais, cada acerto \ufffd? multiplicado por X, onde X \ufffd? at\ufffd? o n\u00famero de acertos igual ao n\u00famero de modelos na unidade alvo."
+      "name": "Explosão",
+      "description": "Ignora Cobertura e, após resolver outras regras especiais, cada acerto é multiplicado por X, onde X é até o número de acertos igual ao número de modelos na unidade alvo."
     },
     "wsqfB0fq69eG": {
       "name": "Escudado",
-      "description": "Unidades em que a maioria dos modelos tem esta regra recebem +1 nas rolagens de Defesa contra acertos que n\u00e3o sejam de magias."
+      "description": "Unidades em que a maioria dos modelos tem esta regra recebem +1 nas rolagens de Defesa contra acertos que não sejam de magias."
     },
     "X4RKFj6JEjzm": {
-      "name": "?gil Aprimorado",
-      "description": "Se este modelo tem ?gil, ele pode se mover at\ufffd 2D3\" por ?gil (em vez de apenas D3\")."
+      "name": "Ágil Aprimorado",
+      "description": "Se este modelo tem Ágil, ele pode se mover em até 2D3\" por Ágil (em vez de apenas D3\")."
     },
     "XoDRL2xVEnVf": {
-      "name": "Aura de Ru\u00edna em Combate",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Ru\u00edna em suas armas em combate corpo a corpo. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Ruína em Combate",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Ruína em suas armas em combate corpo a corpo. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "ykPufsAeq8Kw": {
-      "name": "Tiro R\u00e1pido",
-      "description": "Este modelo pode atirar ap\u00f3s usar a\u00e7\u00f5es de Corrida."
+      "name": "Tiro Rápido",
+      "description": "Este modelo pode atirar após usar ações de Corrida."
     },
     "ywXKQKPOLjTF": {
       "name": "Estandarte",
@@ -245,16 +245,16 @@
       "description": "Quando este modelo sofre ferimentos em combate corpo a corpo, o atacante recebe X acertos por ferimento sofrido."
     },
     "Zx4mWN0SbmK8": {
-      "name": "Confi\u00e1vel",
+      "name": "Confiável",
       "description": "Ataques com Qualidade 2+."
     },
     "_BgATbpwgnxc": {
       "name": "Melhoria de Velocidade",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha uma unidade aliada a at\u00e9 12\", que recebe Veloz uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha uma unidade aliada a até 12\", que recebe Veloz uma vez (na próxima vez que o efeito se aplicar)."
     },
     "0TfnG5G4JEv0": {
-      "name": "Anti-Regenera\u00e7\u00e3o",
-      "description": "Esta arma ignora Regenera\u00e7\u00e3o."
+      "name": "Anti-Regeneração",
+      "description": "Esta arma ignora Regeneração."
     },
     "2Cxml82Ma_3Y": {
       "name": "Protegido Aprimorado",
@@ -262,7 +262,7 @@
     },
     "7sq95Nqfi4lG": {
       "name": "Melhoria de Auto-Reparo Aprimorado",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha uma unidade aliada a at\u00e9 12\", que recebe Auto-Reparo Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha uma unidade aliada a até 12\", que recebe Auto-Reparo Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "8haZ36fXvnzn": {
       "name": "Aura de Furtividade",
@@ -270,7 +270,7 @@
     },
     "AlIZbh-afBYi": {
       "name": "Protegido",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 6+ ele \u00e9 ignorado."
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 6+ ele é ignorado."
     },
     "BOqSaZoY3ewJ": {
       "name": "Impreciso",
@@ -281,12 +281,12 @@
       "description": "Conta como tendo Emboscada, e suas armas recebem PA(+1) ao atirar na rodada em que for implantado por esta regra."
     },
     "CdIKErxgOpl3": {
-      "name": "Proeza de Prote\u00e7\u00e3o",
-      "description": "Este modelo e sua unidade recebem Proeza de Prote\u00e7\u00e3o."
+      "name": "Proeza de Proteção",
+      "description": "Este modelo e sua unidade recebem Proeza de Proteção."
     },
     "cnKvLv8ErzIc": {
       "name": "Melhoria de Furtividade",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\ufffd? 3 unidades aliadas a at\ufffd? 12\", que recebem Furtivo uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Furtivo uma vez (na próxima vez que o efeito se aplicar)."
     },
     "DhLjIDRrWz6-": {
       "name": "Carga Perfurante",
@@ -301,20 +301,20 @@
       "description": "Este modelo e sua unidade recebem Emboscada."
     },
     "HmxkJq_My-Ub": {
-      "name": "Avan\u00e7o R\u00e1pido",
-      "description": "Este modelo move +4\" ao usar a\u00e7\u00f5es de Avan\u00e7o."
+      "name": "Avanço Rápido",
+      "description": "Este modelo move +4\" ao usar ações de Avanço."
     },
     "hnsVQyx3ylMf": {
       "name": "Devastar",
       "description": "Uma vez por rodada, quando for a vez deste modelo atacar em combate corpo a corpo, role X dados antes de atacar, a menos que esta unidade esteja Fatigada. Para cada 6+ o alvo sofre um ferimento."
     },
     "KTixuuQ9H7tU": {
-      "name": "Aura de Impar\u00e1vel ao Atirar",
-      "description": "Este modelo e sua unidade recebem Impar\u00e1vel em suas armas ao atirar."
+      "name": "Aura de Imparável ao Atirar",
+      "description": "Este modelo e sua unidade recebem Imparável em suas armas ao atirar."
     },
     "l_KzjNPv-_5H": {
-      "name": "Aura de Reanima\u00e7\u00e3o",
-      "description": "Este modelo e sua unidade recebem Reanima\u00e7\u00e3o."
+      "name": "Aura de Reanimação",
+      "description": "Este modelo e sua unidade recebem Reanimação."
     },
     "L--qMjlm2g4Q": {
       "name": "Aura de Carga Perfurante",
@@ -326,11 +326,11 @@
     },
     "mETdyZ__yMVj": {
       "name": "Curar",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha um modelo aliado a at\u00e9 3\" com Resist\u00eancia e remova D3 ferimentos dele."
+      "description": "Uma vez por ativação, antes de atacar, escolha um modelo aliado a até 3\" com Resistência e remova D3 ferimentos dele."
     },
     "nNh98rpX_sZv": {
-      "name": "Melhoria de Conjura\u00e7\u00e3o",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha um modelo aliado a at\u00e9 12\" com Conjurador, que recebe +1 nas rolagens de conjura\u00e7\u00e3o uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Melhoria de Conjuração",
+      "description": "Uma vez por ativação, antes de atacar, escolha um modelo aliado a até 12\" com Conjurador, que recebe +1 nas rolagens de conjuração uma vez (na próxima vez que o efeito se aplicar)."
     },
     "nstknew-_RL_": {
       "name": "Lacerante em Combate",
@@ -338,51 +338,51 @@
     },
     "O2Cd7OibBBA5": {
       "name": "Sem Recuar",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra falha em um Teste de Moral que a deixaria Abalada ou em Rota, o teste conta como aprovado. Em seguida, role tantos dados quanto o n\u00famero de ferimentos necess\u00e1rios para destru\u00ed-la totalmente, e para cada resultado de 1-3 a unidade sofre um ferimento, que n\u00e3o pode ser ignorado."
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra falha em um Teste de Moral que a deixaria Abalada ou em Rota, o teste conta como aprovado. Em seguida, role tantos dados quanto o número de ferimentos necessários para destruí-la totalmente, e para cada resultado de 1-3 a unidade sofre um ferimento, que não pode ser ignorado."
     },
     "QMU04E_1bAVC": {
       "name": "Aura de Sem Recuar",
       "description": "Este modelo e sua unidade recebem Sem Recuar."
     },
     "QXyt-zV_bjpg": {
-      "name": "Impar\u00e1vel",
-      "description": "Esta arma ignora Regenera\u00e7\u00e3o e ignora todos os modificadores negativos que n\u00e3o venham das regras especiais deste modelo."
+      "name": "Imparável",
+      "description": "Esta arma ignora Regeneração e ignora todos os modificadores negativos que não venham das regras especiais deste modelo."
     },
     "rMMd0maHg-AZ": {
       "name": "Marca Indireta",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, contra a qual unidades aliadas recebem Indireto em suas armas uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha uma unidade inimiga a até 18\" na linha de visão, contra a qual unidades aliadas recebem Indireto em suas armas uma vez (na próxima vez que o efeito se aplicar)."
     },
     "rqBYj1yANC3J": {
-      "name": "Her\u00f3i \u00danico",
-      "description": "Conta como tendo Her\u00f3i, e este modelo s\u00f3 pode ser inclu\u00eddo uma vez por ex\ufffd?rcito."
+      "name": "Herói Único",
+      "description": "Conta como tendo Herói, e este modelo só pode ser incluído uma vez por exército."
     },
     "TU7fkKrcAvop": {
-      "name": "Proeza de Prote\u00e7\u00e3o",
-      "description": "Uma vez por jogo, quando esta unidade sofre ferimentos e a maioria dos modelos tem esta regra, voc\u00ea pode usar esta regra e rolar um dado por ferimento; em 5+ ele \u00e9 ignorado."
+      "name": "Proeza de Proteção",
+      "description": "Uma vez por jogo, quando esta unidade sofre ferimentos e a maioria dos modelos tem esta regra, você pode usar esta regra e rolar um dado por ferimento; em 5+ ele é ignorado."
     },
     "VI54cszY2BuG": {
-      "name": "Estilha\u00e7ar",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, esses acertos recebem PA(+3)."
+      "name": "Estilhaçar",
+      "description": "Para cada resultado não modificado de 6 para acertar, esses acertos recebem PA(+3)."
     },
     "xfXomZDK5SVX": {
-      "name": "Reanima\u00e7\u00e3o",
-      "description": "Quando uma unidade em que todos os modelos t\u00eam esta regra \u00e9 ativada, role tantos dados quanto o n\u00famero m\u00e1ximo de modelos/ferimentos que ela poderia restaurar. Para cada 5+ voc\u00ea pode restaurar um modelo/ferimento. Novos modelos s\u00f3 podem ser restaurados se puderem ser posicionados em coes\u00e3o com modelos n\u00e3o restaurados."
+      "name": "Reanimação",
+      "description": "Quando uma unidade em que todos os modelos têm esta regra é ativada, role tantos dados quanto o número máximo de modelos/ferimentos que ela poderia restaurar. Para cada 5+ você pode restaurar um modelo/ferimento. Novos modelos só podem ser restaurados se puderem ser posicionados em coesão com modelos não restaurados."
     },
     "Y_WeXWwLtX6z": {
       "name": "Auto-Reparo",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 6+ ele \u00e9 ignorado."
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 6+ ele é ignorado."
     },
     "zGew9XZT2rUm": {
-      "name": "Aura de Implac\u00e1vel",
-      "description": "Este modelo e sua unidade recebem Implac\u00e1vel."
+      "name": "Aura de Implacável",
+      "description": "Este modelo e sua unidade recebem Implacável."
     },
     "ZHykLbU6nUWl": {
       "name": "Gerar",
-      "description": "Uma vez por jogo, quando este modelo \u00e9 ativado, voc\u00ea pode colocar uma nova unidade de X totalmente a at\u00e9 6\" dele. Unidades colocadas por Gerar n\u00e3o podem tomar ou contestar objetivos na rodada em que s\u00e3o colocadas."
+      "description": "Uma vez por jogo, quando este modelo é ativado, você pode colocar uma nova unidade de X totalmente a até 6\" dele. Unidades colocadas por Gerar não podem tomar ou contestar objetivos na rodada em que são colocadas."
     },
     "ZK3FxxpOGNMR": {
-      "name": "Impar\u00e1vel ao Atirar",
-      "description": "Este modelo recebe Impar\u00e1vel em suas armas ao atirar."
+      "name": "Imparável ao Atirar",
+      "description": "Este modelo recebe Imparável em suas armas ao atirar."
     },
     "ZqewrI-hqAYi": {
       "name": "Auto-Reparo Aprimorado",
@@ -390,11 +390,11 @@
     },
     "4NMqPbqMvE4C": {
       "name": "Sustentar a Linha Aprimorado",
-      "description": "Se a maioria dos modelos desta unidade tem Sustentar a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral por Sustentar a Linha (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia)."
+      "description": "Se a maioria dos modelos desta unidade tem Sustentar a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral por Sustentar a Linha (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de distância)."
     },
     "55Si47u6jTtb": {
       "name": "Melhoria de Entrincheirado",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades aliadas a at\u00e9 12\", que recebem Entrincheirado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Entrincheirado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "bjt7_iCtmOK7": {
       "name": "Bom Tiro",
@@ -402,79 +402,79 @@
     },
     "eU6uz90H82Sw": {
       "name": "Alcance de Melhoria Estendido",
-      "description": "Se esta unidade estiver a at\u00e9 24\" de outra unidade aliada com esta regra que esteja a at\u00e9 6\" de um Her\u00f3i aliado, ent\u00e3o esse Her\u00f3i pode usar regras especiais que permitem escolher unidades aliadas a at\u00e9 12\" (exceto magias) nesta unidade como se estivesse ao alcance."
+      "description": "Se esta unidade estiver a até 24\" de outra unidade aliada com esta regra que esteja a até 6\" de um Herói aliado, então esse Herói pode usar regras especiais que permitem escolher unidades aliadas a até 12\" (exceto magias) nesta unidade como se estivesse ao alcance."
     },
     "FDI5sLTtr3gC": {
       "name": "Melhoria de Atirador Preciso",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades aliadas a at\u00e9 12\", que recebem +1 nas rolagens de acerto ao atirar uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem +1 nas rolagens de acerto ao atirar uma vez (na próxima vez que o efeito se aplicar)."
     },
     "FPlO2MymiMc0": {
       "name": "Coordenar",
-      "description": "Ao final da ativa\u00e7\u00e3o desta unidade, outra unidade aliada a at\u00e9 12\" que ainda n\u00e3o tenha ativado pode ser ativada imediatamente. N\u00e3o pode ser usado se esta unidade foi ativada por Coordenar."
+      "description": "Ao final da ativação desta unidade, outra unidade aliada a até 12\" que ainda não tenha ativado pode ser ativada imediatamente. Não pode ser usado se esta unidade foi ativada por Coordenar."
     },
     "iWuTcXAw2-5s": {
-      "name": "Melhoria de Ru\u00edna em Combate",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades aliadas a at\u00e9 12\", que recebem Ru\u00edna em suas armas em combate corpo a corpo uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Melhoria de Ruína em Combate",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Ruína em suas armas em combate corpo a corpo uma vez (na próxima vez que o efeito se aplicar)."
     },
     "IyLY1212wacW": {
       "name": "Fortificado",
-      "description": "Quando unidades em que a maioria dos modelos tem esta regra recebem acertos, esses acertos contam como tendo PA(-1), no m\u00ednimo PA(0)."
+      "description": "Quando unidades em que a maioria dos modelos tem esta regra recebem acertos, esses acertos contam como tendo PA(-1), no mínimo PA(0)."
     },
     "JSnFcm3SCiMD": {
       "name": "Fraturar",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, esses acertos recebem PA(+2)."
+      "description": "Para cada resultado não modificado de 6 para acertar, esses acertos recebem PA(+2)."
     },
     "LbpquFUyGSZ7": {
       "name": "Valente",
-      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia."
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de distância."
     },
     "MfDT3coYRS45": {
       "name": "Melhoria de Sem Recuar",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades aliadas a at\u00e9 12\", que recebem Sem Recuar uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Sem Recuar uma vez (na próxima vez que o efeito se aplicar)."
     },
     "nFo2BlBRhMcH": {
-      "name": "Redu\u00e7\u00e3o de Moral",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades inimigas a at\u00e9 18\" na linha de vis\u00e3o, que recebem -1 nas rolagens de Teste de Moral uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Redução de Moral",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades inimigas a até 18\" na linha de visão, que recebem -1 nas rolagens de Teste de Moral uma vez (na próxima vez que o efeito se aplicar)."
     },
     "ozw_t3SA8IDu": {
       "name": "Aura de Sustentar a Linha Aprimorada",
-      "description": "A unidade deste modelo e at\u00e9 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Sustentar a Linha Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Sustentar a Linha Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "Sdcb8VAeTxji": {
       "name": "Sustentar a Linha",
-      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia."
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de distância."
     },
     "TbjUdR-OJZPw": {
       "name": "Valente Aprimorado",
-      "description": "Se a maioria dos modelos desta unidade tem Valente, eles sempre recebem +1 nas rolagens de Teste de Moral por Valente (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia)."
+      "description": "Se a maioria dos modelos desta unidade tem Valente, eles sempre recebem +1 nas rolagens de Teste de Moral por Valente (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de distância)."
     },
     "V3YzPPkZm8at": {
-      "name": "Aura de Regenera\u00e7\u00e3o",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Regenera\u00e7\u00e3o. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Regeneração",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Regeneração. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "wHfLIdlnEQ1a": {
       "name": "Entrincheirado",
-      "description": "Se a maioria dos modelos desta unidade tem esta regra, desde que n\u00e3o tenham se movido durante esta rodada, as unidades inimigas que atirarem neles a mais de 12\" recebem -1 nas rolagens de acerto."
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, desde que não tenham se movido durante esta rodada, as unidades inimigas que atirarem neles a mais de 12\" recebem -1 nas rolagens de acerto."
     },
     "xs0-u9qrV0xt": {
-      "name": "Melhoria de Avan\u00e7o R\u00e1pido",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\u00e9 3 unidades aliadas a at\u00e9 12\", que recebem Avan\u00e7o R\u00e1pido uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Melhoria de Avanço Rápido",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Avanço Rápido uma vez (na próxima vez que o efeito se aplicar)."
     },
     "7308wTJNcR": {
-      "name": "Treinamento M\u00e9dico",
-      "description": "Este modelo e sua unidade recebem Regenera\u00e7\u00e3o."
+      "name": "Treinamento Médico",
+      "description": "Este modelo e sua unidade recebem Regeneração."
     },
     "aiYEmCuDPUcM": {
       "name": "Predador",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar ao atacar, este modelo pode rolar +1 ataque com aquela arma. Esta regra n\u00e3o se aplica a ataques rec\ufffd?m-gerados."
+      "description": "Para cada resultado não modificado de 6 para acertar ao atacar, este modelo pode rolar +1 ataque com aquela arma. Esta regra não se aplica a ataques recém-gerados."
     },
     "amQphBHWOeJs": {
       "name": "Aura de Veloz",
       "description": "Este modelo e sua unidade recebem Veloz."
     },
     "ba6LlbpoLkSu": {
-      "name": "Aura de Ru\u00edna ao Atirar",
-      "description": "Este modelo e sua unidade recebem Ru\u00edna em suas armas ao atirar."
+      "name": "Aura de Ruína ao Atirar",
+      "description": "Este modelo e sua unidade recebem Ruína em suas armas ao atirar."
     },
     "d1E7eizUnPoz": {
       "name": "Anti-Cobertura ao Atirar",
@@ -485,8 +485,8 @@
       "description": "Este modelo e sua unidade recebem Anti-Cobertura em suas armas ao atirar."
     },
     "jyVvnNyAKS-8": {
-      "name": "Colete Bal\u00edstico",
-      "description": "Este modelo recebe +1 nas rolagens de Defesa contra acertos \u00e0 dist\u00e2ncia."
+      "name": "Colete Balístico",
+      "description": "Este modelo recebe +1 nas rolagens de Defesa contra acertos à distância."
     },
     "NnMLDnIcnI": {
       "name": "Disciplina de Ferro",
@@ -498,22 +498,22 @@
     },
     "QWzGAg9RpE2D": {
       "name": "Aura de Alcance de Tiro Aumentado",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem +6\" de alcance em suas armas ao atirar. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem +6\" de alcance em suas armas ao atirar. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "ThesX8W032": {
-      "name": "Muni\u00e7\u00e3o Amaldi\u00e7oada",
-      "description": "Esta arma ignora Regenera\u00e7\u00e3o."
+      "name": "Munição Amaldiçoada",
+      "description": "Esta arma ignora Regeneração."
     },
     "uHus35IJKri2": {
-      "name": "Ru\u00edna ao Atirar",
-      "description": "Este modelo recebe Ru\u00edna em suas armas ao atirar."
+      "name": "Ruína ao Atirar",
+      "description": "Este modelo recebe Ruína em suas armas ao atirar."
     },
     "xeJDKejG4QZN": {
       "name": "Desintegrar",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, esses acertos causam 1 ferimento extra."
+      "description": "Para cada resultado não modificado de 6 para acertar, esses acertos causam 1 ferimento extra."
     },
     "zjzB46LX-QDg": {
-      "name": "Reimplanta\u00e7\u00e3o",
+      "name": "Reimplantação",
       "description": "Uma vez por jogo, esta unidade pode ser removida da mesa e implantada novamente como se tivesse Emboscada."
     },
     "09SoiR1HuW7u": {
@@ -526,22 +526,22 @@
     },
     "a6Ze2uaBlNHX": {
       "name": "Controle Mental",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que deve fazer um Teste de Moral."
+      "description": "Uma vez por ativação, antes de atacar, escolha uma unidade inimiga a até 18\" na linha de visão, que deve fazer um Teste de Moral."
     },
     "B5RGOPajK6Lr": {
       "name": "Aura de Lutador Preciso",
       "description": "Este modelo e sua unidade recebem Lutador Preciso."
     },
     "eOGs64JpVsP3": {
-      "name": "Atirador Imprevis\u00edvel",
-      "description": "Este modelo recebe Imprevis\u00edvel em suas armas ao atirar."
+      "name": "Atirador Imprevisível",
+      "description": "Este modelo recebe Imprevisível em suas armas ao atirar."
     },
     "h9JsgD38BRjI": {
       "name": "Saltitante",
-      "description": "Este modelo pode se mover atrav\u00e9s de unidades."
+      "description": "Este modelo pode se mover através de unidades."
     },
     "i40cKJoXJ7zm": {
-      "name": "Imprevis\u00edvel",
+      "name": "Imprevisível",
       "description": "Quando em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: em 1-3 eles recebem PA(+1), e em 4-6 eles recebem +1 nas rolagens de acerto."
     },
     "kFdn5NTc4iCO": {
@@ -549,20 +549,20 @@
       "description": "Se a maioria dos modelos desta unidade tem Vicioso, eles sempre recebem +1 nas rolagens de acerto por Vicioso (em vez de apenas quando...)."
     },
     "L_61KYvup31T": {
-      "name": "Marca de Precis\u00e3o",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que recebe uma marca. Unidades aliadas recebem +1 nas rolagens de acerto ao atac\u00e1-la."
+      "name": "Marca de Precisão",
+      "description": "Uma vez por ativação, antes de atacar, escolha uma unidade inimiga a até 18\" na linha de visão, que recebe uma marca. Unidades aliadas recebem +1 nas rolagens de acerto ao atacá-la."
     },
     "Lqk7bzR6k3xe": {
       "name": "Vicioso",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, este modelo pode rolar +1 ataque com aquela arma."
+      "description": "Para cada resultado não modificado de 6 para acertar, este modelo pode rolar +1 ataque com aquela arma."
     },
     "paOPFddMOffa": {
       "name": "Ataque de Travessia",
-      "description": "Este modelo pode se mover atrav\u00e9s de unidades e terreno."
+      "description": "Este modelo pode se mover através de unidades e terreno."
     },
     "Ql2vwvAiWaor": {
-      "name": "Aura de Atirador Imprevis\u00edvel",
-      "description": "Este modelo e sua unidade recebem Atirador Imprevis\u00edvel."
+      "name": "Aura de Atirador Imprevisível",
+      "description": "Este modelo e sua unidade recebem Atirador Imprevisível."
     },
     "sJXpQUJFLbVh": {
       "name": "Aura de Sucateiro Aprimorado",
@@ -585,40 +585,40 @@
       "description": "Este modelo e sua unidade recebem Encobrimento em Combate."
     },
     "1cykqbg4xn6o": {
-      "name": "Aura de Carga R\u00e1pida",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo movem +4\" ao usar a\u00e7\ufffd?es de Carga. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Carga Rápida",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo movem +4\" ao usar ações de Carga. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "1TMBPe40kx2b": {
       "name": "Encobrimento em Combate",
-      "description": "Quando esta unidade \u00e9 alvo de um ataque em combate corpo a corpo, o atacante recebe -1 nas rolagens de acerto."
+      "description": "Quando esta unidade é alvo de um ataque em combate corpo a corpo, o atacante recebe -1 nas rolagens de acerto."
     },
     "2xUH_d7T_Zfv": {
       "name": "Assediar",
       "description": "Este modelo pode atacar e recuar."
     },
     "a9j1Pje6TLBi": {
-      "name": "Aura de Tiro R\u00e1pido",
-      "description": "Este modelo e sua unidade recebem Tiro R\u00e1pido."
+      "name": "Aura de Tiro Rápido",
+      "description": "Este modelo e sua unidade recebem Tiro Rápido."
     },
     "eyMkgYDVrP7C": {
       "name": "Golpe de Derrubar",
       "description": "Este modelo pode escolher qualquer modelo da unidade alvo como alvo individual."
     },
     "lJx5NP1KA3KU": {
-      "name": "R\u00e1pido",
-      "description": "Este modelo move +2\" ao usar Avan\u00e7o e +4\" ao usar Corrida/Carga. (j\u00e1 existe Quick Shot = Tiro R\u00e1pido; Quick = R\u00e1pido)"
+      "name": "Rápido",
+      "description": "Este modelo move +2\" ao usar Avanço e +4\" ao usar Corrida/Carga. (já existe Quick Shot = Tiro Rápido; Quick = Rápido)"
     },
     "M8KFBuLeTrck": {
       "name": "Golpe e Fuga Aprimorado",
-      "description": "Se este modelo tem Golpe e Fuga, ele pode se mover at\u00e9 6\" por Golpe e Fuga (em vez de apenas 3\")."
+      "description": "Se este modelo tem Golpe e Fuga, ele pode se mover até 6\" por Golpe e Fuga (em vez de apenas 3\")."
     },
     "ozCLWcof36wD": {
       "name": "Golpe e Fuga",
-      "description": "Uma vez por rodada, este modelo pode se mover at\u00e9 3\" ap\u00f3s participar de combate corpo a corpo."
+      "description": "Uma vez por rodada, este modelo pode se mover até 3\" após participar de combate corpo a corpo."
     },
     "R6Y4QHBq6wxZ": {
       "name": "Frenesi Perfurante",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, este modelo pode rolar +1 ataque com aquela arma, e esses acertos recebem PA(+1)."
+      "description": "Para cada resultado não modificado de 6 para acertar, este modelo pode rolar +1 ataque com aquela arma, e esses acertos recebem PA(+1)."
     },
     "RUS7R0SwaBUj": {
       "name": "Aura de Assediar Aprimorada",
@@ -633,137 +633,137 @@
       "description": "Este modelo recebe +1 nas rolagens de acerto em combate corpo a corpo."
     },
     "UlIf59PuvI53": {
-      "name": "Carga R\u00e1pida",
+      "name": "Carga Rápida",
       "description": "Este modelo move +2\" ao usar Carga."
     },
     "UrbEF2kpIjYH": {
       "name": "Assediar Aprimorado",
-      "description": "Este modelo pode atacar e recuar, e recebe +2\" de movimento ao faz\u00ea-lo."
+      "description": "Este modelo pode atacar e recuar, e recebe +2\" de movimento ao fazê-lo."
     },
     "WcOMD7QgPYXZ": {
       "name": "Lacerar",
-      "description": "Para cada resultado n\u00e3o modificado de 6 para acertar, esses acertos recebem PA(+2)."
+      "description": "Para cada resultado não modificado de 6 para acertar, esses acertos recebem PA(+2)."
     },
     "LtPyHi_-DHf4": {
       "name": "Teletransportar",
-      "description": "Uma vez por jogo, este modelo pode ser removido da mesa e colocado em qualquer lugar a at\u00e9 12\"."
+      "description": "Uma vez por jogo, este modelo pode ser removido da mesa e colocado em qualquer lugar a até 12\"."
     },
     "1elLRhGK7ETb": {
-      "name": "Redu\u00e7\u00e3o de Precis\u00e3o",
-      "description": "Uma vez por ativa\u00e7\u00e3o, antes de atacar, escolha at\ufffd? 3 unidades inimigas a at\ufffd? 18\" e na linha de vis\u00e3o, que recebem -1 nas rolagens de acerto ao atacar uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Redução de Precisão",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades inimigas a até 18\" e na linha de visão, que recebem -1 nas rolagens de acerto ao atacar uma vez (na próxima vez que o efeito se aplicar)."
     },
     "3sXTViTVdDhn": {
       "name": "Aura de Predador",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Predador. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Predador. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "anyZ2FHtdAVO": {
       "name": "Lutador de Golpe e Fuga",
-      "description": "Uma vez por rodada, este modelo pode se mover at\ufffd? 3\" ap\u00f3s participar de combate corpo a corpo."
+      "description": "Uma vez por rodada, este modelo pode se mover até 3\" após participar de combate corpo a corpo."
     },
     "cgCroTrOmiv-": {
-      "name": "V\u00ednculo de Colmeia",
-      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia."
+      "name": "Vínculo de Colmeia",
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de distância."
     },
     "CK9TIa7vdehO": {
-      "name": "Aura de F\u00faria",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem Furioso. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Fúria",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Furioso. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     },
     "DEeVIJcfNfS6": {
-      "name": "Lutador Imprevis\u00edvel",
+      "name": "Lutador Imprevisível",
       "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: em 1-3 eles recebem PA(+1), e em 4-6 eles recebem +1 nas rolagens de acerto."
     },
     "F_1wfmpAyYwT": {
-      "name": "Autodestrui\u00e7\u00e3o",
-      "description": "Se este modelo for morto em combate corpo a corpo, a unidade atacante recebe X acertos. Se este modelo sobreviver ao combate, depois que ambos os lados terminarem de atacar, ele \ufffd? imediatamente morto, e a unidade inimiga recebe X acertos."
+      "name": "Autodestruição",
+      "description": "Se este modelo for morto em combate corpo a corpo, a unidade atacante recebe X acertos. Se este modelo sobreviver ao combate, depois que ambos os lados terminarem de atacar, ele é imediatamente morto, e a unidade inimiga recebe X acertos."
     },
     "GgPKQ4tKFRIC": {
       "name": "Desajeitado",
-      "description": "Ataca por \u00faltimo ao carregar."
+      "description": "Ataca por último ao carregar."
     },
     "h-Cj1XrX00JE": {
-      "name": "Resist\u00eancia a Magia",
-      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele \ufffd? ignorado em 2+. Se o ferimento n\u00e3o veio de uma magia, ele \ufffd? ignorado em 6+."
+      "name": "Resistência a Magia",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado em 2+. Se o ferimento não veio de uma magia, ele é ignorado em 6+."
     },
     "HMiVg3VVLQv3": {
       "name": "Alvo Perfurante",
-      "description": "Uma vez por jogo, durante a ativa\u00e7\u00e3o deste modelo, antes de atacar, escolha X unidades inimigas a at\ufffd? 18\" e na linha de vis\u00e3o dele, e coloque uma ficha nelas. Unidades aliadas recebem PA(+1) em suas armas ao atac\u00e1-las."
+      "description": "Uma vez por jogo, durante a ativação deste modelo, antes de atacar, escolha X unidades inimigas a até 18\" e na linha de visão dele, e coloque uma ficha nelas. Unidades aliadas recebem PA(+1) em suas armas ao atacá-las."
     },
     "kiXI7plPE_mK": {
-      "name": "V\u00ednculo de Colmeia Aprimorado",
-      "description": "Se a maioria dos modelos desta unidade tem V\u00ednculo de Colmeia, eles sempre recebem +1 nas rolagens de Teste de Moral por V\u00ednculo de Colmeia (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de dist\u00e2ncia)."
+      "name": "Vínculo de Colmeia Aprimorado",
+      "description": "Se a maioria dos modelos desta unidade tem Vínculo de Colmeia, eles sempre recebem +1 nas rolagens de Teste de Moral por Vínculo de Colmeia (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de distância)."
     },
     "nLQCr5OiSlYz": {
       "name": "Grupo de Conjuradores",
       "description": "Este modelo conta como tendo Conjurador(1)."
     },
     "RHkw66BqDjUp": {
-      "name": "Fragmenta\u00e7\u00e3o",
-      "description": "Ao atacar unidades em que a maioria dos modelos tem Defesa 5+ a 6+, o alvo deve rerrolar resultados de Defesa n\u00e3o modificados bem-sucedidos de 5-6."
+      "name": "Fragmentação",
+      "description": "Ao atacar unidades em que a maioria dos modelos tem Defesa 5+ a 6+, o alvo deve rerrolar resultados de Defesa não modificados bem-sucedidos de 5-6."
     },
     "s4lagBUlnsUE": {
       "name": "Crescimento Perfurante",
-      "description": "Coloque uma ficha nesta unidade no in\u00edcio de cada rodada se ela estiver no tabuleiro e n\u00e3o estiver Abalada, at\ufffd? um m\u00e1ximo de quatro fichas. Para cada duas fichas, os modelos com esta regra nesta unidade recebem PA(+1) em suas armas."
+      "description": "Coloque uma ficha nesta unidade no início de cada rodada se ela estiver no tabuleiro e não estiver Abalada, até um máximo de quatro fichas. Para cada duas fichas, os modelos com esta regra nesta unidade recebem PA(+1) em suas armas."
     },
     "WNMH1ZiQXSz-": {
       "name": "Conduto de Magia",
-      "description": "Conjuradores a at\ufffd? 12\" que sejam de outras unidades aliadas podem conjurar magias como se estivessem na posi\u00e7\u00e3o deste modelo, e recebem +1 nas rolagens de conjura\u00e7\u00e3o ao fazer isso. Conjuradores aliados s\u00f3 podem usar esta regra se esta unidade n\u00e3o estiver Abalada."
+      "description": "Conjuradores a até 12\" que sejam de outras unidades aliadas podem conjurar magias como se estivessem na posição deste modelo, e recebem +1 nas rolagens de conjuração ao fazer isso. Conjuradores aliados só podem usar esta regra se esta unidade não estiver Abalada."
     },
     "Yt2R4sh8SXM0": {
-      "name": "Aura de V\u00ednculo de Colmeia Aprimorado",
-      "description": "A unidade deste modelo e at\ufffd? 2 unidades aliadas escolhidas antes do in\u00edcio do jogo recebem V\u00ednculo de Colmeia Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+      "name": "Aura de Vínculo de Colmeia Aprimorado",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Vínculo de Colmeia Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
     }
   },
   "weapons": {
     "_9lyoDCs": {
-      "name": "Arco Curto R\u00e1pido"
+      "name": "Arco Curto Rápido"
     },
     "_S1r36k9": {
-      "name": "Lan\u00e7a Mestra"
+      "name": "Lança Mestra"
     },
     "0kWq4QMW": {
-      "name": "Lan\u00e7a Mestra"
+      "name": "Lança Mestra"
     },
     "2gCSwlFQ": {
-      "name": "Arp\u00f5es de Ca\u00e7a"
+      "name": "Arpões de Caça"
     },
     "2iyHYxSw": {
-      "name": "Pin\u00e7as Afiadas"
+      "name": "Pinças Afiadas"
     },
     "3iczAxdv": {
-      "name": "Pin\u00e7as Agarradoras"
+      "name": "Pinças Agarradoras"
     },
     "4ox4stxH": {
       "name": "Arma Grande Mestra"
     },
     "8QbEXars": {
-      "name": "Cajado de Mago das Mar\u00e9s"
+      "name": "Cajado de Mago das Marés"
     },
     "9j26um1T": {
-      "name": "Armas de M\u00e3o Duplas"
+      "name": "Armas de Mão Duplas"
     },
     "a3YvLquK": {
-      "name": "L\u00e2mina Enferrujada"
+      "name": "Lâmina Enferrujada"
     },
     "a9g67dqL": {
       "name": "Besta"
     },
     "aM-szPzh": {
-      "name": "L\u00e2mina Enferrujada"
+      "name": "Lâmina Enferrujada"
     },
     "at5r9KmN": {
-      "name": "Arma de M\u00e3o"
+      "name": "Arma de Mão"
     },
     "bq90TyOi": {
-      "name": "Besta R\u00e1pida"
+      "name": "Besta Rápida"
     },
     "cLQRyOAj": {
-      "name": "Tent\u00e1culos T\u00f3xicos"
+      "name": "Tentáculos Tóxicos"
     },
     "CyRc1Z1h": {
-      "name": "Lan\u00e7a"
+      "name": "Lança"
     },
     "dZjq-Eqx": {
-      "name": "L\u00edngua T\u00f3xica"
+      "name": "Língua Tóxica"
     },
     "FAJTKq11": {
       "name": "Alabarda"
@@ -778,13 +778,13 @@
       "name": "Golpe de Onda"
     },
     "K7eyFAdi": {
-      "name": "Lan\u00e7a"
+      "name": "Lança"
     },
     "L9ysbamC": {
       "name": "Cano de Flechetes"
     },
     "nXIDrB4U": {
-      "name": "Lan\u00e7a"
+      "name": "Lança"
     },
     "olPuTa7O": {
       "name": "Apanhador de Rede de Farpa"
@@ -793,16 +793,16 @@
       "name": "Grande Foice-Gancho"
     },
     "OyBzGAlH": {
-      "name": "Lan\u00e7ador de Rede de Farpa"
+      "name": "Lançador de Rede de Farpa"
     },
     "rcRPSyFT": {
-      "name": "Tent\u00e1culos"
+      "name": "Tentáculos"
     },
     "rvuo_BSX": {
       "name": "Alabarda"
     },
     "S7tpUtkV": {
-      "name": "Lan\u00e7ador de Arp\u00e3o"
+      "name": "Lançador de Arpão"
     },
     "u1hn0c_y": {
       "name": "Arma Grande"
@@ -811,22 +811,22 @@
       "name": "Arma Grande"
     },
     "uDxjouoI": {
-      "name": "Lan\u00e7a"
+      "name": "Lança"
     },
     "uxqgJ9B7": {
       "name": "Alabarda Mestra"
     },
     "vCe1ccKM": {
-      "name": "Arma de M\u00e3o Mestra"
+      "name": "Arma de Mão Mestra"
     },
     "w7cz4_Bh": {
-      "name": "Explos\u00e3o do Mar Profundo"
+      "name": "Explosão do Mar Profundo"
     },
     "WCvuVZKU": {
-      "name": "Arma de M\u00e3o"
+      "name": "Arma de Mão"
     },
     "wPzqbKkA": {
-      "name": "Espad\u00e3o Serrilhado"
+      "name": "Espadão Serrilhado"
     },
     "Wq85HyQn": {
       "name": "Dardos"
@@ -835,10 +835,10 @@
       "name": "Arco Curto"
     },
     "_AnRYkRn": {
-      "name": "Canh\u00e3o Trans\u00f4nico"
+      "name": "Canhão Transônico"
     },
     "_g6MjuFl": {
-      "name": "Pistola de F\u00f3tons de Rajada"
+      "name": "Pistola de Fótons de Rajada"
     },
     "_zZv-uLe": {
       "name": "Garras de Bot"
@@ -850,40 +850,40 @@
       "name": "Pisoteio"
     },
     "3OfJ65Xo": {
-      "name": "Conjurador de Pulso de Fa\u00edsca Pesado"
+      "name": "Conjurador de Pulso de Faísca Pesado"
     },
     "4bYMJiAV": {
-      "name": "Arma de F\u00f3tons de Artilharia"
+      "name": "Arma de Fótons de Artilharia"
     },
     "4ndrZnDN": {
-      "name": "Canh\u00e3o de R\u00e1dio"
+      "name": "Canhão de Rádio"
     },
     "4pJO1fKc": {
-      "name": "Fuzil de \u00cdons de Rajada"
+      "name": "Fuzil de Íons de Rajada"
     },
     "5_JlJ0ib": {
-      "name": "Fa\u00edsca de Punho"
+      "name": "Faísca de Punho"
     },
     "68J4DLfi": {
-      "name": "Bateria de Armas de F\u00f3tons de Metralhamento"
+      "name": "Bateria de Armas de Fótons de Metralhamento"
     },
     "83nhlNHF": {
-      "name": "Arma de M\u00e3o"
+      "name": "Arma de Mão"
     },
     "9gcqQsNR": {
-      "name": "Pistola de F\u00f3tons"
+      "name": "Pistola de Fótons"
     },
     "9Sr3BOVN": {
-      "name": "Fuzil de F\u00f3tons de Rajada"
+      "name": "Fuzil de Fótons de Rajada"
     },
     "9yR1y88z": {
       "name": "Atropelar"
     },
     "A1wYOjQy": {
-      "name": "Bateria de Torretas de F\u00f3tons"
+      "name": "Bateria de Torretas de Fótons"
     },
     "ABSciJNn": {
-      "name": "Canh\u00e3o de F\u00f3tons Pesado"
+      "name": "Canhão de Fótons Pesado"
     },
     "BfecNzHf": {
       "name": "Pistolas Ceifadoras de Duelo"
@@ -892,64 +892,64 @@
       "name": "Plasma de Punho"
     },
     "BU9XHzCZ": {
-      "name": "Glaive da Legi\u00e3o"
+      "name": "Glaive da Legião"
     },
     "ceKlrnP6": {
       "name": "Plasma de Punho de Rajada"
     },
     "clB_JaP-": {
-      "name": "Fa\u00edsca de Punho de Rajada"
+      "name": "Faísca de Punho de Rajada"
     },
     "CrjOPQoI": {
       "name": "Golpe de Espectro"
     },
     "D8SF2VZu": {
-      "name": "Blaster de Ur\u00e2nio"
+      "name": "Blaster de Urânio"
     },
     "dKKO1Ztk": {
-      "name": "Bra\u00e7os Experimentais"
+      "name": "Braços Experimentais"
     },
     "dT086NsK": {
-      "name": "Carabina Trans\u00f4nica"
+      "name": "Carabina Transônica"
     },
     "eF__M0-n": {
-      "name": "Arma de M\u00e3o"
+      "name": "Arma de Mão"
     },
     "elBXZGaP": {
-      "name": "Canh\u00e3o de Pulso de R\u00e1dio Pesado"
+      "name": "Canhão de Pulso de Rádio Pesado"
     },
     "eQZQOldB": {
-      "name": "Arma de Pulso de Fus\u00e3o"
+      "name": "Arma de Pulso de Fusão"
     },
     "FaADcjJg": {
       "name": "Grandes Presas de Aranha"
     },
     "fawDhnUj": {
-      "name": "Adaga de Ur\u00e2nio"
+      "name": "Adaga de Urânio"
     },
     "G-gVgEYT": {
-      "name": "Canh\u00f5es Trans\u00f4nicos de Metralhamento"
+      "name": "Canhões Transônicos de Metralhamento"
     },
     "gaLRSfo8": {
-      "name": "Canh\u00e3o Trans\u00f4nico"
+      "name": "Canhão Transônico"
     },
     "Giz36HLg": {
-      "name": "Raio de R\u00e1dio"
+      "name": "Raio de Rádio"
     },
     "gS5U2-uF": {
-      "name": "Canh\u00e3o Blaster de Ur\u00e2nio"
+      "name": "Canhão Blaster de Urânio"
     },
     "HClyzZfI": {
-      "name": "Carabina Trans\u00f4nica de Rajada"
+      "name": "Carabina Transônica de Rajada"
     },
     "hlIf1luH": {
-      "name": "Feixe de Mon\u00f3lito"
+      "name": "Feixe de Monólito"
     },
     "hLsClBKV": {
-      "name": "L\u00e2minas de Execu\u00e7\u00e3o"
+      "name": "Lâminas de Execução"
     },
     "hpUQieu9": {
-      "name": "Adagas de Ur\u00e2nio Duplas"
+      "name": "Adagas de Urânio Duplas"
     },
     "IeCvRQZ2": {
       "name": "Presas de Metal"
@@ -961,19 +961,19 @@
       "name": "Pisoteio"
     },
     "K4rAVsIQ": {
-      "name": "Fuzil de F\u00f3tons"
+      "name": "Fuzil de Fótons"
     },
     "KJQQGEte": {
-      "name": "Conjurador de Fus\u00e3o"
+      "name": "Conjurador de Fusão"
     },
     "Kt3r-Af8": {
-      "name": "Pistola de R\u00e1dio"
+      "name": "Pistola de Rádio"
     },
     "L-kDDdTF": {
       "name": "Cajado de Energia"
     },
     "l26A6z4y": {
-      "name": "Canh\u00e3o de Raio de Plasma"
+      "name": "Canhão de Raio de Plasma"
     },
     "M4hR0tyA": {
       "name": "Espada Atomizadora"
@@ -982,127 +982,127 @@
       "name": "Espadas Atomizadoras Duplas"
     },
     "Mkw8-v9E": {
-      "name": "L\u00e2minas de \u00cdons Pesadas Duplas"
+      "name": "Lâminas de Íons Pesadas Duplas"
     },
     "nBDAg-2O": {
-      "name": "Bateria de Armas de F\u00f3tons"
+      "name": "Bateria de Armas de Fótons"
     },
     "ncfaqPZO": {
-      "name": "Canh\u00e3o de F\u00f3tons Pesado Encadeado"
+      "name": "Canhão de Fótons Pesado Encadeado"
     },
     "NiErApPd": {
-      "name": "Raio de Fus\u00e3o Pesado Encadeado"
+      "name": "Raio de Fusão Pesado Encadeado"
     },
     "NIhE74y3": {
-      "name": "Foice da Perdi\u00e7\u00e3o"
+      "name": "Foice da Perdição"
     },
     "NJCvQBMD": {
-      "name": "Canh\u00e3o de Raio de R\u00e1dio de Metralhamento"
+      "name": "Canhão de Raio de Rádio de Metralhamento"
     },
     "NkTvh2sj": {
-      "name": "L\u00e2minas de \u00cdons Duplas"
+      "name": "Lâminas de Íons Duplas"
     },
     "NXlKwD3M": {
-      "name": "Canh\u00f5es de F\u00f3tons de Metralhamento"
+      "name": "Canhões de Fótons de Metralhamento"
     },
     "O1iUNWPY": {
-      "name": "Canh\u00e3o de Raio de Fus\u00e3o"
+      "name": "Canhão de Raio de Fusão"
     },
     "O7kDh6sJ": {
       "name": "Golpe de Grande Espectro"
     },
     "OaYz4pdg": {
-      "name": "Arma de F\u00f3tons"
+      "name": "Arma de Fótons"
     },
     "obi-Y44X": {
-      "name": "Canh\u00e3o de F\u00f3tons"
+      "name": "Canhão de Fótons"
     },
     "oGqW8rAE": {
-      "name": "Canh\u00e3o de R\u00e1dio"
+      "name": "Canhão de Rádio"
     },
     "Osv9sBn3": {
-      "name": "Pistolas Trans\u00f4nicas de Duelo"
+      "name": "Pistolas Transônicas de Duelo"
     },
     "OYdo-1Pu": {
       "name": "Presas de Aranha"
     },
     "pjT3of7t": {
-      "name": "Matriz de F\u00f3tons de Assalto"
+      "name": "Matriz de Fótons de Assalto"
     },
     "PM5RgyPL": {
-      "name": "Carabina Franco-Atiradora de Fa\u00edsca"
+      "name": "Carabina Franco-Atiradora de Faísca"
     },
     "pPlxX7j5": {
       "name": "Golpe de Cauda"
     },
     "pQTbweJ7": {
-      "name": "Foice de \u00cdons Pesada"
+      "name": "Foice de Íons Pesada"
     },
     "pVWQLZ8i": {
-      "name": "Raio de Fus\u00e3o"
+      "name": "Raio de Fusão"
     },
     "pXpPRsrJ": {
-      "name": "Grande Foice da Perdi\u00e7\u00e3o"
+      "name": "Grande Foice da Perdição"
     },
     "Q47Qlon8": {
       "name": "Garras Afiadas"
     },
     "qMzSue4r": {
-      "name": "Arma de Pulso de R\u00e1dio"
+      "name": "Arma de Pulso de Rádio"
     },
     "Qqoff3md": {
-      "name": "Canh\u00e3o de Raio de Plasma Pesado Encadeado"
+      "name": "Canhão de Raio de Plasma Pesado Encadeado"
     },
     "R-zAIvUx": {
       "name": "Espadas Atomizadoras Duplas"
     },
     "RdFiG63C": {
-      "name": "Lan\u00e7a de Espectro"
+      "name": "Lança de Espectro"
     },
     "re7afFw-": {
-      "name": "L\u00e2mina de \u00cdons Pesada"
+      "name": "Lâmina de Íons Pesada"
     },
     "rEaBrGGj": {
       "name": "Garras Enferrujadas"
     },
     "s5iFJ-Wf": {
-      "name": "Canh\u00e3o de R\u00e1dio de Assalto"
+      "name": "Canhão de Rádio de Assalto"
     },
     "S652usl0": {
       "name": "Garras"
     },
     "sDMBIC-P": {
-      "name": "A\u00e7oites com Espinhos"
+      "name": "Açoites com Espinhos"
     },
     "TUtXJKBJ": {
-      "name": "Arma de F\u00f3tons de Rajada"
+      "name": "Arma de Fótons de Rajada"
     },
     "TXNzaM23": {
-      "name": "Blaster de Ur\u00e2nio de Metralhamento"
+      "name": "Blaster de Urânio de Metralhamento"
     },
     "uDw_aSGU": {
       "name": "Cajado de Espectro"
     },
     "UETkj-z7": {
-      "name": "Conjurador de Pulso de Fa\u00edsca"
+      "name": "Conjurador de Pulso de Faísca"
     },
     "UGrX2xYH": {
-      "name": "A\u00e7oites Trans\u00f4nicos"
+      "name": "Açoites Transônicos"
     },
     "V8S3dOIx": {
-      "name": "Pistolas de R\u00e1dio Duplas"
+      "name": "Pistolas de Rádio Duplas"
     },
     "vCwruXxh": {
-      "name": "Canh\u00e3o de Pulso de Fus\u00e3o Pesado"
+      "name": "Canhão de Pulso de Fusão Pesado"
     },
     "vivUdJll": {
-      "name": "Estilha\u00e7os de Nanobot"
+      "name": "Estilhaços de Nanobot"
     },
     "vWiXN7e7": {
       "name": "Espada Atomizadora"
     },
     "w93Dsvt_": {
-      "name": "Autocanh\u00e3o de R\u00e1dio Encadeado"
+      "name": "Autocanhão de Rádio Encadeado"
     },
     "wCnqUdSz": {
       "name": "Feixes Atomizadores"
@@ -1111,10 +1111,10 @@
       "name": "Espadas de Vidente Duplas"
     },
     "WITrbcov": {
-      "name": "Estilha\u00e7os de Ur\u00e2nio"
+      "name": "Estilhaços de Urânio"
     },
     "wz-lwQ-j": {
-      "name": "Canh\u00e3o de Pulso de Fus\u00e3o"
+      "name": "Canhão de Pulso de Fusão"
     },
     "x8GgOI38": {
       "name": "Olhar da Morte"
@@ -1126,52 +1126,52 @@
       "name": "Pernas Esmagadoras"
     },
     "xpSbuAkR": {
-      "name": "Bateria de Fuzis de \u00cdons de Metralhamento"
+      "name": "Bateria de Fuzis de Íons de Metralhamento"
     },
     "y8kuZVch": {
       "name": "Conjurador de Plasma"
     },
     "yd6fIW7r": {
-      "name": "Canh\u00e3o de Raio de R\u00e1dio"
+      "name": "Canhão de Raio de Rádio"
     },
     "YsdNdfjc": {
-      "name": "Fuzil de \u00cdons"
+      "name": "Fuzil de Íons"
     },
     "yWxA7MYp": {
-      "name": "Raio de Fus\u00e3o Pesado"
+      "name": "Raio de Fusão Pesado"
     },
     "YXxETQ4b": {
-      "name": "Bateria de Torretas Trans\u00f4nicas"
+      "name": "Bateria de Torretas Transônicas"
     },
     "yYDaILfz": {
-      "name": "Pistolas Ceifadoras de Ca\u00e7a"
+      "name": "Pistolas Ceifadoras de Caça"
     },
     "z9hK3MW4": {
       "name": "Fuzil de Franco-Atirador Ceifador"
     },
     "zcIvM-61": {
-      "name": "Arma de F\u00f3tons de Rajada"
+      "name": "Arma de Fótons de Rajada"
     },
     "ZLbQ4U0Y": {
-      "name": "Explos\u00e3o de Mon\u00f3lito"
+      "name": "Explosão de Monólito"
     },
     "Zo74ICTf": {
-      "name": "Pistolas Trans\u00f4nicas de Ca\u00e7a"
+      "name": "Pistolas Transônicas de Caça"
     },
     "ZxcjVV5p": {
-      "name": "Cajado Pan\u00f3ptico"
+      "name": "Cajado Panóptico"
     },
     "_OuuPXyd": {
       "name": "Metralhadora Pesada"
     },
     "-_T9wTAv": {
-      "name": "Lan\u00e7a-Chamas"
+      "name": "Lança-Chamas"
     },
     "-ito_25n": {
       "name": "Pistola-Tambor Trituradora"
     },
     "-mTDUQJk": {
-      "name": "Canh\u00e3o Laser"
+      "name": "Canhão Laser"
     },
     "0906Ch_R": {
       "name": "Espingarda"
@@ -1189,10 +1189,10 @@
       "name": "Fuzil Laser"
     },
     "4ngz11r7": {
-      "name": "Lan\u00e7a Anti-Tanque"
+      "name": "Lança Anti-Tanque"
     },
     "5MKzzplf": {
-      "name": "Lan\u00e7a de Ca\u00e7a"
+      "name": "Lança de Caça"
     },
     "7Y8OJpPc": {
       "name": "Fuzil Longo"
@@ -1207,13 +1207,13 @@
       "name": "Machado de Energia"
     },
     "C9Hnetww": {
-      "name": "Lan\u00e7ador de Granadas"
+      "name": "Lançador de Granadas"
     },
     "dGKJc4Nn": {
       "name": "Pistola de Plasma"
     },
     "dn0IBXYw": {
-      "name": "Lan\u00e7ador de M\u00edsseis"
+      "name": "Lançador de Mísseis"
     },
     "E3jWpQGy": {
       "name": "Pistola Pesada do Sargento"
@@ -1222,13 +1222,13 @@
       "name": "Metralhadora Gatling"
     },
     "FC6vz5VY": {
-      "name": "Autocanh\u00e3o"
+      "name": "Autocanhão"
     },
     "gN1LAzCn": {
       "name": "Fuzil de Plasma"
     },
     "hhLukysh": {
-      "name": "Arma de M\u00e3o do Sargento"
+      "name": "Arma de Mão do Sargento"
     },
     "HjfgF9wo": {
       "name": "Espingarda de Rajada"
@@ -1246,16 +1246,16 @@
       "name": "Carabina"
     },
     "lBT6FBbW": {
-      "name": "Bast\u00e3o de Choque"
+      "name": "Bastão de Choque"
     },
     "MasD1xbH": {
       "name": "Metralhadora de Tempestade"
     },
     "mKAEU3ut": {
-      "name": "Canh\u00e3o Demolidor"
+      "name": "Canhão Demolidor"
     },
     "ms1CXcMV": {
-      "name": "Lan\u00e7a de Ca\u00e7a"
+      "name": "Lança de Caça"
     },
     "oiMKk5vY": {
       "name": "Pistola"
@@ -1267,13 +1267,13 @@
       "name": "Pistola do Sargento"
     },
     "PO6f2OV9": {
-      "name": "Lan\u00e7a Pesada"
+      "name": "Lança Pesada"
     },
     "RSuXx6NJ": {
       "name": "Espada de Energia"
     },
     "rWpAIWbo": {
-      "name": "Fuzil de Fus\u00e3o"
+      "name": "Fuzil de Fusão"
     },
     "sRf7hoGD": {
       "name": "Equipamento Psico-Hacker"
@@ -1288,7 +1288,7 @@
       "name": "Fuzil de Batalha"
     },
     "VLm7D5CU": {
-      "name": "Lan\u00e7a Pesada"
+      "name": "Lança Pesada"
     },
     "Xa5_qj7a": {
       "name": "Carabina de Rajada"
@@ -1297,7 +1297,7 @@
       "name": "Fuzil-Tambor Triturador"
     },
     "_NPwNej8": {
-      "name": "Granada T\u00f3xica"
+      "name": "Granada Tóxica"
     },
     "-iQKsJot": {
       "name": "Pisoteio"
@@ -1318,16 +1318,16 @@
       "name": "Pistola de Veterano"
     },
     "9LuBr8W6": {
-      "name": "Pistola de L\u00edder"
+      "name": "Pistola de Líder"
     },
     "a0Nrj00H": {
       "name": "Equipe de Artilharia"
     },
     "agIlKQ_g": {
-      "name": "Pistola Lan\u00e7a-Chamas de Rajada"
+      "name": "Pistola Lança-Chamas de Rajada"
     },
     "As7ChBOY": {
-      "name": "Canh\u00e3o de Chamas"
+      "name": "Canhão de Chamas"
     },
     "ciTEAws9": {
       "name": "Fuzil de Rajada"
@@ -1342,19 +1342,19 @@
       "name": "Granada"
     },
     "FvW4hslb": {
-      "name": "Lan\u00e7a-Chamas T\u00f3xico"
+      "name": "Lança-Chamas Tóxico"
     },
     "Fwv7z83Z": {
-      "name": "Canh\u00e3o Antia\u00e9reo"
+      "name": "Canhão Antiaéreo"
     },
     "FYJD9NIP": {
-      "name": "Pistola de Plasma de L\u00edder"
+      "name": "Pistola de Plasma de Líder"
     },
     "G9ASruA4": {
-      "name": "M\u00edsseis de Ca\u00e7a"
+      "name": "Mísseis de Caça"
     },
     "gAG1WGeB": {
-      "name": "Canh\u00e3o de Plasma Pesado"
+      "name": "Canhão de Plasma Pesado"
     },
     "GDaUWndE": {
       "name": "Martelo de Choque"
@@ -1363,22 +1363,22 @@
       "name": "Porrete"
     },
     "ksNEzBa2": {
-      "name": "M\u00edsseis Guiados Descart\u00e1veis"
+      "name": "Mísseis Guiados Descartáveis"
     },
     "LpKRMcio": {
-      "name": "Lan\u00e7a-Chamas Pesado R\u00e1pido"
+      "name": "Lança-Chamas Pesado Rápido"
     },
     "O-91ZMEC": {
-      "name": "L\u00e2minas de Fenri"
+      "name": "Lâminas de Fenri"
     },
     "OsDNZJg7": {
-      "name": "Fuzil de Fus\u00e3o Pesado"
+      "name": "Fuzil de Fusão Pesado"
     },
     "Pnm2A-zF": {
       "name": "Granada PA"
     },
     "QArEKJoT": {
-      "name": "Lan\u00e7a-Chamas T\u00f3xico Pesado"
+      "name": "Lança-Chamas Tóxico Pesado"
     },
     "QGC-iW54": {
       "name": "Machado de Plasma"
@@ -1387,7 +1387,7 @@
       "name": "Submetralhadora"
     },
     "s-D9OpeR": {
-      "name": "Lan\u00e7a-Chamas Pesado R\u00e1pido"
+      "name": "Lança-Chamas Pesado Rápido"
     },
     "SHlAXMcK": {
       "name": "Garras Duplas"
@@ -1405,10 +1405,10 @@
       "name": "Arma Laser Pesada"
     },
     "uux0zXyx": {
-      "name": "Fuzil de Fus\u00e3o Longo"
+      "name": "Fuzil de Fusão Longo"
     },
     "vZvPasuc": {
-      "name": "Pistola de L\u00edder"
+      "name": "Pistola de Líder"
     },
     "WGtrmpGW": {
       "name": "Martelo de Energia"
@@ -1417,10 +1417,10 @@
       "name": "Fuzil de Franco-Atirador Mestre"
     },
     "yB9JlUng": {
-      "name": "Canh\u00e3o Anti-Tanque"
+      "name": "Canhão Anti-Tanque"
     },
     "yeoY-SUr": {
-      "name": "Destruidor de Fus\u00e3o"
+      "name": "Destruidor de Fusão"
     },
     "Yr5VINe7": {
       "name": "Espada de Plasma"
@@ -1432,19 +1432,19 @@
       "name": "Garras Serrilhadas"
     },
     "1j6dSrsa": {
-      "name": "Gancho de Ca\u00e7a"
+      "name": "Gancho de Caça"
     },
     "1SDqCytK": {
-      "name": "Lan\u00e7a Explosiva"
+      "name": "Lança Explosiva"
     },
     "3vlfLXga": {
-      "name": "Carabina de Ca\u00e7a"
+      "name": "Carabina de Caça"
     },
     "4_EePPAZ": {
-      "name": "Lan\u00e7ador de Lan\u00e7a de Assalto"
+      "name": "Lançador de Lança de Assalto"
     },
     "4KwxTwwo": {
-      "name": "Pistola Lan\u00e7a-Chamas Pesada de Rajada"
+      "name": "Pistola Lança-Chamas Pesada de Rajada"
     },
     "5Sy3g0VH": {
       "name": "Pistola Longa Trituradora"
@@ -1453,10 +1453,10 @@
       "name": "Carga Recuperada"
     },
     "6ez5iMX6": {
-      "name": "Lan\u00e7ador de Arp\u00e3o"
+      "name": "Lançador de Arpão"
     },
     "9KbQ3D9t": {
-      "name": "Lan\u00e7a-Chamas Pesado"
+      "name": "Lança-Chamas Pesado"
     },
     "ave2CVT5": {
       "name": "Pistola de Plasma Longa"
@@ -1465,13 +1465,13 @@
       "name": "Espada de Sucata"
     },
     "CAaApo2s": {
-      "name": "Arp\u00e3o Farpeado"
+      "name": "Arpão Farpeado"
     },
     "crBBaKkf": {
-      "name": "Espingarda de Ca\u00e7a"
+      "name": "Espingarda de Caça"
     },
     "d9-slSFD": {
-      "name": "Lan\u00e7a-Guilhotina"
+      "name": "Lança-Guilhotina"
     },
     "DbHH9bmz": {
       "name": "Garras Serrilhadas"
@@ -1480,10 +1480,10 @@
       "name": "Espada de Sucata"
     },
     "dJt8g8BT": {
-      "name": "Lan\u00e7a-Guilhotina"
+      "name": "Lança-Guilhotina"
     },
     "dszIO2UV": {
-      "name": "Cajado de Xam\u00e3"
+      "name": "Cajado de Xamã"
     },
     "EJ0dH2zn": {
       "name": "Manoplas de Garra Duplas"
@@ -1498,25 +1498,25 @@
       "name": "Fuzil de Energia de Rajada"
     },
     "gFCy3P3V": {
-      "name": "Canh\u00e3o Magn\u00e9tico Pesado"
+      "name": "Canhão Magnético Pesado"
     },
     "GOHkHeHw": {
-      "name": "Canh\u00e3o Perfurante"
+      "name": "Canhão Perfurante"
     },
     "Gr8mb02K": {
       "name": "Pistola Zapper"
     },
     "H2RXfpTc": {
-      "name": "Armas de M\u00e3o Duplas"
+      "name": "Armas de Mão Duplas"
     },
     "H7GeP3aS": {
-      "name": "Arp\u00e3o Farpeado"
+      "name": "Arpão Farpeado"
     },
     "hUfKLgum": {
       "name": "Ganchos Serrilhados Duplos"
     },
     "I0DtXdMF": {
-      "name": "Lan\u00e7ador de Foguetes"
+      "name": "Lançador de Foguetes"
     },
     "i48Mxpjq": {
       "name": "Garras Pesadas"
@@ -1534,16 +1534,16 @@
       "name": "Espigador de Energia"
     },
     "KzZuCHGS": {
-      "name": "Lan\u00e7a Explosiva"
+      "name": "Lança Explosiva"
     },
     "Lag4CkZc": {
-      "name": "Mand\u00edbulas Pesadas"
+      "name": "Mandíbulas Pesadas"
     },
     "lef3rnGA": {
-      "name": "Lan\u00e7ador de Arp\u00e3o de Assalto"
+      "name": "Lançador de Arpão de Assalto"
     },
     "Mc5DVv8p": {
-      "name": "Canh\u00e3o de Energia Pesado"
+      "name": "Canhão de Energia Pesado"
     },
     "mFeh3P5l": {
       "name": "Espada Renegada"
@@ -1555,13 +1555,13 @@
       "name": "Arma Zapper"
     },
     "OcQwrFME": {
-      "name": "Garras de Ca\u00e7a"
+      "name": "Garras de Caça"
     },
     "osB1YWVQ": {
       "name": "Carabina de Franco-Atirador de Sucata"
     },
     "oxyWH0_6": {
-      "name": "Canh\u00e3o de Plasma"
+      "name": "Canhão de Plasma"
     },
     "p8KSWlJk": {
       "name": "Foguetes de Cano"
@@ -1570,28 +1570,28 @@
       "name": "Pistola de Foguetes"
     },
     "QT21MIrp": {
-      "name": "Pistola Longa de M\u00edsseis"
+      "name": "Pistola Longa de Mísseis"
     },
     "qv_Yoisn": {
-      "name": "Garras de Ca\u00e7a"
+      "name": "Garras de Caça"
     },
     "QZn5x-Me": {
       "name": "Bateria de Foguetes Pesada"
     },
     "REtxFQ2R": {
-      "name": "Lan\u00e7ador de Lan\u00e7a"
+      "name": "Lançador de Lança"
     },
     "Rf822B6W": {
       "name": "Porretes de Sucata Duplos"
     },
     "RQsH4p3X": {
-      "name": "Gancho de Ca\u00e7a"
+      "name": "Gancho de Caça"
     },
     "RTVKOdFt": {
-      "name": "Blaster de For\u00e7a"
+      "name": "Blaster de Força"
     },
     "rwHpYUnu": {
-      "name": "Lan\u00e7a-Guilhotina"
+      "name": "Lança-Guilhotina"
     },
     "SIDrufsn": {
       "name": "Pistola de Sucata"
@@ -1603,7 +1603,7 @@
       "name": "Carabina de Atirador"
     },
     "TMA6-bO4": {
-      "name": "Pistola Blaster de For\u00e7a"
+      "name": "Pistola Blaster de Força"
     },
     "ToHSmD1Q": {
       "name": "Pistola de Energia"
@@ -1618,31 +1618,31 @@
       "name": "Droididu"
     },
     "Ugl8E8aU": {
-      "name": "Canh\u00e3o Triturador"
+      "name": "Canhão Triturador"
     },
     "uX4Jw7E6": {
       "name": "Fuzil de Energia"
     },
     "xnqJiMqW": {
-      "name": "Mand\u00edbulas Massivas"
+      "name": "Mandíbulas Massivas"
     },
     "YAuFLx7S": {
       "name": "Manopla de Garra"
     },
     "YFfo5x-2": {
-      "name": "Arp\u00e3o Farpeado"
+      "name": "Arpão Farpeado"
     },
     "Yh4wAObk": {
       "name": "Fuzil de Sucata"
     },
     "zEH-bFuz": {
-      "name": "Canh\u00e3o de Dispers\u00e3o"
+      "name": "Canhão de Dispersão"
     },
     "Zj5s4qwG": {
       "name": "Pistola Fumigadora"
     },
     "-4o4cwq1": {
-      "name": "Bast\u00e3o com Espinhos"
+      "name": "Bastão com Espinhos"
     },
     "-pHCiczc": {
       "name": "Adaga"
@@ -1651,7 +1651,7 @@
       "name": "Olhar Mortal"
     },
     "1yVbpQkY": {
-      "name": "Besta Repetidora R\u00e1pida"
+      "name": "Besta Repetidora Rápida"
     },
     "47iaFQLA": {
       "name": "Facas de Arremesso"
@@ -1663,7 +1663,7 @@
       "name": "Cajado de Feiticeira"
     },
     "6yIYIuCc": {
-      "name": "Adagas T\u00f3xicas Duplas"
+      "name": "Adagas Tóxicas Duplas"
     },
     "9WtWKqFy": {
       "name": "Facas de Arremesso"
@@ -1678,7 +1678,7 @@
       "name": "Olhar Petrificante"
     },
     "aq8IaM89": {
-      "name": "Besta Sombria R\u00e1pida"
+      "name": "Besta Sombria Rápida"
     },
     "bvz2Wtug": {
       "name": "Cutelo Sombrio Mestre"
@@ -1687,7 +1687,7 @@
       "name": "Dardos Pesados"
     },
     "ElBSVSih": {
-      "name": "Adagas T\u00f3xicas Duplas"
+      "name": "Adagas Tóxicas Duplas"
     },
     "FNxe-PAq": {
       "name": "Cutelo Sombrio"
@@ -1699,7 +1699,7 @@
       "name": "Cajado de Feiticeira"
     },
     "kj9UMJ2j": {
-      "name": "Setas da Perdi\u00e7\u00e3o"
+      "name": "Setas da Perdição"
     },
     "lFCHblC9": {
       "name": "Manguals Afiados Duplos"
@@ -1726,7 +1726,7 @@
       "name": "Besta Sombria"
     },
     "QRSeLZqY": {
-      "name": "Bestas de M\u00e3o Repetidoras Duplas"
+      "name": "Bestas de Mão Repetidoras Duplas"
     },
     "Rdnxw5oc": {
       "name": "Garras Sombrias"
@@ -1735,7 +1735,7 @@
       "name": "Arco Buscador"
     },
     "UgvbAdJW": {
-      "name": "Besta de M\u00e3o Sombria"
+      "name": "Besta de Mão Sombria"
     },
     "utaNImyt": {
       "name": "Glaive Duplo"
@@ -1744,7 +1744,7 @@
       "name": "Besta Repetidora"
     },
     "ydS47F4v": {
-      "name": "Besta de M\u00e3o Repetidora"
+      "name": "Besta de Mão Repetidora"
     },
     "YSKHNslF": {
       "name": "Machado do Carrasco"
@@ -1759,7 +1759,7 @@
       "name": "Garra"
     },
     "e9HDk3fg": {
-      "name": "Cajado de Maldi\u00e7\u00e3o"
+      "name": "Cajado de Maldição"
     },
     "gX5PjWbt": {
       "name": "Garra"
@@ -1768,7 +1768,7 @@
       "name": "Golpe"
     },
     "UqYlDC9w": {
-      "name": "Explos\u00e3o Ocular"
+      "name": "Explosão Ocular"
     },
     "ykuqaDlq": {
       "name": "Mordida"
@@ -1780,10 +1780,10 @@
       "name": "Arma Trituradora"
     },
     "--aJH9tY": {
-      "name": "Chicote T\u00f3xico"
+      "name": "Chicote Tóxico"
     },
     "-9C2hX3K": {
-      "name": "Lan\ufffdador de ?cido"
+      "name": "Lançador de Ácido"
     },
     "-eSDc1OC": {
       "name": "Garras Cortantes"
@@ -1792,19 +1792,19 @@
       "name": "Garras Perfurantes"
     },
     "0snoCSrc": {
-      "name": "Garras T\u00f3xicas"
+      "name": "Garras Tóxicas"
     },
     "0UxjbGZn": {
-      "name": "L\u00e2mina Serrilhada Pesada"
+      "name": "Lâmina Serrilhada Pesada"
     },
     "0YDYhEXk": {
-      "name": "Queimador de B\u00edlis"
+      "name": "Queimador de Bílis"
     },
     "1vomCNd2": {
       "name": "Bio-Morteiro de Plasma"
     },
     "2GBnAIUD": {
-      "name": "Punho de Carapa\u00e7a"
+      "name": "Punho de Carapaça"
     },
     "2LecFTJx": {
       "name": "Disparadores de Espinhos Duplos"
@@ -1816,19 +1816,19 @@
       "name": "Bio-Morteiro Rasgador"
     },
     "7GScCDgm": {
-      "name": "Cuspidor Biol\u00f3gico"
+      "name": "Cuspidor Biológico"
     },
     "7LGG_y6O": {
-      "name": "Arp\u00e3o Biol\u00f3gico"
+      "name": "Arpão Biológico"
     },
     "7OJHbTb1": {
       "name": "Arma Devastadora"
     },
     "ancvZ-tL": {
-      "name": "Chicote T\u00f3xico e L\u00e2mina Serrilhada"
+      "name": "Chicote Tóxico e Lâmina Serrilhada"
     },
     "andKR2Op": {
-      "name": "Chicote T\u00f3xico e L\u00e2mina Serrilhada"
+      "name": "Chicote Tóxico e Lâmina Serrilhada"
     },
     "aqRFWpUc": {
       "name": "Garras Serrilhadas Duplas"
@@ -1840,22 +1840,22 @@
       "name": "Garras Cortantes Duplas"
     },
     "bfl0NyoJ": {
-      "name": "Garras ?cidas"
+      "name": "Garras Ácidas"
     },
     "Bij4KPXS": {
       "name": "Disparador Triturador"
     },
     "BolpKyC5": {
-      "name": "L\u00e2mina Serrilhada"
+      "name": "Lâmina Serrilhada"
     },
     "Byi27DL3": {
       "name": "Cuspidor de Insetos"
     },
     "ci1oltRW": {
-      "name": "Chicote T\u00f3xico"
+      "name": "Chicote Tóxico"
     },
     "cpwZ9DP6": {
-      "name": "Cuspidor Biol\u00f3gico de Rajada"
+      "name": "Cuspidor Biológico de Rajada"
     },
     "DbQFBYM1": {
       "name": "Bio-Plasma"
@@ -1867,31 +1867,31 @@
       "name": "Garras Perfurantes Duplas"
     },
     "doOSAdqo": {
-      "name": "L\u00e2minas Cortantes Duplas"
+      "name": "Lâminas Cortantes Duplas"
     },
     "dUqG8w6-": {
-      "name": "L\u00e2mina Cortante"
+      "name": "Lâmina Cortante"
     },
     "DXxogNb9": {
       "name": "Garras Cortantes"
     },
     "eR9zyPnj": {
-      "name": "L\u00e2minas Serrilhadas Duplas"
+      "name": "Lâminas Serrilhadas Duplas"
     },
     "fBfu7rNh": {
-      "name": "Membros-Chicote T\u00f3xicos"
+      "name": "Membros-Chicote Tóxicos"
     },
     "FRGVZ5Ma": {
       "name": "Disparador de Plasma"
     },
     "FTAmEjDm": {
-      "name": "Disparador de Fus\u00e3o"
+      "name": "Disparador de Fusão"
     },
     "g0MxKonq": {
-      "name": "Explos\u00e3o Ps\u00edquica Sin\u00e1ptica"
+      "name": "Explosão Psíquica Sináptica"
     },
     "GBiXv_Ku": {
-      "name": "Bio-Lan\u00e7a-Chamas"
+      "name": "Bio-Lança-Chamas"
     },
     "gegVeoOl": {
       "name": "Bio-Devastador"
@@ -1903,7 +1903,7 @@
       "name": "Bio-Espinhos Duplos"
     },
     "HsYhsorp": {
-      "name": "Ferr\ufffd?es Rasgadores"
+      "name": "Ferrões Rasgadores"
     },
     "HyJeuklz": {
       "name": "Arma Rasgadora"
@@ -1915,22 +1915,22 @@
       "name": "Garras Demolidoras Duplas"
     },
     "J3qUvmfz": {
-      "name": "Garras T\u00f3xicas"
+      "name": "Garras Tóxicas"
     },
     "JMIrw2kf": {
-      "name": "Membros-Chicote T\u00f3xicos Pesados"
+      "name": "Membros-Chicote Tóxicos Pesados"
     },
     "kaeTh700": {
       "name": "Garras Serrilhadas"
     },
     "l-o_InnD": {
-      "name": "Lan\u00e7ador de Espetos"
+      "name": "Lançador de Espetos"
     },
     "lQPiczqm": {
       "name": "Disparador de Chamas"
     },
     "Lz9vzlqX": {
-      "name": "L\u00e2mina Cortante"
+      "name": "Lâmina Cortante"
     },
     "m0OIrwhZ": {
       "name": "Espada de Garra Feroz"
@@ -1942,25 +1942,25 @@
       "name": "Jato de Veneno"
     },
     "Nbl4sZY0": {
-      "name": "Lan\u00e7ador de Garras-Gancho"
+      "name": "Lançador de Garras-Gancho"
     },
     "NeEur0pi": {
-      "name": "Explos\u00e3o Ps\u00edquica Rasgadora"
+      "name": "Explosão Psíquica Rasgadora"
     },
     "NfL6Q05z": {
       "name": "Adagas Sombrias"
     },
     "nKSeLysy": {
-      "name": "Armas de Fuma\u00e7a Biol\u00f3gica"
+      "name": "Armas de Fumaça Biológica"
     },
     "oES6rM2G": {
-      "name": "Surto Ps\u00edquico Sin\u00e1ptico"
+      "name": "Surto Psíquico Sináptico"
     },
     "pAMElMbS": {
       "name": "Espinho Perfurante"
     },
     "psWN9QDg": {
-      "name": "Chicote T\u00f3xico Pesado"
+      "name": "Chicote Tóxico Pesado"
     },
     "qanUuV85": {
       "name": "Garras Afiadas Duplas"
@@ -1978,7 +1978,7 @@
       "name": "Bio-Triturador"
     },
     "rqP6e5EN": {
-      "name": "Membros-Chicote T\u00f3xicos Duplos"
+      "name": "Membros-Chicote Tóxicos Duplos"
     },
     "s8AKVNmG": {
       "name": "Disparador de Espinhos"
@@ -1990,25 +1990,25 @@
       "name": "Bio-Devastador de Rajada"
     },
     "t4-C3wD5": {
-      "name": "Surto Ps\u00edquico Rasgador"
+      "name": "Surto Psíquico Rasgador"
     },
     "tGOR5LVm": {
-      "name": "Ferr\u00e3o Perfurante"
+      "name": "Ferrão Perfurante"
     },
     "TM9mxJVT": {
       "name": "Disparador Triturador"
     },
     "Tnu0GBnx": {
-      "name": "Explos\u00e3o Ps\u00edquica Neural"
+      "name": "Explosão Psíquica Neural"
     },
     "TYNlc_yY": {
-      "name": "Chicote T\u00f3xico e L\u00e2mina Cortante"
+      "name": "Chicote Tóxico e Lâmina Cortante"
     },
     "UctLyaE6": {
       "name": "Bio-Morteiro Cuspidor de Insetos"
     },
     "UPhnCxhe": {
-      "name": "L\u00e2mina Cortante Pesada"
+      "name": "Lâmina Cortante Pesada"
     },
     "utp_RyYh": {
       "name": "Disparador de Plasma"
@@ -2032,16 +2032,16 @@
       "name": "Porrete Demolidor Pesado"
     },
     "WkZsHeqJ": {
-      "name": "Surto Ps\u00edquico Neural"
+      "name": "Surto Psíquico Neural"
     },
     "wZGeb1dR": {
-      "name": "Chicotes T\u00f3xicos Duplos"
+      "name": "Chicotes Tóxicos Duplos"
     },
     "yBTlXjHR": {
-      "name": "Disparador de Fus\u00e3o"
+      "name": "Disparador de Fusão"
     },
     "YekzfsCo": {
-      "name": "L\u00e2mina Serrilhada"
+      "name": "Lâmina Serrilhada"
     },
     "yQdRxFe8": {
       "name": "Garras Neurais"
@@ -2050,7 +2050,7 @@
       "name": "Bio-Morteiro Devastador"
     },
     "zb4-V2wq": {
-      "name": "Chicote T\u00f3xico e L\u00e2mina Cortante"
+      "name": "Chicote Tóxico e Lâmina Cortante"
     },
     "ZT6l8FIq": {
       "name": "Porrete Demolidor"
@@ -2059,213 +2059,213 @@
   "spells": {
     "0zFpV": {
       "name": "Tempestade Marinha",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 1 acerto com Explos\u00e3o(3) e Ceifar."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 1 acerto com Explosão(3) e Ceifar."
     },
     "26d1V": {
-      "name": "Mar\u00e9 Alta",
-      "effect": "Escolha at\u00e9 tr\u00eas unidades aliadas a at\u00e9 18\", que recebem Furtividade uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Maré Alta",
+      "effect": "Escolha até três unidades aliadas a até 18\", que recebem Furtividade uma vez (na próxima vez que o efeito se aplicar)."
     },
     "ioHAv": {
       "name": "Onda de Poder",
-      "effect": "Escolha at\u00e9 duas unidades aliadas a at\u00e9 12\", que recebem Passo de Onda Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até duas unidades aliadas a até 12\", que recebem Passo de Onda Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "Ltl0Y": {
-      "name": "Press\u00e3o Esmagadora",
-      "effect": "Escolha at\u00e9 duas unidades inimigas a at\u00e9 6\", que sofrem 4 acertos com PA(2) cada."
+      "name": "Pressão Esmagadora",
+      "effect": "Escolha até duas unidades inimigas a até 6\", que sofrem 4 acertos com PA(2) cada."
     },
     "PnzrO": {
       "name": "Erodir Alma",
-      "effect": "Escolha um modelo inimigo a at\u00e9 24\" na linha de vis\u00e3o, que sofre 3 acertos com PA(4). Este efeito \u00e9 resolvido como se o alvo fosse uma unidade de [1]."
+      "effect": "Escolha um modelo inimigo a até 24\" na linha de visão, que sofre 3 acertos com PA(4). Este efeito é resolvido como se o alvo fosse uma unidade de [1]."
     },
     "sbHTz": {
       "name": "Abismo Mais Negro",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que recebe -1 nas rolagens de acerto ao atacar uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que recebe -1 nas rolagens de acerto ao atacar uma vez (na próxima vez que o efeito se aplicar)."
     },
     "0XFYv": {
       "name": "Bots Gauss",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 6\", que sofre 3 acertos com PA(1) e Estilha\u00e7ar. Role tantos dados quanto acertos para ver se efeitos de \"em rolagens de 6\" disparam."
+      "effect": "Escolha uma unidade inimiga a até 6\", que sofre 3 acertos com PA(1) e Estilhaçar. Role tantos dados quanto acertos para ver se efeitos de \"em rolagens de 6\" disparam."
     },
     "aiS6M": {
       "name": "Bots de Reparo",
-      "effect": "Escolha at\u00e9 tr\u00eas unidades aliadas a at\u00e9 18\", que recebem Auto-Reparo Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até três unidades aliadas a até 18\", que recebem Auto-Reparo Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "F9cK8": {
       "name": "Bots de Chamas",
-      "effect": "Escolha at\u00e9 duas unidades inimigas a at\u00e9 9\", que sofrem 4 acertos cada."
+      "effect": "Escolha até duas unidades inimigas a até 9\", que sofrem 4 acertos cada."
     },
     "kdAps": {
       "name": "Bots Inspiradores",
-      "effect": "Escolha at\u00e9 duas unidades aliadas a at\u00e9 12\", que recebem Avan\u00e7o R\u00e1pido uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até duas unidades aliadas a até 12\", que recebem Avanço Rápido uma vez (na próxima vez que o efeito se aplicar)."
     },
     "rFGa0": {
       "name": "Bots Perfurantes",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 6 acertos com PA(2)."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 6 acertos com PA(2)."
     },
     "waUF_": {
-      "name": "Bots de Triangula\u00e7\u00e3o",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, contra a qual unidades aliadas recebem Indireto em suas armas uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Bots de Triangulação",
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, contra a qual unidades aliadas recebem Indireto em suas armas uma vez (na próxima vez que o efeito se aplicar)."
     },
     "2u5gr": {
       "name": "Rajada Abrasadora",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 9 acertos."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 9 acertos."
     },
     "CsJOp": {
-      "name": "Expulsar Amea\u00e7a",
-      "effect": "Escolha um modelo inimigo a at\u00e9 18\" na linha de vis\u00e3o, que sofre 2 acertos com PA(1). Este efeito \u00e9 resolvido como se o alvo fosse uma unidade de [1]."
+      "name": "Expulsar Ameaça",
+      "effect": "Escolha um modelo inimigo a até 18\" na linha de visão, que sofre 2 acertos com PA(1). Este efeito é resolvido como se o alvo fosse uma unidade de [1]."
     },
     "i1uZl": {
-      "name": "Tempestade El\u00e9trica",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 4 acertos com Fraturar. Role tantos dados quanto acertos para ver se efeitos de \"em rolagens de 6\" disparam."
+      "name": "Tempestade Elétrica",
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 4 acertos com Fraturar. Role tantos dados quanto acertos para ver se efeitos de \"em rolagens de 6\" disparam."
     },
     "sC4Gz": {
       "name": "Velocidade de Choque",
-      "effect": "Escolha uma unidade aliada a at\u00e9 12\", que move +2\" ao usar Avan\u00e7o e +4\" ao usar Corrida/Carga uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha uma unidade aliada a até 12\", que move +2\" ao usar Avanço e +4\" ao usar Corrida/Carga uma vez (na próxima vez que o efeito se aplicar)."
     },
     "TzMwj": {
-      "name": "Previs\u00e3o Calculada",
-      "effect": "Escolha at\u00e9 duas unidades inimigas a at\u00e9 18\" na linha de vis\u00e3o, contra as quais unidades aliadas recebem Implac\u00e1vel uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Previsão Calculada",
+      "effect": "Escolha até duas unidades inimigas a até 18\" na linha de visão, contra as quais unidades aliadas recebem Implacável uma vez (na próxima vez que o efeito se aplicar)."
     },
     "ya8QP": {
-      "name": "Coragem Ps\u00edquica Injetada",
-      "effect": "Escolha at\u00e9 tr\u00eas unidades aliadas a at\u00e9 18\", que recebem Sustentar a Linha Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Coragem Psíquica Injetada",
+      "effect": "Escolha até três unidades aliadas a até 18\", que recebem Sustentar a Linha Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "-BUjo": {
       "name": "Golpe Feral",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 6\", que sofre 1 acerto com PA(2) e Mortal(3)."
+      "effect": "Escolha uma unidade inimiga a até 6\", que sofre 1 acerto com PA(2) e Mortal(3)."
     },
     "icwzh": {
       "name": "Campo de Poder",
-      "effect": "Escolha at\u00e9 duas unidades aliadas a at\u00e9 12\", que recebem Escudado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até duas unidades aliadas a até 12\", que recebem Escudado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "JA8IE": {
-      "name": "Ca\u00e7ador Ps\u00edquico",
-      "effect": "Escolha at\u00e9 tr\u00eas unidades aliadas a at\u00e9 18\", que recebem Sucateiro Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Caçador Psíquico",
+      "effect": "Escolha até três unidades aliadas a até 18\", que recebem Sucateiro Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "lJ385": {
-      "name": "Mand\u00edbula de Poder",
-      "effect": "Escolha at\u00e9 duas unidades inimigas a at\u00e9 6\", que sofrem 4 acertos com PA(2) cada."
+      "name": "Mandíbula de Poder",
+      "effect": "Escolha até duas unidades inimigas a até 6\", que sofrem 4 acertos com PA(2) cada."
     },
     "qmDvb": {
       "name": "Moldador de Mentes",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que recebe -1 nas rolagens de Teste de Moral uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que recebe -1 nas rolagens de Teste de Moral uma vez (na próxima vez que o efeito se aplicar)."
     },
     "u7epQ": {
-      "name": "Explos\u00e3o de Espinhos",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 6 acertos com Desintegrar."
+      "name": "Explosão de Espinhos",
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 6 acertos com Desintegrar."
     },
     "gM4yD": {
-      "name": "Esp\u00edrito da Ilha Sombria",
-      "effect": "Escolha uma unidade aliada a at\u00e9 12\", que recebe Assediar Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Espírito da Ilha Sombria",
+      "effect": "Escolha uma unidade aliada a até 12\", que recebe Assediar Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "n5MsK": {
       "name": "Ventos Curativos",
-      "effect": "Escolha at\u00e9 tr\u00eas unidades aliadas a at\u00e9 18\", que recebem Regenera\u00e7\u00e3o uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até três unidades aliadas a até 18\", que recebem Regeneração uma vez (na próxima vez que o efeito se aplicar)."
     },
     "QU-wN": {
       "name": "Onda de Tempestade",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\" na linha de vis\u00e3o, que sofre 2 acertos com Explos\u00e3o(3)."
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 2 acertos com Explosão(3)."
     },
     "RIj2k": {
       "name": "Raio Negro",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 6\", que sofre 1 acerto com PA(2) e Mortal(3)."
+      "effect": "Escolha uma unidade inimiga a até 6\", que sofre 1 acerto com PA(2) e Mortal(3)."
     },
     "VlPDA": {
-      "name": "Tempestade de L\u00e2minas",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 24\" na linha de vis\u00e3o, que sofre 6 acertos com Lacerar."
+      "name": "Tempestade de Lâminas",
+      "effect": "Escolha uma unidade inimiga a até 24\" na linha de visão, que sofre 6 acertos com Lacerar."
     },
     "XmU21": {
       "name": "Mundo de Dor",
-      "effect": "Escolha at\u00e9 duas unidades inimigas a at\u00e9 18\" na linha de vis\u00e3o, contra as quais unidades aliadas recebem Carga R\u00e1pida uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até duas unidades inimigas a até 18\" na linha de visão, contra as quais unidades aliadas recebem Carga Rápida uma vez (na próxima vez que o efeito se aplicar)."
     },
     "9sEt0": {
       "name": "Acelerar",
-      "effect": "Escolha 2 unidades aliadas a at\u00e9 12\" que movem +3\" ao usar Avan\u00e7o, ou +6\" ao usar Corrida/Carga uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha 2 unidades aliadas a até 12\" que movem +3\" ao usar Avanço, ou +6\" ao usar Corrida/Carga uma vez (na próxima vez que o efeito se aplicar)."
     },
     "DYE7l": {
-      "name": "Explos\u00e3o Mental",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 18\", que sofre 1 acerto com Explos\u00e3o(6)."
+      "name": "Explosão Mental",
+      "effect": "Escolha uma unidade inimiga a até 18\", que sofre 1 acerto com Explosão(6)."
     },
     "gfFOW": {
-      "name": "Explos\u00e3o Cerebral",
-      "effect": "Escolha uma unidade inimiga a at\u00e9 12\" que sofre 1 acerto com PA(4) e Mortal(6)."
+      "name": "Explosão Cerebral",
+      "effect": "Escolha uma unidade inimiga a até 12\" que sofre 1 acerto com PA(4) e Mortal(6)."
     },
     "GKd-x": {
-      "name": "Vis\u00e3o Distante",
-      "effect": "Escolha 2 unidades aliadas a at\u00e9 12\" que recebem +6\" de alcance ao atirar uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Visão Distante",
+      "effect": "Escolha 2 unidades aliadas a até 12\" que recebem +6\" de alcance ao atirar uma vez (na próxima vez que o efeito se aplicar)."
     },
     "ngSRb": {
       "name": "Flutuar",
-      "effect": "Escolha 2 unidades aliadas a at\u00e9 12\" que recebem Voador uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha 2 unidades aliadas a até 12\" que recebem Voador uma vez (na próxima vez que o efeito se aplicar)."
     },
     "Y-VBB": {
       "name": "Queimadura Mental",
-      "effect": "Escolha um modelo inimigo a at\u00e9 30\" que sofre 1 acerto com PA(1)."
+      "effect": "Escolha um modelo inimigo a até 30\" que sofre 1 acerto com PA(1)."
     },
     "4qi6f": {
-      "name": "Animar Esp\u00edrito",
-      "effect": "Escolha at\ufffd? duas unidades aliadas a at\ufffd? 12\", que recebem V\u00ednculo de Colmeia Aprimorado uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "name": "Animar Espírito",
+      "effect": "Escolha até duas unidades aliadas a até 12\", que recebem Vínculo de Colmeia Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
     },
     "5wvl3": {
       "name": "Grito da Colmeia",
-      "effect": "Escolha um modelo inimigo a at\ufffd? 18\" na linha de vis\u00e3o, que sofre 2 acertos com PA(1). Este efeito \ufffd? resolvido como se o alvo fosse uma unidade de [1]."
+      "effect": "Escolha um modelo inimigo a até 18\" na linha de visão, que sofre 2 acertos com PA(1). Este efeito é resolvido como se o alvo fosse uma unidade de [1]."
     },
     "G0b6O": {
-      "name": "Explos\u00e3o Ps\u00edquica",
-      "effect": "Escolha uma unidade inimiga a at\ufffd? 18\" na linha de vis\u00e3o, que sofre 6 acertos com PA(2)."
+      "name": "Explosão Psíquica",
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 6 acertos com PA(2)."
     },
     "K6cik": {
       "name": "Golpe Avassalador",
-      "effect": "Escolha uma unidade inimiga a at\ufffd? 12\" na linha de vis\u00e3o, que sofre 4 acertos com Fragmenta\u00e7\u00e3o."
+      "effect": "Escolha uma unidade inimiga a até 12\" na linha de visão, que sofre 4 acertos com Fragmentação."
     },
     "KRMqK": {
       "name": "Infundir Sede de Sangue",
-      "effect": "Escolha at\ufffd? tr\u00eas unidades inimigas a at\ufffd? 24\" na linha de vis\u00e3o, contra as quais unidades aliadas recebem Lutador Imprevis\u00edvel uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha até três unidades inimigas a até 24\" na linha de visão, contra as quais unidades aliadas recebem Lutador Imprevisível uma vez (na próxima vez que o efeito se aplicar)."
     },
     "wp5FZ": {
       "name": "Buscador de Terror",
-      "effect": "Escolha uma unidade aliada a at\ufffd? 12\", que recebe Lutador de Golpe e Fuga uma vez (na pr\u00f3xima vez que o efeito se aplicar)."
+      "effect": "Escolha uma unidade aliada a até 12\", que recebe Lutador de Golpe e Fuga uma vez (na próxima vez que o efeito se aplicar)."
     }
   },
   "items": {
-    "Army Standard Bearer": "Porta-Estandarte do Ex\u00e9rcito",
+    "Army Standard Bearer": "Porta-Estandarte do Exército",
     "Barrier War-Eel": "Enguia de Barreira",
     "Blaster War-Eel": "Enguia Blaster",
     "Deep-Sea Companion": "Companheiro do Mar Profundo",
     "Deep-Sea Passage": "Passagem do Mar Profundo",
     "Depth Scryer": "Vidente das Profundezas",
     "Divine Navigator": "Navegador Divino",
-    "Electric Barrier": "Barreira El\u00e9trica",
-    "Electric Blasts": "Explos\u00f5es El\u00e9tricas",
-    "Elf Thrall Rider": "Montaria de Escravo \u00c9lfico",
+    "Electric Barrier": "Barreira Elétrica",
+    "Electric Blasts": "Explosões Elétricas",
+    "Elf Thrall Rider": "Montaria de Escravo Élfico",
     "Great Beast": "Grande Besta",
     "Head Reaver": "Saqueador Chefe",
     "High Monarch": "Alto Monarca",
     "Light Bringer": "Portador da Luz",
     "Mage Apprentice": "Aprendiz de Mago",
-    "Master Tidemage": "Mago das Mar\u00e9s Mestre",
-    "Sea Guardian": "Guardi\u00e3o do Mar",
+    "Master Tidemage": "Mago das Marés Mestre",
+    "Sea Guardian": "Guardião do Mar",
     "Sea-Wyrm": "Verme do Mar",
     "Soul Collector": "Coletor de Almas",
-    "Tidemage": "Mago das Mar\u00e9s",
-    "Advanced Jet Thrusters": "Propulsores a Jato Avan\u00e7ados",
+    "Tidemage": "Mago das Marés",
+    "Advanced Jet Thrusters": "Propulsores a Jato Avançados",
     "Bot Fabricator": "Fabricador de Bots",
-    "Cargo Space": "Espa\u00e7o de Carga",
+    "Cargo Space": "Espaço de Carga",
     "Chronomancer": "Cronomante",
     "Combat Shield": "Escudo de Combate",
     "Controller": "Controlador",
-    "Cyber-Palps": "Palpos Cibern\u00e9ticos",
+    "Cyber-Palps": "Palpos Cibernéticos",
     "Elite Vanguard": "Vanguarda de Elite",
     "Extra Armor": "Armadura Extra",
     "Great Wraith": "Grande Espectro",
     "Jetpack": "Mochila a Jato",
-    "Machine-Horror": "Terror Mec\u00e2nico",
-    "Mission Critical - Leader": "Cr\u00edtico para a Miss\u00e3o - L\u00edder",
+    "Machine-Horror": "Terror Mecânico",
+    "Mission Critical - Leader": "Crítico para a Missão - Líder",
     "Networked Target Lock": "Trava de Alvo em Rede",
-    "Optimized Optics - Leader": "\u00d3pticas Otimizadas - L\u00edder",
+    "Optimized Optics - Leader": "Ópticas Otimizadas - Líder",
     "Overseer": "Supervisor",
     "Overseer Pilot": "Piloto Supervisor",
-    "Pet Technoaide": "Ajudante T\u00e9cnico de Estima\u00e7\u00e3o",
-    "Phase Core": "N\u00facleo de Fase",
+    "Pet Technoaide": "Ajudante Técnico de Estimação",
+    "Phase Core": "Núcleo de Fase",
     "Plasmabot": "Bot de Plasma",
     "Psychomancer": "Psicomante",
     "Re-Animator": "Re-Animador",
@@ -2275,85 +2275,85 @@
     "Technoward": "Tecnoguarda",
     "Teleport Jetpack": "Mochila a Jato de Teleporte",
     "Thruster Bike": "Moto com Propulsor",
-    "Tripod Queen": "Rainha Tr\u00edpode",
+    "Tripod Queen": "Rainha Trípode",
     "Voidspace Reapers": "Ceifadores do Vazio",
-    "Warden": "Guardi\u00e3o",
+    "Warden": "Guardião",
     "Warp Gate": "Portal do Warp",
-    "Widowmaker": "Fazedor de Vi\u00favas",
-    "Wraith-Shard Vault": "Cofre de Estilha\u00e7o Espectral",
-    "Ballistic Vest": "Colete Bal\u00edstico",
+    "Widowmaker": "Fazedor de Viúvas",
+    "Wraith-Shard Vault": "Cofre de Estilhaço Espectral",
+    "Ballistic Vest": "Colete Balístico",
     "Camo Gear": "Equipamento de Camuflagem",
     "Combat Bike": "Moto de Combate",
     "Commander": "Comandante",
     "Company Standard": "Estandarte da Companhia",
     "Drill Sergeant": "Sargento Instrutor",
     "Enforcer": "Executor",
-    "Field Radio": "R\u00e1dio de Campo",
-    "Forward Observer": "Observador Avan\u00e7ado",
+    "Field Radio": "Rádio de Campo",
+    "Forward Observer": "Observador Avançado",
     "General": "General",
-    "Intimidating Presence": "Presen\u00e7a Intimidadora",
-    "Medical Training": "Treinamento M\u00e9dico",
+    "Intimidating Presence": "Presença Intimidadora",
+    "Medical Training": "Treinamento Médico",
     "Munitioner": "Municionador",
     "Orbital Drop": "Queda Orbital",
     "Psy-Hacker": "Psico-Hacker",
     "Recon Training": "Treinamento de Reconhecimento",
     "Shock Charge": "Carga de Choque",
-    "Sniper Leader": "L\u00edder Atirador",
-    "Wolf-Dog Companion": "Companheiro C\u00e3o-Lobo",
-    "AP Ammo": "Muni\u00e7\u00e3o PA",
+    "Sniper Leader": "Líder Atirador",
+    "Wolf-Dog Companion": "Companheiro Cão-Lobo",
+    "AP Ammo": "Munição PA",
     "Armored": "Blindado",
-    "Azimuth Shift!": "Mudan\u00e7a de Azimute!",
+    "Azimuth Shift!": "Mudança de Azimute!",
     "Break Ranks!": "Quebrar Fileiras!",
-    "Calculated Ballistics": "Bal\u00edstica Calculada",
-    "Defense Smoke": "Fuma\u00e7a de Defesa",
-    "Dynamic Cover Stance": "Postura de Cobertura Din\u00e2mica",
-    "Explosive Ammo": "Muni\u00e7\u00e3o Explosiva",
+    "Calculated Ballistics": "Balística Calculada",
+    "Defense Smoke": "Fumaça de Defesa",
+    "Dynamic Cover Stance": "Postura de Cobertura Dinâmica",
+    "Explosive Ammo": "Munição Explosiva",
     "Fire Control System": "Sistema de Controle de Tiro",
-    "Frontline Tech Support": "Suporte T\u00e9cnico de Linha de Frente",
-    "HE Ammo": "Muni\u00e7\u00e3o de Alto Explosivo",
+    "Frontline Tech Support": "Suporte Técnico de Linha de Frente",
+    "HE Ammo": "Munição de Alto Explosivo",
     "Lead Tempest": "Tempestade de Chumbo",
-    "Medikit": "Kit M\u00e9dico",
+    "Medikit": "Kit Médico",
     "Overwhelming Caliber": "Calibre Avassalador",
-    "Quake Ammo": "Muni\u00e7\u00e3o S\u00edsmica",
+    "Quake Ammo": "Munição Sísmica",
     "Scanner": "Scanner",
-    "Shrapnel Claws": "Garras de Estilha\u00e7os",
-    "Toxic Ammo": "Muni\u00e7\u00e3o T\u00f3xica",
-    "Unstoppable Gunner": "Artilheiro Impar\u00e1vel",
+    "Shrapnel Claws": "Garras de Estilhaços",
+    "Toxic Ammo": "Munição Tóxica",
+    "Unstoppable Gunner": "Artilheiro Imparável",
     "Assault Beast": "Besta de Assalto",
     "Brutal Charge": "Carga Brutal",
     "Carrier Platform": "Plataforma de Transporte",
-    "Charged Ammo": "Muni\u00e7\u00e3o Carregada",
-    "Dazzle Cloak - Leader": "Manto Ofuscante - L\u00edder",
+    "Charged Ammo": "Munição Carregada",
+    "Dazzle Cloak - Leader": "Manto Ofuscante - Líder",
     "Death From Above": "Morte Vinda de Cima",
     "Fearsome Roar": "Rugido Aterrorizante",
     "Gunner Beast": "Besta Artilheira",
-    "Hunt Master": "Mestre Ca\u00e7ador",
-    "Hunter Breed": "Ra\u00e7a Ca\u00e7adora",
-    "Hunter's Mark": "Marca do Ca\u00e7ador",
-    "Hunting Hound": "C\u00e3o de Ca\u00e7a",
+    "Hunt Master": "Mestre Caçador",
+    "Hunter Breed": "Raça Caçadora",
+    "Hunter's Mark": "Marca do Caçador",
+    "Hunting Hound": "Cão de Caça",
     "Merchant": "Mercador",
     "Pathfinder": "Batedor (Pathfinder)",
     "Raider Jetpack": "Mochila a Jato de Saqueador",
-    "Satellite Backpack": "Mochila Sat\u00e9lite",
-    "Shaman": "Xam\u00e3",
-    "Sky Raider": "Saqueador dos C\u00e9us",
+    "Satellite Backpack": "Mochila Satélite",
+    "Shaman": "Xamã",
+    "Sky Raider": "Saqueador dos Céus",
     "Vengeful Warheads": "Ogivas Vingativas",
     "Vulture Nades": "Granadas Abutre",
     "Warlord": "Senhor da Guerra",
     "Wasteland Survivor": "Sobrevivente do Ermo",
     "Apprentice Sorcerer": "Aprendiz de Feiticeiro",
-    "Black Pegasus": "P\u00e9gaso Negro",
+    "Black Pegasus": "Pégaso Negro",
     "Boarding Attack": "Ataque de Abordagem",
     "Boarding Expert": "Especialista em Abordagem",
     "Dark Horse": "Cavalo Sombrio",
     "Dark Tyrant": "Tirano Sombrio",
     "Fleet Master": "Mestre da Frota",
-    "Freebooter Captain": "Capit\u00e3o Cors\u00e1rio",
+    "Freebooter Captain": "Capitão Corsário",
     "Horse": "Cavalo",
     "Looting Frenzy": "Frenesi de Saque",
-    "Master Corsair": "Cors\u00e1rio Mestre",
+    "Master Corsair": "Corsário Mestre",
     "Master Sorcerer": "Feiticeiro Mestre",
-    "Medusa Mask": "M\u00e1scara de Medusa",
+    "Medusa Mask": "Máscara de Medusa",
     "Quartermaster": "Intendente",
     "Raptor": "Raptor",
     "Shade Assassin": "Assassino Sombrio",
@@ -2363,23 +2363,23 @@
     "Witch Master": "Mestre Bruxo",
     "Hive Colossus Mount": "Montaria de Colosso da Colmeia",
     "Adrenaline Fueled": "Abastecido de Adrenalina",
-    "Bio-Smoke Pustules": "P\u00fastulas de Fuma\u00e7a Biol\u00f3gica",
-    "Bio-Tech Master": "Mestre Bio-Tecnol\u00f3gico",
-    "Brood Leader": "L\u00edder da Ninhada",
+    "Bio-Smoke Pustules": "Pústulas de Fumaça Biológica",
+    "Bio-Tech Master": "Mestre Bio-Tecnológico",
+    "Brood Leader": "Líder da Ninhada",
     "Combat Bio-Engineer": "Bio-Engenheiro de Combate",
-    "Combat Mutations": "Muta\u00e7\u00f5es de Combate",
+    "Combat Mutations": "Mutações de Combate",
     "Hive Protector": "Protetor da Colmeia",
     "Mind Snatcher": "Saqueador de Mentes",
-    "Molded by War - Leader": "Moldado pela Guerra - L\u00edder",
-    "Pheromone Host": "Hospedeiro de Ferom\u00f4nios",
-    "Psy-Brain": "C\u00e9rebro Ps\u00edquico",
-    "Psychic Synapses": "Sinapses Ps\u00edquicas",
+    "Molded by War - Leader": "Moldado pela Guerra - Líder",
+    "Pheromone Host": "Hospedeiro de Feromônios",
+    "Psy-Brain": "Cérebro Psíquico",
+    "Psychic Synapses": "Sinapses Psíquicas",
     "Raid Wings": "Asas de Raide",
     "Raider Wings": "Asas de Saqueador",
-    "Shrouding Mist": "N\u00e9voa Encobridora",
-    "Synaptic Relay": "Rel\u00e9 Sin\u00e1ptico",
+    "Shrouding Mist": "Névoa Encobridora",
+    "Synaptic Relay": "Relé Sináptico",
     "Wings": "Asas",
-    "Kh\u012bkh\u012b the Spore": "Kh\u012bkh\u012b, o Esporo",
-    "Kh\u2500\u00bdkh\u2500\u00bd the Spore": "Kh\u012bkh\u012b, o Esporo"
+    "Khīkhī the Spore": "Khīkhī, o Esporo",
+    "Kh─½kh─½ the Spore": "Khīkhī, o Esporo"
   }
 }

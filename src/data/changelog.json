@@ -12,7 +12,10 @@
       "Terms follow the community Brazilian Portuguese translation of the OPR rules; descriptions stay faithful to the original wording.",
       "Added a translation memory file (`src/i18n/content.pt-BR.json`) plus a collector script (`scripts/collect-content.mjs`) so new rules from other army books can be translated and reviewed the same way.",
       "**Translation dictionary expanded:** harvested 8 more army books (Robot Legions, Chaos Dwarfs, Dark Elves, Deep-Sea Elves, Human Defense Force, Depth One Reavers, Jackals, Human Defense Force 200pts). The dictionary now covers **178 special rules, 447 weapons, 42 spells and 154 upgrade items**, all translated to pt-BR.",
-      "Fixed an encoding issue that caused accented characters to display incorrectly; the dictionary file is now stored as ASCII-escaped JSON for safety."
+      "Fixed an encoding issue that caused accented characters to display incorrectly; the dictionary file is now stored as ASCII-escaped JSON for safety.",
+      "**Site renamed to 'OPR Card Generator - Redesign'** (title, meta tags and topbar).",
+      "**Print/PDF filename customized:** when printing, the file is now named with the game system abbreviation + army name (e.g. **GF - Space Marines Combat Patrol**) instead of the generic page title.",
+      "**Fixed broken accents in pt-BR translations:** 43 entries with replacement characters (`?gil` instead of `Ágil`) were restored from clean sources; the dictionary is now stored as UTF-8 so accented characters display correctly."
     ]
   },
   {
