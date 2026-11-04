@@ -2,6 +2,9 @@
   {
     "date": "November 4, 2026",
     "items": [
+      "**Removed 'Download All' button:** cards are now downloaded individually via the PNG button on each card.",
+      "**Full pt-BR translation for Home / FAQ / Changelog / About:** all page texts (FAQ Q&A, About, changelog intro) now translate when the language is set to Português (BR).",
+      "**Fixed a bug where the home help callout showed 'undefined':** the FAQ callout key was missing from the dictionary.",
       "**Light theme is now the default** for first-time visitors. Dark mode is still available from the ☾/☀ button and your choice is remembered on your device.",
       "**New look:** cleaner horizontal navigation, a welcome section on the Home screen, better organized controls and option pills.",
       "In **dark mode**, generated cards now use a dark paper background with light text, matching the rest of the interface — no more bright white cards on a dark page. **Printing is unchanged** and always uses white paper.",

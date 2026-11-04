@@ -95,6 +95,74 @@ const en = {
   'img.recenter': 'Recenter',
   'img.recenterTitle': 'Reset zoom and position',
   'img.remove': 'Remove image',
+
+  'faq.title': 'FAQ — How to use OPR Card Generator - Redesign',
+  'faq.callout':
+    '<strong>Read this first:</strong> your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. A list that was never shared cannot be read and will fail to load.',
+  'faq.lead': 'Read this first:',
+  'faq.leadSuffix':
+    ' your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. A list that was never shared cannot be read and will fail to load.',
+  'faq.generateQ': 'How do I generate cards?',
+  'faq.generateA':
+    'In Army Forge, open your army and click <strong>“Share as Link”</strong>. Copy the link it gives you, paste it into the box on the Home page (the bare list ID also works), and click <strong>Generate Cards</strong>. If you’ve loaded that list before, it opens instantly from your saved copy — no download needed.',
+  'faq.outdatedQ': 'My cards look out of date — how do I update them?',
+  'faq.outdatedA':
+    'Cards open from your saved copy for speed, so changes you made in Army Forge afterwards won’t show until you re-download the list. Click <strong>Refresh List</strong> on the Home page (or <strong>Refresh</strong> in <strong>My Lists</strong>) to pull the latest version from Army Forge and update your saved copy.',
+  'faq.wontLoadQ': 'Why won’t my list load?',
+  'faq.wontLoadA':
+    'By far the most common reason is that the list was never shared. Go back to Army Forge and click <strong>“Share as Link”</strong> — without it, the list is private and can’t be read. Also double-check that you copied the whole link (or the correct list ID).',
+  'faq.bgQ': 'How do I add a background image to a card?',
+  'faq.bgA':
+    'Click a card to pick an image (up to <strong>2 MB</strong>). Once it has one, <strong>drag</strong> (or use the <strong>Horizontal</strong> / <strong>Vertical</strong> sliders) to reposition, <strong>scroll</strong> (or use the Zoom slider) to zoom, and use the Opacity slider to fade it. <strong>Recenter</strong> resets the framing, and the <strong>✕</strong> removes the image.',
+  'faq.savedQ': 'Are my background images saved?',
+  'faq.savedA':
+    'Yes. Each image — with its zoom, position and opacity — is stored on your device for that unit, so it’s still there when you reload. When you <strong>Refresh List</strong> the image stays as long as the unit is still in the list; if a unit is removed (or you delete the list), its image is cleaned up automatically. Removing an image with the <strong>✕</strong> deletes it too. Images are kept on your device only — they aren’t uploaded anywhere.',
+  'faq.combineQ': 'What does "Combine similar units" do?',
+  'faq.combineA':
+    'With this option on, identical units are merged into one card prefixed with their count — three of the same unit show as <strong>3x</strong> on a single card instead of three copies, with the model count shown as <strong>[5]</strong> after the name. This works for any unit regardless of model count, and up to three identical units share a card (a fourth starts a new one). Combining is purely cosmetic to save paper — points and loadout stay at the single-unit values. It’s off by default, so every unit shows on its own card unless you turn it on.',
+  'faq.customQ': 'What does "Use custom unit names" do?',
+  'faq.customA':
+    'With this option on, a unit you’ve renamed in Army Forge shows that custom name (e.g. <strong>Frodo</strong>) as the card title, and the original book name moves to the subtitle. It’s on by default; turn it off to show the default book name as the title.',
+  'faq.printQ': 'How do I print?',
+  'faq.printA':
+    'Click <strong>Print</strong>. Use the checkboxes above the cards to choose what goes on the page: the cards, the special rules table, and the spells table.',
+  'faq.downloadQ': 'How do I download the cards?',
+  'faq.downloadA': 'Each card has a <strong>PNG</strong> button to download it on its own.',
+  'faq.listsQ': 'What is "My Lists"?',
+  'faq.listsA':
+    'Every list you generate is saved automatically on your device. From <strong>My Lists</strong> you can <strong>Load</strong> one instantly from your saved copy, <strong>Refresh</strong> it to pull the latest version from Army Forge (this only happens when you click it), or <strong>Delete</strong> it. Loading a list also restores the options you had set for it (such as <strong>Combine similar units</strong>).',
+
+  'changelog.title': 'Changelog',
+  'changelog.intro': 'What’s new in OPR Card Generator - Redesign. Newest changes first.',
+
+  'about.title': 'About',
+  'about.lead':
+    'A small web app that turns a shared <a href="https://army-forge.onepagerules.com" target="_blank" rel="noopener">Army Forge</a> list into printable unit cards for <a href="https://onepagerules.com" target="_blank" rel="noopener">OnePageRules</a> games.',
+  'about.text1':
+    'Paste a shared army link, get one card per unit (stats, special rules, weapons), plus a combined special-rules table and a spells table — ready to print or download as PNGs.',
+  'about.note':
+    '<strong>Note:</strong> a list only loads if you shared it in Army Forge — open your army and click <strong>“Share as Link”</strong> first. Private (unshared) lists cannot be read.',
+  'about.features': 'Features',
+  'about.featureCards': 'One printable card per unit: Quality / Defense / Tough, special rules, weapons, notes.',
+  'about.featureTables':
+    'Combined <strong>special-rules table</strong> (including core/common rule descriptions) and a <strong>spells table</strong> for casters.',
+  'about.featureBg':
+    'Per-card <strong>background image</strong> (up to 2 MB) with drag- or slider-based positioning, scroll/slider zoom, opacity and recenter — saved on your device per unit and kept across refreshes.',
+  'about.featurePrint':
+    '<strong>Print</strong> layout (choose cards / rules / spells) and <strong>PNG</strong> download (single or all).',
+  'about.featureLists':
+    '<strong>My Lists</strong> — every generated list is saved locally on your device so you can reload it instantly, refresh it on demand, or delete it.',
+  'about.featureCache':
+    '<strong>Cache-first loading</strong> — Generate Cards opens a previously loaded list instantly from your saved copy (works offline); use <strong>Refresh List</strong> to pull the latest version from Army Forge.',
+  'about.featurePages': '<strong>FAQ</strong>, <strong>Changelog</strong>, and <strong>About</strong> pages.',
+  'about.disclaimer': 'Disclaimer',
+  'about.disclaimer1':
+    'This is a <strong>free, non-profit project made by a fan, for fans</strong>. It is not affiliated with, endorsed by, or sponsored by OnePageRules.',
+  'about.disclaimer2':
+    'OnePageRules and all of its game systems, rules, and content (Grimdark Future, Age of Fantasy, and others) are the property of <strong>OnePageRules</strong>. This tool only helps players display their own army lists, and is offered free of charge for non-commercial community use.',
+  'about.license': 'License',
+  'about.licenseText':
+    'Licensed under the <strong>PolyForm Noncommercial License 1.0.0</strong> — free to use, copy, modify, and share for any noncommercial purpose. Commercial use, including monetizing the project in any form, is not permitted.',
 };
 
 export type Key = keyof typeof en;
@@ -195,6 +263,74 @@ const ptBR: Record<Key, string> = {
   'img.recenter': 'Centralizar',
   'img.recenterTitle': 'Redefinir zoom e posição',
   'img.remove': 'Remover imagem',
+
+  'faq.title': 'FAQ — Como usar o OPR Card Generator - Redesign',
+  'faq.callout':
+    '<strong>Leia isso primeiro:</strong> sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
+  'faq.lead': 'Leia isso primeiro:',
+  'faq.leadSuffix':
+    ' sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
+  'faq.generateQ': 'Como gero as cartas?',
+  'faq.generateA':
+    'No Army Forge, abra seu exército e clique em <strong>“Share as Link”</strong>. Copie o link, cole na caixa da página inicial (o ID bruto da lista também funciona) e clique em <strong>Gerar cartas</strong>. Se você já carregou essa lista antes, ela abre na hora a partir da sua cópia salva — sem precisar baixar de novo.',
+  'faq.outdatedQ': 'Minhas cartas estão desatualizadas — como atualizo?',
+  'faq.outdatedA':
+    'As cartas abrem da sua cópia salva por rapidez, então mudanças que você fez no Army Forge depois não aparecem até rebaixar a lista. Clique em <strong>Atualizar lista</strong> na página inicial (ou <strong>Atualizar</strong> em <strong>Minhas listas</strong>) para buscar a versão mais recente no Army Forge e atualizar sua cópia salva.',
+  'faq.wontLoadQ': 'Por que minha lista não carrega?',
+  'faq.wontLoadA':
+    'De longe, o motivo mais comum é que a lista nunca foi compartilhada. Volte ao Army Forge e clique em <strong>“Share as Link”</strong> — sem isso, a lista é privada e não pode ser lida. Confira também se você copiou o link inteiro (ou o ID correto da lista).',
+  'faq.bgQ': 'Como adiciono uma imagem de fundo a uma carta?',
+  'faq.bgA':
+    'Clique numa carta para escolher uma imagem (até <strong>2 MB</strong>). Depois que ela tem uma, <strong>arraste</strong> (ou use os controles <strong>Horizontal</strong> / <strong>Vertical</strong>) para reposicionar, <strong>role</strong> (ou use o controle de Zoom) para ampliar, e use o controle de Opacidade para esmaecer. <strong>Centralizar</strong> reseta o enquadramento e o <strong>✕</strong> remove a imagem.',
+  'faq.savedQ': 'Minhas imagens de fundo são salvas?',
+  'faq.savedA':
+    'Sim. Cada imagem — com zoom, posição e opacidade — fica guardada no seu dispositivo para aquela unidade, então continua lá quando você recarrega. Ao <strong>Atualizar lista</strong>, a imagem permanece enquanto a unidade ainda estiver na lista; se uma unidade for removida (ou você excluir a lista), a imagem é limpa automaticamente. Remover uma imagem com o <strong>✕</strong> também a exclui. As imagens ficam só no seu dispositivo — não são enviadas para nenhum lugar.',
+  'faq.combineQ': 'O que faz "Combinar unidades iguais"?',
+  'faq.combineA':
+    'Com esta opção ligada, unidades idênticas são juntadas numa única carta com o número prefixado — três unidades iguais aparecem como <strong>3x</strong> numa carta só em vez de três cópias, com a quantidade de modelos como <strong>[5]</strong> depois do nome. Funciona para qualquer unidade, independentemente da quantidade de modelos, e até três unidades idênticas dividem uma carta (a quarta começa uma nova). Combinar é só cosmético para economizar papel — pontos e equipamento ficam nos valores de uma unidade só. Vem desligado por padrão, então cada unidade aparece na sua própria carta a menos que você ligue.',
+  'faq.customQ': 'O que faz "Usar nomes personalizados das unidades"?',
+  'faq.customA':
+    'Com esta opção ligada, uma unidade que você renomeou no Army Forge mostra esse nome personalizado (ex.: <strong>Frodo</strong>) como título da carta, e o nome original do livro vai para o subtítulo. Vem ligado por padrão; desligue para mostrar o nome padrão do livro como título.',
+  'faq.printQ': 'Como imprimo?',
+  'faq.printA':
+    'Clique em <strong>Imprimir</strong>. Use as caixas de seleção acima das cartas para escolher o que vai na página: as cartas, a tabela de regras especiais e a tabela de magias.',
+  'faq.downloadQ': 'Como baixo as cartas?',
+  'faq.downloadA': 'Cada carta tem um botão <strong>PNG</strong> para baixá-la individualmente.',
+  'faq.listsQ': 'O que é "Minhas listas"?',
+  'faq.listsA':
+    'Toda lista que você gera é salva automaticamente no seu dispositivo. Em <strong>Minhas listas</strong> você pode <strong>Carregar</strong> uma na hora a partir da sua cópia salva, <strong>Atualizar</strong> para buscar a versão mais recente no Army Forge (só acontece quando você clica), ou <strong>Excluir</strong>. Carregar uma lista também restaura as opções que você tinha definido para ela (como <strong>Combinar unidades iguais</strong>).',
+
+  'changelog.title': 'Novidades',
+  'changelog.intro': 'Novidades no OPR Card Generator - Redesign. Mais recentes primeiro.',
+
+  'about.title': 'Sobre',
+  'about.lead':
+    'Um pequeno app web que transforma uma lista compartilhada do <a href="https://army-forge.onepagerules.com" target="_blank" rel="noopener">Army Forge</a> em cartas de unidade imprimíveis para jogos <a href="https://onepagerules.com" target="_blank" rel="noopener">OnePageRules</a>.',
+  'about.text1':
+    'Cole um link de exército compartilhado, receba uma carta por unidade (atributos, regras especiais, armas), além de uma tabela combinada de regras especiais e uma tabela de magias — prontos para imprimir ou baixar como PNGs.',
+  'about.note':
+    '<strong>Nota:</strong> uma lista só carrega se você compartilhou no Army Forge — abra seu exército e clique em <strong>“Share as Link”</strong> primeiro. Listas privadas (não compartilhadas) não podem ser lidas.',
+  'about.features': 'Recursos',
+  'about.featureCards': 'Uma carta imprimível por unidade: Qualidade / Defesa / Resistência, regras especiais, armas, notas.',
+  'about.featureTables':
+    'Tabela combinada de <strong>regras especiais</strong> (incluindo descrições de regras centrais/comuns) e uma <strong>tabela de magias</strong> para conjuradores.',
+  'about.featureBg':
+    'Imagem de <strong>fundo por carta</strong> (até 2 MB) com posicionamento por arrasto ou controles deslizantes, zoom por rolagem/controle, opacidade e centralização — salva no seu dispositivo por unidade e mantida entre atualizações.',
+  'about.featurePrint':
+    'Layout de <strong>impressão</strong> (escolha cartas / regras / magias) e download em <strong>PNG</strong> (individual).',
+  'about.featureLists':
+    '<strong>Minhas listas</strong> — toda lista gerada é salva localmente no seu dispositivo para você recarregar na hora, atualizar quando quiser ou excluir.',
+  'about.featureCache':
+    '<strong>Carregamento com cache primeiro</strong> — Gerar cartas abre uma lista já carregada na hora a partir da sua cópia salva (funciona offline); use <strong>Atualizar lista</strong> para buscar a versão mais recente no Army Forge.',
+  'about.featurePages': 'Páginas de <strong>FAQ</strong>, <strong>Novidades</strong> e <strong>Sobre</strong>.',
+  'about.disclaimer': 'Aviso',
+  'about.disclaimer1':
+    'Este é um <strong>projeto gratuito e sem fins lucrativos, feito por um fã, para fãs</strong>. Não é afiliado, endossado ou patrocinado pelo OnePageRules.',
+  'about.disclaimer2':
+    'OnePageRules e todos os seus sistemas de jogo, regras e conteúdo (Grimdark Future, Age of Fantasy e outros) são propriedade do <strong>OnePageRules</strong>. Esta ferramenta só ajuda jogadores a exibir suas próprias listas de exército e é oferecida gratuitamente para uso comunitário não comercial.',
+  'about.license': 'Licença',
+  'about.licenseText':
+    'Licenciado sob a <strong>PolyForm Noncommercial License 1.0.0</strong> — livre para usar, copiar, modificar e compartilhar para qualquer finalidade não comercial. Uso comercial, incluindo monetizar o projeto de qualquer forma, não é permitido.',
 };
 
 const dictionaries: Record<Lang, Record<Key, string>> = { en, 'pt-BR': ptBR };
@@ -244,6 +380,9 @@ export function tn(base: 'activation', count: number): string {
 export function applyTranslations(root: ParentNode = document): void {
   root.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     el.textContent = t(el.dataset.i18n as Key);
+  });
+  root.querySelectorAll<HTMLElement>('[data-i18n-html]').forEach((el) => {
+    el.innerHTML = t(el.dataset.i18nHtml as Key);
   });
   root.querySelectorAll<HTMLElement>('[data-i18n-title]').forEach((el) => {
     el.title = t(el.dataset.i18nTitle as Key);
