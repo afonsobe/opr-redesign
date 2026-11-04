@@ -407,24 +407,17 @@ export function createAvatarSizeControl(): HTMLDivElement {
   const options = document.createElement('div');
   options.className = 'avatar-size-options';
 
-  for (let level = MIN_AVATAR_LEVEL; level <= MAX_AVATAR_LEVEL; level++) {
+    for (let level = MIN_AVATAR_LEVEL; level <= MAX_AVATAR_LEVEL; level++) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'avatar-size-btn';
+    if (level === DEFAULT_AVATAR_LEVEL) button.classList.add('is-default');
     button.dataset.level = level.toString();
     button.textContent = level.toString();
     button.title = `${diameterFor(level)} px`;
     button.addEventListener('click', () => setAvatarLevel(level));
     avatarSizeButtons.push(button);
     options.appendChild(button);
-
-    if (level === DEFAULT_AVATAR_LEVEL) {
-      const note = document.createElement('span');
-      note.className = 'avatar-size-default';
-            note.dataset.i18n = 'avatar.default';
-      note.textContent = t('avatar.default');
-      options.appendChild(note);
-    }
   }
 
   bar.append(label, options);

@@ -24,6 +24,7 @@ import { renderChangelog } from './src/views/changelog';
 import { renderListsView, type ListsViewCallbacks } from './src/views/lists';
 import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palettes';
 import { applyTranslations, getLang, setLang, t, type Lang } from './src/i18n';
+import { createThemeToggle } from './src/theme';
 
 const cardsContainerElement = document.getElementById('cards');
 const inputElementElement = document.getElementById('armyLink');
@@ -474,5 +475,7 @@ if (langSelect) {
 }
 applyTranslations();
 refreshPalette();
+document.querySelector('.topbar')?.appendChild(createThemeToggle());
+
 
 initRouter();
