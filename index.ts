@@ -184,7 +184,7 @@ function persistCurrentSettings(): void {
 
 function setDocumentTitle(listName?: string): void {
   const name = listName?.trim();
-  document.title = name ? `${DEFAULT_DOCUMENT_TITLE} - ${name}` : DEFAULT_DOCUMENT_TITLE;
+  document.title = name || DEFAULT_DOCUMENT_TITLE;
 }
 
 function setPrintControlsVisible(visible: boolean): void {
@@ -235,7 +235,7 @@ function displayArmy(army: ArmyList, input: string): void {
   if (unitCount === 0) {
     setMessage(t('msg.noUnits'), 'empty');
   } else {
-    setDocumentTitle(army.name);
+    setDocumentTitle(army.gameSystem ? `${army.gameSystem.toUpperCase()} - ${army.name}` : army.name);
     setPrintControlsVisible(true);
   }
 

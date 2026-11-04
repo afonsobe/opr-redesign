@@ -814,7 +814,7 @@ export async function downloadAllCards(container: HTMLDivElement): Promise<void>
   for (const [index, card] of cards.entries()) {
     const name = sanitizeFilename(card.dataset.unitName ?? `card-${index + 1}`);
     const prefix = String(index + 1).padStart(2, '0');
-    await downloadCardPng(card, `${prefix}-${name}.png`);
+    await downloadCardPng(card, `OPR Card Generator - Redesign - ${prefix}-${name}.png`);
   }
 }
 
@@ -832,7 +832,7 @@ function createDownloadButton(card: HTMLDivElement): HTMLButtonElement {
   button.addEventListener('click', () => {
     const name = sanitizeFilename(card.dataset.unitName ?? 'card');
     button.disabled = true;
-    void downloadCardPng(card, `${name}.png`).finally(() => {
+    void downloadCardPng(card, `OPR Card Generator - Redesign - ${name}.png`).finally(() => {
       button.disabled = false;
     });
   });
