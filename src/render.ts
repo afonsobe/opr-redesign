@@ -808,16 +808,6 @@ async function downloadCardPng(card: HTMLDivElement, filename: string): Promise<
   if (blob) triggerBlobDownload(blob, filename);
 }
 
-/** Download every card currently in the container as sequentially named PNGs. */
-export async function downloadAllCards(container: HTMLDivElement): Promise<void> {
-  const cards = Array.from(container.querySelectorAll<HTMLDivElement>('.card'));
-  for (const [index, card] of cards.entries()) {
-    const name = sanitizeFilename(card.dataset.unitName ?? `card-${index + 1}`);
-    const prefix = String(index + 1).padStart(2, '0');
-    await downloadCardPng(card, `OPR Card Generator - Redesign - ${prefix}-${name}.png`);
-  }
-}
-
 function createDownloadButton(card: HTMLDivElement): HTMLButtonElement {
   const button = document.createElement('button');
   button.type = 'button';

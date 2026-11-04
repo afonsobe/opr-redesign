@@ -11,7 +11,6 @@ import {
 } from './src/db';
 import {
   createAvatarSizeControl,
-  downloadAllCards,
   renderArmySummary,
   renderCards,
   renderSpecialRulesTable,
@@ -30,7 +29,6 @@ const cardsContainerElement = document.getElementById('cards');
 const inputElementElement = document.getElementById('armyLink');
 const generateButton = document.getElementById('btnGenerate') as HTMLButtonElement | null;
 const printButton = document.getElementById('btnPrint');
-const downloadAllButton = document.getElementById('btnDownloadAll') as HTMLButtonElement | null;
 const refreshButton = document.getElementById('btnRefresh') as HTMLButtonElement | null;
 const printOptions = document.querySelector('.print-options') as HTMLElement | null;
 const includeCardsCheckbox = document.getElementById('optCards') as HTMLInputElement | null;
@@ -189,7 +187,6 @@ function setDocumentTitle(listName?: string): void {
 
 function setPrintControlsVisible(visible: boolean): void {
   if (printButton) printButton.style.display = visible ? '' : 'none';
-  if (downloadAllButton) downloadAllButton.style.display = visible ? '' : 'none';
   if (refreshButton) refreshButton.style.display = visible ? '' : 'none';
   if (printOptions) printOptions.style.display = visible ? '' : 'none';
   // The welcome block greets users while no army is on screen and steps aside
@@ -340,13 +337,6 @@ async function refreshArmy(): Promise<void> {
 generateButton?.addEventListener('click', loadArmy);
 refreshButton?.addEventListener('click', () => void refreshArmy());
 printButton?.addEventListener('click', () => window.print());
-downloadAllButton?.addEventListener('click', () => {
-  if (!downloadAllButton) return;
-  downloadAllButton.disabled = true;
-  void downloadAllCards(cardsContainer).finally(() => {
-    downloadAllButton.disabled = false;
-  });
-});
 
 // Sync the print-hiding body classes from the current checkbox states. Driven by
 // the checkboxes' change events and re-run whenever settings are applied

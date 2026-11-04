@@ -19,7 +19,6 @@ const en = {
   'btn.refresh': 'Refresh List',
   'btn.refreshTitle': 'Pull the latest version from Army Forge',
   'btn.print': 'Print',
-  'btn.downloadAll': 'Download All',
 
   'opt.cards': 'Include cards in print',
   'opt.rules': 'Include rules table in print',
@@ -120,7 +119,6 @@ const ptBR: Record<Key, string> = {
   'btn.refresh': 'Atualizar lista',
   'btn.refreshTitle': 'Buscar a versão mais recente no Army Forge',
   'btn.print': 'Imprimir',
-  'btn.downloadAll': 'Baixar tudo',
 
   'opt.cards': 'Incluir cartas na impressão',
   'opt.rules': 'Incluir tabela de regras na impressão',
