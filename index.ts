@@ -478,4 +478,7 @@ refreshPalette();
 document.querySelector('.topbar')?.appendChild(createThemeToggle());
 
 
+
+
+
 initRouter();
