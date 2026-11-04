@@ -1,0 +1,630 @@
+{
+  "rules": {
+    "_mrPya5SXSqW": {
+      "name": "Mortal",
+      "description": "Atribua cada ferimento a um único modelo e multiplique-o por X. Os acertos de Mortal devem ser resolvidos primeiro, e esses ferimentos não passam para outros modelos se o alvo original for morto."
+    },
+    "_T07iXWo4VwJ": {
+      "name": "Aparar",
+      "description": "Quando esta unidade recebe acertos em combate corpo a corpo de inimigos que a carregaram pela frente, role X dados por modelo com esta regra na unidade, até o número de acertos recebidos. Para cada 6+, um acerto é ignorado (o defensor escolhe qual)."
+    },
+    "-QJdqJEKjIpE": {
+      "name": "Voador",
+      "description": "Pode se mover através de unidades e terreno, e ignora os efeitos de terreno Difícil e Perigoso."
+    },
+    "09SoiR1HuW7u": {
+      "name": "Preciso",
+      "description": "Recebe +1 para acertar ao atacar."
+    },
+    "0bcGY4Xr4NE0": {
+      "name": "Firmar",
+      "description": "Inimigos que carregarem esta unidade recebem -X no total de rolagens de Impacto por modelo com esta regra nas duas fileiras da frente, se carregarem pela frente, a menos que esta unidade esteja Fatigada."
+    },
+    "17crjK7P6_w6": {
+      "name": "PA",
+      "description": "Os alvos recebem -X nas rolagens de Defesa ao bloquear acertos."
+    },
+    "1cykqbg4xn6o": {
+      "name": "Aura de Carga Rápida",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo movem +4\" ao usar ações de Carga. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "1elLRhGK7ETb": {
+      "name": "Redução de Precisão",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades inimigas a até 18\" e na linha de visão, que recebem -1 nas rolagens de acerto ao atacar uma vez (na próxima vez que o efeito se aplicar)."
+    },
+    "2atvlmICQSCV": {
+      "name": "Destemido",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra falha em um Teste de Moral, role um dado. Em 4+, ele conta como aprovado."
+    },
+    "3FeiOe3krHMa": {
+      "name": "Aeronave",
+      "description": "Só pode usar ações de Avanço, movendo em linha reta e adicionando 30\" ao seu movimento total (mesmo se Abalada). Aeronaves ignoram todas as unidades e terrenos ao se mover e parar, não podem tomar ou contestar objetivos, não podem ser carregadas, e unidades que as mirarem recebem -12\" de alcance e -1 nas rolagens de acerto."
+    },
+    "3sXTViTVdDhn": {
+      "name": "Aura de Predador",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Predador. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "47CAqf7ySlfc": {
+      "name": "Conjurador",
+      "description": "Recebe X fichas de magia no início de cada rodada, mas não pode ter mais de 6 ao mesmo tempo. Uma vez por ativação, antes de atacar, gaste tantas fichas quanto o valor da magia para tentar conjurar uma ou mais magias (apenas uma tentativa por magia). Escolha um alvo e role um dado; em 4+, resolva o efeito da magia. Modelos a até 18\" do Conjurador podem gastar qualquer quantidade de fichas de magia ao mesmo tempo antes da rolagem para dar +1/-1 ao Conjurador por ficha."
+    },
+    "4Q1owB6yNFz1": {
+      "name": "Amplificador de Magia",
+      "description": "Recebe +1 nas rolagens de conjuração."
+    },
+    "5v6oaGfrdf29": {
+      "name": "Surto",
+      "description": "Para cada resultado não modificado de 6 para acertar, esta arma causa 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+    },
+    "62-mYKVM9MLd": {
+      "name": "Impacto",
+      "description": "Ao carregar, antes que qualquer unidade ataque, os modelos nas duas fileiras da frente rolam X dados, a menos que esta unidade esteja Fatigada. Para cada 2+, o alvo recebe 1 acerto."
+    },
+    "6mJw5IdqSqNC": {
+      "name": "Emboscada",
+      "description": "Pode ser separada antes da implantação. No início de qualquer rodada após a primeira, pode ser implantada em qualquer lugar a mais de 9\" de unidades inimigas. Os jogadores se alternam para posicionar unidades em Emboscada, começando pelo jogador que ativa em seguida. Unidades que entram por Emboscada não podem tomar ou contestar objetivos na rodada em que entram."
+    },
+    "8Ck9GAwUK824": {
+      "name": "Indireto",
+      "description": "Ao usar ações de Manter e atirar, pode mirar inimigos que não estão na linha de visão como se estivessem, e ignora Cobertura de Bloqueadores de Visão."
+    },
+    "8Hjy54TYtwb7": {
+      "name": "Derrubar",
+      "description": "Este modelo pode escolher qualquer modelo da unidade alvo como alvo individual para os ataques desta arma, o que é resolvido como se fosse uma unidade de [1]. Os ataques de Derrubar devem ser resolvidos antes das outras armas."
+    },
+    "8KujvrTG8k9p": {
+      "name": "Regeneração",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Em 5+, ele é ignorado."
+    },
+    "9042COVrLCsI": {
+      "name": "Limitado",
+      "description": "Só pode ser usado uma vez por jogo."
+    },
+    "9jyvRoBODD-O": {
+      "name": "Furtivo",
+      "description": "Quando unidades em que a maioria dos modelos tem esta regra são atingidas por tiros a mais de 9\" de distância, as unidades inimigas recebem -1 nas rolagens de acerto."
+    },
+    "a0YtInGiUDd6": {
+      "name": "Resistência",
+      "description": "Este modelo precisa sofrer X ferimentos antes de ser morto. Se um modelo com Resistência se junta a uma unidade sem ela, ele é removido por último quando a unidade sofre ferimentos. Você deve continuar colocando ferimentos no modelo com Resistência que tiver mais ferimentos na unidade até que ele morra, antes de começar a colocá-los no próximo modelo com Resistência (Heróis devem receber ferimentos por último, mesmo que já estejam feridos)."
+    },
+    "aiYEmCuDPUcM": {
+      "name": "Predador",
+      "description": "Para cada resultado não modificado de 6 para acertar ao atacar, este modelo pode rolar +1 ataque com aquela arma. Esta regra não se aplica a ataques recém-gerados."
+    },
+    "anyZ2FHtdAVO": {
+      "name": "Lutador de Golpe e Fuga",
+      "description": "Uma vez por rodada, este modelo pode se mover até 3\" após participar de combate corpo a corpo."
+    },
+    "aogQZcOOQrDI": {
+      "name": "Transporte",
+      "description": "Pode transportar até X modelos aliados ou Heróis com até Resistência(6), e não-Heróis com até Resistência(3) que ocupam 3 espaços cada. Transportes podem ser implantados com unidades dentro, e unidades podem entrar/sair usando qualquer ação de movimento, chegando a até 2\" para entrar e permanecendo totalmente a até 6\" ao sair. Unidades dentro/fora de transportes não podem mirar outras unidades que estejam fora/dentro, mas podem mirar o próprio transporte. Quando um transporte é destruído, as unidades dentro devem fazer um Teste de Terreno Perigoso, ficam Abaladas e devem ser posicionadas totalmente a até 6\" do transporte antes de ele ser removido."
+    },
+    "BOqSaZoY3ewJ": {
+      "name": "Impreciso",
+      "description": "Recebe -1 para acertar ao atacar."
+    },
+    "c45Fw0D2oGOk": {
+      "name": "Contra-ataque",
+      "description": "Pode atacar primeiro com esta arma quando for carregado, a menos que esta unidade esteja Fatigada."
+    },
+    "cavWDboL4ubs": {
+      "name": "Dilacerante",
+      "description": "Ignora Regeneração e, para cada resultado não modificado de 6 para acertar, esses acertos recebem PA(+4)."
+    },
+    "cgCroTrOmiv-": {
+      "name": "Vínculo de Colmeia",
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de distância."
+    },
+    "CK9TIa7vdehO": {
+      "name": "Aura de Fúria",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Furioso. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "cnKvLv8ErzIc": {
+      "name": "Melhoria de Furtividade",
+      "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades aliadas a até 12\", que recebem Furtivo uma vez (na próxima vez que o efeito se aplicar)."
+    },
+    "CQes0mDvF4bV": {
+      "name": "PA",
+      "description": "PA"
+    },
+    "DEeVIJcfNfS6": {
+      "name": "Lutador Imprevisível",
+      "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: em 1-3 eles recebem PA(+1), e em 4-6 eles recebem +1 nas rolagens de acerto."
+    },
+    "dIQ3SGl2J2Ew": {
+      "name": "Medo",
+      "description": "Ao lutar corpo a corpo com este modelo, os inimigos contam como tendo sofrido +X ferimentos ao verificar quem venceu."
+    },
+    "djJahpu0Ciut": {
+      "name": "Infiltrar",
+      "description": "Conta como tendo Emboscada, mas pode ser implantada em qualquer lugar a mais de 3\" de uma unidade inimiga."
+    },
+    "efmjJPTe0Yzd": {
+      "name": "Anti-Cobertura",
+      "description": "Esta arma ignora Cobertura."
+    },
+    "F_1wfmpAyYwT": {
+      "name": "Autodestruição",
+      "description": "Se este modelo for morto em combate corpo a corpo, a unidade atacante recebe X acertos. Se este modelo sobreviver ao combate, depois que ambos os lados terminarem de atacar, ele é imediatamente morto, e a unidade inimiga recebe X acertos."
+    },
+    "FAMbscK5vhSu": {
+      "name": "Batedor",
+      "description": "Pode ser separado antes da implantação. Depois que todas as outras unidades forem implantadas, pode ser implantado em qualquer lugar totalmente a até 9\" da sua zona de implantação, a mais de 9\" de unidades inimigas que não sejam Batedoras. Os jogadores se alternam para posicionar unidades Batedoras, começando pelo jogador que ativa em seguida."
+    },
+    "FF5ddXgx75lI": {
+      "name": "Assalto",
+      "description": "Conta tanto como arma à distância quanto como arma corpo a corpo."
+    },
+    "GgPKQ4tKFRIC": {
+      "name": "Desajeitado",
+      "description": "Ataca por último ao carregar."
+    },
+    "GRuFoZiyjY5f": {
+      "name": "Artilharia",
+      "description": "Quando este modelo usa ações de Manter e atira em inimigos a mais de 12\" de distância, recebe +1 nas rolagens de acerto. Se a maioria dos modelos nesta unidade tem esta regra, desde que não tenham se movido durante esta rodada, as unidades inimigas que atirarem neles a mais de 12\" recebem -1 nas rolagens de acerto."
+    },
+    "h-Cj1XrX00JE": {
+      "name": "Resistência a Magia",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado em 2+. Se o ferimento não veio de uma magia, ele é ignorado em 6+."
+    },
+    "H9E9PIWpGRdw": {
+      "name": "Implacável",
+      "description": "Quando este modelo atira em inimigos a mais de 9\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+    },
+    "HMiVg3VVLQv3": {
+      "name": "Alvo Perfurante",
+      "description": "Uma vez por jogo, durante a ativação deste modelo, antes de atacar, escolha X unidades inimigas a até 18\" e na linha de visão dele, e coloque uma ficha nelas. Unidades aliadas recebem PA(+1) em suas armas ao atacá-las."
+    },
+    "HWtnPV9LQF1D": {
+      "name": "Imóvel",
+      "description": "Só pode usar ações de Manter."
+    },
+    "IEJp3a4vE0CB": {
+      "name": "Destruir",
+      "description": "Para cada resultado não modificado de 1 para bloquear acertos, esta arma causa 1 ferimento extra."
+    },
+    "JoOCVPx1xT1G": {
+      "name": "Furioso",
+      "description": "Ao carregar, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+    },
+    "JSKVyurtWIyW": {
+      "name": "Andarilho",
+      "description": "Pode ignorar os efeitos de terreno Difícil."
+    },
+    "KdgwlPb8LuD2": {
+      "name": "Rápido",
+      "description": "Move +2\" ao usar Avanço, e +4\" ao usar Corrida/Carga."
+    },
+    "kiXI7plPE_mK": {
+      "name": "Vínculo de Colmeia Aprimorado",
+      "description": "Se a maioria dos modelos desta unidade tem Vínculo de Colmeia, eles sempre recebem +1 nas rolagens de Teste de Moral por Vínculo de Colmeia (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de distância)."
+    },
+    "LbpquFUyGSZ7": {
+      "name": "Valente",
+      "description": "Se a maioria dos modelos desta unidade tem esta regra, eles recebem +1 nas rolagens de Teste de Moral quando atingidos por tiros/carregados a mais de 9\"/6\" de distância."
+    },
+    "Ldhtmr4H8b6G": {
+      "name": "Lento",
+      "description": "Move -2\" ao usar Avanço, e -4\" ao usar Corrida/Carga."
+    },
+    "Naqc5mga9Uha": {
+      "name": "Ruína",
+      "description": "Ignora Regeneração e, ao atacar, o alvo deve rerrolar resultados de Defesa não modificados de 6."
+    },
+    "nLQCr5OiSlYz": {
+      "name": "Grupo de Conjuradores",
+      "description": "Este modelo conta como tendo Conjurador(1)."
+    },
+    "O2Cd7OibBBA5": {
+      "name": "Sem Recuar",
+      "description": "Quando uma unidade em que a maioria dos modelos tem esta regra falha em um Teste de Moral que a deixaria Abalada ou em Rota, o teste conta como aprovado. Em seguida, role tantos dados quanto o número de ferimentos necessários para destruí-la totalmente, e para cada resultado de 1-3 a unidade sofre um ferimento, que não pode ser ignorado."
+    },
+    "qrG_DXJez5Dg": {
+      "name": "Músico",
+      "description": "Este modelo e sua unidade movem +1\" ao usar ações de movimento."
+    },
+    "QWzGAg9RpE2D": {
+      "name": "Aura de Alcance de Tiro Aumentado",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem +6\" de alcance em suas armas ao atirar. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "QXyt-zV_bjpg": {
+      "name": "Imparável",
+      "description": "Esta arma ignora Regeneração e ignora todos os modificadores negativos que não venham das regras especiais deste modelo."
+    },
+    "RHkw66BqDjUp": {
+      "name": "Fragmentação",
+      "description": "Ao atacar unidades em que a maioria dos modelos tem Defesa 5+ a 6+, o alvo deve rerrolar resultados de Defesa não modificados bem-sucedidos de 5-6."
+    },
+    "rqBYj1yANC3J": {
+      "name": "Herói Único",
+      "description": "Conta como tendo Herói, e este modelo só pode ser incluído uma vez por exército."
+    },
+    "s4lagBUlnsUE": {
+      "name": "Crescimento Perfurante",
+      "description": "Coloque uma ficha nesta unidade no início de cada rodada se ela estiver no tabuleiro e não estiver Abalada, até um máximo de quatro fichas. Para cada duas fichas, os modelos com esta regra nesta unidade recebem PA(+1) em suas armas."
+    },
+    "s6MgSfmgylXU": {
+      "name": "Defesa",
+      "description": "Este modelo recebe +X nas rolagens de Defesa."
+    },
+    "T08VkBuVmNZ_": {
+      "name": "Herói",
+      "description": "Unidades a até 6\" de Heróis aliados podem usar a Qualidade do Herói para Testes de Moral, desde que o Herói não esteja Abalado."
+    },
+    "TbjUdR-OJZPw": {
+      "name": "Valente Aprimorado",
+      "description": "Se a maioria dos modelos desta unidade tem Valente, eles sempre recebem +1 nas rolagens de Teste de Moral por Valente (em vez de apenas quando atingidos por tiros/carregados a mais de 9\"/6\" de distância)."
+    },
+    "umbiz4tnEyF8": {
+      "name": "Estocada",
+      "description": "Ao carregar, recebe +1 nas rolagens de acerto e PA(+1) em combate corpo a corpo."
+    },
+    "V3YzPPkZm8at": {
+      "name": "Aura de Regeneração",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Regeneração. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "w_vX0mi58KKt": {
+      "name": "Explosão",
+      "description": "Ignora Cobertura e, após resolver outras regras especiais, cada acerto é multiplicado por X, onde X é até o número de acertos igual ao número de modelos na unidade alvo."
+    },
+    "WNMH1ZiQXSz-": {
+      "name": "Conduto de Magia",
+      "description": "Conjuradores a até 12\" que sejam de outras unidades aliadas podem conjurar magias como se estivessem na posição deste modelo, e recebem +1 nas rolagens de conjuração ao fazer isso. Conjuradores aliados só podem usar esta regra se esta unidade não estiver Abalada."
+    },
+    "Yt2R4sh8SXM0": {
+      "name": "Aura de Vínculo de Colmeia Aprimorado",
+      "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Vínculo de Colmeia Aprimorado. Se este modelo for morto, os modelos escolhidos que estiverem em campo perdem a regra."
+    },
+    "ywXKQKPOLjTF": {
+      "name": "Estandarte",
+      "description": "Este modelo e sua unidade recebem +1 nas rolagens de Teste de Moral provocadas por tiros/combate corpo a corpo."
+    },
+    "Zx4mWN0SbmK8": {
+      "name": "Confiável",
+      "description": "Ataques com Qualidade 2+."
+    }
+  },
+  "weapons": {
+    "_KH0b-Ok": {
+      "name": "Garras Demolidoras"
+    },
+    "_R96qvT0": {
+      "name": "Arma Trituradora"
+    },
+    "--aJH9tY": {
+      "name": "Chicote Tóxico"
+    },
+    "-9C2hX3K": {
+      "name": "Lançador de Ácido"
+    },
+    "-eSDc1OC": {
+      "name": "Garras Cortantes"
+    },
+    "0-VS7Cvs": {
+      "name": "Garras Perfurantes"
+    },
+    "0snoCSrc": {
+      "name": "Garras Tóxicas"
+    },
+    "0UxjbGZn": {
+      "name": "Lâmina Serrilhada Pesada"
+    },
+    "0YDYhEXk": {
+      "name": "Queimador de Bílis"
+    },
+    "1vomCNd2": {
+      "name": "Bio-Morteiro de Plasma"
+    },
+    "2GBnAIUD": {
+      "name": "Punho de Carapaça"
+    },
+    "2LecFTJx": {
+      "name": "Disparadores de Espinhos Duplos"
+    },
+    "3nCS5qqO": {
+      "name": "Pisoteio"
+    },
+    "4eSSnONd": {
+      "name": "Bio-Fusor"
+    },
+    "5FWe9BYQ": {
+      "name": "Bio-Morteiro Rasgador"
+    },
+    "7GScCDgm": {
+      "name": "Cuspidor Biológico"
+    },
+    "7LGG_y6O": {
+      "name": "Arpão Biológico"
+    },
+    "7OJHbTb1": {
+      "name": "Arma Devastadora"
+    },
+    "ancvZ-tL": {
+      "name": "Chicote Tóxico e Lâmina Serrilhada"
+    },
+    "andKR2Op": {
+      "name": "Chicote Tóxico e Lâmina Serrilhada"
+    },
+    "aqRFWpUc": {
+      "name": "Garras Serrilhadas Duplas"
+    },
+    "AtmB7Azo": {
+      "name": "Garras Afiadas"
+    },
+    "aVnlA-7f": {
+      "name": "Garras Cortantes Duplas"
+    },
+    "bfl0NyoJ": {
+      "name": "Garras Ácidas"
+    },
+    "Bij4KPXS": {
+      "name": "Disparador Triturador"
+    },
+    "BolpKyC5": {
+      "name": "Lâmina Serrilhada"
+    },
+    "Byi27DL3": {
+      "name": "Cuspidor de Insetos"
+    },
+    "ci1oltRW": {
+      "name": "Chicote Tóxico"
+    },
+    "cpwZ9DP6": {
+      "name": "Cuspidor Biológico de Rajada"
+    },
+    "DbQFBYM1": {
+      "name": "Bio-Plasma"
+    },
+    "djltM7lq": {
+      "name": "Garras Serrilhadas"
+    },
+    "DkdUHfsZ": {
+      "name": "Garras Perfurantes Duplas"
+    },
+    "doOSAdqo": {
+      "name": "Lâminas Cortantes Duplas"
+    },
+    "dUqG8w6-": {
+      "name": "Lâmina Cortante"
+    },
+    "DXxogNb9": {
+      "name": "Garras Cortantes"
+    },
+    "eR9zyPnj": {
+      "name": "Lâminas Serrilhadas Duplas"
+    },
+    "fBfu7rNh": {
+      "name": "Membros-Chicote Tóxicos"
+    },
+    "FOuoX5BA": {
+      "name": "Golpe"
+    },
+    "FRGVZ5Ma": {
+      "name": "Disparador de Plasma"
+    },
+    "FTAmEjDm": {
+      "name": "Disparador de Fusão"
+    },
+    "g0MxKonq": {
+      "name": "Explosão Psíquica Sináptica"
+    },
+    "GBiXv_Ku": {
+      "name": "Bio-Lança-Chamas"
+    },
+    "gegVeoOl": {
+      "name": "Bio-Devastador"
+    },
+    "H0EbaGwo": {
+      "name": "Garras Invictas"
+    },
+    "HQkfb4VU": {
+      "name": "Bio-Espinhos Duplos"
+    },
+    "HsYhsorp": {
+      "name": "Ferrões Rasgadores"
+    },
+    "HyJeuklz": {
+      "name": "Arma Rasgadora"
+    },
+    "iaRoZvq-": {
+      "name": "Bio-Buscador"
+    },
+    "J-XsGpYw": {
+      "name": "Garras Demolidoras Duplas"
+    },
+    "J3qUvmfz": {
+      "name": "Garras Tóxicas"
+    },
+    "JMIrw2kf": {
+      "name": "Membros-Chicote Tóxicos Pesados"
+    },
+    "kaeTh700": {
+      "name": "Garras Serrilhadas"
+    },
+    "l-o_InnD": {
+      "name": "Lançador de Espetos"
+    },
+    "lQPiczqm": {
+      "name": "Disparador de Chamas"
+    },
+    "Lz9vzlqX": {
+      "name": "Lâmina Cortante"
+    },
+    "m0OIrwhZ": {
+      "name": "Espada de Garra Feroz"
+    },
+    "m71kcl0I": {
+      "name": "Espinho Perfurante"
+    },
+    "MGVYwDkz": {
+      "name": "Jato de Veneno"
+    },
+    "Nbl4sZY0": {
+      "name": "Lançador de Garras-Gancho"
+    },
+    "NeEur0pi": {
+      "name": "Explosão Psíquica Rasgadora"
+    },
+    "NfL6Q05z": {
+      "name": "Adagas Sombrias"
+    },
+    "nKSeLysy": {
+      "name": "Armas de Fumaça Biológica"
+    },
+    "oES6rM2G": {
+      "name": "Surto Psíquico Sináptico"
+    },
+    "pAMElMbS": {
+      "name": "Espinho Perfurante"
+    },
+    "psWN9QDg": {
+      "name": "Chicote Tóxico Pesado"
+    },
+    "Q47Qlon8": {
+      "name": "Garras Afiadas"
+    },
+    "qanUuV85": {
+      "name": "Garras Afiadas Duplas"
+    },
+    "qfwdSxEC": {
+      "name": "Chifres Canalizadores"
+    },
+    "qZmfKdGU": {
+      "name": "Arma Devastadora Pesada"
+    },
+    "RD0ahGID": {
+      "name": "Disparador de Espinhos"
+    },
+    "RpwFDmTT": {
+      "name": "Bio-Triturador"
+    },
+    "rqP6e5EN": {
+      "name": "Membros-Chicote Tóxicos Duplos"
+    },
+    "S652usl0": {
+      "name": "Garras"
+    },
+    "s8AKVNmG": {
+      "name": "Disparador de Espinhos"
+    },
+    "sKm0i9iU": {
+      "name": "Espinho Perfurante Pesado"
+    },
+    "sNRFvqnM": {
+      "name": "Bio-Devastador de Rajada"
+    },
+    "t4-C3wD5": {
+      "name": "Surto Psíquico Rasgador"
+    },
+    "tGOR5LVm": {
+      "name": "Ferrão Perfurante"
+    },
+    "TM9mxJVT": {
+      "name": "Disparador Triturador"
+    },
+    "Tnu0GBnx": {
+      "name": "Explosão Psíquica Neural"
+    },
+    "TYNlc_yY": {
+      "name": "Chicote Tóxico e Lâmina Cortante"
+    },
+    "UctLyaE6": {
+      "name": "Bio-Morteiro Cuspidor de Insetos"
+    },
+    "UPhnCxhe": {
+      "name": "Lâmina Cortante Pesada"
+    },
+    "utp_RyYh": {
+      "name": "Disparador de Plasma"
+    },
+    "v2YAHlyi": {
+      "name": "Porretes Demolidores Duplos"
+    },
+    "VdQw0tnl": {
+      "name": "Bio-Morteiro Triturador"
+    },
+    "VTPC5jNB": {
+      "name": "Garras"
+    },
+    "vvk8RF_9": {
+      "name": "Disparador de Chamas"
+    },
+    "wFX3sB3A": {
+      "name": "Espinhos Perfurantes Duplos"
+    },
+    "wJX5ljLz": {
+      "name": "Porrete Demolidor Pesado"
+    },
+    "WkZsHeqJ": {
+      "name": "Surto Psíquico Neural"
+    },
+    "wZGeb1dR": {
+      "name": "Chicotes Tóxicos Duplos"
+    },
+    "yBTlXjHR": {
+      "name": "Disparador de Fusão"
+    },
+    "YekzfsCo": {
+      "name": "Lâmina Serrilhada"
+    },
+    "yQdRxFe8": {
+      "name": "Garras Neurais"
+    },
+    "YRBO1v-h": {
+      "name": "Bio-Morteiro Devastador"
+    },
+    "zb4-V2wq": {
+      "name": "Chicote Tóxico e Lâmina Cortante"
+    },
+    "ZT6l8FIq": {
+      "name": "Porrete Demolidor"
+    }
+  },
+  "spells": {
+    "4qi6f": {
+      "name": "Animar Espírito",
+      "effect": "Escolha até duas unidades aliadas a até 12\", que recebem Vínculo de Colmeia Aprimorado uma vez (na próxima vez que o efeito se aplicar)."
+    },
+    "5wvl3": {
+      "name": "Grito da Colmeia",
+      "effect": "Escolha um modelo inimigo a até 18\" na linha de visão, que sofre 2 acertos com PA(1). Este efeito é resolvido como se o alvo fosse uma unidade de [1]."
+    },
+    "G0b6O": {
+      "name": "Explosão Psíquica",
+      "effect": "Escolha uma unidade inimiga a até 18\" na linha de visão, que sofre 6 acertos com PA(2)."
+    },
+    "K6cik": {
+      "name": "Golpe Avassalador",
+      "effect": "Escolha uma unidade inimiga a até 12\" na linha de visão, que sofre 4 acertos com Fragmentação."
+    },
+    "KRMqK": {
+      "name": "Infundir Sede de Sangue",
+      "effect": "Escolha até três unidades inimigas a até 24\" na linha de visão, contra as quais unidades aliadas recebem Lutador Imprevisível uma vez (na próxima vez que o efeito se aplicar)."
+    },
+    "wp5FZ": {
+      "name": "Buscador de Terror",
+      "effect": "Escolha uma unidade aliada a até 12\", que recebe Lutador de Golpe e Fuga uma vez (na próxima vez que o efeito se aplicar)."
+    }
+  },
+  "items": {
+    "Adrenaline Fueled": "Abastecido de Adrenalina",
+    "Bio-Smoke Pustules": "Pústulas de Fumaça Biológica",
+    "Bio-Tech Master": "Mestre Bio-Tecnológico",
+    "Brood Leader": "Líder da Ninhada",
+    "Combat Bio-Engineer": "Bio-Engenheiro de Combate",
+    "Combat Mutations": "Mutações de Combate",
+    "Hive Protector": "Protetor da Colmeia",
+    "Mind Snatcher": "Saqueador de Mentes",
+    "Molded by War - Leader": "Moldado pela Guerra - Líder",
+    "Pheromone Host": "Hospedeiro de Feromônios",
+    "Psy-Brain": "Cérebro Psíquico",
+    "Psychic Synapses": "Sinapses Psíquicas",
+    "Raid Wings": "Asas de Raide",
+    "Raider Wings": "Asas de Saqueador",
+    "Shrouding Mist": "Névoa Encobridora",
+    "Synaptic Relay": "Relé Sináptico",
+    "Wings": "Asas",
+    "Khīkhī the Spore": "Khīkhī, o Esporo"
+  }
+}

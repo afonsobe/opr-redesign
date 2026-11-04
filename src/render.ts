@@ -1,5 +1,18 @@
 import html2canvas from 'html2canvas';
 import { t, tn } from './i18n';
+// Tradução do conteúdo vindo do Army Forge (regras, armas e magias). Aplica-se
+// só na hora de desenhar: os dados em `army` continuam em inglês para as
+// comparações internas (Tough, AP, ligação de regras citadas etc.).
+import {
+  trItemName,
+  trRuleDescription,
+  trRuleGainName,
+  trRuleLabel,
+  trRuleName,
+  trSpellEffect,
+  trSpellName,
+  trWeaponName,
+} from './i18n/content';
 
 import { deleteCardImage, getCardImage, saveCardImage } from './db';
 import type {
@@ -73,15 +86,19 @@ function getWeaponSpecialRules(weapon: Weapon): WeaponSpecialRule[] {
 // the item name plus the rules it grants (its `content`), e.g. a Combat Shield
 // with no label becomes "Combat Shield (Shielded)" — matching items that ship a
 // label. Falls back to the bare name when there are no granted rules to show.
+//
+// Quando há regras concedidas, reconstrói o rótulo traduzindo-as (a regra
+// aparece em português, sem o termo original, pois isso é só para as tabelas).
 function getUpgradeLabel(upgrade: Weapon): string {
-  if (upgrade.label?.trim()) return upgrade.label;
-
   const name = upgrade.name?.trim() ?? '';
+  const translatedName = trItemName(name) || name;
   const granted = (Array.isArray(upgrade.content) ? upgrade.content : [])
-    .map((rule) => rule.label?.trim() || rule.name?.trim() || '')
+    .map((rule) => trRuleName(rule) || rule.label?.trim() || rule.name?.trim() || '')
     .filter(Boolean);
 
-  return granted.length > 0 ? `${name} (${granted.join(', ')})` : name;
+  if (granted.length > 0) return `${translatedName} (${granted.join(', ')})`;
+
+  return trItemName(upgrade.label?.trim() || '') || upgrade.label?.trim() || name;
 }
 
 // Some upgrades grant a special rule to a subset of a unit's models rather than
@@ -112,10 +129,24 @@ function getUpgradeRuleGains(unit: Unit): { gain: UpgradeGain; count: number }[]
 
 // Army Forge shows these as "1x Sergeant" — the count being how many models gain
 // the rule — so we keep the count prefix even when it's 1.
+//
+// Quando a regra vem embutida em um item (ex.: "Combat Mutations (Piercing
+// Growth)"), o texto antes dos parênteses é sabor/flavor e a regra de verdade
+// é o que está dentro. Traduzimos só a regra, mantendo o flavor em inglês:
+// "1x Combat Mutations (Crescimento Perfurante)".
 function getUpgradeRulePills(unit: Unit): string[] {
-  return getUpgradeRuleGains(unit).map(
-    ({ gain, count }) => `${count}x ${(gain.label?.trim() || gain.name?.trim()) ?? ''}`,
-  );
+  return getUpgradeRuleGains(unit).map(({ gain, count }) => {
+    const label = gain.label?.trim() || gain.name?.trim() || '';
+    const translatedRule = trRuleGainName(gain);
+    const openParen = label.indexOf('(');
+    if (openParen > 0 && label.endsWith(')')) {
+      const flavor = label.slice(0, openParen).trim();
+      const inner = label.slice(openParen + 1, -1).trim();
+      const ruleText = translatedRule && translatedRule !== inner ? translatedRule : inner;
+      return `${count}x ${flavor} (${ruleText})`;
+    }
+    return `${count}x ${translatedRule || label}`;
+  });
 }
 
 function getTough(unit: Unit): string {
@@ -209,14 +240,16 @@ function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
     }
 
     const rules = getWeaponSpecialRules(weapon);
+    // A regra "AP" é separada na coluna PA; as demais viram texto na coluna
+    // "Regras especiais", já traduzidas quando houver tradução.
     const apRule = rules.find((rule) => rule.name === 'AP');
     const others = rules
       .filter((rule) => rule.name !== 'AP')
-      .map((rule) => rule.label || rule.name)
+      .map((rule) => trRuleLabel(rule))
       .filter(Boolean);
 
     byKey.set(key, {
-      name: weapon.name?.trim() || key,
+      name: trWeaponName(weapon) || key,
       range: weapon.range > 0 ? `${weapon.range}"` : '-',
       attacks: typeof weapon.attacks === 'number' ? `A${weapon.attacks}` : '-',
       ap: apRule?.rating != null ? String(apRule.rating) : '-',
@@ -283,7 +316,7 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
     container.appendChild(pill);
   };
 
-  for (const rule of rules) addPill(rule.label || rule.name);
+  for (const rule of rules) addPill(trRuleLabel(rule));
   for (const upgrade of upgrades) addPill(getUpgradeLabel(upgrade));
   for (const pill of upgradeRulePills) addPill(pill);
 
@@ -1394,7 +1427,9 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     seenNames.add(rule.name);
     return true;
   });
-  const sorted = deduped.sort((a, b) => a.name.localeCompare(b.name));
+  // Ordena pelo nome que o usuário vê (traduzido quando disponível). A
+  // deduplicação acima continua usando o nome em inglês, que é o dado estável.
+  const sorted = deduped.sort((a, b) => trRuleName(a).localeCompare(trRuleName(b)));
 
   const table = document.createElement('table');
   table.className = 'special-rules-table';
@@ -1421,10 +1456,18 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    nameTd.textContent = rule.name;
+    nameTd.textContent = trRuleName(rule);
+    // Termo original em inglês, apenas nas tabelas, em cinza e itálico.
+    const originalRuleName = rule.name?.trim() || '';
+    if (originalRuleName && trRuleName(rule) !== originalRuleName) {
+      const originalSpan = document.createElement('span');
+      originalSpan.className = 'rule-name-original';
+      originalSpan.textContent = ` (${originalRuleName})`;
+      nameTd.appendChild(originalSpan);
+    }
 
     const descTd = document.createElement('td');
-    descTd.textContent = rule.description;
+    descTd.textContent = trRuleDescription(rule);
 
     tr.append(nameTd, descTd);
     tbody.appendChild(tr);
@@ -1442,7 +1485,7 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   if (spells.length === 0) return;
 
   const sorted = [...spells].sort(
-    (a, b) => a.threshold - b.threshold || a.name.localeCompare(b.name),
+    (a, b) => a.threshold - b.threshold || trSpellName(a).localeCompare(trSpellName(b)),
   );
 
   const table = document.createElement('table');
@@ -1472,10 +1515,17 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    nameTd.textContent = spell.name;
+    nameTd.textContent = trSpellName(spell);
+    const originalSpellName = spell.name?.trim() || '';
+    if (originalSpellName && trSpellName(spell) !== originalSpellName) {
+      const originalSpan = document.createElement('span');
+      originalSpan.className = 'rule-name-original';
+      originalSpan.textContent = ` (${originalSpellName})`;
+      nameTd.appendChild(originalSpan);
+    }
 
     const effectTd = document.createElement('td');
-    effectTd.textContent = spell.effect;
+    effectTd.textContent = trSpellEffect(spell);
 
     tr.append(costTd, nameTd, effectTd);
     tbody.appendChild(tr);

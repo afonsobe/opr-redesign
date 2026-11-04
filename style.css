@@ -1161,6 +1161,14 @@ body:has(.card--has-image) .avatar-size-bar {
   color: var(--accent-ink);
 }
 
+/* Termo original em inglês, exibido apenas nas tabelas de regras/magias. */
+.special-rules-table .rule-name-original {
+  color: var(--muted-ink, #888);
+  font-style: italic;
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
 .special-rules-table .rule-name::after {
   content: ": ";
 }
