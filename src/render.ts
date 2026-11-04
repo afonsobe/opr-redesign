@@ -1412,7 +1412,34 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   const used = armySpecialRules.filter(
     (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)) || (r.name != null && usedNames.has(r.name)),
   );
-  const expanded = expandGrantedRules(used, grantedIds, armySpecialRules);
+  // Army Forge ships rated instances (e.g. CQes0mDvF4bV AP hasRating:true, desc='AP')
+  // whose description is just the name. The explanatory text lives on the
+  // generic common rule (e.g. 17crjK7P6_w6 AP). Fall back by name so the table
+  // shows the full text instead of AP:AP in the ACTIVE language.
+  // Elements below: { rule, fallbackDesc? }
+  type WithFallback = { rule: ArmySpecialRule; fallbackDesc?: string };
+  const genericByName: Map<string, WithFallback> = new Map();
+  for (const rule of armySpecialRules) {
+    if (!rule.name) continue;
+    if (rule.hasRating !== true && rule.description && rule.description.trim() && rule.description.trim() !== rule.name) {
+      if (!genericByName.has(rule.name)) genericByName.set(rule.name, { rule });
+    }
+  }
+  const withGenericDesc: (ArmySpecialRule & { __fallbackDesc?: string })[] = used.map((rule) => {
+    const desc = (rule.description ?? '').trim();
+    if (desc && desc !== rule.name) return rule;
+    const wb = rule.name ? genericByName.get(rule.name) : undefined;
+    if (!wb || wb.rule === rule) return rule;
+    // Copy the generic description (English text) onto the rated instance,
+    // so trRuleDescription can still translate it in pt-BR or return it
+    // in English for en-US.
+    return { ...rule, __fallbackDesc: wb.rule.description } as ArmySpecialRule & { __fallbackDesc?: string };
+  });
+  const expanded = expandGrantedRules(
+    withGenericDesc as unknown as ArmySpecialRule[],
+    grantedIds,
+    armySpecialRules,
+  );
   // Rated rules (AP, Regeneration Aura, ...) exist as one army.specialRules entry
   // per X value, but the table shows the generic name/description without the
   // rating, so distinct-X instances of the same rule would otherwise print as
@@ -1463,7 +1490,13 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     }
 
     const descTd = document.createElement('td');
-    descTd.textContent = trRuleDescription(rule);
+    const fb = (rule as unknown as { __fallbackDesc?: string }).__fallbackDesc;
+    // Use o fallback genérico inglês só se trRuleDescription retornou o
+    // placeholder (igual ao nome). Em pt-BR, o content.ts já resolve a
+    // tradução genérica, então não usamos o inglês.
+    const trDesc = trRuleDescription(rule);
+    const isPlaceholder = trDesc.trim() === (rule.name ?? '') || trDesc.trim() === (rule.description ?? '');
+    descTd.textContent = fb && isPlaceholder ? fb : trDesc;
 
     tr.append(nameTd, descTd);
     tbody.appendChild(tr);

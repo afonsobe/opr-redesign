@@ -16,6 +16,7 @@
 
 import { getLang } from '../i18n';
 import ptBR from './content.pt-BR.json';
+import sourceEn from './content.source.json';
 
 interface RuleTranslation {
   name?: string;
@@ -66,6 +67,30 @@ export const GAME_SYSTEM_SLUGS: Record<number, string> = {
 type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr';
 
 const translations = ptBR as TranslationFile;
+const source = sourceEn as TranslationSection;
+
+// Mapeia nome (em inglês) -> entrada da regra, só da seção ativa.
+// Army Forge às vezes omite o `id` em regras de arma (ex.: Deadly(2) no
+// Sniper Rifle). Sem id, a correspondência pela chave falha e a tradução
+// não aparece na carta. A regra _mrPya5SXSqW (Deadly) existe e está traduzida
+// como "Mortal" — só faltava alcançá-la pelo nome.
+let ruleByNameCache: { section: TranslationSection; map: Map<string, RuleTranslation> } | null = null;
+
+function ruleByName(): Map<string, RuleTranslation> {
+  const section = resolveSection();
+  if (ruleByNameCache?.section === section) return ruleByNameCache.map;
+  const map = new Map<string, RuleTranslation>();
+  // Chave é o nome em INGLÊS (fonte). Ex.: "Deadly" -> entrada pt "Mortal".
+  // Construir com entry.name (pt) nunca casaria, pois a carta manda inglês.
+  for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+    const translated = section.rules[srcId];
+    if (translated?.name && srcEntry.name) {
+      map.set(srcEntry.name, translated);
+    }
+  }
+  ruleByNameCache = { section, map };
+  return map;
+}
 
 // Registry of which system the current army list belongs to.
 // Set by the app when a list loads (see index.ts). Falls back to the
@@ -115,9 +140,24 @@ function active(): boolean {
   return getLang() === 'pt-BR';
 }
 
-function ruleEntry(id: string | undefined): RuleTranslation | undefined {
-  if (!active() || !id) return undefined;
-  return resolveSection().rules[id];
+function ruleEntry(id: string | undefined, name?: string): RuleTranslation | undefined {
+  if (!active()) return undefined;
+  const byId = id ? resolveSection().rules[id] : undefined;
+  if (byId?.name) return byId;
+  if (name) {
+    // Fallback por nome para regras sem id (ex.: Deadly no Sniper Rifle).
+    const fromName = ruleByName().get(name);
+    if (fromName?.name) return fromName;
+    // Último recurso: procurar na fonte em inglês pelo nome e reusar a
+    // tradução guardada para aquele id (a regra traduzida existe no dicionário).
+    for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+      if (srcEntry.name === name) {
+        const translated = resolveSection().rules[srcId];
+        if (translated?.name) return translated;
+      }
+    }
+  }
+  return byId;
 }
 
 function weaponEntry(weaponId: string | undefined): WeaponTranslation | undefined {
@@ -132,7 +172,7 @@ function spellEntry(id: string | undefined): SpellTranslation | undefined {
 
 /** Nome traduzido de uma regra (unidade ou regra especial de arma). */
 export function trRuleName(rule: { id?: string; name?: string }): string {
-  return ruleEntry(rule.id)?.name || rule.name || '';
+  return ruleEntry(rule.id, rule.name)?.name || rule.name || '';
 }
 
 /**
@@ -141,7 +181,7 @@ export function trRuleName(rule: { id?: string; name?: string }): string {
  * Ex.: "Mortal (Deadly)", "Explosão (Blast)".
  */
 export function trRuleNameWithOriginal(rule: { id?: string; name?: string }): string {
-  const entry = ruleEntry(rule.id);
+  const entry = ruleEntry(rule.id, rule.name);
   const translated = entry?.name || rule.name || '';
   if (!entry?.name || entry.name === (rule.name || '')) return translated;
   return `${entry.name} (${rule.name})`;
@@ -161,14 +201,41 @@ export function trRuleLabel(rule: {
   label?: string;
   rating?: number;
 }): string {
-  const entry = ruleEntry(rule.id);
-  if (!entry?.name) return rule.label || rule.name || '';
+  const entry = ruleEntry(rule.id, rule.name);
+  if (!entry?.name) {
+    // Sem tradução: preservar o rótulo original (evita perder o valor).
+    return rule.label || rule.name || '';
+  }
+  // Com tradução: aplicar o rating sobre o nome traduzido.
   return rule.rating != null ? `${entry.name}(${rule.rating})` : entry.name;
 }
 
 /** Descrição traduzida de uma regra. */
-export function trRuleDescription(rule: { id?: string; description?: string }): string {
-  return ruleEntry(rule.id)?.description || rule.description || '';
+export function trRuleDescription(rule: { id?: string; name?: string; description?: string }): string {
+  // Em inglês: nunca traduz. Se a descrição do Army Forge é só o nome
+  // (ex. CQes0mDvF4bV AP desc='AP'), o chamador (render.ts) já aplica
+  // o fallback genérico via __fallbackDesc. Aqui devolvemos o original.
+  if (!active()) {
+    return rule.description || '';
+  }
+  const translated = ruleEntry(rule.id, rule.name)?.description;
+  if (translated && translated.trim() && translated.trim() !== rule.name && translated.trim() !== (ruleEntry(rule.id, rule.name)?.name ?? '')) return translated;
+  // Regra ranqueada (ex. CQes0mDvF4bV AP com desc='AP' no Army Forge) tem
+  // entrada no dicionário só com nome. Busca a descrição genérica pelo nome.
+  if (rule.name) {
+    const generic = ruleByName().get(rule.name);
+    if (generic?.description && generic.description.trim() && generic.description.trim() !== rule.name && generic.description.trim() !== (generic.name ?? '')) {
+      return generic.description;
+    }
+    // Fallback final: procurar na fonte em inglês pelo nome e reusar tradução
+    for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+      if (srcEntry.name === rule.name) {
+        const t2 = resolveSection().rules[srcId]?.description;
+        if (t2 && t2.trim() && t2.trim() !== rule.name && t2.trim() !== (resolveSection().rules[srcId]?.name ?? '')) return t2;
+      }
+    }
+  }
+  return translated || rule.description || '';
 }
 
 /**
@@ -212,7 +279,7 @@ export function trSpellEffect(spell: { id?: string; effect?: string }): string {
  * O ganho traz o id da regra, então usa a mesma memória de tradução.
  */
 export function trRuleGainName(gain: { id?: string; name?: string; label?: string }): string {
-  const entry = ruleEntry(gain.id);
+  const entry = ruleEntry(gain.id, gain.name || gain.label);
   if (entry?.name) return entry.name;
   return gain.name || gain.label || '';
 }

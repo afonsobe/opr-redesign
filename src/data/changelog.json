@@ -2,6 +2,7 @@
   {
     "date": "November 4, 2026",
     "items": [
+      "**Fixed rated rules (e.g. AP) showing 'PA:PA' / 'AP:AP':** now falls back to the generic rule description by name for the active language (pt-BR shows full text, en-US shows English).",
       "**Fixed per-system fallback mixing GF/GFF texts:** when a list has no dictionary for its game system, the UI now shows the English original instead of borrowing another system's translation.",
       "**Printed special-rules and spells tables now use 2 columns**, matching the on-screen layout.",
       "**Fixed a bug where weapon rules without an ID (e.g. Deadly(2) on Sniper Rifle) were missing from the special-rules table.**",
