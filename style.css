@@ -1368,6 +1368,15 @@ body:has(.card--has-image) .avatar-size-bar {
     border-radius: 0;
   }
 
+  .special-rules-table tbody {
+    columns: 2;
+    column-gap: 18px;
+  }
+
+  .special-rules-table tbody tr {
+    break-inside: avoid;
+  }
+
   /* Carta sem imagem não imprime o círculo */
   .card:not(.card--has-image) .card-avatar {
     display: none;

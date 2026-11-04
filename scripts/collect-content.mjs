@@ -77,14 +77,13 @@ async function main() {
     process.exit(1);
   }
 
-  // 1) Regras comuns: os 5 sistemas compartilham os mesmos IDs, então deduplica.
+  // 1) Regras comuns: SOMENTE do sistema da lista (sem misturar GF com GFF, etc.).
+  // Os 5 sistemas compartilham os mesmos IDs mas com textos DIFERENTES.
   const rules = new Map();
-  for (const systemId of Object.values(GAME_SYSTEM_IDS)) {
-    const data = await getJson(`${API}/rules/common/${systemId}`);
-    for (const rule of data.rules || []) {
-      if (rule.id && rule.name) {
-        rules.set(rule.id, { name: rule.name, description: rule.description || '' });
-      }
+  const data = await getJson(`${API}/rules/common/${gameSystem}`);
+  for (const rule of data.rules || []) {
+    if (rule.id && rule.name) {
+      rules.set(rule.id, { name: rule.name, description: rule.description || '' });
     }
   }
 

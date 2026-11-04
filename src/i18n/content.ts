@@ -31,14 +31,84 @@ interface SpellTranslation {
   effect?: string;
 }
 
-interface TranslationFile {
+interface TranslationSection {
   rules: Record<string, RuleTranslation>;
   weapons: Record<string, WeaponTranslation>;
   spells: Record<string, SpellTranslation>;
   items: Record<string, string>;
+  meta?: { gameSystem?: number; system?: string };
 }
 
+interface TranslationFile extends TranslationSection {
+  // New format: per-system sections to avoid mixing GF/GFF/AoF texts.
+  // Legacy flat files (without `systems`) are treated as system-agnostic.
+  systems?: Record<string, TranslationSection & { gameSystem?: number; system?: string }>;
+  meta?: { gameSystem?: number; system?: string };
+}
+
+// Game-system code mapping that the Army Forge backend uses.
+// Kept in sync with scripts/collect-content.mjs GAME_SYSTEM_IDS.
+export const GAME_SYSTEM_IDS: Record<string, number> = {
+  gf: 2,
+  gff: 3,
+  aof: 4,
+  aofs: 5,
+  aofr: 6,
+};
+export const GAME_SYSTEM_SLUGS: Record<number, string> = {
+  2: 'gf',
+  3: 'gff',
+  4: 'aof',
+  5: 'aofs',
+  6: 'aofr',
+};
+
+type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr';
+
 const translations = ptBR as TranslationFile;
+
+// Registry of which system the current army list belongs to.
+// Set by the app when a list loads (see index.ts). Falls back to the
+// file's meta.gameSystem for the initial load.
+let activeSystem: LangSystemKey | null = null;
+
+export function setActiveSystem(gameSystem: string | number | undefined | null): void {
+  if (typeof gameSystem === 'number') {
+    const slug = GAME_SYSTEM_SLUGS[gameSystem];
+    activeSystem = (slug as LangSystemKey) ?? null;
+    return;
+  }
+  if (typeof gameSystem === 'string') {
+    const lower = gameSystem.trim().toLowerCase();
+    // Accept "grimdark-future", "grimdark-future-firefight", "age-of-fantasy", etc.
+    if (lower.includes('gff') || lower.includes('firefight')) activeSystem = 'gff';
+    else if (lower.includes('aofs') || lower.includes('skirmish')) activeSystem = 'aofs';
+    else if (lower.includes('aofr') || lower.includes('regiment')) activeSystem = 'aofr';
+    else if (lower.includes('aof') || lower.includes('age-of-fantasy')) activeSystem = 'aof';
+    else if (lower.includes('gf') || lower.includes('grimdark-future')) activeSystem = 'gf';
+    else activeSystem = null;
+  }
+}
+
+export function getActiveSystem(): LangSystemKey | null {
+  return activeSystem;
+}
+
+function resolveSection(): TranslationSection {
+  // Per-system file: pick the section for the active system first.
+  if (translations.systems) {
+    const key: string | null =
+      activeSystem ??
+      ((translations.meta?.system as string | undefined) ?? null) ??
+      (translations.meta?.gameSystem ? (GAME_SYSTEM_SLUGS[translations.meta.gameSystem] ?? null) : null);
+    if (key && translations.systems[key]) return translations.systems[key];
+    // No matching section: fall back to any available section rather than mixing.
+    const first = Object.values(translations.systems)[0];
+    if (first) return first;
+  }
+  // Legacy flat file.
+  return translations;
+}
 
 // Só traduz quando o idioma atual é pt-BR. Em inglês devolve o original.
 function active(): boolean {
@@ -47,17 +117,17 @@ function active(): boolean {
 
 function ruleEntry(id: string | undefined): RuleTranslation | undefined {
   if (!active() || !id) return undefined;
-  return translations.rules[id];
+  return resolveSection().rules[id];
 }
 
 function weaponEntry(weaponId: string | undefined): WeaponTranslation | undefined {
   if (!active() || !weaponId) return undefined;
-  return translations.weapons[weaponId];
+  return resolveSection().weapons[weaponId];
 }
 
 function spellEntry(id: string | undefined): SpellTranslation | undefined {
   if (!active() || !id) return undefined;
-  return translations.spells[id];
+  return resolveSection().spells[id];
 }
 
 /** Nome traduzido de uma regra (unidade ou regra especial de arma). */
@@ -153,5 +223,5 @@ export function trRuleGainName(gain: { id?: string; name?: string; label?: strin
  */
 export function trItemName(name: string | undefined): string {
   if (!active() || !name) return name || '';
-  return translations.items?.[name] || name;
+  return resolveSection().items?.[name] || name;
 }

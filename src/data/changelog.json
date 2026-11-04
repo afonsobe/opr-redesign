@@ -2,6 +2,11 @@
   {
     "date": "November 4, 2026",
     "items": [
+      "**Printed special-rules and spells tables now use 2 columns**, matching the on-screen layout.",
+      "**Fixed a bug where weapon rules without an ID (e.g. Deadly(2) on Sniper Rifle) were missing from the special-rules table.**",
+      "**Translation dictionary rebuilt per game system:** collector now uses only the list's system (e.g. GFF), and runtime picks the matching section — GF/GFF/AoF texts no longer mix.",
+      "**Rebuilt dictionary from a single base list (Angels of Death - Ultramarines, GFF):** 61 rules, 59 weapons, 6 spells and 24 items, all freshly translated and verified against the live GFF source.",
+      "**Fixed 9 rule translations that were using GF text instead of GFF** (Strider, Hero, Parry, Flying, Brace, Impact, Musician, Blast, Banner) by re-translating from the live source.",
       "**Removed 'Download All' button:** cards are now downloaded individually via the PNG button on each card.",
       "**Full pt-BR translation for Home / FAQ / Changelog / About:** all page texts (FAQ Q&A, About, changelog intro) now translate when the language is set to Português (BR).",
       "**Fixed a bug where the home help callout showed 'undefined':** the FAQ callout key was missing from the dictionary.",

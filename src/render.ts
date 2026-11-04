@@ -1359,6 +1359,10 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   section.replaceChildren();
 
   const usedIds = new Set<string>();
+  // Army Forge sometimes ships weapon rules without an `id`
+  // (e.g. Sniper Rifle with Deadly(2): { name: 'Deadly', rating: 2 }).
+  // Track those by name too, so the deadbeat doesn't drop from the table.
+  const usedNames = new Set<string>();
   // Ids reached through an item's `content` chain — the abilities granted to the
   // unit (e.g. Repel Ambushers). Only these seed the granted-rule scan below.
   const grantedIds = new Set<string>();
@@ -1366,6 +1370,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     if (!Array.isArray(entries)) return;
     for (const entry of entries) {
       if (entry.id) usedIds.add(entry.id);
+      if (entry.name) usedNames.add(entry.name);
       collect(entry.content);
     }
   };
@@ -1376,6 +1381,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
         usedIds.add(entry.id);
         grantedIds.add(entry.id);
       }
+      if (entry.name) usedNames.add(entry.name);
       collectGranted(entry.content);
     }
   };
@@ -1404,7 +1410,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
   const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
   const used = armySpecialRules.filter(
-    (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)),
+    (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)) || (r.name != null && usedNames.has(r.name)),
   );
   const expanded = expandGrantedRules(used, grantedIds, armySpecialRules);
   // Rated rules (AP, Regeneration Aura, ...) exist as one army.specialRules entry

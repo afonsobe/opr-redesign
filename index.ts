@@ -23,6 +23,7 @@ import { renderChangelog } from './src/views/changelog';
 import { renderListsView, type ListsViewCallbacks } from './src/views/lists';
 import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palettes';
 import { applyTranslations, getLang, setLang, t, type Lang } from './src/i18n';
+import { setActiveSystem } from './src/i18n/content';
 import { createThemeToggle } from './src/theme';
 
 const cardsContainerElement = document.getElementById('cards');
@@ -216,6 +217,8 @@ function displayArmy(army: ArmyList, input: string): void {
   currentArmyId = army.id || null;
   currentInput = input;
   currentArmy = army;
+  // Fixa o dicionário de conteúdo no sistema desta lista (evita misturar GF com GFF).
+  setActiveSystem((army as { gameSystemSlug?: string }).gameSystemSlug ?? army.gameSystem);
 
     // Restaura a paleta escolhida antes para esta lista (ou "automática").
   const savedPalette = localStorage.getItem(paletteStorageKey());
