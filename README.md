@@ -10,7 +10,7 @@ Paste a shared army link and get **one card per unit** (Quality, Defense, Tough,
 special rules, weapons), plus a combined special-rules table and a spells table —
 ready to **print** or **download as PNG**. No sign-up, no install, works in the browser.
 
-👉 **Try it now:** <https://jeanomeg.github.io/opr-card-generator/>
+👉 **Try it now:** <https://afonsobe.github.io/opr-redesign/>
 
 *Keywords: OnePageRules unit cards, OPR card generator, Army Forge printable cards,
 Grimdark Future cards, Age of Fantasy datacards, tabletop wargame reference cards.*

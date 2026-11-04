@@ -9,6 +9,10 @@ const en = {
   'nav.about': 'About',
   'lang.label': 'Language',
 
+  'home.eyebrow': 'OnePageRules · Army Forge',
+  'home.title': 'Turn your army list into ready-to-play cards',
+  'home.subtitle':
+    'Paste a shared Army Forge link and get one printable card per unit — stats, special rules and weapons included. Free, no sign-up.',
   'home.inputLabel': 'Army Forge shared link or list ID',
   'home.placeholder': 'Paste your shared Army Forge link or list ID...',
   'btn.generate': 'Generate Cards',
@@ -22,6 +26,7 @@ const en = {
   'opt.spells': 'Include spells table in print',
   'opt.customNames': 'Use custom unit names',
   'opt.combine': 'Combine similar units',
+  'opt.title': 'Options',
   'opt.palette': 'Color palette:',
   'palette.auto': 'Automatic (by army book or list name)',
   'palette.autoPicked': 'Automatic → {name}',
@@ -105,6 +110,10 @@ const ptBR: Record<Key, string> = {
   'nav.about': 'Sobre',
   'lang.label': 'Idioma',
 
+  'home.eyebrow': 'OnePageRules · Army Forge',
+  'home.title': 'Transforme sua lista em cartas prontas para jogar',
+  'home.subtitle':
+    'Cole um link compartilhado do Army Forge e receba uma carta imprimível por unidade — com atributos, regras especiais e armas. Grátis, sem cadastro.',
   'home.inputLabel': 'Link compartilhado do Army Forge ou ID da lista',
   'home.placeholder': 'Cole o link compartilhado do Army Forge ou o ID da lista...',
   'btn.generate': 'Gerar cartas',
@@ -118,6 +127,7 @@ const ptBR: Record<Key, string> = {
   'opt.spells': 'Incluir tabela de magias na impressão',
   'opt.customNames': 'Usar nomes personalizados das unidades',
   'opt.combine': 'Combinar unidades iguais',
+  'opt.title': 'Opções',
   'opt.palette': 'Paleta de cores:',
   'palette.auto': 'Automática (pelo livro ou nome da lista)',
   'palette.autoPicked': 'Automática → {name}',

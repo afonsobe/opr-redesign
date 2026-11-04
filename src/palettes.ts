@@ -83,12 +83,12 @@ export const PALETTES: Palette[] = [
 
 // Escolhe a paleta pelo nome do exército; se nada combinar, usa a "Padrão".
 // A ordem da lista importa: o primeiro que combinar vence.
+const fallbackPalette = PALETTES.find((p) => p.id === 'default');
+if (!fallbackPalette) throw new Error('Missing default palette.');
+
 export function detectPalette(text: string): Palette {
   const lower = text.toLowerCase();
-  return (
-    PALETTES.find((p) => p.keywords.some((k) => lower.includes(k))) ??
-    PALETTES[PALETTES.length - 1]
-  );
+  return PALETTES.find((p) => p.keywords.some((k) => lower.includes(k))) ?? fallbackPalette!;
 }
 
 export function applyPalette(palette: Palette): void {

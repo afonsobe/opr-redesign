@@ -45,6 +45,7 @@ const listsView = document.getElementById('view-lists');
 const changelogEntries = document.getElementById('changelog-entries');
 const homeHelp = document.getElementById('home-help');
 const faqView = document.getElementById('view-faq');
+const homeHero = document.getElementById('home-hero');
 
 if (!(cardsContainerElement instanceof HTMLDivElement)) {
   throw new Error('Missing #cards container.');
@@ -71,7 +72,7 @@ paletteSelect.id = 'optPalette';
 function paletteDisplayName(p: Palette): string {
   if (p.id === 'default') return t('palette.default');
   // Em inglês mostra só o nome do exército; em português, o nome com as cores.
-  return getLang() === 'pt-BR' ? p.label : p.label.split(' — ')[0];
+  return getLang() === 'pt-BR' ? p.label : (p.label.split(' — ')[0] ?? p.label);
 }
 
 // (Re)monta as opções do seletor no idioma atual, mantendo a escolha.
@@ -122,10 +123,13 @@ function currentPalette(): Palette {
 function refreshPalette(): void {
   const palette = currentPalette();
   applyPalette(palette);
-  paletteSelect.options[0].textContent =
-    paletteSelect.value === 'auto'
-      ? t('palette.autoPicked', { name: paletteDisplayName(palette) })
-      : t('palette.auto');
+  const autoOption = paletteSelect.options.item(0);
+  if (autoOption) {
+    autoOption.textContent =
+      paletteSelect.value === 'auto'
+        ? t('palette.autoPicked', { name: paletteDisplayName(palette) })
+        : t('palette.auto');
+  }
 }
 paletteSelect.addEventListener('change', () => {
   try {
@@ -188,6 +192,9 @@ function setPrintControlsVisible(visible: boolean): void {
   if (downloadAllButton) downloadAllButton.style.display = visible ? '' : 'none';
   if (refreshButton) refreshButton.style.display = visible ? '' : 'none';
   if (printOptions) printOptions.style.display = visible ? '' : 'none';
+  // The welcome block greets users while no army is on screen and steps aside
+  // once the cards take over.
+  if (homeHero) homeHero.hidden = visible;
   // The onboarding help is the inverse of the army being on screen: show it
   // whenever no army is loaded, hide it once cards render.
   if (homeHelp) homeHelp.hidden = visible;
@@ -261,7 +268,7 @@ async function loadArmy(): Promise<void> {
   }
   if (cached) applySettings(cached.settings);
 
-  setMessage(t('msg.pasteLink'), 'loading');
+  setMessage(t('msg.loading'), 'loading');
   generateButton?.setAttribute('disabled', 'true');
 
   try {

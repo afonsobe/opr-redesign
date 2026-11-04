@@ -2,15 +2,15 @@ type Theme = 'light' | 'dark';
 
 const THEME_KEY = 'theme';
 
-// Primeira visita: segue o tema do sistema. Depois: a escolha guardada.
+// Primeira visita: tema claro. Depois: a escolha guardada pelo usuário.
 function preferredTheme(): Theme {
   try {
     const saved = localStorage.getItem(THEME_KEY);
     if (saved === 'light' || saved === 'dark') return saved;
   } catch {
-    // sem acesso ao armazenamento: usa o tema do sistema
+    // sem acesso ao armazenamento: mantém o padrão claro
   }
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'light';
 }
 
 let current: Theme = preferredTheme();

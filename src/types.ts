@@ -132,6 +132,9 @@ export interface ArmyList {
   forceOrg: boolean;
   modified: string;
   gameSystem: string;
+  // Slug do sistema informado pelo Army Forge (ex.: "grimdark-future"),
+  // adicionado pelo relay ao montar a resposta.
+  gameSystemSlug?: string;
   modelCount: number;
   simpleMode: boolean;
   description: string;

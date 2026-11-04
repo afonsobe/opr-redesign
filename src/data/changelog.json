@@ -1,5 +1,15 @@
 [
   {
+    "date": "November 4, 2026",
+    "items": [
+      "**Light theme is now the default** for first-time visitors. Dark mode is still available from the ☾/☀ button and your choice is remembered on your device.",
+      "**New look:** cleaner horizontal navigation, a welcome section on the Home screen, better organized controls and option pills.",
+      "In **dark mode**, generated cards now use a dark paper background with light text, matching the rest of the interface — no more bright white cards on a dark page. **Printing is unchanged** and always uses white paper.",
+      "Improved color contrast for card names, costs, stats, weapons and special rules in both themes.",
+      "Updated the site address and SEO metadata to **https://afonsobe.github.io/opr-redesign/**."
+    ]
+  },
+  {
     "date": "July 22, 2026",
     "items": [
       "Fixed **duplicate rows** in the special-rules table for rated rules like **AP** and **Regeneration Aura**: a rule with several rating values (e.g. AP(1) and AP(2)) now shows up **once**, instead of once per value."
