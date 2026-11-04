@@ -33,19 +33,19 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #12141b;
-  --surface: #1b1e28;
-  --surface-2: #2a2e3d;
-  --text: #e8eaf2;
-  --text-muted: #9aa0b4;
-  --border: #2e3345;
-  --accent: #8b95ff;
-  --accent-contrast: #12141b;
-  --accent-soft: #272c4a;
-  --danger: #ff7a8c;
-  --callout-bg: #2b2415;
-  --callout-border: #a8822f;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --bg: #929bc2;
+  --surface: #464d66;
+  --surface-2: #555d7a;
+  --text: #f2f4fa;
+  --text-muted: #c5cbe0;
+  --border: #646d8f;
+  --accent: #a9b3ff;
+  --accent-contrast: #1d2030;
+  --accent-soft: #4d5584;
+  --danger: #ff9aa8;
+  --callout-bg: #4e4426;
+  --callout-border: #c49c3f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 8px 20px rgba(0, 0, 0, 0.18);
 
   color-scheme: dark;
 }
@@ -1069,5 +1069,163 @@ body:has(.card--has-image) .avatar-size-bar {
 
   .card:not(.card--has-image) .card-cost {
     grid-column: 2;
+  }
+}
+
+/* Status ao lado da imagem */
+.card-header {
+  padding-bottom: 5px;
+}
+
+.card-avatar {
+  grid-row: 1 / span 3;
+}
+
+.card-header .stats {
+  grid-column: 2 / -1;
+  grid-row: 3;
+  align-self: end;
+  margin-top: 3px;
+  padding: 0;
+}
+
+.card-header .stat {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+  padding: 2px 3px;
+}
+
+.card-header .stat-label {
+  font-size: 7px;
+  line-height: 1.1;
+}
+
+.card-header .stat-value {
+  font-size: 13px;
+  line-height: 1.1;
+}
+
+/* Na impressão, carta sem imagem (sem círculo): status ocupam a largura toda */
+@media print {
+  .card:not(.card--has-image) .card-header .stats {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Cabeçalho: nome e subtítulo juntos no topo; status centralizados com a imagem */
+.card-header {
+  /* a última linha absorve a altura extra quando o círculo cresce */
+  grid-template-rows: auto auto 1fr;
+}
+
+.card-subtitle {
+  margin-top: 1px;
+}
+
+.card-header .stats {
+  grid-row: 3;
+  align-self: center;
+  margin-top: 0;
+  /* Com círculo grande, sobe os status para a linha do meio da imagem.
+     Nos tamanhos pequenos o valor é 0 e nada muda. */
+  margin-bottom: clamp(0px, calc(var(--avatar-size) - 70px), 26px);
+}
+
+/* Os status crescem um pouco junto com o círculo */
+.card-header .stat-value {
+  font-size: clamp(13px, calc(var(--avatar-size) * 0.13), 17px);
+}
+
+@media print {
+  /* Carta sem imagem não tem círculo, então não precisa centralizar */
+  .card:not(.card--has-image) .card-header .stats {
+    align-self: end;
+    margin-bottom: 0;
+  }
+
+  /* Heróis primeiro, todos juntos no começo da folha */
+  .card-wrapper:has(.card--hero) {
+    order: -1;
+  }
+}
+
+/* Tamanhos pequenos (1 e 2): mais espaço entre o subtítulo e os status.
+   Vale 6px com o círculo em 48-58px e some aos poucos até 70px (tamanho 3
+   em diante fica como estava). */
+.card-header .stats {
+  margin-top: clamp(0px, calc(70px - var(--avatar-size)), 6px);
+}
+
+@media print {
+  /* Carta sem imagem na impressão (sem círculo): mantém o espaçamento de antes */
+  .card:not(.card--has-image) .card-header .stats {
+    margin-top: 3px;
+  }
+}
+
+/* Subtítulo um pouco mais perto do nome */
+.card-subtitle {
+  margin-top: -1px;
+  line-height: 1.1;
+}
+
+/* Status centralizados entre a base do subtítulo e a base da imagem.
+   Zera as margens anteriores: quem centraliza agora é o alinhamento. */
+.card-header .stats {
+  align-self: center;
+  margin: 0;
+  padding: 2px 0; /* folga mínima para nunca encostar no subtítulo */
+}
+
+@media print {
+  /* Carta sem imagem na impressão (sem círculo): sem folga extra */
+  .card:not(.card--has-image) .card-header .stats {
+    align-self: end;
+    margin: 3px 0 0;
+    padding: 0;
+  }
+}
+
+
+
+@media print {
+  /* Carta sem imagem na impressão (sem círculo): tamanho normal */
+  .card:not(.card--has-image) {
+    --text-scale: 1;
+    --stat-scale: 1;
+  }
+}
+
+/* Texto e status do cabeçalho acompanham o tamanho da imagem.
+   Tudo parte do tamanho padrão (58px): nele nada muda, e a diferença
+   do círculo é multiplicada por um número pequeno (quanto maior, mais cresce). */
+.card-name,
+.card-cost {
+  font-size: calc(12.5px + (var(--avatar-size) - 58px) * 0.086);
+}
+
+.card-subtitle,
+.card-joined {
+  font-size: calc(9px + (var(--avatar-size) - 58px) * 0.062);
+}
+
+.card-header .stat {
+  padding: calc(2px + (var(--avatar-size) - 58px) * 0.02) 3px;
+}
+
+.card-header .stat-label {
+  font-size: calc(7px + (var(--avatar-size) - 58px) * 0.072);
+}
+
+.card-header .stat-value {
+  font-size: calc(13px + (var(--avatar-size) - 58px) * 0.134);
+}
+
+@media print {
+  /* Carta sem imagem na impressão (sem círculo): tamanho normal */
+  .card:not(.card--has-image) {
+    --avatar-size: 58px;
   }
 }

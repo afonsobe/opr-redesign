@@ -1130,10 +1130,11 @@ function createCard(
      weaponsContainer.appendChild(createWeaponsTable(weapons));
   }
 
+   header.append(stats);
+
   card.append(
     header,
     createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
-    stats,
     createTextElement('section-title', t('card.specialRules')),
     createRulesContainer(unit),
     createTextElement('section-title', t('card.weapons')),
