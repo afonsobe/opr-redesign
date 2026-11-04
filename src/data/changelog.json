@@ -2,6 +2,7 @@
   {
     "date": "November 4, 2026",
     "items": [
+      "**Fixed per-system fallback mixing GF/GFF texts:** when a list has no dictionary for its game system, the UI now shows the English original instead of borrowing another system's translation.",
       "**Printed special-rules and spells tables now use 2 columns**, matching the on-screen layout.",
       "**Fixed a bug where weapon rules without an ID (e.g. Deadly(2) on Sniper Rifle) were missing from the special-rules table.**",
       "**Translation dictionary rebuilt per game system:** collector now uses only the list's system (e.g. GFF), and runtime picks the matching section — GF/GFF/AoF texts no longer mix.",

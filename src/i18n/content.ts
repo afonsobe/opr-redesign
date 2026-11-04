@@ -102,9 +102,9 @@ function resolveSection(): TranslationSection {
       ((translations.meta?.system as string | undefined) ?? null) ??
       (translations.meta?.gameSystem ? (GAME_SYSTEM_SLUGS[translations.meta.gameSystem] ?? null) : null);
     if (key && translations.systems[key]) return translations.systems[key];
-    // No matching section: fall back to any available section rather than mixing.
-    const first = Object.values(translations.systems)[0];
-    if (first) return first;
+    // No section for THIS system: never mix another system's texts.
+    // Return an empty section so callers fall back to the English original.
+    return { rules: {}, weapons: {}, spells: {}, items: {} };
   }
   // Legacy flat file.
   return translations;
