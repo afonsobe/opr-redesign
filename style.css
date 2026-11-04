@@ -1330,3 +1330,16 @@ body:has(.card--has-image) .avatar-size-bar {
     display: none !important;
   }
 }
+
+.lang-switch {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.lang-switch select {
+  padding: 4px 6px;
+  font-size: 13px;
+}

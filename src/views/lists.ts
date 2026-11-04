@@ -1,4 +1,5 @@
 import type { SavedList } from '../db';
+import { getLang, t } from '../i18n';
 
 export interface ListsViewCallbacks {
   onLoad: (saved: SavedList) => void;
@@ -8,26 +9,26 @@ export interface ListsViewCallbacks {
 
 function timeAgo(iso: string): string {
   const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return 'unknown';
+  if (Number.isNaN(then)) return t('lists.unknown');
 
   const seconds = Math.floor((Date.now() - then) / 1000);
-  if (seconds < 60) return 'just now';
+  if (seconds < 60) return t('lists.justNow');
 
-  const units: Array<{ label: string; secs: number }> = [
-    { label: 'year', secs: 31536000 },
-    { label: 'month', secs: 2592000 },
-    { label: 'day', secs: 86400 },
-    { label: 'hour', secs: 3600 },
-    { label: 'minute', secs: 60 },
+  // O próprio navegador escreve "3 hours ago" / "há 3 horas".
+  const rtf = new Intl.RelativeTimeFormat(getLang(), { numeric: 'always' });
+  const units: Array<[Intl.RelativeTimeFormatUnit, number]> = [
+    ['year', 31536000],
+    ['month', 2592000],
+    ['day', 86400],
+    ['hour', 3600],
+    ['minute', 60],
   ];
 
-  for (const unit of units) {
-    const value = Math.floor(seconds / unit.secs);
-    if (value >= 1) {
-      return `${value} ${unit.label}${value > 1 ? 's' : ''} ago`;
-    }
+  for (const [unit, secs] of units) {
+    const value = Math.floor(seconds / secs);
+    if (value >= 1) return rtf.format(-value, unit);
   }
-  return 'just now';
+  return t('lists.justNow');
 }
 
 function createButton(label: string, className: string): HTMLButtonElement {
@@ -47,7 +48,7 @@ function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElemen
 
   const name = document.createElement('div');
   name.className = 'saved-list-name';
-  name.textContent = saved.name || 'Unnamed list';
+  name.textContent = saved.name || t('lists.unnamed');
 
   const meta = document.createElement('div');
   meta.className = 'saved-list-meta';
@@ -55,33 +56,32 @@ function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElemen
 
   const when = document.createElement('div');
   when.className = 'saved-list-when';
-  when.textContent = `Updated ${timeAgo(saved.updatedAt)}`;
+  when.textContent = t('lists.updated', { when: timeAgo(saved.updatedAt) });
 
   info.append(name, meta, when);
 
   const actions = document.createElement('div');
   actions.className = 'saved-list-actions';
 
-  const loadButton = createButton('Load', 'saved-list-btn');
-  loadButton.title = 'Load this list instantly from your saved copy.';
+  const loadButton = createButton(t('lists.load'), 'saved-list-btn');
+  loadButton.title = t('lists.loadTitle');
   loadButton.addEventListener('click', () => cb.onLoad(saved));
 
-  const refreshButton = createButton('Refresh', 'saved-list-btn');
-  refreshButton.title =
-    'Update this list with its latest version saved on Army Forge. Only runs when you click it.';
+  const refreshButton = createButton(t('lists.refresh'), 'saved-list-btn');
+  refreshButton.title = t('lists.refreshTitle');
   refreshButton.addEventListener('click', () => {
     refreshButton.disabled = true;
-    refreshButton.textContent = 'Refreshing...';
+    refreshButton.textContent = t('lists.refreshing');
     void cb.onRefresh(saved).finally(() => {
       refreshButton.disabled = false;
-      refreshButton.textContent = 'Refresh';
+      refreshButton.textContent = t('lists.refresh');
     });
   });
 
-  const deleteButton = createButton('Delete', 'saved-list-btn saved-list-btn--danger');
-  deleteButton.title = 'Remove this list from your saved lists.';
+  const deleteButton = createButton(t('lists.delete'), 'saved-list-btn saved-list-btn--danger');
+  deleteButton.title = t('lists.deleteTitle');
   deleteButton.addEventListener('click', () => {
-    if (!window.confirm(`Remove "${saved.name || 'this list'}" from your saved lists?`)) {
+    if (!window.confirm(t('lists.confirmDelete', { name: saved.name || t('lists.thisList') }))) {
       return;
     }
     deleteButton.disabled = true;
@@ -102,14 +102,13 @@ export function renderListsView(
 
   const title = document.createElement('h1');
   title.className = 'view-title';
-  title.textContent = 'My Lists';
+  title.textContent = t('lists.title');
   container.append(title);
 
   if (lists.length === 0) {
     const empty = document.createElement('p');
     empty.className = 'view-placeholder';
-    empty.textContent =
-      'No saved lists yet. Generate cards on the Home page and they will be saved here automatically.';
+    empty.textContent = t('lists.empty');
     container.append(empty);
     return;
   }

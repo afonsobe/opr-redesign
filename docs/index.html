@@ -1,35 +1,42 @@
-<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>OPR Card Generator — Printable Unit Cards for OnePageRules &amp; Army Forge</title><meta name=description content="Free tool that turns an Army Forge list into printable unit cards for OnePageRules games — Grimdark Future, Age of Fantasy, Firefight and more. Paste a shared army link to get one card per unit with stats, special rules and weapons, plus rules and spell tables. Print or download as PNG."><meta name=keywords content="OnePageRules, OPR, Army Forge, OPR card generator, unit cards, printable army cards, reference cards, Grimdark Future, Age of Fantasy, Grimdark Future Firefight, Age of Fantasy Skirmish, wargame, tabletop, proxy cards, datacards, opr card generator"><meta name=author content="Fan-made community tool"><meta name=robots content="index, follow"><link rel=canonical href=https://jeanomeg.github.io/opr-card-generator/><meta property=og:type content=website><meta property=og:site_name content="OPR Card Generator"><meta property=og:title content="OPR Card Generator — Printable Unit Cards for OnePageRules"><meta property=og:description content="Paste a shared Army Forge link and get printable unit cards for OnePageRules — Grimdark Future, Age of Fantasy and more. Free, no sign-up."><meta property=og:url content=https://jeanomeg.github.io/opr-card-generator/><meta name=twitter:card content=summary_large_image><meta name=twitter:title content="OPR Card Generator — Printable Unit Cards for OnePageRules"><meta name=twitter:description content="Turn an Army Forge list into printable unit cards for OnePageRules — Grimdark Future, Age of Fantasy and more. Free, no sign-up."><script type=application/ld+json>{"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"UtilitiesApplication","description":"Free tool that turns an Army Forge list into printable unit cards for OnePageRules games such as Grimdark Future and Age of Fantasy. Paste a shared army link to get one card per unit with stats, special rules and weapons, plus combined rules and spell tables. Print or download as PNG.","isAccessibleForFree":true,"keywords":"OnePageRules, OPR, Army Forge, unit cards, printable army cards, Grimdark Future, Age of Fantasy, OPR card generator","name":"OPR Card Generator","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"operatingSystem":"Any (web browser)","url":"https://jeanomeg.github.io/opr-card-generator/"}</script><link rel=stylesheet href=opr-redesign.8b697e2f.css><body>
+<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>OPR Card Generator — Printable Unit Cards for OnePageRules &amp; Army Forge</title><meta name=description content="Free tool that turns an Army Forge list into printable unit cards for OnePageRules games — Grimdark Future, Age of Fantasy, Firefight and more. Paste a shared army link to get one card per unit with stats, special rules and weapons, plus rules and spell tables. Print or download as PNG."><meta name=keywords content="OnePageRules, OPR, Army Forge, OPR card generator, unit cards, printable army cards, reference cards, Grimdark Future, Age of Fantasy, Grimdark Future Firefight, Age of Fantasy Skirmish, wargame, tabletop, proxy cards, datacards, opr card generator"><meta name=author content="Fan-made community tool"><meta name=robots content="index, follow"><link rel=canonical href=https://jeanomeg.github.io/opr-card-generator/><meta property=og:type content=website><meta property=og:site_name content="OPR Card Generator"><meta property=og:title content="OPR Card Generator — Printable Unit Cards for OnePageRules"><meta property=og:description content="Paste a shared Army Forge link and get printable unit cards for OnePageRules — Grimdark Future, Age of Fantasy and more. Free, no sign-up."><meta property=og:url content=https://jeanomeg.github.io/opr-card-generator/><meta name=twitter:card content=summary_large_image><meta name=twitter:title content="OPR Card Generator — Printable Unit Cards for OnePageRules"><meta name=twitter:description content="Turn an Army Forge list into printable unit cards for OnePageRules — Grimdark Future, Age of Fantasy and more. Free, no sign-up."><script type=application/ld+json>{"@context":"https://schema.org","@type":"WebApplication","applicationCategory":"UtilitiesApplication","description":"Free tool that turns an Army Forge list into printable unit cards for OnePageRules games such as Grimdark Future and Age of Fantasy. Paste a shared army link to get one card per unit with stats, special rules and weapons, plus combined rules and spell tables. Print or download as PNG.","isAccessibleForFree":true,"keywords":"OnePageRules, OPR, Army Forge, unit cards, printable army cards, Grimdark Future, Age of Fantasy, OPR card generator","name":"OPR Card Generator","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"operatingSystem":"Any (web browser)","url":"https://jeanomeg.github.io/opr-card-generator/"}</script><link rel=stylesheet href=opr-redesign.1caab430.css><body>
 
   <header class=topbar>
-    <button id=nav-toggle class=nav-toggle type=button aria-label="Open menu" aria-expanded=false aria-controls=nav-drawer>☰</button>
+    <button id=nav-toggle class=nav-toggle type=button aria-label="Open menu" data-i18n-aria=nav.openMenu aria-expanded=false aria-controls=nav-drawer>☰</button>
     <span class=topbar-title>OPR Card Generator</span>
+    <label class=lang-switch>
+      <span data-i18n=lang.label>Language</span>
+      <select id=langSelect>
+        <option value=en>English</option>
+        <option value=pt-BR>Português (BR)</option>
+      </select>
+    </label>
   </header>
 
   <nav id=nav-drawer class=nav-drawer aria-label="Main navigation">
-    <a href=#/ data-route=/ class=nav-link>Home</a>
-    <a href=#/lists data-route=/lists class=nav-link>My Lists</a>
-    <a href=#/faq data-route=/faq class=nav-link>FAQ</a>
-    <a href=#/changelog data-route=/changelog class=nav-link>Changelog</a>
-    <a href=#/about data-route=/about class=nav-link>About</a>
+    <a href=#/ data-route=/ class=nav-link data-i18n=nav.home>Home</a>
+    <a href=#/lists data-route=/lists class=nav-link data-i18n=nav.lists>My Lists</a>
+    <a href=#/faq data-route=/faq class=nav-link data-i18n=nav.faq>FAQ</a>
+    <a href=#/changelog data-route=/changelog class=nav-link data-i18n=nav.changelog>Changelog</a>
+    <a href=#/about data-route=/about class=nav-link data-i18n=nav.about>About</a>
   </nav>
   <div id=nav-overlay class=nav-overlay></div>
 
   <main>
     <section id=view-home data-view=/>
-      <div class=controls>
-        <input id=armyLink aria-label="Army Forge shared link or list ID" placeholder="Paste your shared Army Forge link or list ID...">
-        <button id=btnGenerate>Generate Cards</button>
-        <button id=btnRefresh title="Pull the latest version from Army Forge">Refresh List</button>
-        <button id=btnPrint>Print</button>
-        <button id=btnDownloadAll>Download All</button>
+            <div class=controls>
+        <input id=armyLink aria-label="Army Forge shared link or list ID" data-i18n-aria=home.inputLabel placeholder="Paste your shared Army Forge link or list ID..." data-i18n-placeholder=home.placeholder>
+        <button id=btnGenerate data-i18n=btn.generate>Generate Cards</button>
+        <button id=btnRefresh title="Pull the latest version from Army Forge" data-i18n=btn.refresh data-i18n-title=btn.refreshTitle>Refresh List</button>
+        <button id=btnPrint data-i18n=btn.print>Print</button>
+        <button id=btnDownloadAll data-i18n=btn.downloadAll>Download All</button>
       </div>
 
       <div class=print-options>
-        <label><input type=checkbox id=optCards checked> Include cards in print</label>
-        <label><input type=checkbox id=optRules checked> Include rules table in print</label>
-        <label><input type=checkbox id=optSpells checked> Include spells table in print</label>
-        <label><input type=checkbox id=optCustomName checked> Use custom unit names</label>
-        <label><input type=checkbox id=optCombine> Combine similar units</label>
+        <label><input type=checkbox id=optCards checked> <span data-i18n=opt.cards>Include cards in print</span></label>
+        <label><input type=checkbox id=optRules checked> <span data-i18n=opt.rules>Include rules table in print</span></label>
+        <label><input type=checkbox id=optSpells checked> <span data-i18n=opt.spells>Include spells table in print</span></label>
+        <label><input type=checkbox id=optCustomName checked> <span data-i18n=opt.customNames>Use custom unit names</span></label>
+        <label><input type=checkbox id=optCombine> <span data-i18n=opt.combine>Combine similar units</span></label>
       </div>
 
       <div id=army-summary class="army-summary no-print"></div>
@@ -43,8 +50,8 @@
     </section>
 
     <section id=view-lists data-view=/lists hidden>
-      <h1 class=view-title>My Lists</h1>
-      <p class=view-placeholder>Saved lists will appear here.</p>
+      <h1 class=view-title data-i18n=lists.title>My Lists</h1>
+      <p class=view-placeholder data-i18n=lists.placeholder>Saved lists will appear here.</p>
     </section>
 
     <section id=view-faq data-view=/faq hidden>
@@ -204,7 +211,7 @@
     </section>
   </main>
 
-  <script type=module src=opr-redesign.e83166c2.js></script>
+  <script type=module src=opr-redesign.d09729ad.js></script>
 
 
 

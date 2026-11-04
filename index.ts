@@ -23,6 +23,7 @@ import type { ArmyList } from './src/types';
 import { renderChangelog } from './src/views/changelog';
 import { renderListsView, type ListsViewCallbacks } from './src/views/lists';
 import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palettes';
+import { applyTranslations, getLang, setLang, t, type Lang } from './src/i18n';
 
 const cardsContainerElement = document.getElementById('cards');
 const inputElementElement = document.getElementById('armyLink');
@@ -66,23 +67,35 @@ let currentArmy: ArmyList | null = null;
 // Seletor de paleta, criado aqui e colocado junto das opções de impressão.
 const paletteSelect = document.createElement('select');
 paletteSelect.id = 'optPalette';
-const paletteGroup = (title: string, game: Palette['game']): string =>
-  `<optgroup label="${title}">` +
-  PALETTES.filter((p) => p.game === game)
-    .map((p) => `<option value="${p.id}">${p.label}</option>`)
-    .join('') +
-  '</optgroup>';
+function paletteDisplayName(p: Palette): string {
+  if (p.id === 'default') return t('palette.default');
+  // Em inglês mostra só o nome do exército; em português, o nome com as cores.
+  return getLang() === 'pt-BR' ? p.label : p.label.split(' — ')[0];
+}
 
-paletteSelect.innerHTML =
-  '<option value="auto">Automática (pelo nome da lista)</option>' +
-  paletteGroup('Grimdark Future', 'GF') +
-  paletteGroup('Age of Fantasy', 'AoF') +
-  paletteGroup('Geral', 'geral');
-  // A primeira opção ("Automática") mostra qual paleta está valendo no momento.
-const autoOption = paletteSelect.options[0];
+// (Re)monta as opções do seletor no idioma atual, mantendo a escolha.
+function buildPaletteOptions(): void {
+  const previous = paletteSelect.value || 'auto';
+  const group = (title: string, game: Palette['game']): string =>
+    `<optgroup label="${title}">` +
+    PALETTES.filter((p) => p.game === game)
+      .map((p) => `<option value="${p.id}">${paletteDisplayName(p)}</option>`)
+      .join('') +
+    '</optgroup>';
+
+  paletteSelect.innerHTML =
+    '<option value="auto"></option>' +
+    group('Grimdark Future', 'GF') +
+    group('Age of Fantasy', 'AoF') +
+    group(t('palette.general'), 'geral');
+  paletteSelect.value = previous;
+}
+buildPaletteOptions();
 
 const paletteLabel = document.createElement('label');
-paletteLabel.append('Paleta de cores: ', paletteSelect);
+const paletteLabelText = document.createElement('span');
+paletteLabelText.dataset.i18n = 'opt.palette';
+paletteLabel.append(paletteLabelText, ' ', paletteSelect);
 printOptions?.appendChild(paletteLabel);
 // Barra de tamanho da imagem: fica abaixo das opções de impressão e só aparece
 // quando há pelo menos uma foto (controlado pelo CSS).
@@ -108,12 +121,11 @@ function currentPalette(): Palette {
 function refreshPalette(): void {
   const palette = currentPalette();
   applyPalette(palette);
-  autoOption.textContent =
+  paletteSelect.options[0].textContent =
     paletteSelect.value === 'auto'
-      ? `Automática → ${palette.label}`
-      : 'Automática (pelo livro ou nome da lista)';
+      ? t('palette.autoPicked', { name: paletteDisplayName(palette) })
+      : t('palette.auto');
 }
-
 paletteSelect.addEventListener('change', () => {
   try {
     localStorage.setItem(paletteStorageKey(), paletteSelect.value);
@@ -213,7 +225,7 @@ function displayArmy(army: ArmyList, input: string): void {
   );
 
   if (unitCount === 0) {
-    setMessage('This army list did not return any units.', 'empty');
+    setMessage(t('msg.noUnits'), 'empty');
   } else {
     setDocumentTitle(army.name);
     setPrintControlsVisible(true);
@@ -231,7 +243,7 @@ async function loadArmy(): Promise<void> {
   const armyId = extractArmyId(input);
 
   if (!armyId) {
-    setMessage('Paste a shared Army Forge link or list ID.', 'error');
+    setMessage(t('msg.pasteLink'), 'error');
     inputElement.focus();
     return;
   }
@@ -248,7 +260,7 @@ async function loadArmy(): Promise<void> {
   }
   if (cached) applySettings(cached.settings);
 
-  setMessage('Loading army list...', 'loading');
+  setMessage(t('msg.pasteLink'), 'loading');
   generateButton?.setAttribute('disabled', 'true');
 
   try {
@@ -271,7 +283,7 @@ async function loadArmy(): Promise<void> {
       displayArmy(cached.payload, cached.input);
     } else {
       setMessage(
-        'Could not load this army list. Check the link, try again, or verify whether the browser blocked the request.',
+        t('msg.loadError'),
         'error',
       );
     }
@@ -311,7 +323,7 @@ async function refreshArmy(): Promise<void> {
     }
   } catch (error) {
     console.error(error);
-    window.alert('Could not refresh this list. Check your connection and try again.');
+    window.alert(t('msg.refreshError'));
   } finally {
     refreshButton?.removeAttribute('disabled');
   }
@@ -384,7 +396,7 @@ const listsCallbacks: ListsViewCallbacks = {
       await saveList(army, saved.input);
     } catch (error) {
       console.error('Failed to refresh list:', error);
-      window.alert('Could not refresh this list. Check your connection and try again.');
+      window.alert(t('msg.refreshError'));
     }
     await refreshListsView();
   },
@@ -444,5 +456,23 @@ if (homeHelp && faqView) {
 
 inputElement.value = localStorage.getItem('lastArmyInput') ?? '';
 setPrintControlsVisible(false);
+
+const langSelect = document.getElementById('langSelect') as HTMLSelectElement | null;
+if (langSelect) {
+  langSelect.value = getLang();
+  langSelect.addEventListener('change', () => {
+    setLang(langSelect.value as Lang);
+    applyTranslations();
+    buildPaletteOptions();
+    if (currentArmy) {
+      displayArmy(currentArmy, currentInput); // redesenha cartas e tabelas
+    } else {
+      refreshPalette();
+    }
+    void refreshListsView();
+  });
+}
+applyTranslations();
+refreshPalette();
 
 initRouter();

@@ -1,4 +1,5 @@
 import html2canvas from 'html2canvas';
+import { t, tn } from './i18n';
 
 import { deleteCardImage, getCardImage, saveCardImage } from './db';
 import type {
@@ -233,7 +234,7 @@ function createWeaponsTable(weapons: MergedWeapon[]): HTMLTableElement {
   table.className = 'weapons-table';
 
   const head = table.createTHead().insertRow();
-  for (const text of ['Weapon', 'RNG', 'ATK', 'AP', 'Special rules']) {
+  for (const text of [t('wpn.weapon'), t('wpn.range'), t('wpn.attacks'), t('wpn.ap'), t('wpn.special')]) {
     const th = document.createElement('th');
     th.textContent = text;
     head.appendChild(th);
@@ -268,7 +269,7 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
   const upgradeRulePills = getUpgradeRulePills(unit);
 
   if (rules.length === 0 && upgrades.length === 0 && upgradeRulePills.length === 0) {
-    container.appendChild(createTextElement('muted', 'No special rules'));
+    container.appendChild(createTextElement('muted', t('card.noRules')));
     return container;
   }
 
@@ -400,7 +401,8 @@ export function createAvatarSizeControl(): HTMLDivElement {
 
   const label = document.createElement('span');
   label.className = 'avatar-size-label';
-  label.textContent = 'Tamanho da imagem:';
+    label.dataset.i18n = 'avatar.label';
+  label.textContent = t('avatar.label');
 
   const options = document.createElement('div');
   options.className = 'avatar-size-options';
@@ -419,7 +421,8 @@ export function createAvatarSizeControl(): HTMLDivElement {
     if (level === DEFAULT_AVATAR_LEVEL) {
       const note = document.createElement('span');
       note.className = 'avatar-size-default';
-      note.textContent = 'padrão';
+            note.dataset.i18n = 'avatar.default';
+      note.textContent = t('avatar.default');
       options.appendChild(note);
     }
   }
@@ -534,7 +537,7 @@ function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = t
   if (!src) {
     img?.remove();
     card.classList.remove('card--has-image');
-    avatar.title = 'Click to add an image';
+    avatar.title = t('img.add');
     return;
   }
 
@@ -558,7 +561,7 @@ function setCardImage(card: HTMLDivElement, src: string | null, resetFraming = t
 
   img.src = src;
   card.classList.add('card--has-image');
-  avatar.title = 'Drag to move · scroll to zoom';
+  avatar.title = t('img.drag');
   if (resetFraming) resetCardFraming(card);
 }
 
@@ -686,7 +689,7 @@ function enableCardImagePanZoom(card: HTMLDivElement, avatar: HTMLDivElement): v
 function enableCardImageUpload(card: HTMLDivElement): void {
   const avatar = document.createElement('div');
   avatar.className = 'card-avatar';
-  avatar.title = 'Click to add an image';
+  avatar.title = t('img.add');
   card.querySelector('.card-header')?.prepend(avatar);
 
   enableCardImagePanZoom(card, avatar);
@@ -702,7 +705,7 @@ function enableCardImageUpload(card: HTMLDivElement): void {
       if (!file) return;
 
       if (file.size > MAX_IMAGE_BYTES) {
-        window.alert(`That image is too large. Please choose one under ${MAX_IMAGE_MB} MB.`);
+        window.alert(t('img.tooLarge', { mb: MAX_IMAGE_MB }));
         return;
       }
 
@@ -823,7 +826,7 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
 
 
   const zoom = createSliderRow(
-    'Zoom',
+    t('img.zoom'),
     {
       min: MIN_BG_SCALE.toString(),
       max: MAX_BG_SCALE.toString(),
@@ -837,14 +840,14 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
   // Horizontal / vertical position sliders — an alternative to dragging the
   // image, which is awkward on touch screens.
   const panX = createSliderRow(
-    'Horizontal',
+    t('img.horizontal'),
     { min: '-100', max: '100', step: '1', value: '0' },
     (value) => setCardPan(card, 'x', parseFloat(value)),
   );
   getCardImageState(card).panXSlider = panX.slider;
 
   const panY = createSliderRow(
-    'Vertical',
+    t('img.vertical'),
     { min: '-100', max: '100', step: '1', value: '0' },
     (value) => setCardPan(card, 'y', parseFloat(value)),
   );
@@ -853,8 +856,8 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
   const reset = document.createElement('button');
   reset.type = 'button';
   reset.className = 'toolbar-reset';
-  reset.textContent = 'Recenter';
-  reset.title = 'Reset zoom and position';
+  reset.textContent = t('img.recenter');
+  reset.title = t('img.recenterTitle');
   reset.addEventListener('click', () => {
     resetCardFraming(card);
     scheduleCardImagePersist(card);
@@ -863,7 +866,7 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
   const remove = document.createElement('button');
   remove.type = 'button';
   remove.className = 'toolbar-reset';
-  remove.textContent = 'Remove image';
+  remove.textContent = t('img.remove');
   remove.addEventListener('click', () => removeCardImage(card));
 
   const imageControls = document.createElement('div');
@@ -913,7 +916,7 @@ function unitSignature(unit: Unit, useCustomNames: boolean): string {
 // "Joined to ..." marker, so both name the same unit the same way.
 function unitDisplayName(unit: Unit, useCustomNames: boolean): string {
   const customName = useCustomNames ? unit.customName?.trim() : '';
-  return customName || unit.name || 'Unnamed unit';
+  return customName || unit.name || t('card.unnamed');
 }
 
 interface UnitGroup {
@@ -1097,7 +1100,7 @@ function createCard(
   if (unit.combinedFromHalves) {
     const badge = document.createElement('span');
     badge.className = 'combined-badge';
-    badge.textContent = 'Combined';
+    badge.textContent = t('card.combined');
     costElement.append(' ', badge);
   }
 
@@ -1113,15 +1116,15 @@ function createCard(
   // gets a "Joined to <unit>" marker, matching Army Forge so it's clear the two
   // activate together.
   if (joinedToName) {
-    header.append(createTextElement('card-joined', `🔗 Joined to ${joinedToName}`));
+    header.append(createTextElement('card-joined', t('card.joinedTo', { name: joinedToName })));
   }
 
   const stats = document.createElement('div');
   stats.className = 'stats';
   stats.append(
-    createStat('Quality', `${unit.quality}+`),
-    createStat('Defense', `${unit.defense}+`),
-    createStat('Tough', getTough(unit)),
+    createStat(t('card.quality'), `${unit.quality}+`),
+    createStat(t('card.defense'), `${unit.defense}+`),
+    createStat(t('card.tough'), getTough(unit)),
   );
 
   const weaponsContainer = document.createElement('div');
@@ -1129,7 +1132,7 @@ function createCard(
 
   const weapons = mergeWeapons(getWeapons(unit));
   if (weapons.length === 0) {
-    weaponsContainer.appendChild(createTextElement('muted', 'No weapons'));
+    weaponsContainer.appendChild(createTextElement('muted', t('card.noWeapons')));
   } else {
      weaponsContainer.appendChild(createWeaponsTable(weapons));
   }
@@ -1138,9 +1141,9 @@ function createCard(
     header,
     createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
     stats,
-    createTextElement('section-title', 'Special Rules'),
+    createTextElement('section-title', t('card.specialRules')),
     createRulesContainer(unit),
-    createTextElement('section-title', 'Weapons'),
+    createTextElement('section-title', t('card.weapons')),
     weaponsContainer,
   );
 
@@ -1302,7 +1305,7 @@ function armyInfoMeta(army: ArmyList): string {
   const activations = army.activationCount;
   const activationsPart =
     typeof activations === 'number' && activations > 0
-      ? `${activations} ${activations === 1 ? 'activation' : 'activations'} · `
+      ? `${activations} ${tn('activation', activations)} · `
       : '';
   const books = (Array.isArray(army.armyBooks) ? army.armyBooks : [])
     .map((book) => [book.name, book.version].filter(Boolean).join(' '))
@@ -1410,7 +1413,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
   if (sorted.length > 0) {
     const headerRow = document.createElement('tr');
-    for (const text of ['Rule', 'Description']) {
+    for (const text of [t('table.rule'), t('table.description')]) {
       const th = document.createElement('th');
       th.textContent = text;
       headerRow.appendChild(th);
@@ -1434,7 +1437,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   }
 
   table.append(thead, tbody);
-    if (sorted.length > 0) section.append(createSectionHeading('Special Rules'));
+    if (sorted.length > 0) section.append(createSectionHeading(t('table.specialRules')));
   section.append(table);
 }
 
@@ -1458,7 +1461,7 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   thead.appendChild(armyRow);
 
   const headerRow = document.createElement('tr');
-  for (const text of ['Cost', 'Spell', 'Effect']) {
+  for (const text of [t('table.cost'), t('table.spell'), t('table.effect')]) {
     const th = document.createElement('th');
     th.textContent = text;
     headerRow.appendChild(th);
@@ -1485,6 +1488,6 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   }
 
   table.append(thead, tbody);
-    section.append(createSectionHeading('Spells'));
+    section.append(createSectionHeading(t('table.spells')));
   section.append(table);
 }
