@@ -1208,6 +1208,50 @@ function subtitleFromGenericName(genericName: string): string {
   return first;
 }
 
+// Keep Standard card titles inside their fixed two-line area. Longer names get
+// a slightly smaller font instead of increasing the title bar or being clipped.
+function fitStandardCardTitle(card: HTMLElement): void {
+  const title = card.querySelector<HTMLElement>('.card-name');
+  if (!title) return;
+
+  const computed = getComputedStyle(title);
+  const measure = title.cloneNode(true) as HTMLElement;
+  Object.assign(measure.style, {
+    position: 'fixed',
+    left: '-10000px',
+    top: '0',
+    visibility: 'hidden',
+    display: 'block',
+    width: `${title.clientWidth}px`,
+    height: 'auto',
+    maxHeight: 'none',
+    overflow: 'visible',
+    fontFamily: computed.fontFamily,
+    fontWeight: computed.fontWeight,
+    fontStyle: computed.fontStyle,
+    letterSpacing: computed.letterSpacing,
+    lineHeight: '1',
+    whiteSpace: 'normal',
+    overflowWrap: 'anywhere',
+    webkitLineClamp: 'unset',
+    webkitBoxOrient: 'initial',
+  });
+  document.body.appendChild(measure);
+
+  const range = document.createRange();
+  range.selectNodeContents(measure);
+  let fittedSize = 5.5;
+  for (let size = 7.5; size >= 5.5; size -= 0.25) {
+    measure.style.fontSize = `${size}pt`;
+    fittedSize = size;
+    if (range.getClientRects().length <= 2) {
+      break;
+    }
+  }
+  title.style.fontSize = `${fittedSize}pt`;
+  measure.remove();
+}
+
 function createCard(
   unit: Unit,
   count = 1,
@@ -1360,6 +1404,7 @@ export function renderCards(
       design,
     );
     container.appendChild(wrapCardWithToolbar(card));
+    if (design === 'tcg') fitStandardCardTitle(card);
     // Restore after wrapping so the toolbar's sliders exist to reflect the
     // stored zoom / opacity.
     void restoreCardImage(card, armyId, unitImageId(group.unit));

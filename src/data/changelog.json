@@ -1,8 +1,11 @@
 [
   {
     "date": "November 5, 2026",
+    "datePtBR": "5 de novembro de 2026",
     "items": [
-      "**About page now credits the original project:** the app identifies itself as a fork of JeanOmeg's OPR Card Generator, thanks the original author, and links to the original repository, app, profile, issues, releases and license.",
+      "**Standard card title bars now have a fixed height** so artwork and stats line up across cards. Long unit names reduce their font size to stay within two lines.",
+      "**The full changelog is now available in pt-BR** when Português (BR) is selected; English entries remain unchanged.",
+      "**About page now credits the original project:** it identifies this app as a fork of JeanOmeg's OPR Card Generator, thanks the original author, and provides links to the original repository, app, profile, issues, releases and license.",
       "**Added the Standard unit-card design** at 63.5 × 88 mm, alongside Classic. Artwork is optional; when a Standard card has no image, the art window is removed in print and the remaining content expands to use the space. The selected design is saved per army list.",
       "**Expanded image zoom for both card designs:** the control now ranges from 0.5× to 8×, with 1× centered, and its sliders stay within the card width.",
       "**Improved dark-mode readability for Standard cards on screen.** Printed colors remain unchanged.",
@@ -14,10 +17,27 @@
       "**Weapon table headers fixed:** the **RNG**, **ATK** and **AP** column titles now use the same centered style as their values, fixing the horizontal offset between the title and the number.",
       "**Unit special rules now include Tough with its value** (e.g. **Tough(9)**) and are sorted alphabetically, adding rules granted by items (e.g. **Stealth**) into the same line.",
       "**Chosen Havoc Champion now shows its subtitle** (e.g. **Veteran Havoc Brother Leader**) when the part after the double-pipe separator is empty."
+    ],
+    "itemsPtBR": [
+      "**As barras de título das cartas Standard agora têm altura fixa** para alinhar as imagens e os atributos entre as cartas. Nomes longos reduzem a fonte para caber em até duas linhas.",
+      "**O changelog completo agora está disponível em pt-BR** quando Português (BR) está selecionado; as entradas em inglês permanecem inalteradas.",
+      "**A página Sobre agora reconhece o projeto original:** informa que este app é um fork do OPR Card Generator, de JeanOmeg, agradece ao autor e inclui links para o repositório original, o app, o perfil, as issues, as versões e a licença.",
+      "**Adicionado o design Standard para as cartas de unidade**, no tamanho 63,5 × 88 mm, junto com o Classic. A imagem é opcional; quando uma carta Standard não tem imagem, a área da arte é removida na impressão e o restante do conteúdo se expande para ocupar o espaço. O design escolhido fica salvo em cada lista de exército.",
+      "**A faixa de zoom das imagens foi ampliada nos dois designs de carta:** agora vai de 0,5× a 8×, com 1× no centro, e os controles deslizantes permanecem dentro da largura da carta.",
+      "**Melhorada a leitura das cartas Standard na tela em modo escuro.** As cores da impressão continuam iguais.",
+      "**Melhoradas as traduções de conteúdo pt-BR:** regras especiais, armas, magias e itens do GFF usam o dicionário do sistema correspondente; foram corrigidas a exibição de AP (PA), nomes de itens como **Camo Cloak** e nomes de armas de Sargento.",
+      "**Os nomes das paletas agora são consistentes nos dois idiomas:** elas mostram apenas o nome do exército, sem a combinação de cores.",
+      "**Os títulos das tabelas de magia em pt-BR agora seguem o formato ‘Magias - [livro]’.**",
+      "**O fluxo de tradução foi organizado por sistema de jogo:** o coletor do Army Forge agora salva cópias do texto original em inglês por sistema e adiciona novas entradas ao dicionário pt-BR sem sobrescrever traduções existentes. O texto original em inglês fica separado das traduções, e o app seleciona o dicionário do sistema correspondente.",
+      "**Os itens agora aparecem na tabela de armas**, em uma segunda seção abaixo das armas: unidades com itens como **Eliminator Sniper** e **Camo Cloak** mostram o item na coluna **Item** e a regra concedida (por exemplo, **Stealth**) na coluna **Special rules**, alinhada à tabela de armas acima.",
+      "**Corrigidos os cabeçalhos da tabela de armas:** os títulos das colunas **RNG**, **ATK** e **AP** agora ficam centralizados como os valores, corrigindo o desalinhamento horizontal entre o título e o número.",
+      "**As regras especiais das unidades agora incluem o valor de Tough** (por exemplo, **Tough(9)**) e aparecem em ordem alfabética; regras concedidas por itens (por exemplo, **Stealth**) também são incluídas na mesma linha.",
+      "**Chosen Havoc Champion agora exibe o subtítulo** (por exemplo, **Veteran Havoc Brother Leader**) quando a parte após o separador de duas barras verticais está vazia."
     ]
   },
   {
     "date": "November 4, 2026",
+    "datePtBR": "4 de novembro de 2026",
     "items": [
       "**Fixed rated rules (e.g. AP) showing 'PA:PA' / 'AP:AP':** now falls back to the generic rule description by name for the active language (pt-BR shows full text, en-US shows English).",
       "**Fixed per-system fallback mixing GF/GFF texts:** when a list has no dictionary for its game system, the UI now shows the English original instead of borrowing another system's translation.",
@@ -43,47 +63,101 @@
       "**Site renamed to 'OPR Card Generator - Redesign'** (title, meta tags and topbar).",
       "**Print/PDF filename customized:** when printing, the file is now named with the game system abbreviation + army name (e.g. **GF - Space Marines Combat Patrol**) instead of the generic page title.",
       "**Fixed broken accents in pt-BR translations:** 43 entries with replacement characters (`?gil` instead of `Ágil`) were restored from clean sources; the dictionary is now stored as UTF-8 so accented characters display correctly."
+    ],
+    "itemsPtBR": [
+      "**Corrigida a exibição de regras com valor** (por exemplo, AP) como ‘PA:PA’ / ‘AP:AP’: agora é usada a descrição genérica da regra no idioma ativo (texto completo em pt-BR e inglês em en-US).",
+      "**Corrigida a mistura de textos de GF e GFF no fallback por sistema:** quando uma lista não tem dicionário para seu sistema de jogo, a interface agora mostra o original em inglês em vez de usar a tradução de outro sistema.",
+      "**As tabelas impressas de regras especiais e magias agora usam 2 colunas**, como na exibição na tela.",
+      "**Corrigido um erro que ocultava regras de armas sem ID** (por exemplo, Deadly(2) em Sniper Rifle) da tabela de regras especiais.",
+      "**O dicionário de traduções foi reconstruído por sistema de jogo:** o coletor agora usa somente o sistema da lista (por exemplo, GFF), e o app seleciona a seção correspondente — os textos de GF, GFF e AoF não se misturam mais.",
+      "**Dicionário reconstruído a partir de uma única lista-base** (Angels of Death - Ultramarines, GFF): 61 regras, 59 armas, 6 magias e 24 itens, todos retraduzidos e conferidos com a fonte GFF atual.",
+      "**Corrigidas 9 traduções de regras que usavam o texto de GF em vez de GFF** (Strider, Hero, Parry, Flying, Brace, Impact, Musician, Blast e Banner), com novas traduções baseadas na fonte correspondente.",
+      "**Removido o botão ‘Download All’:** agora as cartas podem ser baixadas individualmente pelo botão PNG de cada uma.",
+      "**Tradução completa para pt-BR das páginas Home, FAQ, Changelog e About:** os textos das páginas (perguntas e respostas da FAQ, About e introdução do changelog) agora são traduzidos quando Português (BR) está selecionado.",
+      "**Corrigida a mensagem de ajuda da página inicial que exibia ‘undefined’:** faltava a chave da chamada da FAQ no dicionário.",
+      "**O tema claro agora é o padrão para quem visita o site pela primeira vez.** O modo escuro continua disponível pelo botão ☾/☀, e a preferência fica salva no dispositivo.",
+      "**Novo visual:** navegação horizontal mais limpa, seção de boas-vindas, opções mais organizadas e controles em formato de pílula.",
+      "No **modo escuro**, as cartas geradas agora usam fundo escuro e texto claro, combinando com o restante da interface — sem folhas brancas brilhantes em uma página escura. **A impressão não mudou** e continua usando papel branco.",
+      "Melhorado o contraste de cores dos nomes das cartas, custos, atributos, armas e regras especiais nos dois temas.",
+      "Atualizados o endereço do site e os metadados de SEO para **https://afonsobe.github.io/opr-redesign/**.",
+      "**Tradução do conteúdo das unidades para pt-BR:** regras especiais, regras especiais de armas e magias agora são traduzidas quando Português (BR) está selecionado. Os nomes das regras e magias mantêm o termo original em inglês entre parênteses (por exemplo, **Explosão (Blast)**) para facilitar a consulta ao livro de regras em inglês. Nomes e subtítulos das unidades continuam em inglês, como a maioria dos jogadores usa as regras nesse idioma.",
+      "**A escolha do idioma fica salva:** depois de selecionar um idioma, ele passa a ser o padrão neste dispositivo.",
+      "Os termos seguem a tradução comunitária brasileira das regras de OPR; as descrições continuam fiéis ao texto original.",
+      "Adicionados um arquivo de memória de tradução (`src/i18n/content.pt-BR.json`) e um script coletor (`scripts/collect-content.mjs`) para que novas regras de outros livros de exército possam ser traduzidas e revisadas da mesma forma.",
+      "**Dicionário de traduções ampliado:** adicionados 8 livros de exército (Robot Legions, Chaos Dwarfs, Dark Elves, Deep-Sea Elves, Human Defense Force, Depth One Reavers, Jackals e Human Defense Force 200pts). O dicionário agora contém **178 regras especiais, 447 armas, 42 magias e 154 itens de melhoria**, todos traduzidos para pt-BR.",
+      "Corrigido um problema de codificação que fazia acentos aparecerem incorretamente; o arquivo do dicionário agora usa caracteres ASCII escapados para evitar esse problema.",
+      "**O site passou a se chamar ‘OPR Card Generator - Redesign’** (título, metadados e barra superior).",
+      "**Personalizado o nome do arquivo de impressão/PDF:** agora ele inclui a sigla do sistema de jogo e o nome do exército (por exemplo, **GF - Space Marines Combat Patrol**), em vez do título genérico da página.",
+      "**Corrigidos acentos quebrados nas traduções pt-BR:** 43 entradas com caracteres substitutos (`?gil` em vez de `Ágil`) foram restauradas de fontes corretas; o dicionário agora é salvo em UTF-8 para exibir acentos corretamente."
     ]
   },
   {
     "date": "July 22, 2026",
+    "datePtBR": "22 de julho de 2026",
     "items": [
       "**Light theme is now the default** for first-time visitors. Dark mode is still available from the ☾/☀ button and your choice is remembered on your device.",
       "**New look:** cleaner horizontal navigation, a welcome section on the Home screen, better organized controls and option pills.",
       "In **dark mode**, generated cards now use a dark paper background with light text, matching the rest of the interface — no more bright white cards on a dark page. **Printing is unchanged** and always uses white paper.",
       "Improved color contrast for card names, costs, stats, weapons and special rules in both themes.",
       "Updated the site address and SEO metadata to **https://afonsobe.github.io/opr-redesign/**."
+    ],
+    "itemsPtBR": [
+      "**O tema claro agora é o padrão para quem visita o site pela primeira vez.** O modo escuro continua disponível pelo botão ☾/☀, e a preferência fica salva no dispositivo.",
+      "**Novo visual:** navegação horizontal mais limpa, seção de boas-vindas, opções mais organizadas e controles em formato de pílula.",
+      "No **modo escuro**, as cartas geradas agora usam fundo escuro e texto claro, combinando com o restante da interface — sem folhas brancas brilhantes em uma página escura. **A impressão não mudou** e continua usando papel branco.",
+      "Melhorado o contraste de cores dos nomes das cartas, custos, atributos, armas e regras especiais nos dois temas.",
+      "Atualizados o endereço do site e os metadados de SEO para **https://afonsobe.github.io/opr-redesign/**."
     ]
   },
   {
     "date": "July 22, 2026",
+    "datePtBR": "22 de julho de 2026",
     "items": [
       "Fixed **duplicate rows** in the special-rules table for rated rules like **AP** and **Regeneration Aura**: a rule with several rating values (e.g. AP(1) and AP(2)) now shows up **once**, instead of once per value."
+    ],
+    "itemsPtBR": [
+      "Corrigidas as **linhas duplicadas** na tabela de regras especiais para regras com valor, como **AP** e **Regeneration Aura**: uma regra com vários valores (por exemplo, AP(1) e AP(2)) agora aparece **uma única vez**."
     ]
   },
   {
     "date": "July 6, 2026",
+    "datePtBR": "6 de julho de 2026",
     "items": [
       "Fixed a list **failing to load** (blank sheet) when a unit carried an item that grants a weapon but has no label of its own — e.g. an **Energy Shield** that also gives a **Bash** attack. The card now shows the bundled weapon (e.g. **5x Bash (A1)**) instead of crashing."
+    ],
+    "itemsPtBR": [
+      "Corrigido um erro que fazia uma lista **não carregar** (a página ficava em branco) quando uma unidade tinha um item que concede uma arma, mas não tem nome próprio — por exemplo, um **Energy Shield** que também concede um ataque **Bash**. Agora a carta mostra a arma concedida (por exemplo, **5x Bash (A1)**) em vez de causar um erro."
     ]
   },
   {
     "date": "July 5, 2026",
+    "datePtBR": "5 de julho de 2026",
     "items": [
       "A **Hero** joined to a unit in Army Forge now shows a **🔗 Joined to <unit>** marker on its card (e.g. **Joined to Warriors**), matching Army Forge — so it's clear the hero and its unit **activate together** and the activation count adds up.",
       "Cards are now sorted **alphabetically** by unit name, and a **joined Hero** is always placed **right after the unit it joins** (e.g. the ONIs card, then its Dynasty Leader), making the sheet much easier to read.",
       "The base line on each card now also shows the **army name** and **game system** before the base size — e.g. **Eternal Dynasty - GF - 60x35mm** — so cards from different lists don't get mixed up when you print several armies and shuffle them together."
+    ],
+    "itemsPtBR": [
+      "Um **Hero** unido a uma unidade no Army Forge agora exibe na carta o indicador **🔗 Joined to <unit>** (por exemplo, **Joined to Warriors**), como no Army Forge — deixando claro que o herói e sua unidade **ativam juntos** e contam para o total de ativações.",
+      "As cartas agora são ordenadas **alfabeticamente** pelo nome da unidade, e um **Hero unido** aparece sempre **logo depois da unidade** à qual está ligado (por exemplo, a carta ONIs seguida pela Dynasty Leader), facilitando a leitura da folha.",
+      "A linha da base de cada carta agora também mostra o **nome do exército** e o **sistema de jogo** antes do tamanho da base — por exemplo, **Eternal Dynasty - GF - 60x35mm** — para evitar misturar cartas de listas diferentes ao imprimir vários exércitos."
     ]
   },
   {
     "date": "July 2, 2026",
+    "datePtBR": "2 de julho de 2026",
     "items": [
       "The army header (name, points, activations and game system) now also appears above the **spells table**, and a matching **on-screen summary** shows right below the print options so those totals stay visible while you scroll through many cards. The summary is not printed.",
       "Fixed the **points** on a card showing only the unit's **base cost** and ignoring its upgrades: the card now shows the unit's **real total**, upgrades included — e.g. a **Gecko Champion** with a Starseer Palanquin and Priest upgrade now reads **85 pts** instead of **30 pts**."
+    ],
+    "itemsPtBR": [
+      "O cabeçalho do exército (nome, pontos, ativações e sistema de jogo) agora também aparece acima da **tabela de magias**, e um **resumo na tela** é exibido logo abaixo das opções de impressão para manter esses totais visíveis durante a rolagem. O resumo não é impresso.",
+      "Corrigida a exibição dos **pontos** da carta, que mostrava apenas o **custo base** da unidade e ignorava melhorias: agora a carta mostra o **total real**, incluindo melhorias — por exemplo, um **Gecko Champion** com Starseer Palanquin e melhoria Priest passa a mostrar **85 pts** em vez de **30 pts**."
     ]
   },
   {
     "date": "June 30, 2026",
+    "datePtBR": "30 de junho de 2026",
     "items": [
       "Units merged with the **Combine Units** rule (two same-type units fielded as one larger unit) now render as a **single card** with their models, points and weapons added together — e.g. two 5-model squads become one **Battle Brothers [10]** card showing both squads' weapons. This always applies, regardless of the **Combine similar units** option.",
       "Reworked **Combine similar units**: identical cards now combine regardless of how many models they have (combining is purely cosmetic, to save paper), up to **3 cards** per combined card. A combined card keeps the **original** card's points and weapon quantities instead of multiplying them.",
@@ -93,17 +167,33 @@
       "Leaving the **Home** screen now clears the loaded army, so coming back to Home shows the **FAQ** again instead of your previous cards — a temporary nudge to help everyone learn how to use the app.",
       "Changed the default options: **Use custom unit names** is now **on** and **Combine similar units** is now **off** by default, and the print/option checkboxes were reordered (cards, rules, spells, custom names, combine).",
       "Cards built from two units merged by the **Combine Units** rule now show a **Combined** badge next to the points, making it obvious when units were combined (sometimes by accident in Army Forge)."
+    ],
+    "itemsPtBR": [
+      "Unidades combinadas pela regra **Combine Units** (duas unidades do mesmo tipo agrupadas como uma unidade maior) agora são exibidas em **uma única carta**, com modelos, pontos e armas somados — por exemplo, dois esquadrões de 5 modelos viram uma **Battle Brothers [10]** com as armas dos dois esquadrões. Isso sempre acontece, independentemente da opção **Combine similar units**.",
+      "A opção **Combine similar units** foi reformulada: cartas idênticas agora são agrupadas independentemente da quantidade de modelos (o agrupamento é apenas visual, para economizar papel), até **3 cartas** em uma. A carta agrupada mantém os pontos e as quantidades de armas da carta **original**, sem multiplicá-los.",
+      "A quantidade de modelos deixou de aparecer ao lado dos pontos e passou a aparecer ao lado do nome da carta como **[N]** — por exemplo, **3x Battle Brothers [5]**.",
+      "A **FAQ** agora também aparece na tela **Home** sempre que não há um exército carregado, para que você veja como usar o app sem abrir a página FAQ. A página dedicada da FAQ continua disponível.",
+      "O cabeçalho do exército acima da **tabela de regras especiais** agora mostra o **total de ativações** (por exemplo, **250 / 250 pts · 8 activations · AOFS**), facilitando a conferência de quantas unidades há quando cartas semelhantes são agrupadas.",
+      "Ao sair da tela **Home**, o exército carregado agora é limpo. Assim, ao voltar para Home, a **FAQ** é exibida novamente no lugar das cartas anteriores — um lembrete temporário para ajudar novos usuários a conhecer o app.",
+      "Alteradas as opções padrão: **Use custom unit names** agora fica ativada e **Combine similar units** desativada. As caixas de seleção de impressão e opções também foram reordenadas (cartas, regras, magias, nomes personalizados e agrupamento).",
+      "Cartas criadas a partir de duas unidades combinadas pela regra **Combine Units** agora mostram o selo **Combined** ao lado dos pontos, deixando claro quando as unidades foram agrupadas (às vezes sem querer no Army Forge)."
     ]
   },
   {
     "date": "June 29, 2026",
+    "datePtBR": "29 de junho de 2026",
     "items": [
       "Added **Horizontal** and **Vertical** sliders to each card's image controls, so you can reposition a background image with the sliders instead of only dragging it — much easier on phones and tablets.",
       "Your per-list options (**Combine similar units**, **Use custom unit names**, and the print include toggles) are now **saved with each list** and restored when you load it from **My Lists**, instead of resetting every time."
+    ],
+    "itemsPtBR": [
+      "Adicionados controles deslizantes **Horizontal** e **Vertical** aos controles de imagem de cada carta, permitindo reposicionar a imagem de fundo pelos controles em vez de apenas arrastá-la — muito mais fácil em celulares e tablets.",
+      "As opções de cada lista (**Combine similar units**, **Use custom unit names** e as opções de inclusão na impressão) agora ficam **salvas com a lista** e são restauradas ao carregá-la em **My Lists**, em vez de serem redefinidas."
     ]
   },
   {
     "date": "June 27, 2026",
+    "datePtBR": "27 de junho de 2026",
     "items": [
       "Fixed **combined unit cards** showing only one unit's points, model count and weapon quantities: a card for several merged units (e.g. **3x Mercenary Hunter**) now totals them correctly — e.g. **45 pts · 3 models** with **3x Bow** — instead of **15 pts · 1 model**.",
       "Fixed model upgrades that grant a rule (e.g. upgrading one model to a **Sergeant**) not showing on the card; they now appear under **Special Rules** as **1x Sergeant** and their description is listed in the special-rules table, matching Army Forge.",
@@ -113,10 +203,21 @@
       "Added a **Combine similar units** option (on by default): identical single-model units now collapse into a single card prefixed with their count (e.g. **3x Tribe Spider Rig**), matching Army Forge. Multi-model units always stay on their own card, and unchecking the option shows every unit separately.",
       "Identical weapons carried by several models are now merged into a single line with a combined quantity (e.g. three daggers show as **3x Dagger (A2)**), matching how Army Forge groups them, instead of repeating the same weapon once per model.",
       "Fixed weapons whose quantity was already part of the name (e.g. **Tribe Champion**'s **2x Hand Weapon**) showing the multiplier twice, as in **2x 2x Hand Weapon (A2)**. The quantity now appears only once."
+    ],
+    "itemsPtBR": [
+      "Corrigidas as **cartas de unidades agrupadas** que mostravam os pontos, a quantidade de modelos e as quantidades de armas de apenas uma unidade: agora a carta de várias unidades combinadas (por exemplo, **3x Mercenary Hunter**) soma corretamente os valores — por exemplo, **45 pts · 3 modelos** com **3x Bow** — em vez de **15 pts · 1 modelo**.",
+      "Corrigidas melhorias de modelo que concedem uma regra (por exemplo, melhorar um modelo para **Sergeant**) e não apareciam na carta; agora elas aparecem em **Special Rules** como **1x Sergeant**, e sua descrição entra na tabela de regras especiais, como no Army Forge.",
+      "Corrigida a página **My Lists**, que aparecia vazia depois de carregar, gerar ou atualizar uma lista: agora as listas salvas aparecem assim que a página é aberta, sem precisar recarregar (F5).",
+      "Adicionada a opção **Use custom unit names** (desativada por padrão): ative-a para usar como título da carta o nome personalizado da unidade no Army Forge (por exemplo, **Frodo**) e mover o nome do livro para o subtítulo. Desativada, a carta continua usando o nome padrão da unidade.",
+      "As **imagens de fundo das cartas agora são mantidas**: a imagem adicionada, junto com zoom, posição e opacidade, fica salva no dispositivo para continuar disponível ao recarregar ou voltar depois. Ao usar **Refresh List**, ela permanece enquanto a unidade ainda estiver na lista e é removida automaticamente quando a unidade (ou a lista inteira) for excluída. Cada imagem pode ter até 2 MB.",
+      "Adicionada a opção **Combine similar units** (ativada por padrão): unidades idênticas de um modelo agora são agrupadas em uma carta com a quantidade no início (por exemplo, **3x Tribe Spider Rig**), como no Army Forge. Unidades com vários modelos continuam em cartas separadas; desative a opção para mostrar cada unidade individualmente.",
+      "Armas idênticas usadas por vários modelos agora são reunidas em uma linha com a quantidade total (por exemplo, três adagas aparecem como **3x Dagger (A2)**), como no Army Forge, em vez de repetir a arma para cada modelo.",
+      "Corrigidas armas cuja quantidade já fazia parte do nome (por exemplo, **2x Hand Weapon** do **Tribe Champion**), que exibiam o multiplicador duas vezes, como em **2x 2x Hand Weapon (A2)**. Agora a quantidade aparece uma única vez."
     ]
   },
   {
     "date": "June 26, 2026",
+    "datePtBR": "26 de junho de 2026",
     "items": [
       "Fixed upgrades that arrived without a label (e.g. **Combat Shield**) showing up as an empty blank pill; they now display their name plus the rule they grant, e.g. **Combat Shield (Shielded)**.",
       "Granted abilities that name another rule in their text (e.g. **Reanimation Aura** grants **Reanimation**, **Repel Ambushers** mentions **Ambush**) now also list that referenced rule in the special-rules table instead of leaving it undefined.",
@@ -124,6 +225,14 @@
       "Items that are actually weapons (such as **Weapon Team**) now appear in the **Weapons** section instead of being listed under Special Rules.",
       "**Generate Cards** now loads instantly from your saved copy when the list is already cached — use the new **Refresh List** button to pull the latest version from Army Forge when you need it.",
       "Added **Changelog** and **About** pages."
+    ],
+    "itemsPtBR": [
+      "Corrigidos aprimoramentos que chegavam sem nome (por exemplo, **Combat Shield**) e apareciam como uma pílula vazia; agora exibem o nome e a regra concedida, como **Combat Shield (Shielded)**.",
+      "Habilidades concedidas que mencionam outra regra em sua descrição (por exemplo, **Reanimation Aura** concede **Reanimation**, e **Repel Ambushers** menciona **Ambush**) agora também incluem essa regra na tabela de regras especiais, em vez de deixá-la sem definição.",
+      "As armas agora mostram sua quantidade (por exemplo, **8x Rifle (24\", A1)**) em vez de ocultar quantas unidades de cada arma a unidade carrega.",
+      "Itens que na verdade são armas (como **Weapon Team**) agora aparecem na seção **Weapons**, em vez de serem listados em Special Rules.",
+      "**Generate Cards** agora carrega instantaneamente a cópia salva quando a lista já está em cache. Use o novo botão **Refresh List** para buscar a versão mais recente no Army Forge quando necessário.",
+      "Adicionadas as páginas **Changelog** e **About**."
     ]
   }
 ]

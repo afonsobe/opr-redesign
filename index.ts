@@ -491,6 +491,7 @@ if (langSelect) {
   langSelect.addEventListener('change', () => {
     setLang(langSelect.value as Lang);
     applyTranslations();
+    if (changelogEntries) renderChangelog(changelogEntries);
     buildPaletteOptions();
     if (currentArmy) {
       displayArmy(currentArmy, currentInput); // redesenha cartas e tabelas

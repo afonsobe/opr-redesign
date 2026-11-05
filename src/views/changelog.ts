@@ -1,8 +1,11 @@
 import changelog from '../data/changelog.json';
+import { getLang } from '../i18n';
 
 export interface ChangelogEntry {
   date: string;
+  datePtBR?: string;
   items: string[];
+  itemsPtBR?: string[];
 }
 
 // Turn an item string into DOM nodes, converting **bold** spans into <strong>
@@ -22,16 +25,18 @@ function appendFormatted(target: HTMLElement, text: string): void {
 }
 
 function createEntry(entry: ChangelogEntry): HTMLDivElement {
+  const lang = getLang();
   const wrapper = document.createElement('div');
   wrapper.className = 'changelog-entry';
 
   const date = document.createElement('h2');
   date.className = 'changelog-date';
-  date.textContent = entry.date;
+  date.textContent = lang === 'pt-BR' ? entry.datePtBR ?? entry.date : entry.date;
 
   const list = document.createElement('ul');
   list.className = 'changelog-list';
-  for (const item of entry.items) {
+  for (const [index, itemEN] of entry.items.entries()) {
+    const item = lang === 'pt-BR' ? entry.itemsPtBR?.[index] ?? itemEN : itemEN;
     const li = document.createElement('li');
     appendFormatted(li, item);
     list.appendChild(li);

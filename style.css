@@ -1655,16 +1655,20 @@ body.card-layout-tcg .cards {
 }
 
 .card--tcg .card-header {
+  box-sizing: border-box;
+  flex: 0 0 11mm;
+  height: 11mm;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: 5.6mm 1.8mm 1.4mm;
   column-gap: 1mm;
   align-items: center;
-  padding: 1mm 1.2mm 1.2mm;
+  padding: 0.6mm 0.9mm;
   border: 0.35mm solid var(--tcg-gold);
   border-radius: 1mm;
   background: linear-gradient(110deg, color-mix(in srgb, var(--c1) 86%, #171318), var(--tcg-frame));
   color: #fff8e8;
+  overflow: hidden;
 }
 
 .card--tcg .card-name {
@@ -1672,8 +1676,13 @@ body.card-layout-tcg .cards {
   grid-row: 1;
   color: inherit;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 8.5pt;
-  line-height: 1.05;
+  font-size: 7.5pt;
+  line-height: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .card--tcg .card-subtitle {
@@ -1681,8 +1690,11 @@ body.card-layout-tcg .cards {
   grid-row: 2;
   margin: 0;
   color: #e8d9b4;
-  font-size: 5.7pt;
-  line-height: 1.05;
+  font-size: 4.8pt;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card--tcg .card-cost {
@@ -1698,7 +1710,11 @@ body.card-layout-tcg .cards {
   grid-row: 3;
   margin-top: 0.6mm;
   color: #fff0c4;
-  font-size: 5pt;
+  font-size: 3.7pt;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card--tcg .card-art {
