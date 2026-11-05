@@ -69,6 +69,16 @@ type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr';
 const translations = ptBR as TranslationFile;
 const source = sourceEn as TranslationSection;
 
+function sourceSection(): TranslationSection {
+  const file = source as TranslationFile;
+  if (file.systems) {
+    const key = activeSystem ?? file.meta?.system ??
+      (file.meta?.gameSystem ? GAME_SYSTEM_SLUGS[file.meta.gameSystem] : undefined);
+    return (key && file.systems[key]) || { rules: {}, weapons: {}, spells: {}, items: {} };
+  }
+  return source;
+}
+
 // Mapeia nome (em inglês) -> entrada da regra, só da seção ativa.
 // Army Forge às vezes omite o `id` em regras de arma (ex.: Deadly(2) no
 // Sniper Rifle). Sem id, a correspondência pela chave falha e a tradução
@@ -82,7 +92,7 @@ function ruleByName(): Map<string, RuleTranslation> {
   const map = new Map<string, RuleTranslation>();
   // Chave é o nome em INGLÊS (fonte). Ex.: "Deadly" -> entrada pt "Mortal".
   // Construir com entry.name (pt) nunca casaria, pois a carta manda inglês.
-  for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+  for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
     const translated = section.rules[srcId];
     if (translated?.name && srcEntry.name) {
       map.set(srcEntry.name, translated);
@@ -150,7 +160,7 @@ function ruleEntry(id: string | undefined, name?: string): RuleTranslation | und
     if (fromName?.name) return fromName;
     // Último recurso: procurar na fonte em inglês pelo nome e reusar a
     // tradução guardada para aquele id (a regra traduzida existe no dicionário).
-    for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+    for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
       if (srcEntry.name === name) {
         const translated = resolveSection().rules[srcId];
         if (translated?.name) return translated;
@@ -235,7 +245,7 @@ export function trRuleDescription(rule: { id?: string; name?: string; descriptio
       return generic.description;
     }
     // Fallback final: procurar na fonte em inglês pelo nome e reusar tradução
-    for (const [srcId, srcEntry] of Object.entries(source.rules)) {
+    for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
       if (srcEntry.name === rule.name) {
         const t2 = resolveSection().rules[srcId]?.description;
         if (t2 && t2.trim() && t2.trim() !== rule.name && t2.trim() !== (resolveSection().rules[srcId]?.name ?? '')) return t2;

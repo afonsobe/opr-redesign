@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "typecheck:functions": "tsc --noEmit --project netlify/tsconfig.json",
     "api": "yarn --cwd api dev",
+    "i18n:collect": "node scripts/collect-content.mjs",
     "dev": "concurrently -n api,web -c blue,magenta \"yarn api\" \"yarn start\""
   },
   "devDependencies": {

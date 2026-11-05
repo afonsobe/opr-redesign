@@ -3,10 +3,10 @@
 // Uso:
 //   node scripts/collect-content.mjs --list h-6aOj95jEaW
 //   node scripts/collect-content.mjs --army w7qor7b2kuifcyvk --game 3
-//   node scripts/collect-content.mjs --list h-6aOj95jEaW --out src/i18n/content.pt-BR.json
+//   node scripts/collect-content.mjs --list h-6aOj95jEaW
 //
-// O script baixa as regras comuns dos 5 sistemas, as regras/armas/magias do
-// livro do exército e grava (ou atualiza) o arquivo de tradução.
+// O script captura o texto inglês do sistema e do livro escolhido em
+// content.source.json, e atualiza a seção correspondente em content.pt-BR.json.
 //
 // Regra de ouro: NUNCA sobrescreve uma tradução já existente. Só adiciona
 // entradas novas com texto vazio, para você (ou uma IA) preencher depois.
@@ -23,13 +23,14 @@ const API = 'https://army-forge.onepagerules.com/api';
 const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6 };
 
 function parseArgs(argv) {
-  const args = { out: 'src/i18n/content.source.json' };
+  const args = { out: 'src/i18n/content.pt-BR.json', source: 'src/i18n/content.source.json' };
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
     if (key === '--list') args.list = argv[++i];
     else if (key === '--army') args.army = argv[++i];
     else if (key === '--game') args.game = argv[++i];
     else if (key === '--out') args.out = argv[++i];
+    else if (key === '--source') args.source = argv[++i];
   }
   return args;
 }
@@ -50,7 +51,7 @@ function walkWeapons(node, out) {
   }
   if (typeof node.weaponId === 'string' && typeof node.name === 'string' && node.name.trim()) {
     // A mesma arma pode aparecer em várias unidades; guarda a primeira grafia.
-    if (!out.has(node.weaponId)) out.set(node.weaponId, node.name.trim());
+    if (!out.has(node.weaponId)) out.set(node.weaponId, node.name);
   }
   for (const value of Object.values(node)) walkWeapons(value, out);
 }
@@ -113,7 +114,7 @@ async function main() {
         Array.isArray(item.content) &&
         item.content.length > 0
       ) {
-        itemNames.add(item.name.trim());
+        itemNames.add(item.name);
       }
     }
   }
@@ -122,7 +123,7 @@ async function main() {
       for (const opt of section.options || []) {
         for (const gain of opt.gains || []) {
           if (gain?.type === 'ArmyBookItem' && gain.name) {
-            itemNames.add(gain.name.trim());
+            itemNames.add(gain.name);
           }
         }
       }
@@ -153,8 +154,23 @@ async function main() {
     items: Object.fromEntries([...itemNames].sort().map((name) => [name, name])),
   };
 
-  // 3) Se o arquivo de destino já existe, preserva o que já foi traduzido e só
-  // acrescenta as chaves novas com campos vazios.
+  const slug = Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === gameSystem)?.[0];
+  if (!slug) throw new Error(`Sistema desconhecido: ${gameSystem}`);
+
+  // Source is an immutable snapshot of the English API payload, grouped by game system.
+  const sourcePath = resolve(args.source);
+  let sourceFile = {};
+  try { sourceFile = JSON.parse(await readFile(sourcePath, 'utf8')); } catch { /* first collection */ }
+  const sourceSystems = sourceFile.systems || {};
+  if (!sourceFile.systems && sourceFile.rules) {
+    const previousSlug = Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === sourceFile.meta?.gameSystem)?.[0];
+    if (previousSlug) sourceSystems[previousSlug] = sourceFile;
+  }
+  sourceSystems[slug] = collected;
+  await mkdir(dirname(sourcePath), { recursive: true });
+  await writeFile(sourcePath, `${JSON.stringify({ systems: sourceSystems }, null, 2)}\n`, 'utf8');
+
+  // Preserve existing translations and add new API terms as empty entries.
   const outPath = resolve(args.out);
   let existing = null;
   try {
@@ -163,28 +179,38 @@ async function main() {
     existing = null;
   }
 
-  const merged = { meta: collected.meta, rules: {}, weapons: {}, spells: {}, items: {} };
-  for (const section of ['rules', 'weapons', 'spells']) {
-    for (const [id, source] of Object.entries(collected[section])) {
-      const previous = existing?.[section]?.[id] || {};
+  const existingSystems = existing?.systems || {};
+  const previousSection = existingSystems[slug] || {};
+  const merged = { ...existing, meta: existing?.meta || {}, systems: { ...existingSystems } };
+  const section = {
+    meta: { ...collected.meta, system: slug },
+    rules: { ...(previousSection.rules || {}) },
+    weapons: { ...(previousSection.weapons || {}) },
+    spells: { ...(previousSection.spells || {}) },
+    items: { ...(previousSection.items || {}) },
+  };
+  for (const sectionKey of ['rules', 'weapons', 'spells']) {
+    for (const [id, source] of Object.entries(collected[sectionKey])) {
+      const previous = previousSection[sectionKey]?.[id] || {};
       const entry = {};
       for (const field of Object.keys(source)) {
-        // Sem arquivo anterior: grava o inglês (serve de referência para traduzir).
-        // Com arquivo anterior: preserva a tradução e deixa vazio o que é novo.
-        entry[field] = previous[field] ?? (existing ? '' : source[field]);
+        // English stays in content.source.json; new translations start blank.
+        entry[field] = previous[field] ?? '';
       }
-      merged[section][id] = entry;
+      section[sectionKey][id] = entry;
     }
   }
   // Itens: chave é o nome em inglês, valor é a tradução (string simples).
   for (const [name, source] of Object.entries(collected.items)) {
-    merged.items[name] = existing?.items?.[name] ?? (existing ? '' : source);
+    section.items[name] = previousSection.items?.[name] ?? '';
   }
+
+  merged.systems[slug] = section;
 
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, `${JSON.stringify(merged, null, 2)}\n`, 'utf8');
 
-  const count = (section) => Object.keys(merged[section]).length;
+  const count = (key) => Object.keys(section[key]).length;
   console.log(`Livro: ${collected.meta.book} (${armyId}, sistema ${gameSystem})`);
   console.log(`Regras: ${count('rules')} | Armas: ${count('weapons')} | Magias: ${count('spells')} | Itens: ${count('items')}`);
   console.log(`Gravado em ${outPath}`);
