@@ -1554,3 +1554,16 @@ body:has(.card--has-image) .avatar-size-bar {
   }
 }
 
+.weapons-table th.w-num {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.weapons-table .items-head th {
+  padding-top: 6px;
+}
+
+.weapons-table .items-head th:first-child {
+  text-align: left;
+}
+

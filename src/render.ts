@@ -4,7 +4,6 @@ import { t, tn } from './i18n';
 // só na hora de desenhar: os dados em `army` continuam em inglês para as
 // comparações internas (Tough, AP, ligação de regras citadas etc.).
 import {
-  trItemName,
   trRuleDescription,
   trRuleGainName,
   trRuleLabel,
@@ -82,23 +81,20 @@ function getWeaponSpecialRules(weapon: Weapon): WeaponSpecialRule[] {
   return Array.isArray(weapon.specialRules) ? weapon.specialRules : [];
 }
 
-// Army Forge sometimes omits an upgrade's `label`. When it does, rebuild it from
-// the item name plus the rules it grants (its `content`), e.g. a Combat Shield
-// with no label becomes "Combat Shield (Shielded)" — matching items that ship a
-// label. Falls back to the bare name when there are no granted rules to show.
-//
-// Quando há regras concedidas, reconstrói o rótulo traduzindo-as (a regra
-// aparece em português, sem o termo original, pois isso é só para as tabelas).
-function getUpgradeLabel(upgrade: Weapon): string {
-  const name = upgrade.name?.trim() ?? '';
-  const translatedName = trItemName(name) || name;
-  const granted = (Array.isArray(upgrade.content) ? upgrade.content : [])
-    .map((rule) => trRuleName(rule) || rule.label?.trim() || rule.name?.trim() || '')
-    .filter(Boolean);
-
-  if (granted.length > 0) return `${translatedName} (${granted.join(', ')})`;
-
-  return trItemName(upgrade.label?.trim() || '') || upgrade.label?.trim() || name;
+// Regras concedidas por um item do loadout (ex.: "Camo Cloak" concedendo "Stealth").
+// A fonte é o `content` do item (as regras que ele concede); se vier vazio ou
+// ausente, usa `specialRules` como alternativa. Cada texto é o nome da regra com
+// o rating quando existe, ex.: "Stealth" ou "Caster(3)".
+function getItemRules(item: Weapon): string[] {
+  const content = Array.isArray(item.content) ? item.content : [];
+  const source = content.length > 0 ? content : Array.isArray(item.specialRules) ? item.specialRules : [];
+  const texts: string[] = [];
+  for (const rule of source) {
+    const text = ruleText(rule);
+    const trimmed = text?.trim();
+    if (trimmed) texts.push(trimmed);
+  }
+  return texts;
 }
 
 // Some upgrades grant a special rule to a subset of a unit's models rather than
@@ -246,7 +242,8 @@ function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
     const others = rules
       .filter((rule) => rule.name !== 'AP')
       .map((rule) => trRuleLabel(rule))
-      .filter(Boolean);
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
 
     byKey.set(key, {
       name: trWeaponName(weapon) || key,
@@ -259,17 +256,34 @@ function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
     order.push(key);
   }
 
-  return order.map((key) => byKey.get(key) as MergedWeapon);
+  const result = order.map((key) => byKey.get(key) as MergedWeapon);
+  // Armas de tiro (range diferente de '-') antes das de corpo a corpo (range '-').
+  // Ordenação estável dentro de cada grupo (mantém ordem original).
+  result.sort((a, b) => {
+    const aGun = a.range !== '-';
+    const bGun = b.range !== '-';
+    if (aGun !== bGun) return aGun ? -1 : 1;
+    return 0;
+  });
+  return result;
 }
 
-function createWeaponsTable(weapons: MergedWeapon[]): HTMLTableElement {
+function createWeaponsTable(weapons: MergedWeapon[], items: Weapon[] = []): HTMLTableElement {
   const table = document.createElement('table');
   table.className = 'weapons-table';
 
   const head = table.createTHead().insertRow();
-  for (const text of [t('wpn.weapon'), t('wpn.range'), t('wpn.attacks'), t('wpn.ap'), t('wpn.special')]) {
+  const headerTexts: { text: string; className?: string }[] = [
+    { text: t('wpn.weapon') },
+    { text: t('wpn.range'), className: 'w-num' },
+    { text: t('wpn.attacks'), className: 'w-num' },
+    { text: t('wpn.ap'), className: 'w-num' },
+    { text: t('wpn.special') },
+  ];
+  for (const header of headerTexts) {
     const th = document.createElement('th');
-    th.textContent = text;
+    if (header.className) th.className = header.className;
+    th.textContent = header.text;
     head.appendChild(th);
   }
 
@@ -277,7 +291,7 @@ function createWeaponsTable(weapons: MergedWeapon[]): HTMLTableElement {
   for (const weapon of weapons) {
     const row = body.insertRow();
     const cells: [string, string][] = [
-      [weapon.count > 0 ? `${weapon.count}x ${weapon.name}` : weapon.name, 'w-name'],
+      [weapon.count > 1 ? `${weapon.count}x ${weapon.name}` : weapon.name, 'w-name'],
       [weapon.range, 'w-num'],
       [weapon.attacks, 'w-num'],
       [weapon.ap, 'w-num'],
@@ -290,6 +304,58 @@ function createWeaponsTable(weapons: MergedWeapon[]): HTMLTableElement {
     }
   }
 
+  if (items.length > 0) {
+    const itemsBody = table.createTBody();
+    const itemsHeadRow = itemsBody.insertRow();
+    itemsHeadRow.className = 'items-head';
+    const itemNameHeader = document.createElement('th');
+    itemNameHeader.textContent = t('wpn.item');
+    itemsHeadRow.appendChild(itemNameHeader);
+    const itemEmptyHeader = document.createElement('th');
+    itemEmptyHeader.colSpan = 3;
+    itemsHeadRow.appendChild(itemEmptyHeader);
+    const itemSpecialHeader = document.createElement('th');
+    itemSpecialHeader.textContent = t('wpn.special');
+    itemsHeadRow.appendChild(itemSpecialHeader);
+
+    const merged = new Map<string, { name: string; special: string; count: number }>();
+    const itemOrder: string[] = [];
+    for (const item of items) {
+      const name = item.name?.trim() || item.label?.trim() || '';
+      const itemTexts = getItemRules(item)
+        .map((text) => text?.trim())
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b));
+      const special = itemTexts.length > 0 ? itemTexts.join(', ') : '-';
+      const key = `${name}::${special}`;
+      const count = typeof item.count === 'number' ? item.count : 1;
+      const existing = merged.get(key);
+      if (existing) {
+        existing.count += count;
+        continue;
+      }
+      merged.set(key, { name, special, count });
+      itemOrder.push(key);
+    }
+
+    for (const key of itemOrder) {
+      const entry = merged.get(key);
+      if (!entry) continue;
+      const row = itemsBody.insertRow();
+      const cells: { text: string; className?: string; colSpan?: number }[] = [
+        { text: entry.count > 1 ? `${entry.count}x ${entry.name}` : entry.name, className: 'w-name' },
+        { text: '', colSpan: 3 },
+        { text: entry.special, className: 'w-special' },
+      ];
+      for (const cell of cells) {
+        const td = row.insertCell();
+        if (cell.colSpan) td.colSpan = cell.colSpan;
+        if (cell.className) td.className = cell.className;
+        td.textContent = cell.text;
+      }
+    }
+  }
+
   return table;
 }
 
@@ -297,11 +363,28 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
   const container = document.createElement('div');
   container.className = 'rules-container';
 
-  const rules = getRules(unit).filter((rule) => rule.name !== 'Tough');
+  const rules = getRules(unit);
   const upgrades = getUpgrades(unit);
   const upgradeRulePills = getUpgradeRulePills(unit);
 
-  if (rules.length === 0 && upgrades.length === 0 && upgradeRulePills.length === 0) {
+  // Regras concedidas por itens do loadout (ex.: "Camo Cloak" concedendo "Stealth").
+  const itemRuleTexts: string[] = [];
+  for (const item of upgrades) {
+    for (const text of getItemRules(item)) {
+      const trimmed = text?.trim();
+      if (trimmed) itemRuleTexts.push(trimmed);
+    }
+  }
+
+  const pillTexts = new Set<string>();
+  for (const rule of rules) {
+    const text = ruleText(rule);
+    const trimmed = text?.trim();
+    if (trimmed) pillTexts.add(trimmed);
+  }
+  for (const text of itemRuleTexts) pillTexts.add(text);
+
+  if (rules.length === 0 && itemRuleTexts.length === 0 && upgradeRulePills.length === 0) {
     container.appendChild(createTextElement('muted', t('card.noRules')));
     return container;
   }
@@ -316,11 +399,16 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
     container.appendChild(pill);
   };
 
-  for (const rule of rules) addPill(trRuleLabel(rule));
-  for (const upgrade of upgrades) addPill(getUpgradeLabel(upgrade));
+  const sortedRules = Array.from(pillTexts).sort((a, b) => a.localeCompare(b));
+  for (const pill of sortedRules) addPill(pill);
   for (const pill of upgradeRulePills) addPill(pill);
 
   return container;
+}
+
+// Texto de uma regra da unidade para a linha de regras: nome + rating (ex.: "Tough(9)").
+function ruleText(rule: UnitRule): string {
+  return trRuleLabel(rule);
 }
 
 // --- Card avatar image: círculo com pan / zoom / upload ----------------------
@@ -1147,10 +1235,11 @@ function createCard(
   weaponsContainer.className = 'weapons-container';
 
   const weapons = mergeWeapons(getWeapons(unit));
-  if (weapons.length === 0) {
+  const items = getUpgrades(unit);
+  if (weapons.length === 0 && items.length === 0) {
     weaponsContainer.appendChild(createTextElement('muted', t('card.noWeapons')));
   } else {
-     weaponsContainer.appendChild(createWeaponsTable(weapons));
+    weaponsContainer.appendChild(createWeaponsTable(weapons, items));
   }
 
    header.append(stats);

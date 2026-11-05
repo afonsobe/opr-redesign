@@ -202,11 +202,18 @@ export function trRuleLabel(rule: {
   rating?: number;
 }): string {
   const entry = ruleEntry(rule.id, rule.name);
+  // Sem tradução: reconstruir do nome em inglês + rating, para nunca perder
+  // o valor (ex.: Deadly com rating 2 => "Deadly(2)", como no Army Forge).
   if (!entry?.name) {
-    // Sem tradução: preservar o rótulo original (evita perder o valor).
+    if (rule.rating != null) {
+      const englishName = rule.name?.trim() || rule.label?.trim() || '';
+      if (englishName.endsWith(`(${rule.rating})`)) return englishName;
+      if (!englishName) return rule.label || '';
+      return `${englishName}(${rule.rating})`;
+    }
     return rule.label || rule.name || '';
   }
-  // Com tradução: aplicar o rating sobre o nome traduzido.
+  // Com tradução: aplicar o rating sobre o nome traduzido; nunca descartar.
   return rule.rating != null ? `${entry.name}(${rule.rating})` : entry.name;
 }
 

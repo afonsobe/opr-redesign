@@ -1,5 +1,13 @@
 [
   {
+    "date": "November 5, 2026",
+    "items": [
+      "**Items now render inside the weapons table** (same table, second section below the weapons): units with items such as **Eliminator Sniper** and **Camo Cloak** now show the item in the **Item** column and its granted rule (e.g. **Stealth**) in the **Special rules** column, aligned with the weapons table above.",
+      "**Weapon table headers fixed:** the **RNG**, **ATK** and **AP** column titles now use the same centered style as their values, fixing the horizontal offset between the title and the number.",
+      "**Unit special rules now include Tough with its value** (e.g. **Tough(9)**) and are sorted alphabetically, adding rules granted by items (e.g. **Stealth**) into the same line."
+    ]
+  },
+  {
     "date": "November 4, 2026",
     "items": [
       "**Fixed rated rules (e.g. AP) showing 'PA:PA' / 'AP:AP':** now falls back to the generic rule description by name for the active language (pt-BR shows full text, en-US shows English).",
