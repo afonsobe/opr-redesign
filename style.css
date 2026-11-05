@@ -1173,18 +1173,6 @@ body:has(.card--has-image) .avatar-size-bar {
   content: ": ";
 }
 
-.spells-table .spell-cost {
-  font-weight: bold;
-}
-
-.spells-table .spell-cost::before {
-  content: "(";
-}
-
-.spells-table .spell-cost::after {
-  content: ") ";
-}
-
 /* ---------- Celular ---------- */
 
 @media (max-width: 860px) {

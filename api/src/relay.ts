@@ -45,6 +45,11 @@ export interface ArmyBook {
   versionString?: string;
   version?: string | number;
   spells?: Spell[];
+  // Ids das regras citadas pelas magias do livro (ex.: AP, Enhanced Havocbound).
+  usedRulesInSpells?: string[];
+  // Lista completa de regras do livro, usada para trazer a descrição de regras
+  // citadas apenas nas magias quando elas não vêm na lista.
+  specialRules?: RuleLike[];
   gameSystemSlug?: string;
 }
 
@@ -59,6 +64,7 @@ export interface ArmyPayload {
   specialRules?: RuleLike[];
   units?: UnitLike[];
   spells?: Spell[];
+  spellRuleIds?: string[];
   [key: string]: unknown;
 }
 
@@ -161,6 +167,54 @@ function collectSpells(
   return spells;
 }
 
+// Regras citadas pelas magias: união (sem repetir) dos usedRulesInSpells dos
+// livros que têm unidades Conjuradoras — os mesmos livros que alimentam as magias.
+function collectSpellRuleIds(
+  army: ArmyPayload,
+  books: { armyId: string; book: ArmyBook }[],
+): string[] {
+  const units = Array.isArray(army.units) ? army.units : [];
+  const casterArmyIds = new Set(
+    units
+      .filter((unit) => unit.armyId && unitHasCaster(unit))
+      .map((unit) => unit.armyId as string),
+  );
+
+  const ids = new Set<string>();
+  for (const { armyId, book } of books) {
+    if (!casterArmyIds.has(armyId)) continue;
+    for (const id of Array.isArray(book.usedRulesInSpells) ? book.usedRulesInSpells : []) {
+      if (id) ids.add(id);
+    }
+  }
+  return [...ids];
+}
+
+// Garante que as regras citadas nas magias estejam no payload: se alguma id não
+// está entre as regras da lista, adiciona a entrada vinda do livro (sem duplicar).
+function addSpellRuleEntries(
+  payload: ArmyPayload,
+  books: { armyId: string; book: ArmyBook }[],
+  ids: string[],
+): ArmyPayload {
+  const specialRules = Array.isArray(payload.specialRules) ? [...payload.specialRules] : [];
+  const knownIds = new Set(
+    specialRules.map((rule) => rule.id).filter((id): id is string => !!id),
+  );
+  const bookRules = new Map<string, RuleLike>();
+  for (const { book } of books) {
+    for (const rule of Array.isArray(book.specialRules) ? book.specialRules : []) {
+      if (rule.id && !bookRules.has(rule.id)) bookRules.set(rule.id, rule);
+    }
+  }
+  for (const id of ids) {
+    if (knownIds.has(id)) continue;
+    const rule = bookRules.get(id);
+    if (rule) specialRules.push(rule);
+  }
+  return { ...payload, specialRules, spellRuleIds: ids };
+}
+
 // Nome e versão de cada livro usado, ex.: { name: "Havoc Brothers", version: "3.6.0" }.
 function collectBookInfo(books: { armyId: string; book: ArmyBook }[]): BookInfo[] {
   return books
@@ -215,7 +269,7 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
     fetchBooks(army),
   ]);
 
-  return {
+  const payload: ArmyPayload = {
     ...mergeRules(army, commonRules),
     spells: collectSpells(army, books),
     armyBooks: collectBookInfo(books),
@@ -223,4 +277,6 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
       .map(({ book }) => book.gameSystemSlug)
       .find((slug): slug is string => !!slug),
   };
+
+  return addSpellRuleEntries(payload, books, collectSpellRuleIds(army, books));
 }

@@ -1161,6 +1161,18 @@ function orderGroups(
   });
 }
 
+// Army Forge sometimes ships variant names joined by "||" (ex.: "Veteran Havoc
+// Brother Leader||"). The card shows the second part of the variant when present;
+// when it is empty, falls back to the first part (the unit's descriptive name,
+// e.g. "Veteran Havoc Brother Leader") — the raw "||" never reaches the screen.
+function subtitleFromGenericName(genericName: string): string {
+  const parts = (genericName ?? '').split('||');
+  const second = (parts[1] ?? '').trim();
+  if (second) return second;
+  const first = (parts[0] ?? '').trim();
+  return first;
+}
+
 function createCard(
   unit: Unit,
   count = 1,
@@ -1186,7 +1198,7 @@ function createCard(
   // book name over the generic name.
   const customName = useCustomNames ? unit.customName?.trim() : '';
   const baseName = unitDisplayName(unit, useCustomNames);
-  const subtitle = customName ? unit.name : unit.genericName;
+  const subtitle = customName ? unit.name : subtitleFromGenericName(unit.genericName);
   // A combined card stands in for `count` identical units but keeps the original
   // card's profile, points and loadout — combining is purely cosmetic (to save
   // paper), nothing is multiplied. The model count moves from the points line to
@@ -1210,11 +1222,9 @@ function createCard(
 
   const header = document.createElement('div');
   header.className = 'card-header';
-  header.append(
-    createTextElement('card-name', displayName),
-    createTextElement('card-subtitle', subtitle || ''),
-    costElement,
-  );
+  header.append(createTextElement('card-name', displayName));
+  if (subtitle) header.append(createTextElement('card-subtitle', subtitle));
+  header.append(costElement);
 
   // A hero that joins a unit (Army Forge's `joinToUnit`, kept as its own card)
   // gets a "Joined to <unit>" marker, matching Army Forge so it's clear the two
@@ -1497,7 +1507,26 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     }
   }
 
+  const spellRuleIds = Array.isArray(army.spellRuleIds) ? army.spellRuleIds : [];
+  for (const id of spellRuleIds) usedIds.add(id);
+
   const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
+  // Reserva para listas salvas antes dessa mudança (sem `spellRuleIds`): procura
+  // no efeito de cada magia o nome de uma regra que tenha descrição própria e não
+  // seja ranqueada (hasRating !== true), como "Enhanced Havocbound".
+  if (spellRuleIds.length === 0) {
+    for (const spell of Array.isArray(army.spells) ? army.spells : []) {
+      const effect = spell?.effect ?? '';
+      if (!effect) continue;
+      for (const rule of armySpecialRules) {
+        if (rule.hasRating === true) continue;
+        const desc = (rule.description ?? '').trim();
+        const name = (rule.name ?? '').trim();
+        if (!name || !desc || desc === name) continue;
+        if (new RegExp(`\\b${escapeRegExp(name)}\\b`).test(effect)) usedNames.add(name);
+      }
+    }
+  }
   const used = armySpecialRules.filter(
     (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)) || (r.name != null && usedNames.has(r.name)),
   );
@@ -1606,17 +1635,22 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
     (a, b) => a.threshold - b.threshold || trSpellName(a).localeCompare(trSpellName(b)),
   );
 
+  const bookNames = (army.armyBooks ?? [])
+    .map((book) => (book?.name ?? '').trim())
+    .filter(Boolean);
+  const spellsTitle = bookNames.length > 0 ? t('table.spellsArmy', { book: bookNames.join(' + ') }) : t('table.spells');
+
   const table = document.createElement('table');
   table.className = 'special-rules-table spells-table';
 
   const thead = document.createElement('thead');
 
   const armyRow = document.createElement('tr');
-  armyRow.appendChild(createArmyHeaderCell(army, 3));
+  armyRow.appendChild(createArmyHeaderCell(army, 2));
   thead.appendChild(armyRow);
 
   const headerRow = document.createElement('tr');
-  for (const text of [t('table.cost'), t('table.spell'), t('table.effect')]) {
+  for (const text of [t('table.spell'), t('table.effect')]) {
     const th = document.createElement('th');
     th.textContent = text;
     headerRow.appendChild(th);
@@ -1627,13 +1661,11 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   for (const spell of sorted) {
     const tr = document.createElement('tr');
 
-    const costTd = document.createElement('td');
-    costTd.className = 'spell-cost';
-    costTd.textContent = spell.threshold.toString();
-
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    nameTd.textContent = trSpellName(spell);
+    const spellNameForDisplay = trSpellName(spell);
+    const costText = ` (${spell.threshold ?? 0})`;
+    nameTd.textContent = `${spellNameForDisplay}${costText}`;
     const originalSpellName = spell.name?.trim() || '';
     if (originalSpellName && trSpellName(spell) !== originalSpellName) {
       const originalSpan = document.createElement('span');
@@ -1645,11 +1677,11 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
     const effectTd = document.createElement('td');
     effectTd.textContent = trSpellEffect(spell);
 
-    tr.append(costTd, nameTd, effectTd);
+    tr.append(nameTd, effectTd);
     tbody.appendChild(tr);
   }
 
   table.append(thead, tbody);
-    section.append(createSectionHeading(t('table.spells')));
+    section.append(createSectionHeading(spellsTitle));
   section.append(table);
 }

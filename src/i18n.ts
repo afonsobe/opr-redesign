@@ -81,6 +81,7 @@ const en = {
 
   'table.specialRules': 'Special Rules',
   'table.spells': 'Spells',
+  'table.spellsArmy': '{book} Army Spells',
   'table.rule': 'Rule',
   'table.description': 'Description',
   'table.cost': 'Cost',
@@ -250,6 +251,7 @@ const ptBR: Record<Key, string> = {
 
   'table.specialRules': 'Regras especiais',
   'table.spells': 'Magias',
+  'table.spellsArmy': 'Magias do exército {book}',
   'table.rule': 'Regra',
   'table.description': 'Descrição',
   'table.cost': 'Custo',
