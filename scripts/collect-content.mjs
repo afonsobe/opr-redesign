@@ -166,7 +166,23 @@ async function main() {
     const previousSlug = Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === sourceFile.meta?.gameSystem)?.[0];
     if (previousSlug) sourceSystems[previousSlug] = sourceFile;
   }
-  sourceSystems[slug] = collected;
+  const previousSource = sourceSystems[slug] || {};
+  const previousCollections = Array.isArray(previousSource.meta?.collections)
+    ? previousSource.meta.collections
+    : previousSource.meta?.armyId
+      ? [{ armyId: previousSource.meta.armyId, book: previousSource.meta.book || '' }]
+      : [];
+  const collections = [
+    ...previousCollections.filter((entry) => entry.armyId !== armyId),
+    { armyId, book: collected.meta.book, collectedAt: collected.meta.collectedAt },
+  ];
+  sourceSystems[slug] = {
+    meta: { ...previousSource.meta, ...collected.meta, system: slug, collections },
+    rules: { ...(previousSource.rules || {}), ...collected.rules },
+    weapons: { ...(previousSource.weapons || {}), ...collected.weapons },
+    spells: { ...(previousSource.spells || {}), ...collected.spells },
+    items: { ...(previousSource.items || {}), ...collected.items },
+  };
   await mkdir(dirname(sourcePath), { recursive: true });
   await writeFile(sourcePath, `${JSON.stringify({ systems: sourceSystems }, null, 2)}\n`, 'utf8');
 

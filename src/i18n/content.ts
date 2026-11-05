@@ -193,7 +193,13 @@ export function trRuleName(rule: { id?: string; name?: string }): string {
 export function trRuleNameWithOriginal(rule: { id?: string; name?: string }): string {
   const entry = ruleEntry(rule.id, rule.name);
   const translated = entry?.name || rule.name || '';
-  if (!entry?.name || entry.name === (rule.name || '')) return translated;
+  if (
+    !entry?.name ||
+    entry.name === (rule.name || '') ||
+    /\([^)]*\)/.test(entry.name)
+  ) {
+    return translated;
+  }
   return `${entry.name} (${rule.name})`;
 }
 

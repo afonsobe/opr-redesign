@@ -70,8 +70,7 @@ const paletteSelect = document.createElement('select');
 paletteSelect.id = 'optPalette';
 function paletteDisplayName(p: Palette): string {
   if (p.id === 'default') return t('palette.default');
-  // Em inglês mostra só o nome do exército; em português, o nome com as cores.
-  return getLang() === 'pt-BR' ? p.label : (p.label.split(' — ')[0] ?? p.label);
+  return p.label.split(' — ')[0] ?? p.label;
 }
 
 // (Re)monta as opções do seletor no idioma atual, mantendo a escolha.

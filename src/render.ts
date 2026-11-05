@@ -10,6 +10,7 @@ import {
   trRuleName,
   trSpellEffect,
   trSpellName,
+  trItemName,
   trWeaponName,
 } from './i18n/content';
 
@@ -321,13 +322,14 @@ function createWeaponsTable(weapons: MergedWeapon[], items: Weapon[] = []): HTML
     const merged = new Map<string, { name: string; special: string; count: number }>();
     const itemOrder: string[] = [];
     for (const item of items) {
-      const name = item.name?.trim() || item.label?.trim() || '';
+      const originalName = item.name?.trim() || item.label?.trim() || '';
+      const name = trItemName(originalName) || originalName;
       const itemTexts = getItemRules(item)
         .map((text) => text?.trim())
         .filter(Boolean)
         .sort((a, b) => a.localeCompare(b));
       const special = itemTexts.length > 0 ? itemTexts.join(', ') : '-';
-      const key = `${name}::${special}`;
+      const key = `${originalName}::${special}`;
       const count = typeof item.count === 'number' ? item.count : 1;
       const existing = merged.get(key);
       if (existing) {
@@ -1619,15 +1621,25 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     nameTd.className = 'rule-name';
     const baseName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
     // Regras ranqueadas do livro mostram "(X)" (ex.: Crossing Attack(X)), como no
-    // Army Forge; regras comuns (Deadly, AP, Tough) e regras sem valor ficam só
-    // com o nome. O valor real (2, 3, ...) aparece apenas nas cartas.
+    // Army Forge. Em pt-BR, também explicamos que o PA pode variar como PA(X).
+    const isArmorPenetration =
+      getLang() !== 'en' && (rule.name ?? '').trim() === 'AP';
     const isRated =
-      rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim());
-    const displayName = isRated ? `${baseName}(X)` : baseName;
+      isArmorPenetration ||
+      (rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim()));
+    const displayName = isRated
+      ? `${baseName}${baseName.includes(')') ? ' ' : ''}(X)`
+      : baseName;
     nameTd.textContent = displayName;
     // Termo original em inglês, apenas nas tabelas, em cinza e itálico.
     const originalRuleName = rule.name?.trim() || '';
-    if (getLang() !== 'en' && originalRuleName && baseName !== originalRuleName) {
+    const hasParentheticalExplanation = /\([^)]*\)/.test(baseName);
+    const shouldShowOriginal =
+      getLang() !== 'en' &&
+      originalRuleName &&
+      baseName !== originalRuleName &&
+      (isArmorPenetration || !hasParentheticalExplanation);
+    if (shouldShowOriginal) {
       const originalSpan = document.createElement('span');
       originalSpan.className = 'rule-name-original';
       originalSpan.textContent = ` (${originalRuleName})`;

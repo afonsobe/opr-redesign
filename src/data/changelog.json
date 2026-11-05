@@ -2,6 +2,9 @@
   {
     "date": "November 5, 2026",
     "items": [
+      "**Improved pt-BR content translations:** GFF special rules, weapons, spells and items use the matching system dictionary; corrected AP (PA) display, item names such as **Camo Cloak**, and Sergeant weapon names.",
+      "**Palette labels are now consistent across languages:** army palettes show only the army name, without the color pairing.",
+      "**Spell table headings in pt-BR now use the format ‘Magias - [book]’.**",
       "**Translation workflow organized by game system:** the Army Forge collector now saves English source snapshots per system and adds new pt-BR dictionary entries without overwriting existing translations. English source text stays separate from the translations, and the app selects the matching system dictionary.",
       "**Items now render inside the weapons table** (same table, second section below the weapons): units with items such as **Eliminator Sniper** and **Camo Cloak** now show the item in the **Item** column and its granted rule (e.g. **Stealth**) in the **Special rules** column, aligned with the weapons table above.",
       "**Weapon table headers fixed:** the **RNG**, **ATK** and **AP** column titles now use the same centered style as their values, fixing the horizontal offset between the title and the number.",

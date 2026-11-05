@@ -201,7 +201,7 @@ const ptBR: Record<Key, string> = {
   'palette.auto': 'Automática (pelo livro ou nome da lista)',
   'palette.autoPicked': 'Automática → {name}',
   'palette.general': 'Geral',
-  'palette.default': 'Padrão — grafite e teal',
+  'palette.default': 'Padrão',
   'avatar.label': 'Tamanho da imagem:',
   'avatar.default': 'padrão',
 
@@ -252,7 +252,7 @@ const ptBR: Record<Key, string> = {
 
   'table.specialRules': 'Regras especiais',
   'table.spells': 'Magias',
-  'table.spellsArmy': 'Magias do exército {book}',
+  'table.spellsArmy': 'Magias - {book}',
   'summary.forceOrgWarning': 'Esta lista não segue as regras de organização de força (Force Org.).',
   'table.rule': 'Regra',
   'table.description': 'Descrição',
