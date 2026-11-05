@@ -2,6 +2,9 @@
   {
     "date": "November 5, 2026",
     "items": [
+      "**Added the Standard unit-card design** at 63.5 × 88 mm, alongside Classic. Artwork is optional; when a Standard card has no image, the art window is removed in print and the remaining content expands to use the space. The selected design is saved per army list.",
+      "**Expanded image zoom for both card designs:** the control now ranges from 0.5× to 8×, with 1× centered, and its sliders stay within the card width.",
+      "**Improved dark-mode readability for Standard cards on screen.** Printed colors remain unchanged.",
       "**Improved pt-BR content translations:** GFF special rules, weapons, spells and items use the matching system dictionary; corrected AP (PA) display, item names such as **Camo Cloak**, and Sergeant weapon names.",
       "**Palette labels are now consistent across languages:** army palettes show only the army name, without the color pairing.",
       "**Spell table headings in pt-BR now use the format ‘Magias - [book]’.**",

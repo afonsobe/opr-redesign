@@ -37,6 +37,7 @@ const includeRulesCheckbox = document.getElementById('optRules') as HTMLInputEle
 const includeSpellsCheckbox = document.getElementById('optSpells') as HTMLInputElement | null;
 const combineUnitsCheckbox = document.getElementById('optCombine') as HTMLInputElement | null;
 const customNamesCheckbox = document.getElementById('optCustomName') as HTMLInputElement | null;
+const cardDesignButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-card-design]'));
 const specialRulesSection = document.getElementById('special-rules');
 const spellsSection = document.getElementById('spells');
 const armySummarySection = document.getElementById('army-summary');
@@ -64,6 +65,22 @@ const DEFAULT_DOCUMENT_TITLE = document.title;
 let currentArmyId: string | null = null;
 let currentInput = '';
 let currentArmy: ArmyList | null = null;
+let cardDesign: 'classic' | 'tcg' = 'classic';
+
+function getCardDesign(): 'classic' | 'tcg' {
+  return cardDesign;
+}
+
+function setCardDesign(design: 'classic' | 'tcg'): void {
+  cardDesign = design;
+  for (const button of cardDesignButtons) {
+    const selected = button.dataset.cardDesign === design;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', selected.toString());
+  }
+  document.body.classList.toggle('card-layout-tcg', design === 'tcg');
+}
+setCardDesign('classic');
 
 // Seletor de paleta, criado aqui e colocado junto das opções de impressão.
 const paletteSelect = document.createElement('select');
@@ -143,6 +160,7 @@ paletteSelect.addEventListener('change', () => {
 const DEFAULT_SETTINGS: ListSettings = {
   combineSimilar: false,
   useCustomNames: true,
+  cardDesign: 'classic',
   includeCards: true,
   includeRules: true,
   includeSpells: true,
@@ -152,6 +170,7 @@ function getCurrentSettings(): ListSettings {
   return {
     combineSimilar: combineUnitsCheckbox?.checked ?? DEFAULT_SETTINGS.combineSimilar,
     useCustomNames: customNamesCheckbox?.checked ?? DEFAULT_SETTINGS.useCustomNames,
+    cardDesign: getCardDesign(),
     includeCards: includeCardsCheckbox?.checked ?? DEFAULT_SETTINGS.includeCards,
     includeRules: includeRulesCheckbox?.checked ?? DEFAULT_SETTINGS.includeRules,
     includeSpells: includeSpellsCheckbox?.checked ?? DEFAULT_SETTINGS.includeSpells,
@@ -165,6 +184,7 @@ function applySettings(settings?: ListSettings): void {
   const resolved = settings ?? DEFAULT_SETTINGS;
   if (combineUnitsCheckbox) combineUnitsCheckbox.checked = resolved.combineSimilar;
   if (customNamesCheckbox) customNamesCheckbox.checked = resolved.useCustomNames;
+  setCardDesign(resolved.cardDesign === 'tcg' ? 'tcg' : 'classic');
   if (includeCardsCheckbox) includeCardsCheckbox.checked = resolved.includeCards;
   if (includeRulesCheckbox) includeRulesCheckbox.checked = resolved.includeRules;
   if (includeSpellsCheckbox) includeSpellsCheckbox.checked = resolved.includeSpells;
@@ -229,6 +249,7 @@ function displayArmy(army: ArmyList, input: string): void {
     army,
     combineUnitsCheckbox?.checked ?? true,
     customNamesCheckbox?.checked ?? false,
+    getCardDesign(),
   );
 
   if (unitCount === 0) {
@@ -366,6 +387,7 @@ const reRenderCards = (): void => {
       currentArmy,
       combineUnitsCheckbox?.checked ?? true,
       customNamesCheckbox?.checked ?? false,
+      getCardDesign(),
     );
   }
 };
@@ -375,6 +397,12 @@ const onCardOptionChange = (): void => {
 };
 combineUnitsCheckbox?.addEventListener('change', onCardOptionChange);
 customNamesCheckbox?.addEventListener('change', onCardOptionChange);
+for (const button of cardDesignButtons) {
+  button.addEventListener('click', () => {
+    setCardDesign(button.dataset.cardDesign === 'tcg' ? 'tcg' : 'classic');
+    onCardOptionChange();
+  });
+}
 inputElement.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     void loadArmy();

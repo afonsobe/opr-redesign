@@ -417,9 +417,25 @@ function ruleText(rule: UnitRule): string {
 
 const DEFAULT_BG_OPACITY = 1;
 
-const MIN_BG_SCALE = 1;
-const MAX_BG_SCALE = 4;
+const MIN_BG_SCALE = 0.5;
+const MAX_BG_SCALE = 8;
 const DEFAULT_BG_SCALE = 1;
+
+// Center the slider at 1x, with 0.5x to the left and 8x to the right.
+// Logarithmic mapping keeps the full range practical to control.
+function scaleFromZoomPosition(position: number): number {
+  const normalized = Math.max(-100, Math.min(100, position)) / 100;
+  return normalized < 0
+    ? Math.pow(MIN_BG_SCALE, -normalized)
+    : Math.pow(MAX_BG_SCALE, normalized);
+}
+
+function zoomPositionFromScale(scale: number): number {
+  if (scale < DEFAULT_BG_SCALE) {
+    return (-Math.log(scale) / Math.log(MIN_BG_SCALE)) * 100;
+  }
+  return (Math.log(scale) / Math.log(MAX_BG_SCALE)) * 100;
+}
 
 interface CardImageState {
   scale: number;
@@ -551,7 +567,7 @@ export function createAvatarSizeControl(): HTMLDivElement {
 
 // O círculo onde a imagem aparece.
 function getAvatar(card: HTMLDivElement): HTMLDivElement | null {
-  return card.querySelector<HTMLDivElement>('.card-avatar');
+  return card.querySelector<HTMLDivElement>('.card-image-area');
 }
 
 function fitBgCover(card: HTMLDivElement, img: HTMLImageElement): void {
@@ -630,7 +646,7 @@ function setCardScale(card: HTMLDivElement, scale: number): void {
   state.scale = Math.max(MIN_BG_SCALE, Math.min(MAX_BG_SCALE, scale));
   clampPan(card, state);
   applyBgTransform(card);
-  if (state.zoomSlider) state.zoomSlider.value = state.scale.toString();
+  if (state.zoomSlider) state.zoomSlider.value = zoomPositionFromScale(state.scale).toString();
   scheduleCardImagePersist(card);
 }
 
@@ -640,7 +656,7 @@ function resetCardFraming(card: HTMLDivElement): void {
   state.tx = 0;
   state.ty = 0;
   applyBgTransform(card);
-  if (state.zoomSlider) state.zoomSlider.value = state.scale.toString();
+  if (state.zoomSlider) state.zoomSlider.value = zoomPositionFromScale(state.scale).toString();
 }
 
 // `resetFraming` é true para um upload novo (começa centralizado em 1x) e false
@@ -741,7 +757,7 @@ async function restoreCardImage(card: HTMLDivElement, armyId: string, unitId: st
    state.tx = record.tx * avatarDiameter();
   state.ty = record.ty * avatarDiameter();
 
-  if (state.zoomSlider) state.zoomSlider.value = state.scale.toString();
+  if (state.zoomSlider) state.zoomSlider.value = zoomPositionFromScale(state.scale).toString();
 
   setCardImage(card, record.src, false);
 }
@@ -802,11 +818,20 @@ function enableCardImagePanZoom(card: HTMLDivElement, avatar: HTMLDivElement): v
 
 // Cria o círculo no cabeçalho da carta; clicar nele (sem imagem) abre a janela
 // de escolher arquivo.
-function enableCardImageUpload(card: HTMLDivElement): void {
+function enableCardImageUpload(card: HTMLDivElement, design: 'classic' | 'tcg'): void {
   const avatar = document.createElement('div');
-  avatar.className = 'card-avatar';
+  avatar.className = design === 'tcg' ? 'card-avatar card-image-area card-art' : 'card-avatar card-image-area';
   avatar.title = t('img.add');
-  card.querySelector('.card-header')?.prepend(avatar);
+  if (design === 'tcg') {
+    const placeholder = document.createElement('span');
+    placeholder.className = 'card-art-placeholder';
+    placeholder.textContent = t('card.addArtwork');
+    avatar.appendChild(placeholder);
+    const header = card.querySelector('.card-header');
+    if (header?.parentElement === card) header.after(avatar);
+  } else {
+    card.querySelector('.card-header')?.prepend(avatar);
+  }
 
   enableCardImagePanZoom(card, avatar);
 
@@ -934,14 +959,22 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
   const zoom = createSliderRow(
     t('img.zoom'),
     {
-      min: MIN_BG_SCALE.toString(),
-      max: MAX_BG_SCALE.toString(),
-      step: '0.05',
-      value: DEFAULT_BG_SCALE.toString(),
+      min: '-100',
+      max: '100',
+      step: '1',
+      value: '0',
     },
-    (value) => setCardScale(card, parseFloat(value)),
+    (value) => setCardScale(card, scaleFromZoomPosition(parseFloat(value))),
   );
   getCardImageState(card).zoomSlider = zoom.slider;
+  const zoomRangeLabels = document.createElement('div');
+  zoomRangeLabels.className = 'zoom-range-labels';
+  for (const label of ['0.5×', '1×', '8×']) {
+    const stop = document.createElement('span');
+    stop.textContent = label;
+    zoomRangeLabels.appendChild(stop);
+  }
+  zoomRangeLabels.setAttribute('aria-hidden', 'true');
 
   // Horizontal / vertical position sliders — an alternative to dragging the
   // image, which is awkward on touch screens.
@@ -977,7 +1010,7 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
 
   const imageControls = document.createElement('div');
   imageControls.className = 'card-toolbar-image-controls';
-    imageControls.append(zoom.row, panX.row, panY.row, reset, remove);
+  imageControls.append(zoom.row, zoomRangeLabels, panX.row, panY.row, reset, remove);
 
     toolbar.append(imageControls);
   wrapper.append(card, toolbar);
@@ -1183,9 +1216,11 @@ function createCard(
   joinedToName = '',
   armyName = '',
   gameSystem = '',
+  design: 'classic' | 'tcg' = 'classic',
 ): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
+  if (design === 'tcg') card.classList.add('card--tcg');
     if (getRules(unit).some((rule) => rule.name === 'Hero')) card.classList.add('card--hero');
 
   // Identify the card for image persistence. A combined card uses its first
@@ -1254,10 +1289,11 @@ function createCard(
     weaponsContainer.appendChild(createWeaponsTable(weapons, items));
   }
 
-   header.append(stats);
+  if (design === 'classic') header.append(stats);
+  card.append(header);
+  if (design === 'tcg') card.append(stats);
 
   card.append(
-    header,
     createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
     createTextElement('section-title', t('card.specialRules')),
     createRulesContainer(unit),
@@ -1269,7 +1305,7 @@ function createCard(
     card.appendChild(createTextElement('card-notes', unit.notes));
   }
 
-  enableCardImageUpload(card);
+  enableCardImageUpload(card, design);
 
   return card;
 }
@@ -1286,6 +1322,7 @@ export function renderCards(
   army: ArmyList,
   combineSimilar = true,
   useCustomNames = false,
+  design: 'classic' | 'tcg' = 'classic',
 ): number {
   container.replaceChildren();
   
@@ -1320,6 +1357,7 @@ export function renderCards(
       joinedToName,
       army.name || '',
       army.gameSystem || '',
+      design,
     );
     container.appendChild(wrapCardWithToolbar(card));
     // Restore after wrapping so the toolbar's sliders exist to reflect the

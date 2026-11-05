@@ -117,6 +117,13 @@
         <label><input type="checkbox" id="optSpells" checked> <span data-i18n="opt.spells">Include spells table in print</span></label>
         <label><input type="checkbox" id="optCustomName" checked> <span data-i18n="opt.customNames">Use custom unit names</span></label>
         <label><input type="checkbox" id="optCombine"> <span data-i18n="opt.combine">Combine similar units</span></label>
+        <div class="card-design-option">
+          <span id="cardDesignLabel" data-i18n="opt.cardDesign">Card design</span>
+          <div id="optCardDesign" class="card-design-switch" role="group" aria-labelledby="cardDesignLabel">
+            <button type="button" class="card-design-button is-active" data-card-design="classic" aria-pressed="true">Classic</button>
+            <button type="button" class="card-design-button" data-card-design="tcg" aria-pressed="false">Standard</button>
+          </div>
+        </div>
       </div>
 
       <div id="army-summary" class="army-summary no-print"></div>

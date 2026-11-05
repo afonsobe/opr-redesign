@@ -803,6 +803,8 @@ body:has(.card--has-image) .avatar-size-bar {
 /* Controles da imagem: só existem quando a carta tem foto */
 .card-toolbar {
   display: none;
+  width: 100%;
+  min-width: 0;
   padding: 8px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -817,12 +819,16 @@ body:has(.card--has-image) .avatar-size-bar {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 100%;
+  min-width: 0;
 }
 
 .toolbar-row {
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
+  min-width: 0;
 }
 
 .toolbar-label {
@@ -832,9 +838,22 @@ body:has(.card--has-image) .avatar-size-bar {
 }
 
 .toolbar-slider {
-  flex: 1;
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  max-width: 100%;
   cursor: pointer;
   accent-color: var(--accent);
+}
+
+.zoom-range-labels {
+  display: flex;
+  justify-content: space-between;
+  min-width: 0;
+  margin: -6px 0 0 70px;
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1;
 }
 
 .toolbar-reset {
@@ -1560,5 +1579,351 @@ body:has(.card--has-image) .avatar-size-bar {
 
 .weapons-table .items-head th:first-child {
   text-align: left;
+}
+
+/* ---------- Moldura colecionável 63,5 × 88 mm ---------- */
+.card-design-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  padding: 6px 9px 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.card-design-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.card-design-button {
+  min-width: 66px;
+  padding: 5px 11px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--text-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.card-design-button:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.card-design-button.is-active {
+  color: var(--accent-contrast);
+  background: var(--accent);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+body.card-layout-tcg .avatar-size-bar {
+  display: none;
+}
+
+body.card-layout-tcg .cards {
+  grid-template-columns: repeat(auto-fill, 63.5mm);
+  justify-content: center;
+  gap: 14px;
+}
+
+.card--tcg {
+  --tcg-frame: color-mix(in srgb, var(--c1) 72%, #171318);
+  --tcg-gold: #c9a75b;
+  --tcg-parchment: var(--paper);
+  width: 63.5mm;
+  height: 88mm;
+  padding: 1.6mm;
+  gap: 1mm;
+  border: 1.5mm solid var(--tcg-frame);
+  border-radius: 3mm;
+  background: var(--tcg-parchment);
+  box-shadow: 0 2px 8px #17131844, inset 0 0 0 0.45mm var(--tcg-gold);
+}
+
+.card--tcg.card--hero {
+  --tcg-frame: color-mix(in srgb, var(--c1) 82%, #100d12);
+  --tcg-gold: #e0bd68;
+}
+
+.card--tcg .card-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto;
+  column-gap: 1mm;
+  align-items: center;
+  padding: 1mm 1.2mm 1.2mm;
+  border: 0.35mm solid var(--tcg-gold);
+  border-radius: 1mm;
+  background: linear-gradient(110deg, color-mix(in srgb, var(--c1) 86%, #171318), var(--tcg-frame));
+  color: #fff8e8;
+}
+
+.card--tcg .card-name {
+  grid-column: 1;
+  grid-row: 1;
+  color: inherit;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 8.5pt;
+  line-height: 1.05;
+}
+
+.card--tcg .card-subtitle {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  color: #e8d9b4;
+  font-size: 5.7pt;
+  line-height: 1.05;
+}
+
+.card--tcg .card-cost {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: #fff0c4;
+  font-size: 7pt;
+}
+
+.card--tcg .card-joined {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin-top: 0.6mm;
+  color: #fff0c4;
+  font-size: 5pt;
+}
+
+.card--tcg .card-art {
+  display: flex;
+  flex: 0 0 23mm;
+  width: 100%;
+  height: 23mm;
+  align-items: center;
+  justify-content: center;
+  border: 0.7mm solid var(--tcg-gold);
+  border-radius: 1mm;
+  background:
+    radial-gradient(ellipse at 50% 40%, #ffffff7a, transparent 60%),
+    repeating-linear-gradient(135deg, #796b5630 0 1px, transparent 1px 6px),
+    linear-gradient(135deg, #d9ceb6, #b6aa91);
+  cursor: pointer;
+}
+
+.card--tcg .card-art-placeholder {
+  padding: 1mm 2mm;
+  border: 0.3mm solid #55483266;
+  border-radius: 5mm;
+  color: #4e4739;
+  background: #f4eddaaa;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5.5pt;
+  font-style: italic;
+}
+
+.card--tcg.card--has-image .card-art-placeholder {
+  display: none;
+}
+
+.card--tcg .card-art .card-bg {
+  border-radius: 0.5mm;
+}
+
+.card--tcg > .stats {
+  flex: 0 0 auto;
+  gap: 1mm;
+  padding: 0;
+  background: transparent;
+}
+
+.card--tcg > .stats .stat {
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0.7mm 1mm;
+  border: 0.3mm solid color-mix(in srgb, var(--c1) 32%, #c6b994);
+  border-radius: 1mm;
+  background: var(--paper);
+}
+
+.card--tcg > .stats .stat-label {
+  color: #75694e;
+  font-size: 4.8pt;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.card--tcg > .stats .stat-value {
+  color: var(--tcg-frame);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 9pt;
+  line-height: 1.05;
+}
+
+.card--tcg .base-info {
+  display: none;
+}
+
+.card--tcg .section-title {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0.3mm 0 0;
+  padding: 0.4mm 1mm;
+  border-bottom: 0.25mm solid #aa9567;
+  color: var(--tcg-frame);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5.2pt;
+  font-weight: bold;
+  letter-spacing: 0.35px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.card--tcg .rules-container {
+  flex: 0 0 auto;
+  padding: 0.5mm 1mm;
+  color: #29251d;
+  font-size: 5.4pt;
+  line-height: 1.12;
+}
+
+.card--tcg .rule-pill {
+  color: inherit;
+  font-size: inherit;
+}
+
+.card--tcg .weapons-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 0.5mm;
+  overflow: hidden;
+}
+
+.card--tcg .weapons-table {
+  table-layout: fixed;
+  font-size: 5.2pt;
+  line-height: 1.05;
+}
+
+.card--tcg .weapons-table th {
+  padding: 0.3mm 0.5mm;
+  border-bottom: 0.25mm solid #89764e;
+  color: var(--tcg-frame);
+  font-size: 4.4pt;
+  line-height: 1;
+}
+
+.card--tcg .weapons-table td {
+  padding: 0.4mm 0.5mm;
+  border-bottom: 0.2mm solid #bdb195;
+  line-height: 1.08;
+}
+
+.card--tcg .weapons-table .w-name {
+  width: 34%;
+}
+
+.card--tcg .weapons-table .w-num {
+  width: 7mm;
+}
+
+.card--tcg .card-notes {
+  flex: 0 0 auto;
+  max-height: 9mm;
+  padding: 0.7mm 1mm;
+  overflow: hidden;
+  border-top: 0.25mm solid #aa9567;
+  color: #494131;
+  font-size: 4.8pt;
+  line-height: 1.05;
+}
+
+.card--tcg:not(.card--has-image) .card-art {
+  display: flex !important;
+}
+
+/* Melhor legibilidade apenas na prévia escura. A impressão conserva as cores
+   claras e o contraste definidos nas regras-base da moldura. */
+@media screen {
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg {
+    --tcg-gold: #cbb77f;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .card-art {
+    background:
+      radial-gradient(ellipse at 50% 40%, #ffffff18, transparent 60%),
+      repeating-linear-gradient(135deg, #ffffff10 0 1px, transparent 1px 6px),
+      linear-gradient(135deg, #363b47, #282d37);
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card-art-placeholder {
+    border-color: #a9a17f;
+    color: #f0ebdb;
+    background: #1c202cdd;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg > .stats .stat-label {
+    color: #c5cbd7;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg > .stats .stat-value {
+    color: #f0d990;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .section-title {
+    border-bottom-color: #665d49;
+    color: #f0d990;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .rules-container {
+    color: #e5e8ef;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .weapons-table th {
+    border-bottom-color: #8d805f;
+    color: #f0d990;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .weapons-table td {
+    border-bottom-color: #414857;
+  }
+
+  :root[data-theme="dark"] body.card-layout-tcg .card--tcg .card-notes {
+    border-top-color: #665d49;
+    color: #c5cbd7;
+  }
+}
+
+@media print {
+  body.card-layout-tcg .cards {
+    grid-template-columns: repeat(3, 63.5mm);
+    justify-content: space-between;
+    gap: 0.75mm;
+  }
+
+  body.card-layout-tcg .card-wrapper {
+    width: 63.5mm;
+    gap: 0;
+    break-inside: avoid;
+  }
+
+  .card--tcg {
+    width: 63.5mm;
+    height: 88mm;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .card--tcg:not(.card--has-image) .card-art {
+    display: none !important;
+  }
 }
 

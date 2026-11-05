@@ -67,7 +67,7 @@ export const GAME_SYSTEM_SLUGS: Record<number, string> = {
 type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr';
 
 const translations = ptBR as TranslationFile;
-const source = sourceEn as TranslationSection;
+const source = sourceEn as unknown as TranslationSection;
 
 function sourceSection(): TranslationSection {
   const file = source as TranslationFile;

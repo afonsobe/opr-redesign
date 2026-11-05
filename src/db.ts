@@ -8,6 +8,7 @@ import type { ArmyList } from './types';
 export interface ListSettings {
   combineSimilar: boolean;
   useCustomNames: boolean;
+  cardDesign?: 'classic' | 'tcg';
   includeCards: boolean;
   includeRules: boolean;
   includeSpells: boolean;
