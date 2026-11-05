@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas';
-import { t, tn } from './i18n';
+import { getLang, t, tn } from './i18n';
 // Tradução do conteúdo vindo do Army Forge (regras, armas e magias). Aplica-se
 // só na hora de desenhar: os dados em `army` continuam em inglês para as
 // comparações internas (Tough, AP, ligação de regras citadas etc.).
@@ -1452,6 +1452,19 @@ export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
     createTextElement('army-info-name', army.name),
     createTextElement('army-info-meta', armyInfoMeta(army)),
   );
+  // Avisos do Army Forge (ex.: "Cannot have more than 3 copies of a particular unit (Vulture).").
+  // Mostra a mensagem exata da API; em pt-BR ela permanece em inglês até existir
+  // tradução, como qualquer outro conteúdo sem entrada no dicionário.
+  // Lista sem erros de force org nao mostra aviso.
+  const forceOrgErrors = (Array.isArray(army.forceOrgErrors) ? army.forceOrgErrors : [])
+    .map((entry) => (typeof entry === 'string' ? entry.trim() : ''))
+    .filter(Boolean);
+  if (forceOrgErrors.length > 0) {
+    const warning = document.createElement('div');
+    warning.className = 'army-force-org-warning';
+    warning.textContent = forceOrgErrors.map((message) => `⚠ ${message}`).join(' ');
+    section.append(warning);
+  }
 }
 
 export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): void {
@@ -1511,6 +1524,13 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   for (const id of spellRuleIds) usedIds.add(id);
 
   const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
+  // Regras comuns do sistema (vindas do relay). No Army Forge elas não têm
+  // `hasRating`, então só as regras próprias do livro mostram "(X)" na tabela.
+  const commonRuleNames = new Set(
+    (Array.isArray(army.commonRuleNames) ? army.commonRuleNames : [])
+      .map((name) => name.trim())
+      .filter(Boolean),
+  );
   // Reserva para listas salvas antes dessa mudança (sem `spellRuleIds`): procura
   // no efeito de cada magia o nome de uma regra que tenha descrição própria e não
   // seja ranqueada (hasRating !== true), como "Enhanced Havocbound".
@@ -1597,10 +1617,17 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    nameTd.textContent = trRuleName(rule);
+    const baseName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
+    // Regras ranqueadas do livro mostram "(X)" (ex.: Crossing Attack(X)), como no
+    // Army Forge; regras comuns (Deadly, AP, Tough) e regras sem valor ficam só
+    // com o nome. O valor real (2, 3, ...) aparece apenas nas cartas.
+    const isRated =
+      rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim());
+    const displayName = isRated ? `${baseName}(X)` : baseName;
+    nameTd.textContent = displayName;
     // Termo original em inglês, apenas nas tabelas, em cinza e itálico.
     const originalRuleName = rule.name?.trim() || '';
-    if (originalRuleName && trRuleName(rule) !== originalRuleName) {
+    if (getLang() !== 'en' && originalRuleName && baseName !== originalRuleName) {
       const originalSpan = document.createElement('span');
       originalSpan.className = 'rule-name-original';
       originalSpan.textContent = ` (${originalRuleName})`;
@@ -1612,7 +1639,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     // Use o fallback genérico inglês só se trRuleDescription retornou o
     // placeholder (igual ao nome). Em pt-BR, o content.ts já resolve a
     // tradução genérica, então não usamos o inglês.
-    const trDesc = trRuleDescription(rule);
+    const trDesc = getLang() === 'en' ? (rule.description ?? '') : trRuleDescription(rule);
     const isPlaceholder = trDesc.trim() === (rule.name ?? '') || trDesc.trim() === (rule.description ?? '');
     descTd.textContent = fb && isPlaceholder ? fb : trDesc;
 

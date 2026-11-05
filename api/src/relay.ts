@@ -62,6 +62,9 @@ export interface BookInfo {
 export interface ArmyPayload {
   gameSystem?: string;
   specialRules?: RuleLike[];
+  // Nomes das regras comuns do sistema (que nao tem `hasRating` no Army Forge).
+  // Usado so para exibir "(X)" na tabela de regras quando for o caso.
+  commonRuleNames?: string[];
   units?: UnitLike[];
   spells?: Spell[];
   spellRuleIds?: string[];
@@ -215,6 +218,66 @@ function addSpellRuleEntries(
   return { ...payload, specialRules, spellRuleIds: ids };
 }
 
+// Prioridade: descricao do livro > rules da lista (/api/tts) > regras comuns.
+// Quando o livro tem uma regra com o mesmo id, usa os campos de texto dela
+// (name/description); regras que existem so no livro entram no payload (sem
+// duplicar ids). Se a busca de um livro falhar, mantem o comportamento atual.
+function applyBookRules(payload: ArmyPayload, books: { armyId: string; book: ArmyBook }[]): ArmyPayload {
+  const specialRules = Array.isArray(payload.specialRules) ? [...payload.specialRules] : [];
+  const byId = new Map<string, RuleLike>();
+  for (const rule of specialRules) {
+    if (rule.id) byId.set(rule.id, rule);
+  }
+  for (const { book } of books) {
+    const bookRules = Array.isArray(book.specialRules) ? book.specialRules : [];
+    for (const bookRule of bookRules) {
+      if (!bookRule.id) continue;
+      const existing = byId.get(bookRule.id);
+      if (existing) {
+        const merged: RuleLike = {
+          ...existing,
+          id: bookRule.id,
+          name: bookRule.name ?? existing.name,
+          description: bookRule.description ?? existing.description,
+          content: bookRule.content ?? existing.content,
+        };
+        const index = specialRules.findIndex((rule) => rule.id === bookRule.id);
+        if (index >= 0) specialRules[index] = merged;
+      } else {
+        byId.set(bookRule.id, bookRule);
+        specialRules.push(bookRule);
+      }
+    }
+  }
+  return { ...payload, specialRules };
+}
+
+// O Army Forge escreve "this weapon/spell" nas regras citadas pelas magias do
+// livro (usedRulesInSpells), mesmo que a lista não tenha unidades Conjuradoras.
+// Reproduz a mesma troca de texto do original, sem lista fixa de nomes.
+function applySpellRuleWording(
+  payload: ArmyPayload,
+  books: { armyId: string; book: ArmyBook }[],
+): ArmyPayload {
+  const spellRuleIds = new Set<string>();
+  for (const { book } of books) {
+    for (const id of Array.isArray(book.usedRulesInSpells) ? book.usedRulesInSpells : []) {
+      if (id) spellRuleIds.add(id);
+    }
+  }
+  if (spellRuleIds.size === 0) return payload;
+
+  const specialRules = (Array.isArray(payload.specialRules) ? payload.specialRules : []).map(
+    (rule) => {
+      if (!rule.id || !spellRuleIds.has(rule.id)) return rule;
+      if (typeof rule.description !== 'string') return rule;
+      if (!rule.description.includes('this weapon')) return rule;
+      return { ...rule, description: rule.description.replace('this weapon', 'this weapon/spell') };
+    },
+  );
+  return { ...payload, specialRules };
+}
+
 // Nome e versão de cada livro usado, ex.: { name: "Havoc Brothers", version: "3.6.0" }.
 function collectBookInfo(books: { armyId: string; book: ArmyBook }[]): BookInfo[] {
   return books
@@ -271,6 +334,9 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
 
   const payload: ArmyPayload = {
     ...mergeRules(army, commonRules),
+    commonRuleNames: commonRules
+      .map((rule) => rule.name?.trim())
+      .filter((name): name is string => !!name),
     spells: collectSpells(army, books),
     armyBooks: collectBookInfo(books),
      gameSystemSlug: books
@@ -278,5 +344,6 @@ export async function loadArmy(id: string): Promise<ArmyPayload> {
       .find((slug): slug is string => !!slug),
   };
 
-  return addSpellRuleEntries(payload, books, collectSpellRuleIds(army, books));
+  const withSpellRules = addSpellRuleEntries(payload, books, collectSpellRuleIds(army, books));
+  return applySpellRuleWording(applyBookRules(withSpellRules, books), books);
 }

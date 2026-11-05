@@ -1542,6 +1542,13 @@ body:has(.card--has-image) .avatar-size-bar {
   }
 }
 
+.army-force-org-warning {
+  margin-top: 3px;
+  font-size: 9px;
+  font-style: italic;
+  color: var(--accent-ink-2);
+}
+
 .weapons-table th.w-num {
   text-align: center;
   white-space: nowrap;

@@ -1,0 +1,485 @@
+{
+  "meta": {
+    "armyId": "78qp9l5alslt6yj8",
+    "gameSystem": 3,
+    "book": "Battle Brothers",
+    "collectedAt": "2026-11-04"
+  },
+  "rules": {
+    "_mrPya5SXSqW": {
+      "name": "Deadly",
+      "description": "Assign each wound to one model, and multiply it by X. Hits from Deadly must be resolved first, and these wounds don’t carry over to other models if the original target is killed."
+    },
+    "_T07iXWo4VwJ": {
+      "name": "Parry",
+      "description": "When this unit takes hits in melee from enemies charging it in the front, roll X dice per model with this rule in it, up to as many dice as hits taken. For each 6+ one hit is ignored (defender picks which)."
+    },
+    "-QJdqJEKjIpE": {
+      "name": "Flying",
+      "description": "May move through units and terrain, and ignores the effects of Difficult and Dangerous terrain."
+    },
+    "0bcGY4Xr4NE0": {
+      "name": "Brace",
+      "description": "Enemies charging this unit get -X total Impact rolls per model with this rule in the two front rows if charging in the front, unless this unit is Fatigued."
+    },
+    "0dZak5jae8F0": {
+      "name": "Melee Shrouding Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Melee Shrouding. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "17crjK7P6_w6": {
+      "name": "AP",
+      "description": "Targets get -X to Defense rolls when blocking hits."
+    },
+    "1TMBPe40kx2b": {
+      "name": "Melee Shrouding",
+      "description": "When a unit where most models have this rule is targeted by an enemy unit for charging, that enemy unit gets -2\" range to a min. of 6\"."
+    },
+    "2atvlmICQSCV": {
+      "name": "Fearless",
+      "description": "When a unit where most models have this rule fails a Morale Test, roll one die. On a 4+ it counts as passed instead."
+    },
+    "3FeiOe3krHMa": {
+      "name": "Aircraft",
+      "description": "May only use Advance actions, moving in a straight line, and adding 30” to its total move (even if Shaken). Aircraft ignore all units and terrain when moving and stopping, can’t seize or contest objectives, can’t be charged, and units targeting them get -12” range and -1 to hit rolls."
+    },
+    "47CAqf7ySlfc": {
+      "name": "Caster",
+      "description": "Gets X spell tokens at the start of each round, but can’t have more than 6 at once. Once per activation, before attacking, spend as many tokens as the spell’s value to try casting one or more spells (only one try per spell). Pick a target and roll one die, and on 4+ resolve the spell’s effect. Models within 18” of the Caster may spend any number of spell tokens at the same time before rolling to give the Caster +1/-1 to the roll per token."
+    },
+    "4Q1owB6yNFz1": {
+      "name": "Spell Amplifier",
+      "description": "Gets +1 to casting rolls."
+    },
+    "5v6oaGfrdf29": {
+      "name": "Surge",
+      "description": "For each unmodified result of 6 to hit, this weapon deals 1 extra hit (only the original hit counts as a 6 for special rules)."
+    },
+    "62-mYKVM9MLd": {
+      "name": "Impact",
+      "description": "When charging, before either unit attacks, models in the two front rows roll X dice, unless this unit is Fatigued. For each 2+ the target takes 1 hit."
+    },
+    "6mJw5IdqSqNC": {
+      "name": "Ambush",
+      "description": "May be set aside before deployment. At the start of any round after the first, may be deployed within 1” of any table edge, over 9\" away from enemy units. Players alternate in placing Ambush units, starting with the player that activates next. Units that deploy via Ambush can’t seize or contest objectives on the round they deploy."
+    },
+    "741uN_Qma5mL": {
+      "name": "Battleborn",
+      "description": "If a unit where most models have this rule is Shaken at the beginning of the round, roll one die. On a 4+, it stops being Shaken."
+    },
+    "74RjQ1k41DoO": {
+      "name": "Armor",
+      "description": "Counts as having Defense X+."
+    },
+    "8Ck9GAwUK824": {
+      "name": "Indirect",
+      "description": "When using Hold actions and shooting, may target enemies that are not in line of sight as if in line of sight, and ignores Cover from Sight Blockers."
+    },
+    "8Hjy54TYtwb7": {
+      "name": "Takedown",
+      "description": "This model may pick any model in the target unit as its individual target for this weapon's attacks, which is resolved as if it was a unit of [1]. Takedown attacks must be resolved before other weapons."
+    },
+    "8KujvrTG8k9p": {
+      "name": "Regeneration",
+      "description": "When a unit where most models have this rule takes wounds, roll one die for each. On a 5+ it is ignored."
+    },
+    "9042COVrLCsI": {
+      "name": "Limited",
+      "description": "May only be used once per game."
+    },
+    "9jyvRoBODD-O": {
+      "name": "Stealth",
+      "description": "When units where most models have this rule are shot from over 9\" away, enemy units get -1 to hit rolls."
+    },
+    "9o03izVMZ-Xl": {
+      "name": "Smash",
+      "description": "When attacking units over half of this weapon's range away, the target must re-roll unmodified Defense results of 6."
+    },
+    "a0YtInGiUDd6": {
+      "name": "Tough",
+      "description": "Once a model has taken as many wounds as its Tough value, it is killed (remove from play)."
+    },
+    "aogQZcOOQrDI": {
+      "name": "Transport",
+      "description": "May transport up to X friendly models or Heroes with up to Tough(6), and non-Heroes with up to Tough(3) which occupy 3 spaces each. Transports may deploy with units inside, and units may enter/exit by using any move action, getting within 2” to enter, and staying fully within 6” when exiting. Units inside/outside transports may not target other units that are outside/inside, but may target the transport itself. When a transport is destroyed, units inside must take a Dangerous Terrain Test, are Shaken, and must be placed fully within 6” of the transport before it’s removed."
+    },
+    "ayuikxkmDOmq": {
+      "name": "Versatile Reach Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Versatile Reach. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "ba6LlbpoLkSu": {
+      "name": "Bane when Shooting Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Bane on its weapons when shooting. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "c45Fw0D2oGOk": {
+      "name": "Counter",
+      "description": "May strike first with this weapon when charged, unless this unit is Fatigued."
+    },
+    "cavWDboL4ubs": {
+      "name": "Rending",
+      "description": "Ignores Regeneration, and for each unmodified result of 6 to hit, those hits get AP(+4)."
+    },
+    "CQes0mDvF4bV": {
+      "name": "AP",
+      "description": "AP"
+    },
+    "dIQ3SGl2J2Ew": {
+      "name": "Fear",
+      "description": "When in melee with this model, enemies count as having taken +X wounds when checking who won."
+    },
+    "efmjJPTe0Yzd": {
+      "name": "Anti-Cover",
+      "description": "This weapon ignores Cover."
+    },
+    "FAMbscK5vhSu": {
+      "name": "Scout",
+      "description": "May be set aside before deployment. After all other units are deployed, may be deployed anywhere fully within 9” of their deployment zone, over 9” away from non-Scout enemy units. Players alternate in placing Scout units, starting with the player that activates next."
+    },
+    "FF5ddXgx75lI": {
+      "name": "Assault",
+      "description": "Counts as both a ranged weapon and a melee weapon."
+    },
+    "FRVSAjasmFSF": {
+      "name": "Bravery Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get +1 to Morale Test rolls. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "GRuFoZiyjY5f": {
+      "name": "Artillery",
+      "description": "When this model uses Hold actions and shoots at enemies over 12” away, it gets +1 to hit rolls. If most models in this unit have this rule, as long as they haven't moved during this round, enemy units shooting at them from over 12” away get -1 to hit rolls."
+    },
+    "H9E9PIWpGRdw": {
+      "name": "Relentless",
+      "description": "When this model shoots at enemies over 9” away, unmodified result of 6 to hit deal 1 extra hit (only the original hit counts as a 6 for special rules)."
+    },
+    "HWtnPV9LQF1D": {
+      "name": "Immobile",
+      "description": "May only use Hold actions."
+    },
+    "IEJp3a4vE0CB": {
+      "name": "Shred",
+      "description": "For each unmodified result of 1 to block hits, this weapon deals 1 extra wound."
+    },
+    "j93FkLXMCk8v": {
+      "name": "Steadfast",
+      "description": "If a unit where most models have this rule is Shaken at the beginning of the round, roll one die. On a 4+, it stops being Shaken."
+    },
+    "JoOCVPx1xT1G": {
+      "name": "Furious",
+      "description": "When charging, unmodified result of 6 to hit deal 1 extra hit (only the original hit counts as a 6 for special rules)."
+    },
+    "JSKVyurtWIyW": {
+      "name": "Strider",
+      "description": "May ignore the effects of Difficult terrain."
+    },
+    "KdgwlPb8LuD2": {
+      "name": "Fast",
+      "description": "Moves +2” when using Advance, and +4” when using Rush/Charge."
+    },
+    "Ldhtmr4H8b6G": {
+      "name": "Slow",
+      "description": "Moves -2” when using Advance, and -4” when using Rush/Charge."
+    },
+    "mETdyZ__yMVj": {
+      "name": "Mend",
+      "description": "Once per activation, before attacking, pick one friendly model within 3\" with Tough, and remove D3 wounds from it."
+    },
+    "Naqc5mga9Uha": {
+      "name": "Bane",
+      "description": "Ignores Regeneration, and when attacking, the target must re-roll unmodified Defense results of 6."
+    },
+    "O_sf2rsHA7rD": {
+      "name": "Evasive",
+      "description": "Enemies get -1 to hit rolls when attacking units where most models have this rule."
+    },
+    "qrG_DXJez5Dg": {
+      "name": "Musician",
+      "description": "This model and its unit moves +1\" when using move actions."
+    },
+    "qsx__9Cz3au_": {
+      "name": "Rapid Rush",
+      "description": "This model moves +6\" when using Rush actions."
+    },
+    "QXyt-zV_bjpg": {
+      "name": "Unstoppable",
+      "description": "This weapon ignores Regeneration, and ignores all negative modifiers which are not from this model's special rules."
+    },
+    "RDFhn43ktRx8": {
+      "name": "Rapid Rush Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Rapid Rush. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "s6MgSfmgylXU": {
+      "name": "Defense",
+      "description": "This model gets +X to Defense rolls."
+    },
+    "T08VkBuVmNZ_": {
+      "name": "Hero",
+      "description": "Heroes with up to Tough(6) may deploy as part of one multi-model unit without another Hero, but must use the unit’s Defense until all other models have been killed. The Hero’s unit, and units within 6” of friendly Heroes with Tough(9) or higher, may use the Hero’s Quality for Morale Tests as long as the Hero isn’t Shaken."
+    },
+    "umbiz4tnEyF8": {
+      "name": "Thrust",
+      "description": "When charging, gets +1 to hit rolls and AP(+1) in melee."
+    },
+    "V3YzPPkZm8at": {
+      "name": "Regeneration Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Regeneration. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "w_vX0mi58KKt": {
+      "name": "Blast",
+      "description": "Ignores Cover, and after resolving other special rules, each hit is multiplied by X, where X is up to as many hits as models in the target unit."
+    },
+    "XoDRL2xVEnVf": {
+      "name": "Bane in Melee Aura",
+      "description": "This model's unit and up to 2 friendly units picked before the start of the game get Bane on its weapons in melee. If this model is killed, picked models that are deployed lose the rule."
+    },
+    "y47PXwakTSji": {
+      "name": "Versatile Reach",
+      "description": "When this unit is activated, pick one effect: until the end of the activation, all models with this rule in this unit either get +4\" range when shooting or move +2\" when charging."
+    },
+    "ywXKQKPOLjTF": {
+      "name": "Banner",
+      "description": "This model and its unit get +1 to Morale Test rolls triggered by shooting/melee."
+    },
+    "z4QuSO_AxqDr": {
+      "name": "Versatile Expert",
+      "description": "When this unit is activated, pick one effect: until the end of the activation all models with this rule in this unit either get AP(+1) when attacking, or get +1 to hit rolls when attacking."
+    },
+    "zjzB46LX-QDg": {
+      "name": "Re-Deployment",
+      "description": "After all other units are deployed (excluding units that were set aside), you may remove up to two friendly units from the table and deploy them again. Players alternate in placing Re-Deployment units, starting with the player that activates next."
+    },
+    "Zx4mWN0SbmK8": {
+      "name": "Reliable",
+      "description": "Attacks at Quality 2+."
+    }
+  },
+  "weapons": {
+    "_OuuPXyd": {
+      "name": "Heavy Machinegun"
+    },
+    "-_T9wTAv": {
+      "name": "Flamer"
+    },
+    "-mTDUQJk": {
+      "name": "Laser Cannon"
+    },
+    "-XPeFh1K": {
+      "name": "Anti-Matter Rifle"
+    },
+    "0906Ch_R": {
+      "name": "Shotgun"
+    },
+    "2Ox5FTEq": {
+      "name": "Sniper Rifle"
+    },
+    "3efsTZno": {
+      "name": "Assault Grenade Launcher"
+    },
+    "6uMdv8ht": {
+      "name": "Arc-Charger Cannon"
+    },
+    "6yZs8TyU": {
+      "name": "Gatling Cannon"
+    },
+    "83nhlNHF": {
+      "name": "Hand Weapon"
+    },
+    "9KbQ3D9t": {
+      "name": "Heavy Flamer"
+    },
+    "A6hoMTcb": {
+      "name": "Heavy Pistol"
+    },
+    "A9V0fRN6": {
+      "name": "Assault Flamer"
+    },
+    "av7cefxL": {
+      "name": "Assault Burst Cyclic Rifle"
+    },
+    "BghokBvY": {
+      "name": "Anti-Matter Cannon"
+    },
+    "bOhe0EPf": {
+      "name": "Burst Heavy Rifle"
+    },
+    "bqCLJdNS": {
+      "name": "Fusion-Mod"
+    },
+    "C9Hnetww": {
+      "name": "Grenade Launcher"
+    },
+    "dGKJc4Nn": {
+      "name": "Plasma Pistol"
+    },
+    "dn0IBXYw": {
+      "name": "Missile Launcher"
+    },
+    "E3jWpQGy": {
+      "name": "Sgt. Heavy Pistol"
+    },
+    "eF__M0-n": {
+      "name": "Hand Weapon"
+    },
+    "FOuoX5BA": {
+      "name": "Strike"
+    },
+    "G3oWIZIL": {
+      "name": "Energy Fist"
+    },
+    "gN1LAzCn": {
+      "name": "Plasma Rifle"
+    },
+    "hhLukysh": {
+      "name": "Sgt. Hand Weapon"
+    },
+    "HjfgF9wo": {
+      "name": "Burst Shotgun"
+    },
+    "I1TBXg5a": {
+      "name": "Heavy Bike-Rifle"
+    },
+    "jDDBuADY": {
+      "name": "Heavy Rifle"
+    },
+    "JibLPVAo": {
+      "name": "Arc-Charger-Mod"
+    },
+    "jKuKPYQ8": {
+      "name": "Missile Rack"
+    },
+    "jvTgqYhJ": {
+      "name": "Energy Sword"
+    },
+    "kZfUxxeV": {
+      "name": "Chain-Fist"
+    },
+    "m9ZWThNt": {
+      "name": "Burst Cyclic Rifle"
+    },
+    "Mln3pDVd": {
+      "name": "Great Chain-Sword"
+    },
+    "MOFCDHgl": {
+      "name": "Plasma-Mod"
+    },
+    "MOVffjTT": {
+      "name": "Assault Fusion Rifle"
+    },
+    "mwWKIwKI": {
+      "name": "Flamer-Mod"
+    },
+    "ogvVhJ5w": {
+      "name": "Archivist Staff"
+    },
+    "OsDNZJg7": {
+      "name": "Heavy Fusion Rifle"
+    },
+    "oxyWH0_6": {
+      "name": "Plasma Cannon"
+    },
+    "Q1dL_T06": {
+      "name": "Archivist Staff"
+    },
+    "qvxJtla6": {
+      "name": "Fusion Pistol"
+    },
+    "reHSsCbi": {
+      "name": "Anti-Matter-Mod"
+    },
+    "ReiG8kiX": {
+      "name": "Energy Fist"
+    },
+    "RSuXx6NJ": {
+      "name": "Energy Sword"
+    },
+    "RvYU7eWt": {
+      "name": "Assault Heavy Bike-Rifle"
+    },
+    "rWpAIWbo": {
+      "name": "Fusion Rifle"
+    },
+    "SBP5Lk-7": {
+      "name": "Anti-Matter Pistol"
+    },
+    "tclUfjJP": {
+      "name": "Assault Plasma Rifle"
+    },
+    "tnEqt23G": {
+      "name": "Assault Cyclic Rifle"
+    },
+    "TQR-c-5K": {
+      "name": "Burst Battle Rifle"
+    },
+    "vX36wPeU": {
+      "name": "Anti-Matter-Sniper Carbine"
+    },
+    "wd88qtwH": {
+      "name": "Energy Hammer"
+    },
+    "WM2lHVdm": {
+      "name": "Arc-Charger Pistol"
+    },
+    "XvfBSa9o": {
+      "name": "Flamer Pistol"
+    },
+    "ycY_5qml": {
+      "name": "Sgt. Arc-Charger Pistol"
+    },
+    "zLCcRt_S": {
+      "name": "Dual Energy Claws"
+    },
+    "zN375coR": {
+      "name": "Arc-Charger Rifle"
+    }
+  },
+  "spells": {
+    "0IRkW": {
+      "name": "Psychic Terror",
+      "effect": "Pick one enemy unit within 6\", which takes 3 hits with Bane."
+    },
+    "98xBf": {
+      "name": "Lightning Fog",
+      "effect": "Pick up to two enemy units within 9\", which take 4 hits each."
+    },
+    "c19YO": {
+      "name": "Advanced Sight",
+      "effect": "Pick up to two enemy units within 18\" in line of sight, which friendly units gets Unstoppable on their weapons when shooting against once (next time the effect would apply)."
+    },
+    "iBpcF": {
+      "name": "Blessed Ammo",
+      "effect": "Pick up to three friendly units within 18\", which get Shred on its weapons when shooting once (next time the effect would apply)."
+    },
+    "IiOah": {
+      "name": "Cerebral Trauma",
+      "effect": "Pick one enemy unit within 24\" in line of sight, which takes 6 hits with AP(1) and Smash."
+    },
+    "L_-cl": {
+      "name": "Protective Dome",
+      "effect": "Pick one friendly unit within 12\", which gets Evasive once (next time the effect would apply)."
+    }
+  },
+  "items": {
+    "Airdrop Jetpack": "Airdrop Jetpack",
+    "Archivist": "Archivist",
+    "Assault Bike": "Assault Bike",
+    "Camo Cloak": "Camo Cloak",
+    "Camo Cloaks": "Camo Cloaks",
+    "Camo Sentry": "Camo Sentry",
+    "Captain": "Captain",
+    "Combat Bike": "Combat Bike",
+    "Combat Shield": "Combat Shield",
+    "Commander": "Commander",
+    "Detachment Banner": "Detachment Banner",
+    "Engineer": "Engineer",
+    "Forward Sentries": "Forward Sentries",
+    "Forward Sentry": "Forward Sentry",
+    "Guardian": "Guardian",
+    "Jetpack": "Jetpack",
+    "Lieutenant": "Lieutenant",
+    "Master Archivist": "Master Archivist",
+    "Medical Training": "Medical Training",
+    "Off-Road Bike": "Off-Road Bike",
+    "Off-Road Tires": "Off-Road Tires",
+    "Orbital Drop": "Orbital Drop",
+    "Preacher": "Preacher",
+    "The Founder's Banner": "The Founder's Banner"
+  }
+}

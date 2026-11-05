@@ -152,6 +152,9 @@ export interface ArmyList {
   // Ids das regras citadas nas magias (ex.: AP, Enhanced Havocbound). Preenchido
   // pelo relay; listas salvas antes dessa mudança podem não tê-lo.
   spellRuleIds?: string[];
+  // Nomes das regras comuns do sistema, informados pelo relay. O Army Forge não
+  // marca essas regras como ranqueadas, então a tabela não mostra "(X)" nelas.
+  commonRuleNames?: string[];
     // Livro(s) de exército OPR usado(s) na lista, ex.: "Havoc Brothers" 3.6.0.
   armyBooks?: { id: string; name: string; version: string }[];
 }
