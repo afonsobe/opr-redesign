@@ -2,6 +2,7 @@
   {
     "date": "November 5, 2026",
     "items": [
+      "**About page now credits the original project:** the app identifies itself as a fork of JeanOmeg's OPR Card Generator, thanks the original author, and links to the original repository, app, profile, issues, releases and license.",
       "**Added the Standard unit-card design** at 63.5 × 88 mm, alongside Classic. Artwork is optional; when a Standard card has no image, the art window is removed in print and the remaining content expands to use the space. The selected design is saved per army list.",
       "**Expanded image zoom for both card designs:** the control now ranges from 0.5× to 8×, with 1× centered, and its sliders stay within the card width.",
       "**Improved dark-mode readability for Standard cards on screen.** Printed colors remain unchanged.",

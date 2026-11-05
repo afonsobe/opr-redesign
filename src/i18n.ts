@@ -147,6 +147,14 @@ const en = {
     'Paste a shared army link, get one card per unit (stats, special rules, weapons), plus a combined special-rules table and a spells table — ready to print or download as PNGs.',
   'about.note':
     '<strong>Note:</strong> a list only loads if you shared it in Army Forge — open your army and click <strong>“Share as Link”</strong> first. Private (unshared) lists cannot be read.',
+  'about.forkText':
+    '<strong>This project is a fork of OPR Card Generator by JeanOmeg.</strong> Thank you, JeanOmeg, for creating and sharing the original project with the community.',
+  'about.forkRepo': '<a href="https://github.com/JeanOmeg/opr-card-generator" target="_blank" rel="noopener">Original GitHub repository</a>',
+  'about.forkSite': '<a href="https://jeanomeg.github.io/opr-card-generator/" target="_blank" rel="noopener">Original online app</a>',
+  'about.forkIssues': '<a href="https://github.com/JeanOmeg/opr-card-generator/issues" target="_blank" rel="noopener">Issues and suggestions</a>',
+  'about.forkReleases': '<a href="https://github.com/JeanOmeg/opr-card-generator/releases" target="_blank" rel="noopener">Original project releases</a>',
+  'about.forkLicense': '<a href="https://github.com/JeanOmeg/opr-card-generator/blob/master/LICENSE" target="_blank" rel="noopener">Original project license</a>',
+  'about.forkAuthor': '<a href="https://github.com/JeanOmeg" target="_blank" rel="noopener">JeanOmeg on GitHub</a>',
   'about.features': 'Features',
   'about.featureCards': 'One printable card per unit: Quality / Defense / Tough, special rules, weapons, notes.',
   'about.featureTables':
@@ -320,6 +328,14 @@ const ptBR: Record<Key, string> = {
     'Cole um link de exército compartilhado, receba uma carta por unidade (atributos, regras especiais, armas), além de uma tabela combinada de regras especiais e uma tabela de magias — prontos para imprimir ou baixar como PNGs.',
   'about.note':
     '<strong>Nota:</strong> uma lista só carrega se você compartilhou no Army Forge — abra seu exército e clique em <strong>“Share as Link”</strong> primeiro. Listas privadas (não compartilhadas) não podem ser lidas.',
+  'about.forkText':
+    '<strong>Este projeto é um fork do OPR Card Generator, criado por JeanOmeg.</strong> Obrigado, JeanOmeg, por criar e compartilhar o projeto original com a comunidade.',
+  'about.forkRepo': '<a href="https://github.com/JeanOmeg/opr-card-generator" target="_blank" rel="noopener">Repositório original no GitHub</a>',
+  'about.forkSite': '<a href="https://jeanomeg.github.io/opr-card-generator/" target="_blank" rel="noopener">Acessar o app original</a>',
+  'about.forkIssues': '<a href="https://github.com/JeanOmeg/opr-card-generator/issues" target="_blank" rel="noopener">Problemas e sugestões</a>',
+  'about.forkReleases': '<a href="https://github.com/JeanOmeg/opr-card-generator/releases" target="_blank" rel="noopener">Versões do projeto original</a>',
+  'about.forkLicense': '<a href="https://github.com/JeanOmeg/opr-card-generator/blob/master/LICENSE" target="_blank" rel="noopener">Licença do projeto original</a>',
+  'about.forkAuthor': '<a href="https://github.com/JeanOmeg" target="_blank" rel="noopener">JeanOmeg no GitHub</a>',
   'about.features': 'Recursos',
   'about.featureCards': 'Uma carta imprimível por unidade: Qualidade / Defesa / Resistência, regras especiais, armas, notas.',
   'about.featureTables':
