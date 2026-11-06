@@ -27,6 +27,8 @@ import { setActiveSystem } from './src/i18n/content';
 import { createThemeToggle } from './src/theme';
 import packageMetadata from './package.json';
 
+const CACHE_MAX_AGE_HOURS = 6;
+
 const siteVersion = document.getElementById('site-version');
 if (siteVersion) siteVersion.textContent = `v${packageMetadata.version}`;
 
@@ -282,21 +284,31 @@ async function loadArmy(): Promise<void> {
 
   localStorage.setItem('lastArmyInput', input);
 
-  // Cópia salva: usada pra restaurar as opções da lista e como reserva se a
-  // busca online falhar (ex.: sem internet).
+  // Cópia salva: restaura as opções da lista, evita buscas recentes ao servidor
+  // e serve como reserva se uma busca necessária falhar.
   let cached: SavedList | undefined;
   try {
     cached = (await getList(armyId)) ?? undefined;
   } catch (error) {
     console.error('Failed to read cached list:', error);
   }
-  if (cached) applySettings(cached.settings);
+  if (cached) {
+    applySettings(cached.settings);
+    const updatedAt = Date.parse(cached.updatedAt);
+    const ageMs = Date.now() - updatedAt;
+    const maxAgeMs = CACHE_MAX_AGE_HOURS * 60 * 60 * 1000;
+
+    if (Number.isFinite(updatedAt) && ageMs >= 0 && ageMs < maxAgeMs) {
+      displayArmy(cached.payload, cached.input);
+      return;
+    }
+  }
 
   setMessage(t('msg.loading'), 'loading');
   generateButton?.setAttribute('disabled', 'true');
 
   try {
-    // Sempre busca a versão mais recente no Army Forge.
+    // Cache ausente ou vencido: busca a versão mais recente no Army Forge.
     const army = await fetchArmy(armyId);
     await pruneRemovedUnitImages(army);
     displayArmy(army, input);

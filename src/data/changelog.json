@@ -3,19 +3,13 @@
     "date": "November 6, 2026",
     "datePtBR": "6 de novembro de 2026",
     "items": [
-      "**The site header now shows the app version** below the project name, so you can confirm which version is online."
-    ],
-    "itemsPtBR": [
-      "**O cabeçalho do site agora mostra a versão do app** abaixo do nome do projeto, para você confirmar qual versão está online."
-    ]
-  },
-  {
-    "date": "November 6, 2026",
-    "datePtBR": "6 de novembro de 2026",
-    "items": [
+      "**Generate Cards now uses a saved list for up to 6 hours** before requesting it from the server; Refresh buttons still always request the latest version.",
+      "**The site header now shows the app version** below the project name, so you can confirm which version is online.",
       "**Netlify relay deploys now skip front-end-only pushes:** automatic builds continue only when api/, netlify/ or netlify.toml changes; the cards app remains published through GitHub Pages."
     ],
     "itemsPtBR": [
+      "**Gerar cartas agora usa uma lista salva por até 6 horas** antes de buscá-la no servidor; os botões de atualização continuam sempre buscando a versão mais recente.",
+      "**O cabeçalho do site agora mostra a versão do app** abaixo do nome do projeto, para você confirmar qual versão está online.",
       "**Os deploys do relay no Netlify agora ignoram pushes que alteram apenas o front-end:** os builds automáticos só continuam quando há mudanças em api/, netlify/ ou netlify.toml; o app de cartas continua publicado pelo GitHub Pages."
     ]
   },
@@ -119,23 +113,15 @@
       "**New look:** cleaner horizontal navigation, a welcome section on the Home screen, better organized controls and option pills.",
       "In **dark mode**, generated cards now use a dark paper background with light text, matching the rest of the interface — no more bright white cards on a dark page. **Printing is unchanged** and always uses white paper.",
       "Improved color contrast for card names, costs, stats, weapons and special rules in both themes.",
-      "Updated the site address and SEO metadata to **https://afonsobe.github.io/opr-redesign/**."
+      "Updated the site address and SEO metadata to **https://afonsobe.github.io/opr-redesign/**.",
+      "Fixed **duplicate rows** in the special-rules table for rated rules like **AP** and **Regeneration Aura**: a rule with several rating values (e.g. AP(1) and AP(2)) now shows up **once**, instead of once per value."
     ],
     "itemsPtBR": [
       "**O tema claro agora é o padrão para quem visita o site pela primeira vez.** O modo escuro continua disponível pelo botão ☾/☀, e a preferência fica salva no dispositivo.",
       "**Novo visual:** navegação horizontal mais limpa, seção de boas-vindas, opções mais organizadas e controles em formato de pílula.",
       "No **modo escuro**, as cartas geradas agora usam fundo escuro e texto claro, combinando com o restante da interface — sem folhas brancas brilhantes em uma página escura. **A impressão não mudou** e continua usando papel branco.",
       "Melhorado o contraste de cores dos nomes das cartas, custos, atributos, armas e regras especiais nos dois temas.",
-      "Atualizados o endereço do site e os metadados de SEO para **https://afonsobe.github.io/opr-redesign/**."
-    ]
-  },
-  {
-    "date": "July 22, 2026",
-    "datePtBR": "22 de julho de 2026",
-    "items": [
-      "Fixed **duplicate rows** in the special-rules table for rated rules like **AP** and **Regeneration Aura**: a rule with several rating values (e.g. AP(1) and AP(2)) now shows up **once**, instead of once per value."
-    ],
-    "itemsPtBR": [
+      "Atualizados o endereço do site e os metadados de SEO para **https://afonsobe.github.io/opr-redesign/**.",
       "Corrigidas as **linhas duplicadas** na tabela de regras especiais para regras com valor, como **AP** e **Regeneration Aura**: uma regra com vários valores (por exemplo, AP(1) e AP(2)) agora aparece **uma única vez**."
     ]
   },
