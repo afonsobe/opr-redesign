@@ -17,7 +17,7 @@
   # there's no reason to spend build credits redeploying the function. The
   # `ignore` command cancels the build when it exits 0 — `git diff --quiet`
   # exits 0 when none of the listed paths changed since the last built commit.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- netlify/ api/src/relay.ts netlify.toml package.json yarn.lock"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- api netlify netlify.toml"
 
 [build.environment]
   NODE_VERSION = "20"

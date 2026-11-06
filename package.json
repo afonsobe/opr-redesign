@@ -1,6 +1,6 @@
 {
   "name": "opr-card-generator",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
   "description": "Standard TCG Card Generator for OnePageRules",
   "license": "SEE LICENSE IN LICENSE",

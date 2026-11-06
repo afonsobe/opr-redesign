@@ -1,5 +1,15 @@
 [
   {
+    "date": "November 6, 2026",
+    "datePtBR": "6 de novembro de 2026",
+    "items": [
+      "**Netlify relay deploys now skip front-end-only pushes:** automatic builds continue only when api/, netlify/ or netlify.toml changes; the cards app remains published through GitHub Pages."
+    ],
+    "itemsPtBR": [
+      "**Os deploys do relay no Netlify agora ignoram pushes que alteram apenas o front-end:** os builds automáticos só continuam quando há mudanças em api/, netlify/ ou netlify.toml; o app de cartas continua publicado pelo GitHub Pages."
+    ]
+  },
+  {
     "date": "November 5, 2026",
     "datePtBR": "5 de novembro de 2026",
     "items": [
