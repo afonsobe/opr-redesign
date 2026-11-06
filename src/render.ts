@@ -1265,7 +1265,8 @@ function createCard(
   const card = document.createElement('div');
   card.className = 'card';
   if (design === 'tcg') card.classList.add('card--tcg');
-    if (getRules(unit).some((rule) => rule.name === 'Hero')) card.classList.add('card--hero');
+  const isHero = getRules(unit).some((rule) => rule.name === 'Hero');
+  if (isHero) card.classList.add('card--hero');
 
   // Identify the card for image persistence. A combined card uses its first
   // unit's id, so its image is the one shown; the other units keep their own
@@ -1298,6 +1299,12 @@ function createCard(
     const badge = document.createElement('span');
     badge.className = 'combined-badge';
     badge.textContent = t('card.combined');
+    costElement.append(' ', badge);
+  }
+  if (isHero) {
+    const badge = document.createElement('span');
+    badge.className = 'hero-badge';
+    badge.textContent = t('card.heroBadge');
     costElement.append(' ', badge);
   }
 
@@ -1533,10 +1540,32 @@ function createArmyHeaderCell(army: ArmyList, colSpan: number): HTMLTableCellEle
 // info line so it stays visible while scrolling through many cards. Marked
 // no-print so it never appears on the printed sheet.
 export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
-  section.replaceChildren(
+  const details = document.createElement('div');
+  details.className = 'army-summary-content';
+  details.append(
     createTextElement('army-info-name', army.name),
     createTextElement('army-info-meta', armyInfoMeta(army)),
   );
+  section.replaceChildren(details);
+
+  const bookCounts = new Map<string, number>();
+  for (const unit of Array.isArray(army.units) ? army.units : []) {
+    if (unit.armyId) bookCounts.set(unit.armyId, (bookCounts.get(unit.armyId) ?? 0) + 1);
+  }
+  const imageBook = (army.armyBooks ?? [])
+    .filter((book) => book.imageUrl)
+    .sort((a, b) => (bookCounts.get(b.id) ?? 0) - (bookCounts.get(a.id) ?? 0))[0];
+  if (imageBook?.imageUrl) {
+    const image = document.createElement('img');
+    image.className = 'army-summary-image';
+    image.src = imageBook.imageUrl;
+    image.alt = imageBook.name;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.referrerPolicy = 'no-referrer';
+    image.addEventListener('error', () => image.remove(), { once: true });
+    section.append(image);
+  }
   // Avisos do Army Forge (ex.: "Cannot have more than 3 copies of a particular unit (Vulture).").
   // Mostra a mensagem exata da API; em pt-BR ela permanece em inglês até existir
   // tradução, como qualquer outro conteúdo sem entrada no dicionário.
@@ -1548,7 +1577,7 @@ export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
     const warning = document.createElement('div');
     warning.className = 'army-force-org-warning';
     warning.textContent = forceOrgErrors.map((message) => `⚠ ${message}`).join(' ');
-    section.append(warning);
+    details.append(warning);
   }
 }
 

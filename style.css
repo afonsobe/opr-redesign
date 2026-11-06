@@ -739,6 +739,11 @@ body:has(.card--has-image) .avatar-size-bar {
 
 /* Resumo do exército (título da folha) */
 .army-summary:not(:empty) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 14px;
   padding: 14px 18px 10px;
   color: var(--paper-ink);
@@ -746,6 +751,22 @@ body:has(.card--has-image) .avatar-size-bar {
   border: 1px solid var(--paper-line);
   border-bottom: 3px solid var(--accent-ink);
   border-radius: 12px;
+}
+
+.army-summary-content {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.army-summary-image {
+  display: block;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
 }
 
 .army-info-name {
@@ -906,6 +927,21 @@ body:has(.card--has-image) .avatar-size-bar {
 /* Heróis usam a cor principal */
 .card.card--hero {
   --c2: var(--c1);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c1) 48%, var(--paper-surface)), var(--shadow);
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 1px 4px;
+  border: 1px solid var(--c1);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--c1) 12%, var(--paper-surface));
+  color: var(--accent-ink-2);
+  font-size: 7px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.35px;
+  vertical-align: middle;
 }
 
 /* Só na tela: cartas ganham uma leve elevação ao passar o mouse.
@@ -1095,12 +1131,13 @@ body:has(.card--has-image) .avatar-size-bar {
 }
 
 .weapons-table th {
-  padding: 1px 2px;
+  padding: 3px 4px;
   font-size: 8px;
   font-weight: bold;
   text-align: left;
-  color: var(--accent-ink-2);
-  border-bottom: 1px solid var(--accent-ink-2);
+  color: var(--paper-ink);
+  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  border-bottom: 1px solid var(--paper-line);
 }
 
 .weapons-table td {
@@ -1357,14 +1394,27 @@ body:has(.card--has-image) .avatar-size-bar {
     display: none !important;
   }
 
+  body.print-grayscale .card,
+  body.print-grayscale .army-summary:not(:empty),
+  body.print-grayscale .special-rules-section,
+  body.print-grayscale #spells {
+    filter: grayscale(1);
+  }
+
   .army-summary:not(:empty) {
-    display: block !important;
+    display: flex !important;
+    align-items: stretch;
     padding: 0 0 4px;
     margin-bottom: 8px;
     background: none;
     border: 0;
     border-bottom: 3px solid var(--c1);
     border-radius: 0;
+  }
+
+  .army-summary-image {
+    width: 16mm;
+    height: 16mm;
   }
 
   .cards {
@@ -1671,7 +1721,17 @@ body.card-layout-tcg .cards {
 
 .card--tcg.card--hero {
   --tcg-frame: color-mix(in srgb, var(--c1) 82%, #100d12);
-  --tcg-gold: #e0bd68;
+  --tcg-gold: color-mix(in srgb, var(--c1) 48%, #fff);
+}
+
+.card--tcg.card--hero .hero-badge {
+  padding: 0.25mm 0.8mm;
+  border-radius: 0.7mm;
+  background: #fff8e8;
+  color: var(--tcg-frame);
+  font-size: 3.5pt;
+  line-height: 1;
+  letter-spacing: 0.2px;
 }
 
 .card--tcg .card-header {
@@ -1684,7 +1744,7 @@ body.card-layout-tcg .cards {
   column-gap: 1mm;
   align-items: center;
   padding: 0.6mm 0.9mm;
-  border: 0.35mm solid var(--tcg-gold);
+  border: 0.35mm solid var(--c1);
   border-radius: 1mm;
   background: linear-gradient(110deg, color-mix(in srgb, var(--c1) 86%, #171318), var(--tcg-frame));
   color: #fff8e8;
@@ -1744,7 +1804,7 @@ body.card-layout-tcg .cards {
   height: 23mm;
   align-items: center;
   justify-content: center;
-  border: 0.7mm solid var(--tcg-gold);
+  border: 0.7mm solid var(--c1);
   border-radius: 1mm;
   background:
     radial-gradient(ellipse at 50% 40%, #ffffff7a, transparent 60%),
@@ -1785,21 +1845,21 @@ body.card-layout-tcg .cards {
   align-items: center;
   gap: 0;
   padding: 0.7mm 1mm;
-  border: 0.3mm solid color-mix(in srgb, var(--c1) 32%, #c6b994);
+  border: 0.3mm solid var(--paper-line);
   border-radius: 1mm;
-  background: var(--paper);
+  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
 }
 
 .card--tcg > .stats .stat-label {
-  color: #75694e;
+  color: var(--paper-muted);
   font-size: 4.8pt;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .card--tcg > .stats .stat-value {
-  color: var(--tcg-frame);
-  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--paper-ink);
+  font-family: inherit;
   font-size: 9pt;
   line-height: 1.05;
 }
@@ -1813,12 +1873,13 @@ body.card-layout-tcg .cards {
   flex: 0 0 auto;
   margin: 0.3mm 0 0;
   padding: 0.4mm 1mm;
-  border-bottom: 0.25mm solid #aa9567;
-  color: var(--tcg-frame);
-  font-family: Georgia, 'Times New Roman', serif;
+  border-bottom: 0.25mm solid var(--paper-line);
+  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  color: var(--paper-ink);
+  font-family: inherit;
   font-size: 5.2pt;
   font-weight: bold;
-  letter-spacing: 0.35px;
+  letter-spacing: 0.2px;
   line-height: 1.05;
   text-transform: uppercase;
 }
@@ -1826,7 +1887,7 @@ body.card-layout-tcg .cards {
 .card--tcg .rules-container {
   flex: 0 0 auto;
   padding: 0.5mm 1mm;
-  color: #29251d;
+  color: var(--paper-ink);
   font-size: 5.4pt;
   line-height: 1.12;
 }
@@ -1851,15 +1912,16 @@ body.card-layout-tcg .cards {
 
 .card--tcg .weapons-table th {
   padding: 0.3mm 0.5mm;
-  border-bottom: 0.25mm solid #89764e;
-  color: var(--tcg-frame);
+  border-bottom: 0.25mm solid var(--paper-line);
+  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  color: var(--paper-ink);
   font-size: 4.4pt;
   line-height: 1;
 }
 
 .card--tcg .weapons-table td {
   padding: 0.4mm 0.5mm;
-  border-bottom: 0.2mm solid #bdb195;
+  border-bottom: 0.2mm solid var(--paper-line);
   line-height: 1.08;
 }
 
@@ -1876,8 +1938,8 @@ body.card-layout-tcg .cards {
   max-height: 9mm;
   padding: 0.7mm 1mm;
   overflow: hidden;
-  border-top: 0.25mm solid #aa9567;
-  color: #494131;
+  border-top: 0.25mm solid var(--paper-line);
+  color: var(--paper-muted);
   font-size: 4.8pt;
   line-height: 1.05;
 }
@@ -1907,34 +1969,34 @@ body.card-layout-tcg .cards {
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg > .stats .stat-label {
-    color: #c5cbd7;
+    color: var(--paper-muted);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg > .stats .stat-value {
-    color: #f0d990;
+    color: var(--paper-ink);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg .section-title {
-    border-bottom-color: #665d49;
-    color: #f0d990;
+    border-bottom-color: var(--paper-line);
+    color: var(--paper-ink);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg .rules-container {
-    color: #e5e8ef;
+    color: var(--paper-ink);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg .weapons-table th {
-    border-bottom-color: #8d805f;
-    color: #f0d990;
+    border-bottom-color: var(--paper-line);
+    color: var(--paper-ink);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg .weapons-table td {
-    border-bottom-color: #414857;
+    border-bottom-color: var(--paper-line);
   }
 
   :root[data-theme="dark"] body.card-layout-tcg .card--tcg .card-notes {
-    border-top-color: #665d49;
-    color: #c5cbd7;
+    border-top-color: var(--paper-line);
+    color: var(--paper-muted);
   }
 }
 

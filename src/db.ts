@@ -12,6 +12,7 @@ export interface ListSettings {
   includeCards: boolean;
   includeRules: boolean;
   includeSpells: boolean;
+  printGrayscale?: boolean;
 }
 
 // A saved army list: lightweight metadata for the listing plus the full relay

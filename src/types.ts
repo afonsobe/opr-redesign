@@ -156,5 +156,5 @@ export interface ArmyList {
   // marca essas regras como ranqueadas, então a tabela não mostra "(X)" nelas.
   commonRuleNames?: string[];
     // Livro(s) de exército OPR usado(s) na lista, ex.: "Havoc Brothers" 3.6.0.
-  armyBooks?: { id: string; name: string; version: string }[];
+  armyBooks?: { id: string; name: string; version: string; imageUrl?: string }[];
 }

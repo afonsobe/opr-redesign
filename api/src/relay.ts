@@ -44,6 +44,8 @@ export interface ArmyBook {
   name?: string;
   versionString?: string;
   version?: string | number;
+  coverImagePath?: string;
+  bannerImagePath?: string;
   spells?: Spell[];
   // Ids das regras citadas pelas magias do livro (ex.: AP, Enhanced Havocbound).
   usedRulesInSpells?: string[];
@@ -57,6 +59,7 @@ export interface BookInfo {
   id: string;
   name: string;
   version: string;
+  imageUrl?: string;
 }
 
 export interface ArmyPayload {
@@ -285,8 +288,24 @@ function collectBookInfo(books: { armyId: string; book: ArmyBook }[]): BookInfo[
       id: armyId,
       name: book.name?.trim() ?? '',
       version: book.versionString ?? (book.version != null ? String(book.version) : ''),
+      imageUrl: publicArmyBookImageUrl(book.coverImagePath) ?? publicArmyBookImageUrl(book.bannerImagePath),
     }))
     .filter((info) => info.name);
+}
+
+function publicArmyBookImageUrl(path?: string): string | undefined {
+  const value = path?.trim();
+  if (!value) return undefined;
+
+  try {
+    const url = new URL(value, 'https://army-forge.opr-cdn.com/');
+    return url.protocol === 'https:' &&
+      ['army-forge.opr-cdn.com', 'af-images.s3.eu-north-1.amazonaws.com'].includes(url.hostname)
+      ? url.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function mergeRules(army: ArmyPayload, commonRules: RuleLike[]): ArmyPayload {

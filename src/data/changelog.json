@@ -3,11 +3,21 @@
     "date": "November 6, 2026",
     "datePtBR": "6 de novembro de 2026",
     "items": [
+      "**Army summaries now show the main Army Forge book cover** in the upper-right corner, loaded directly from its public image URL.",
+      "**Hero units are easier to spot:** their cards have a subtle army-color accent and a localized **HERO / HERÓI** badge.",
+      "**Added an optional grayscale print setting.** It converts printed cards and tables to grayscale while leaving the on-screen palette unchanged.",
+      "**Standard card information now follows the softer Classic palette style** across stats, special rules, weapons, items and notes.",
+      "**Improved the army summary layout:** the book cover is centered vertically and Army Forge warnings sit closer to the army details.",
       "**Generate Cards now uses a saved list for up to 6 hours** before requesting it from the server; Refresh buttons still always request the latest version.",
       "**The site header now shows the app version** below the project name, so you can confirm which version is online.",
       "**Netlify relay deploys now skip front-end-only pushes:** automatic builds continue only when api/, netlify/ or netlify.toml changes; the cards app remains published through GitHub Pages."
     ],
     "itemsPtBR": [
+      "**O resumo do exército agora mostra a capa do livro principal do Army Forge** no canto superior direito, carregada diretamente pela URL pública da imagem.",
+      "**Unidades com Hero ficam mais fáceis de identificar:** as cartas recebem um detalhe sutil na cor do exército e um selo localizado como **HERO / HERÓI**.",
+      "**Adicionada a opção de imprimir em escala de cinza.** Ela converte cartas e tabelas impressas para tons de cinza sem alterar a paleta na tela.",
+      "**As informações das cartas Standard agora seguem o estilo de paleta suave do Classic** nos atributos, regras especiais, armas, itens e observações.",
+      "**Melhorado o resumo do exército:** a capa fica centralizada verticalmente e os avisos do Army Forge aparecem mais próximos dos detalhes.",
       "**Gerar cartas agora usa uma lista salva por até 6 horas** antes de buscá-la no servidor; os botões de atualização continuam sempre buscando a versão mais recente.",
       "**O cabeçalho do site agora mostra a versão do app** abaixo do nome do projeto, para você confirmar qual versão está online.",
       "**Os deploys do relay no Netlify agora ignoram pushes que alteram apenas o front-end:** os builds automáticos só continuam quando há mudanças em api/, netlify/ ou netlify.toml; o app de cartas continua publicado pelo GitHub Pages."

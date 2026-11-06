@@ -41,6 +41,7 @@ const printOptions = document.querySelector('.print-options') as HTMLElement | n
 const includeCardsCheckbox = document.getElementById('optCards') as HTMLInputElement | null;
 const includeRulesCheckbox = document.getElementById('optRules') as HTMLInputElement | null;
 const includeSpellsCheckbox = document.getElementById('optSpells') as HTMLInputElement | null;
+const grayscaleCheckbox = document.getElementById('optGrayscale') as HTMLInputElement | null;
 const combineUnitsCheckbox = document.getElementById('optCombine') as HTMLInputElement | null;
 const customNamesCheckbox = document.getElementById('optCustomName') as HTMLInputElement | null;
 const cardDesignButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-card-design]'));
@@ -159,6 +160,7 @@ paletteSelect.addEventListener('change', () => {
     console.error('Failed to save palette:', error);
   }
   refreshPalette();
+  persistCurrentSettings();
 });
 
 // Default toggle states, matching the `checked` attributes in index.html. Used
@@ -170,6 +172,7 @@ const DEFAULT_SETTINGS: ListSettings = {
   includeCards: true,
   includeRules: true,
   includeSpells: true,
+  printGrayscale: false,
 };
 
 function getCurrentSettings(): ListSettings {
@@ -180,6 +183,7 @@ function getCurrentSettings(): ListSettings {
     includeCards: includeCardsCheckbox?.checked ?? DEFAULT_SETTINGS.includeCards,
     includeRules: includeRulesCheckbox?.checked ?? DEFAULT_SETTINGS.includeRules,
     includeSpells: includeSpellsCheckbox?.checked ?? DEFAULT_SETTINGS.includeSpells,
+    printGrayscale: grayscaleCheckbox?.checked ?? DEFAULT_SETTINGS.printGrayscale,
   };
 }
 
@@ -194,6 +198,7 @@ function applySettings(settings?: ListSettings): void {
   if (includeCardsCheckbox) includeCardsCheckbox.checked = resolved.includeCards;
   if (includeRulesCheckbox) includeRulesCheckbox.checked = resolved.includeRules;
   if (includeSpellsCheckbox) includeSpellsCheckbox.checked = resolved.includeSpells;
+  if (grayscaleCheckbox) grayscaleCheckbox.checked = resolved.printGrayscale ?? false;
   applyPrintToggles();
 }
 
@@ -384,9 +389,10 @@ function applyPrintToggles(): void {
   document.body.classList.toggle('print-hide-cards', !(includeCardsCheckbox?.checked ?? true));
   document.body.classList.toggle('print-hide-rules', !(includeRulesCheckbox?.checked ?? true));
   document.body.classList.toggle('print-hide-spells', !(includeSpellsCheckbox?.checked ?? true));
+  document.body.classList.toggle('print-grayscale', grayscaleCheckbox?.checked ?? false);
 }
 
-for (const checkbox of [includeCardsCheckbox, includeRulesCheckbox, includeSpellsCheckbox]) {
+for (const checkbox of [includeCardsCheckbox, includeRulesCheckbox, includeSpellsCheckbox, grayscaleCheckbox]) {
   checkbox?.addEventListener('change', () => {
     applyPrintToggles();
     persistCurrentSettings();
