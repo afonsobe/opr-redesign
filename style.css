@@ -121,14 +121,29 @@ select {
   border-bottom: 1px solid var(--border);
 }
 
+.topbar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-width: 0;
+  margin-right: auto;
+}
+
 .topbar-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-right: auto;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.2px;
+}
+
+.topbar-version {
+  margin-left: 37px;
+  color: var(--text-muted);
+  font-size: 10px;
+  line-height: 1;
 }
 
 .topbar-title::before {
@@ -1212,6 +1227,11 @@ body:has(.card--has-image) .avatar-size-bar {
   .topbar-title {
     gap: 8px;
     font-size: 15px;
+  }
+
+  .topbar-version {
+    margin-left: 32px;
+    font-size: 9px;
   }
 
   .topbar-title::before {

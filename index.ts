@@ -25,6 +25,10 @@ import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palet
 import { applyTranslations, getLang, setLang, t, type Lang } from './src/i18n';
 import { setActiveSystem } from './src/i18n/content';
 import { createThemeToggle } from './src/theme';
+import packageMetadata from './package.json';
+
+const siteVersion = document.getElementById('site-version');
+if (siteVersion) siteVersion.textContent = `v${packageMetadata.version}`;
 
 const cardsContainerElement = document.getElementById('cards');
 const inputElementElement = document.getElementById('armyLink');
