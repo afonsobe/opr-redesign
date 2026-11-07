@@ -5,17 +5,18 @@
         "armyId": "78qp9l5alslt6yj8",
         "gameSystem": 3,
         "book": "Battle Brothers",
-        "collectedAt": "2026-11-05",
+        "collectedAt": "2026-11-07",
         "system": "gff",
         "collections": [
           {
             "armyId": "w7qor7b2kuifcyvk",
-            "book": "Alien Hives"
+            "book": "Alien Hives",
+            "collectedAt": "2026-11-07"
           },
           {
             "armyId": "78qp9l5alslt6yj8",
             "book": "Battle Brothers",
-            "collectedAt": "2026-11-05"
+            "collectedAt": "2026-11-07"
           }
         ]
       },
@@ -935,7 +936,16 @@
         "Off-Road Tires": "Off-Road Tires",
         "Orbital Drop": "Orbital Drop",
         "Preacher": "Preacher",
-        "The Founder's Banner": "The Founder's Banner"
+        "The Founder's Banner": "The Founder's Banner",
+        "Burrowing Strike": "Burrowing Strike",
+        "For the Hive!": "For the Hive!",
+        "High-Speed Tires": "High-Speed Tires",
+        "Molded by War": "Molded by War",
+        "Mutated Bulk": "Mutated Bulk",
+        "Pacification Spores": "Pacification Spores",
+        "Patient Stalker": "Patient Stalker",
+        "Shadow Synapses": "Shadow Synapses",
+        "Steady Vanguard": "Steady Vanguard"
       }
     }
   }

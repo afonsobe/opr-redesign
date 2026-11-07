@@ -67,6 +67,10 @@ function fullSystemName(system: string): string {
   return names[key] ?? (system.trim() || t('lists.unknown'));
 }
 
+function listDisplayName(saved: SavedList): string {
+  return saved.name || t('lists.unnamed');
+}
+
 function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElement {
   const item = document.createElement('div');
   item.className = 'saved-list';
@@ -76,7 +80,7 @@ function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElemen
 
   const name = document.createElement('div');
   name.className = 'saved-list-name';
-  name.textContent = saved.name || t('lists.unnamed');
+  name.textContent = listDisplayName(saved);
 
   const meta = document.createElement('div');
   meta.className = 'saved-list-meta';
@@ -149,9 +153,11 @@ export function renderListsView(
     groups.set(system, group);
   }
 
+  const collator = new Intl.Collator(getLang(), { sensitivity: 'base', numeric: true });
+
   const listEl = document.createElement('div');
   listEl.className = 'saved-list-groups';
-  for (const [system, systemLists] of [...groups.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [system, systemLists] of [...groups.entries()].sort(([a], [b]) => collator.compare(a, b))) {
     const section = document.createElement('section');
     section.className = 'saved-list-group';
 
@@ -161,7 +167,10 @@ export function renderListsView(
 
     const groupList = document.createElement('div');
     groupList.className = 'saved-lists';
-    for (const saved of systemLists) groupList.append(createListItem(saved, cb));
+    const sortedLists = [...systemLists].sort((a, b) =>
+      collator.compare(listDisplayName(a), listDisplayName(b)),
+    );
+    for (const saved of sortedLists) groupList.append(createListItem(saved, cb));
 
     section.append(heading, groupList);
     listEl.append(section);

@@ -9,9 +9,10 @@
     "build": "parcel build index.html --dist-dir docs --public-url ./",
     "typecheck": "tsc --noEmit",
     "typecheck:functions": "tsc --noEmit --project netlify/tsconfig.json",
-    "api": "yarn --cwd api dev",
+    "api": "npm --prefix api run dev",
     "i18n:collect": "node scripts/collect-content.mjs",
-    "dev": "concurrently -n api,web -c blue,magenta \"yarn api\" \"yarn start\""
+    "i18n:check": "node scripts/check-content.mjs",
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run api\" \"npm run start\""
   },
   "devDependencies": {
     "@netlify/functions": "^5.3.0",

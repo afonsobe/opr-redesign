@@ -3,13 +3,30 @@
 // Uso:
 //   node scripts/collect-content.mjs --list h-6aOj95jEaW
 //   node scripts/collect-content.mjs --army w7qor7b2kuifcyvk --game 3
-//   node scripts/collect-content.mjs --list h-6aOj95jEaW
+//   node scripts/collect-content.mjs --url "https://army-forge.onepagerules.com/army-info/grimdark-future-firefight/w7qor7b2kuifcyvk?armyName=Alien+Hives"
+//   node scripts/collect-content.mjs --urls-file urls.txt
+//   node scripts/collect-content.mjs --list h-6aOj95jEaW --refresh-source
 //
-// O script captura o texto inglês do sistema e do livro escolhido em
+// `--url` pode ser repetido e `--urls-file` lê uma URL por linha (ignora
+// linhas vazias e começadas por #). Todos os livros são coletados numa
+// passada só, separados por sistema.
+//
+// Aceita a URL da página "army info" do Army Forge (--url) e descobre sozinho
+// o sistema e o armyId. A página é alimentada pelas mesmas APIs públicas que
+// este script usa, então não é preciso baixar/subir PDF nenhum.
+//
+// O script captura o texto inglês do sistema e dos livros escolhidos em
 // content.source.json, e atualiza a seção correspondente em content.pt-BR.json.
 //
 // Regra de ouro: NUNCA sobrescreve uma tradução já existente. Só adiciona
 // entradas novas com texto vazio, para você (ou uma IA) preencher depois.
+//
+// `content.source.json` é a referência do texto inglês usado nas traduções.
+// Por padrão ele também NÃO é sobrescrito: se a OPR mudar uma regra, a fonte
+// continua com o texto antigo e o site passa a mostrar o inglês novo (ver
+// src/i18n/content.ts). Depois de revisar a mudança, rode com
+// `--refresh-source` para atualizar a referência e retraduzir os textos
+// marcados por `npm run i18n:check`.
 //
 // Chaves usadas no JSON:
 //   rules.<id>      -> { name, description }
@@ -22,6 +39,40 @@ import { dirname, resolve } from 'node:path';
 const API = 'https://army-forge.onepagerules.com/api';
 const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6 };
 
+// Slugs usados nas URLs do site (army-info, listas, etc.).
+const SYSTEM_SLUGS = {
+  'grimdark-future': 2,
+  'grimdark-future-firefight': 3,
+  'age-of-fantasy': 4,
+  'age-of-fantasy-skirmish': 5,
+  'age-of-fantasy-regiments': 6,
+  gf: 2,
+  gff: 3,
+  aof: 4,
+  aofs: 5,
+  aofr: 6,
+};
+
+// Ex.: .../army-info/grimdark-future-firefight/w7qor7b2kuifcyvk?armyName=Alien+Hives
+function parseArmyUrl(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error(`URL inválida: ${value}`);
+  }
+  const match = url.pathname.match(/\/army-info\/([^/]+)\/([^/]+)/i);
+  if (!match) {
+    throw new Error('A URL precisa ser de uma página /army-info/<sistema>/<armyId>.');
+  }
+  const slug = decodeURIComponent(match[1]).toLowerCase();
+  const gameSystem = SYSTEM_SLUGS[slug];
+  if (!gameSystem) {
+    throw new Error(`Sistema desconhecido na URL: ${slug}`);
+  }
+  return { armyId: decodeURIComponent(match[2]), gameSystem };
+}
+
 function parseArgs(argv) {
   const args = { out: 'src/i18n/content.pt-BR.json', source: 'src/i18n/content.source.json' };
   for (let i = 0; i < argv.length; i += 1) {
@@ -29,10 +80,24 @@ function parseArgs(argv) {
     if (key === '--list') args.list = argv[++i];
     else if (key === '--army') args.army = argv[++i];
     else if (key === '--game') args.game = argv[++i];
+    else if (key === '--url') (args.urls ||= []).push(argv[++i]);
+    else if (key === '--urls-file') args.urlsFile = argv[++i];
     else if (key === '--out') args.out = argv[++i];
     else if (key === '--source') args.source = argv[++i];
+    else if (key === '--refresh-source') args.refreshSource = true;
   }
   return args;
+}
+
+// Atualiza a referência inglesa. Sem `--refresh-source`, mantém o texto já
+// registrado: é ele que permite detectar que a API mudou e esconder uma
+// tradução defasada. Com a flag, aceita o texto novo de propósito.
+function mergeSource(previous, collected, refresh) {
+  const merged = { ...(previous || {}) };
+  for (const [key, value] of Object.entries(collected || {})) {
+    if (refresh || merged[key] === undefined) merged[key] = value;
+  }
+  return merged;
 }
 
 async function getJson(url) {
@@ -56,28 +121,8 @@ function walkWeapons(node, out) {
   for (const value of Object.values(node)) walkWeapons(value, out);
 }
 
-async function main() {
-  const args = parseArgs(process.argv.slice(2));
-
-  if (!args.list && !args.army) {
-    console.error('Informe --list <id-da-lista> ou --army <armyId> --game <2..6>.');
-    process.exit(1);
-  }
-
-  let armyId = args.army;
-  let gameSystem = args.game ? Number(args.game) : undefined;
-
-  if (args.list) {
-    const army = await getJson(`${API}/tts?id=${encodeURIComponent(args.list)}`);
-    armyId = armyId || army.units?.[0]?.armyId;
-    gameSystem = gameSystem || GAME_SYSTEM_IDS[String(army.gameSystem || '').toLowerCase()];
-  }
-
-  if (!armyId || !gameSystem) {
-    console.error('Não consegui descobrir o armyId/gameSystem. Use --army e --game.');
-    process.exit(1);
-  }
-
+// Baixa um livro e devolve regras/armas/magias/itens como Mapas.
+async function collectBook(armyId, gameSystem) {
   // 1) Regras comuns: SOMENTE do sistema da lista (sem misturar GF com GFF, etc.).
   // Os 5 sistemas compartilham os mesmos IDs mas com textos DIFERENTES.
   const rules = new Map();
@@ -89,7 +134,9 @@ async function main() {
   }
 
   // 2) Livro do exército: regras próprias, armas e magias.
-  const book = await getJson(`${API}/army-books/${encodeURIComponent(armyId)}?gameSystem=${gameSystem}`);
+  const book = await getJson(
+    `${API}/army-books/${encodeURIComponent(armyId)}?gameSystem=${gameSystem}`,
+  );
 
   for (const rule of [...(book.specialRules || []), ...(book.customRules || [])]) {
     if (rule?.id && rule?.name) {
@@ -105,6 +152,10 @@ async function main() {
   // Itens (upgrades que não são armas), ex.: "Combat Mutations".
   const itemNames = new Set();
   for (const unit of book.units || []) {
+    // Itens fixos da unidade (ex.: "Shadow Synapses", que concede Caster).
+    for (const item of unit.items || []) {
+      if (item?.name?.trim()) itemNames.add(item.name);
+    }
     for (const item of unit.loadout || []) {
       if (
         item &&
@@ -137,56 +188,124 @@ async function main() {
     }
   }
 
-  const collected = {
+  return {
     meta: {
       armyId,
       gameSystem,
       book: book.name || '',
       collectedAt: new Date().toISOString().slice(0, 10),
     },
-    rules: Object.fromEntries([...rules.entries()].sort(([a], [b]) => a.localeCompare(b))),
-    weapons: Object.fromEntries(
-      [...weapons.entries()]
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([id, name]) => [id, { name }]),
-    ),
-    spells: Object.fromEntries([...spells.entries()].sort(([a], [b]) => a.localeCompare(b))),
-    items: Object.fromEntries([...itemNames].sort().map((name) => [name, name])),
+    rules,
+    weapons: new Map([...weapons].map(([id, name]) => [id, { name }])),
+    spells,
+    items: new Map([...itemNames].map((name) => [name, name])),
   };
+}
 
-  const slug = Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === gameSystem)?.[0];
-  if (!slug) throw new Error(`Sistema desconhecido: ${gameSystem}`);
+// Lista de livros a coletar, sem repetir armyId.
+async function resolveTargets(args) {
+  const targets = [];
+  const urls = [...(args.urls || [])];
+  if (args.urlsFile) {
+    const text = await readFile(resolve(args.urlsFile), 'utf8');
+    for (const line of text.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#')) urls.push(trimmed);
+    }
+  }
+  for (const url of urls) targets.push(parseArmyUrl(url));
+
+  if (targets.length === 0 && args.list) {
+    const army = await getJson(`${API}/tts?id=${encodeURIComponent(args.list)}`);
+    targets.push({
+      armyId: army.units?.[0]?.armyId,
+      gameSystem: GAME_SYSTEM_IDS[String(army.gameSystem || '').toLowerCase()],
+    });
+  }
+  if (targets.length === 0 && args.army) {
+    targets.push({ armyId: args.army, gameSystem: args.game ? Number(args.game) : undefined });
+  }
+
+  const unique = [];
+  const seen = new Set();
+  for (const target of targets) {
+    if (!target.armyId || !target.gameSystem) {
+      throw new Error(
+        'Não consegui descobrir o armyId/gameSystem de uma das URLs. Use --army e --game.',
+      );
+    }
+    if (seen.has(target.armyId)) continue;
+    seen.add(target.armyId);
+    unique.push(target);
+  }
+  return unique;
+}
+
+const slugFor = (gameSystem) =>
+  Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === gameSystem)?.[0];
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const targets = await resolveTargets(args);
+
+  if (targets.length === 0) {
+    console.error(
+      'Informe --url <página army-info>, --urls-file <arquivo>, --list <id-da-lista> ou --army <armyId> --game <2..6>.',
+    );
+    process.exit(1);
+  }
+
+  // Junta todos os livros por sistema. A última grafia vista vence, igual à
+  // coleta de um livro por vez.
+  const bySlug = new Map();
+  for (const target of targets) {
+    const slug = slugFor(target.gameSystem);
+    if (!slug) throw new Error(`Sistema desconhecido: ${target.gameSystem}`);
+
+    const collected = await collectBook(target.armyId, target.gameSystem);
+    let bucket = bySlug.get(slug);
+    if (!bucket) {
+      bucket = {
+        slug,
+        rules: new Map(),
+        weapons: new Map(),
+        spells: new Map(),
+        items: new Map(),
+        books: [],
+        meta: null,
+      };
+      bySlug.set(slug, bucket);
+    }
+    for (const [key, value] of collected.rules) bucket.rules.set(key, value);
+    for (const [key, value] of collected.weapons) bucket.weapons.set(key, value);
+    for (const [key, value] of collected.spells) bucket.spells.set(key, value);
+    for (const [key, value] of collected.items) bucket.items.set(key, value);
+    bucket.books.push({
+      armyId: target.armyId,
+      book: collected.meta.book,
+      collectedAt: collected.meta.collectedAt,
+    });
+    bucket.meta = collected.meta;
+
+    console.log(
+      `Coletado: ${collected.meta.book} (${target.armyId}, sistema ${target.gameSystem})`,
+    );
+  }
 
   // Source is an immutable snapshot of the English API payload, grouped by game system.
   const sourcePath = resolve(args.source);
   let sourceFile = {};
-  try { sourceFile = JSON.parse(await readFile(sourcePath, 'utf8')); } catch { /* first collection */ }
+  try {
+    sourceFile = JSON.parse(await readFile(sourcePath, 'utf8'));
+  } catch {
+    /* first collection */
+  }
   const sourceSystems = sourceFile.systems || {};
   if (!sourceFile.systems && sourceFile.rules) {
-    const previousSlug = Object.entries(GAME_SYSTEM_IDS).find(([, id]) => id === sourceFile.meta?.gameSystem)?.[0];
+    const previousSlug = slugFor(sourceFile.meta?.gameSystem);
     if (previousSlug) sourceSystems[previousSlug] = sourceFile;
   }
-  const previousSource = sourceSystems[slug] || {};
-  const previousCollections = Array.isArray(previousSource.meta?.collections)
-    ? previousSource.meta.collections
-    : previousSource.meta?.armyId
-      ? [{ armyId: previousSource.meta.armyId, book: previousSource.meta.book || '' }]
-      : [];
-  const collections = [
-    ...previousCollections.filter((entry) => entry.armyId !== armyId),
-    { armyId, book: collected.meta.book, collectedAt: collected.meta.collectedAt },
-  ];
-  sourceSystems[slug] = {
-    meta: { ...previousSource.meta, ...collected.meta, system: slug, collections },
-    rules: { ...(previousSource.rules || {}), ...collected.rules },
-    weapons: { ...(previousSource.weapons || {}), ...collected.weapons },
-    spells: { ...(previousSource.spells || {}), ...collected.spells },
-    items: { ...(previousSource.items || {}), ...collected.items },
-  };
-  await mkdir(dirname(sourcePath), { recursive: true });
-  await writeFile(sourcePath, `${JSON.stringify({ systems: sourceSystems }, null, 2)}\n`, 'utf8');
 
-  // Preserve existing translations and add new API terms as empty entries.
   const outPath = resolve(args.out);
   let existing = null;
   try {
@@ -196,39 +315,86 @@ async function main() {
   }
 
   const existingSystems = existing?.systems || {};
-  const previousSection = existingSystems[slug] || {};
   const merged = { ...existing, meta: existing?.meta || {}, systems: { ...existingSystems } };
-  const section = {
-    meta: { ...collected.meta, system: slug },
-    rules: { ...(previousSection.rules || {}) },
-    weapons: { ...(previousSection.weapons || {}) },
-    spells: { ...(previousSection.spells || {}) },
-    items: { ...(previousSection.items || {}) },
-  };
-  for (const sectionKey of ['rules', 'weapons', 'spells']) {
-    for (const [id, source] of Object.entries(collected[sectionKey])) {
-      const previous = previousSection[sectionKey]?.[id] || {};
-      const entry = {};
-      for (const field of Object.keys(source)) {
-        // English stays in content.source.json; new translations start blank.
-        entry[field] = previous[field] ?? '';
+
+  for (const bucket of bySlug.values()) {
+    const { slug } = bucket;
+    const collected = {
+      meta: bucket.meta,
+      rules: Object.fromEntries([...bucket.rules.entries()].sort(([a], [b]) => a.localeCompare(b))),
+      weapons: Object.fromEntries(
+        [...bucket.weapons.entries()].sort(([a], [b]) => a.localeCompare(b)),
+      ),
+      spells: Object.fromEntries(
+        [...bucket.spells.entries()].sort(([a], [b]) => a.localeCompare(b)),
+      ),
+      items: Object.fromEntries([...bucket.items.entries()].sort()),
+    };
+
+    const previousSource = sourceSystems[slug] || {};
+    const previousCollections = Array.isArray(previousSource.meta?.collections)
+      ? previousSource.meta.collections
+      : previousSource.meta?.armyId
+        ? [{ armyId: previousSource.meta.armyId, book: previousSource.meta.book || '' }]
+        : [];
+    const updatedIds = new Set(bucket.books.map((entry) => entry.armyId));
+    const collections = [
+      ...previousCollections.filter((entry) => !updatedIds.has(entry.armyId)),
+      ...bucket.books,
+    ];
+
+    sourceSystems[slug] = {
+      meta: { ...previousSource.meta, ...collected.meta, system: slug, collections },
+      rules: mergeSource(previousSource.rules, collected.rules, args.refreshSource),
+      weapons: mergeSource(previousSource.weapons, collected.weapons, args.refreshSource),
+      spells: mergeSource(previousSource.spells, collected.spells, args.refreshSource),
+      items: mergeSource(previousSource.items, collected.items, args.refreshSource),
+    };
+
+    // Preserve existing translations and add new API terms as empty entries.
+    const previousSection = existingSystems[slug] || {};
+    const section = {
+      meta: { ...collected.meta, system: slug },
+      rules: { ...(previousSection.rules || {}) },
+      weapons: { ...(previousSection.weapons || {}) },
+      spells: { ...(previousSection.spells || {}) },
+      items: { ...(previousSection.items || {}) },
+    };
+    for (const sectionKey of ['rules', 'weapons', 'spells']) {
+      for (const [id, source] of Object.entries(collected[sectionKey])) {
+        const previous = previousSection[sectionKey]?.[id] || {};
+        const entry = {};
+        for (const field of Object.keys(source)) {
+          // English stays in content.source.json; new translations start blank.
+          entry[field] = previous[field] ?? '';
+        }
+        section[sectionKey][id] = entry;
       }
-      section[sectionKey][id] = entry;
     }
-  }
-  // Itens: chave é o nome em inglês, valor é a tradução (string simples).
-  for (const [name, source] of Object.entries(collected.items)) {
-    section.items[name] = previousSection.items?.[name] ?? '';
+    // Itens: chave é o nome em inglês, valor é a tradução (string simples).
+    for (const [name, source] of Object.entries(collected.items)) {
+      section.items[name] = previousSection.items?.[name] ?? '';
+    }
+    merged.systems[slug] = section;
+
+    const count = (key) => Object.keys(section[key]).length;
+    console.log(`Sistema ${slug}: ${collections.length} livro(s)`);
+    console.log(
+      `  Regras: ${count('rules')} | Armas: ${count('weapons')} | Magias: ${count('spells')} | Itens: ${count('items')}`,
+    );
   }
 
-  merged.systems[slug] = section;
+  await mkdir(dirname(sourcePath), { recursive: true });
+  await writeFile(sourcePath, `${JSON.stringify({ systems: sourceSystems }, null, 2)}\n`, 'utf8');
 
   await mkdir(dirname(outPath), { recursive: true });
   await writeFile(outPath, `${JSON.stringify(merged, null, 2)}\n`, 'utf8');
 
-  const count = (key) => Object.keys(section[key]).length;
-  console.log(`Livro: ${collected.meta.book} (${armyId}, sistema ${gameSystem})`);
-  console.log(`Regras: ${count('rules')} | Armas: ${count('weapons')} | Magias: ${count('spells')} | Itens: ${count('items')}`);
+  console.log(
+    args.refreshSource
+      ? '\nFonte inglesa atualizada (--refresh-source). Revise as traduções (npm run i18n:check).'
+      : '\nFonte inglesa preservada (use --refresh-source para aceitar o texto novo da API).',
+  );
   console.log(`Gravado em ${outPath}`);
 }
 

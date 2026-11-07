@@ -11,6 +11,12 @@
 // regra citada dentro da descrição de outra, juntar armas iguais). Traduzir os
 // dados antes dessas comparações quebraria tudo.
 //
+// Segurança contra texto defasado: cada tradução só é usada quando o texto que
+// o Army Forge manda AGORA é igual (ignorando espaços nas pontas) ao texto
+// inglês registrado em content.source.json. Se a OPR mudar uma regra, o site
+// mostra o texto novo em inglês em vez de uma tradução antiga. O fluxo para
+// retraduzir está documentado em scripts/collect-content.mjs (`--refresh-source`).
+//
 // Se um id ainda não tem tradução, cai no texto original em inglês. Nunca
 // aparece vazio e nada quebra.
 
@@ -40,11 +46,16 @@ interface TranslationSection {
   meta?: { gameSystem?: number; system?: string };
 }
 
-interface TranslationFile extends TranslationSection {
+interface TranslationFile {
   // New format: per-system sections to avoid mixing GF/GFF/AoF texts.
   // Legacy flat files (without `systems`) are treated as system-agnostic.
   systems?: Record<string, TranslationSection & { gameSystem?: number; system?: string }>;
   meta?: { gameSystem?: number; system?: string };
+  // Legacy flat sections (kept only for backward compatibility).
+  rules?: Record<string, RuleTranslation>;
+  weapons?: Record<string, WeaponTranslation>;
+  spells?: Record<string, SpellTranslation>;
+  items?: Record<string, string>;
 }
 
 // Game-system code mapping that the Army Forge backend uses.
@@ -79,28 +90,7 @@ function sourceSection(): TranslationSection {
   return source;
 }
 
-// Mapeia nome (em inglês) -> entrada da regra, só da seção ativa.
-// Army Forge às vezes omite o `id` em regras de arma (ex.: Deadly(2) no
-// Sniper Rifle). Sem id, a correspondência pela chave falha e a tradução
-// não aparece na carta. A regra _mrPya5SXSqW (Deadly) existe e está traduzida
-// como "Mortal" — só faltava alcançá-la pelo nome.
-let ruleByNameCache: { section: TranslationSection; map: Map<string, RuleTranslation> } | null = null;
-
-function ruleByName(): Map<string, RuleTranslation> {
-  const section = resolveSection();
-  if (ruleByNameCache?.section === section) return ruleByNameCache.map;
-  const map = new Map<string, RuleTranslation>();
-  // Chave é o nome em INGLÊS (fonte). Ex.: "Deadly" -> entrada pt "Mortal".
-  // Construir com entry.name (pt) nunca casaria, pois a carta manda inglês.
-  for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
-    const translated = section.rules[srcId];
-    if (translated?.name && srcEntry.name) {
-      map.set(srcEntry.name, translated);
-    }
-  }
-  ruleByNameCache = { section, map };
-  return map;
-}
+const EMPTY_SECTION: TranslationSection = { rules: {}, weapons: {}, spells: {}, items: {} };
 
 // Registry of which system the current army list belongs to.
 // Set by the app when a list loads (see index.ts). Falls back to the
@@ -139,10 +129,15 @@ function resolveSection(): TranslationSection {
     if (key && translations.systems[key]) return translations.systems[key];
     // No section for THIS system: never mix another system's texts.
     // Return an empty section so callers fall back to the English original.
-    return { rules: {}, weapons: {}, spells: {}, items: {} };
+    return EMPTY_SECTION;
   }
   // Legacy flat file.
-  return translations;
+  return {
+    rules: translations.rules ?? {},
+    weapons: translations.weapons ?? {},
+    spells: translations.spells ?? {},
+    items: translations.items ?? {},
+  };
 }
 
 // Só traduz quando o idioma atual é pt-BR. Em inglês devolve o original.
@@ -150,39 +145,166 @@ function active(): boolean {
   return getLang() === 'pt-BR';
 }
 
-function ruleEntry(id: string | undefined, name?: string): RuleTranslation | undefined {
-  if (!active()) return undefined;
-  const byId = id ? resolveSection().rules[id] : undefined;
-  if (byId?.name) return byId;
-  if (name) {
-    // Fallback por nome para regras sem id (ex.: Deadly no Sniper Rifle).
-    const fromName = ruleByName().get(name);
-    if (fromName?.name) return fromName;
-    // Último recurso: procurar na fonte em inglês pelo nome e reusar a
-    // tradução guardada para aquele id (a regra traduzida existe no dicionário).
-    for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
-      if (srcEntry.name === name) {
-        const translated = resolveSection().rules[srcId];
-        if (translated?.name) return translated;
+// Comparação ignora apenas espaços nas pontas. Qualquer outra diferença
+// (palavra, pontuação, acento) invalida a tradução e mostra o inglês atual.
+function norm(value: string | undefined | null): string {
+  return (value ?? '').trim();
+}
+
+// Texto vazio ou igual ao próprio nome é placeholder do Army Forge
+// (ex.: a instância ranqueada de AP vem com description = "AP").
+function isPlaceholder(value: string | undefined, name: string | undefined): boolean {
+  const text = norm(value);
+  return text === '' || text === norm(name);
+}
+
+interface RuleMatch {
+  translated: RuleTranslation;
+  source: RuleTranslation;
+}
+
+// Índice nome (inglês) -> entrada da fonte. Quando duas regras têm o mesmo
+// nome, prefere a que tem descrição de verdade (a versão genérica da regra).
+let sourceByNameCache: {
+  section: TranslationSection;
+  map: Map<string, { id: string; entry: RuleTranslation }>;
+} | null = null;
+
+function sourceByName(name: string):
+  | { id: string; entry: RuleTranslation }
+  | undefined {
+  const section = sourceSection();
+  if (sourceByNameCache?.section !== section) {
+    const map = new Map<string, { id: string; entry: RuleTranslation }>();
+    for (const [id, entry] of Object.entries(section.rules)) {
+      const label = norm(entry.name);
+      if (!label) continue;
+      const current = map.get(label);
+      if (
+        !current ||
+        (isPlaceholder(current.entry.description, current.entry.name) &&
+          !isPlaceholder(entry.description, entry.name))
+      ) {
+        map.set(label, { id, entry });
       }
     }
+    sourceByNameCache = { section, map };
   }
-  return byId;
+  return sourceByNameCache.map.get(norm(name));
 }
 
-function weaponEntry(weaponId: string | undefined): WeaponTranslation | undefined {
-  if (!active() || !weaponId) return undefined;
-  return resolveSection().weapons[weaponId];
+// Devolve a tradução só quando o texto inglês atual bate com a fonte.
+function ruleMatch(rule: { id?: string; name?: string }): RuleMatch | undefined {
+  if (!active()) return undefined;
+  const label = norm(rule.name);
+  const sourceRules = sourceSection().rules;
+  const translatedRules = resolveSection().rules;
+
+  if (rule.id) {
+    const src = sourceRules[rule.id];
+    const translated = translatedRules[rule.id];
+    if (src && translated?.name && (!label || norm(src.name) === label)) {
+      return { translated, source: src };
+    }
+  }
+
+  if (!label) return undefined;
+  // Fallback por nome (regras que o Army Forge manda sem id). A chave do
+  // índice já é o nome inglês, então a igualdade do nome está garantida.
+  const hit = sourceByName(label);
+  if (!hit) return undefined;
+  const translated = translatedRules[hit.id];
+  return translated?.name ? { translated, source: hit.entry } : undefined;
 }
 
-function spellEntry(id: string | undefined): SpellTranslation | undefined {
-  if (!active() || !id) return undefined;
-  return resolveSection().spells[id];
+// Texto inglês ao qual a descrição de uma entrada corresponde. Quando a fonte
+// guarda só o placeholder (ex.: "AP"), usa a descrição da versão genérica.
+function sourceDescription(entry: RuleTranslation): string {
+  if (!isPlaceholder(entry.description, entry.name)) return norm(entry.description);
+  const generic = entry.name ? sourceByName(entry.name) : undefined;
+  if (!generic) return '';
+  return isPlaceholder(generic.entry.description, generic.entry.name)
+    ? ''
+    : norm(generic.entry.description);
+}
+
+function ruleEntry(rule: { id?: string; name?: string }): RuleTranslation | undefined {
+  return ruleMatch(rule)?.translated;
+}
+
+function ruleDescriptionTranslation(rule: {
+  id?: string;
+  name?: string;
+  description?: string;
+  __fallbackDesc?: string;
+}): string | undefined {
+  if (!active()) return undefined;
+  const label = norm(rule.name);
+
+  const candidates: RuleMatch[] = [];
+  const match = ruleMatch(rule);
+  if (match) candidates.push(match);
+
+  // Entrada genérica com o mesmo nome (ex.: AP sem rating), usada quando a
+  // instância ranqueada só traz o nome como descrição.
+  if (label) {
+    const generic = sourceByName(label);
+    if (generic) {
+      const translated = resolveSection().rules[generic.id];
+      if (translated?.name) candidates.push({ translated, source: generic.entry });
+    }
+  }
+
+  // Texto inglês que a tradução substituiria: a descrição atual ou, quando ela
+  // é só o nome, a descrição genérica que o render usa como fallback.
+  const english = isPlaceholder(rule.description, label)
+    ? norm(rule.__fallbackDesc)
+    : norm(rule.description);
+  if (!english) return undefined;
+
+  for (const candidate of candidates) {
+    const translated = candidate.translated.description;
+    if (!translated || isPlaceholder(translated, candidate.translated.name)) continue;
+    const original = sourceDescription(candidate.source);
+    if (original && original === english) return translated;
+  }
+  return undefined;
+}
+
+function weaponEntry(weapon: {
+  weaponId?: string;
+  id?: string;
+  name?: string;
+}): WeaponTranslation | undefined {
+  if (!active()) return undefined;
+  const key = weapon.weaponId || weapon.id;
+  if (!key) return undefined;
+  const src = sourceSection().weapons[key];
+  const translated = resolveSection().weapons[key];
+  if (!src || !translated?.name) return undefined;
+  // Nome da arma mudou no Army Forge: mostra o original até retraduzir.
+  if (norm(weapon.name) !== norm(src.name)) return undefined;
+  return translated;
+}
+
+type SpellField = 'name' | 'effect';
+
+function spellEntry(
+  spell: { id?: string; name?: string; effect?: string },
+  field: SpellField,
+): SpellTranslation | undefined {
+  if (!active() || !spell.id) return undefined;
+  const src = sourceSection().spells[spell.id];
+  const translated = resolveSection().spells[spell.id];
+  if (!src || !translated?.name) return undefined;
+  if (norm(spell.name) !== norm(src.name)) return undefined;
+  if (field === 'name') return translated;
+  return norm(spell.effect) === norm(src.effect) ? translated : undefined;
 }
 
 /** Nome traduzido de uma regra (unidade ou regra especial de arma). */
 export function trRuleName(rule: { id?: string; name?: string }): string {
-  return ruleEntry(rule.id, rule.name)?.name || rule.name || '';
+  return ruleEntry(rule)?.name || rule.name || '';
 }
 
 /**
@@ -191,7 +313,7 @@ export function trRuleName(rule: { id?: string; name?: string }): string {
  * Ex.: "Mortal (Deadly)", "Explosão (Blast)".
  */
 export function trRuleNameWithOriginal(rule: { id?: string; name?: string }): string {
-  const entry = ruleEntry(rule.id, rule.name);
+  const entry = ruleEntry(rule);
   const translated = entry?.name || rule.name || '';
   if (
     !entry?.name ||
@@ -217,7 +339,7 @@ export function trRuleLabel(rule: {
   label?: string;
   rating?: number;
 }): string {
-  const entry = ruleEntry(rule.id, rule.name);
+  const entry = ruleEntry(rule);
   // Sem tradução: reconstruir do nome em inglês + rating, para nunca perder
   // o valor (ex.: Deadly com rating 2 => "Deadly(2)", como no Army Forge).
   if (!entry?.name) {
@@ -234,31 +356,19 @@ export function trRuleLabel(rule: {
 }
 
 /** Descrição traduzida de uma regra. */
-export function trRuleDescription(rule: { id?: string; name?: string; description?: string }): string {
+export function trRuleDescription(rule: {
+  id?: string;
+  name?: string;
+  description?: string;
+  __fallbackDesc?: string;
+}): string {
   // Em inglês: nunca traduz. Se a descrição do Army Forge é só o nome
   // (ex. CQes0mDvF4bV AP desc='AP'), o chamador (render.ts) já aplica
   // o fallback genérico via __fallbackDesc. Aqui devolvemos o original.
   if (!active()) {
     return rule.description || '';
   }
-  const translated = ruleEntry(rule.id, rule.name)?.description;
-  if (translated && translated.trim() && translated.trim() !== rule.name && translated.trim() !== (ruleEntry(rule.id, rule.name)?.name ?? '')) return translated;
-  // Regra ranqueada (ex. CQes0mDvF4bV AP com desc='AP' no Army Forge) tem
-  // entrada no dicionário só com nome. Busca a descrição genérica pelo nome.
-  if (rule.name) {
-    const generic = ruleByName().get(rule.name);
-    if (generic?.description && generic.description.trim() && generic.description.trim() !== rule.name && generic.description.trim() !== (generic.name ?? '')) {
-      return generic.description;
-    }
-    // Fallback final: procurar na fonte em inglês pelo nome e reusar tradução
-    for (const [srcId, srcEntry] of Object.entries(sourceSection().rules)) {
-      if (srcEntry.name === rule.name) {
-        const t2 = resolveSection().rules[srcId]?.description;
-        if (t2 && t2.trim() && t2.trim() !== rule.name && t2.trim() !== (resolveSection().rules[srcId]?.name ?? '')) return t2;
-      }
-    }
-  }
-  return translated || rule.description || '';
+  return ruleDescriptionTranslation(rule) || rule.description || '';
 }
 
 /**
@@ -272,13 +382,12 @@ export function trWeaponName(weapon: {
   id?: string;
   name?: string;
 }): string {
-  const key = weapon.weaponId || weapon.id;
-  return weaponEntry(key)?.name || weapon.name || '';
+  return weaponEntry(weapon)?.name || weapon.name || '';
 }
 
 /** Nome traduzido de uma magia. */
 export function trSpellName(spell: { id?: string; name?: string }): string {
-  return spellEntry(spell.id)?.name || spell.name || '';
+  return spellEntry(spell, 'name')?.name || spell.name || '';
 }
 
 /**
@@ -286,15 +395,15 @@ export function trSpellName(spell: { id?: string; name?: string }): string {
  * Ex.: "Explosão Psíquica (Psychic Blast)".
  */
 export function trSpellNameWithOriginal(spell: { id?: string; name?: string }): string {
-  const entry = spellEntry(spell.id);
+  const entry = spellEntry(spell, 'name');
   const translated = entry?.name || spell.name || '';
   if (!entry?.name || entry.name === (spell.name || '')) return translated;
   return `${entry.name} (${spell.name})`;
 }
 
 /** Efeito traduzido de uma magia. */
-export function trSpellEffect(spell: { id?: string; effect?: string }): string {
-  return spellEntry(spell.id)?.effect || spell.effect || '';
+export function trSpellEffect(spell: { id?: string; name?: string; effect?: string }): string {
+  return spellEntry(spell, 'effect')?.effect || spell.effect || '';
 }
 
 /**
@@ -302,7 +411,7 @@ export function trSpellEffect(spell: { id?: string; effect?: string }): string {
  * O ganho traz o id da regra, então usa a mesma memória de tradução.
  */
 export function trRuleGainName(gain: { id?: string; name?: string; label?: string }): string {
-  const entry = ruleEntry(gain.id, gain.name || gain.label);
+  const entry = ruleEntry({ id: gain.id, name: gain.name || gain.label });
   if (entry?.name) return entry.name;
   return gain.name || gain.label || '';
 }
@@ -313,5 +422,7 @@ export function trRuleGainName(gain: { id?: string; name?: string; label?: strin
  */
 export function trItemName(name: string | undefined): string {
   if (!active() || !name) return name || '';
+  // A chave é o nome inglês: só traduz se ele ainda existir na fonte.
+  if (sourceSection().items?.[name] === undefined) return name;
   return resolveSection().items?.[name] || name;
 }
