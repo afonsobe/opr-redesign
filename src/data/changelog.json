@@ -3,6 +3,18 @@
     "date": "November 7, 2026",
     "datePtBR": "7 de novembro de 2026",
     "items": [
+      "**pt-BR dictionary now covers the full GFF army books collected from Army Forge:** Alien Hives and Battle Brothers, with 88 special rules, 156 weapons, 12 spells and 51 upgrade items translated.",
+      "**New Army Forge translation workflow:** the collector now accepts `--url` / `--urls-file`, the check runs via `npm run i18n:check`, and English source snapshots are kept per game system."
+    ],
+    "itemsPtBR": [
+      "**O dicionário pt-BR agora cobre os livros de exército GFF coletados do Army Forge:** Alien Hives e Battle Brothers, com 88 regras especiais, 156 armas, 12 magias e 51 itens de melhoria traduzidos.",
+      "**Novo fluxo de tradução do Army Forge:** o coletor aceita `--url` / `--urls-file`, as conferências rodam via `npm run i18n:check`, e as fontes em inglês são salvas por sistema de jogo."
+    ]
+  },
+  {
+    "date": "November 7, 2026",
+    "datePtBR": "7 de novembro de 2026",
+    "items": [
       "**Cards now show heroes first, followed by other units in descending points order**, in both the on-screen list and print layout.",
       "**The active palette colors are always visible** in the customization panel; changing either color automatically switches the selection to Custom.",
       "**My Lists are now grouped by game system**, using the full official system names, which stay unchanged in English and pt-BR."
