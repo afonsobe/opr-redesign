@@ -4,11 +4,13 @@
     "datePtBR": "7 de novembro de 2026",
     "items": [
       "**Cards now show heroes first, followed by other units in descending points order**, in both the on-screen list and print layout.",
-      "**The active palette colors are always visible** in the customization panel; changing either color automatically switches the selection to Custom."
+      "**The active palette colors are always visible** in the customization panel; changing either color automatically switches the selection to Custom.",
+      "**My Lists are now grouped by game system**, using the full official system names, which stay unchanged in English and pt-BR."
     ],
     "itemsPtBR": [
       "**As cartas agora mostram primeiro os heróis e depois as demais unidades em ordem decrescente de pontos**, tanto na página quanto na impressão.",
-      "**As cores da paleta ativa ficam sempre visíveis** no painel de personalização; ao alterar qualquer uma delas, a seleção muda automaticamente para Personalizado."
+      "**As cores da paleta ativa ficam sempre visíveis** no painel de personalização; ao alterar qualquer uma delas, a seleção muda automaticamente para Personalizado.",
+      "**Minhas Listas agora são agrupadas por sistema de jogo**, com os nomes oficiais completos, que permanecem iguais em inglês e pt-BR."
     ]
   },
   {

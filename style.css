@@ -458,6 +458,19 @@ body.nav-open .nav-overlay {
   max-width: 720px;
 }
 
+.saved-list-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+}
+
+.saved-list-system {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 16px;
+}
+
 .saved-list {
   display: flex;
   align-items: center;

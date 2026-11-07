@@ -39,6 +39,34 @@ function createButton(label: string, className: string): HTMLButtonElement {
   return button;
 }
 
+// Official system names are intentionally identical in English and pt-BR.
+function fullSystemName(system: string): string {
+  const key = system.trim().toLowerCase();
+  const names: Record<string, string> = {
+    gf: 'Grimdark Future',
+    'grimdark-future': 'Grimdark Future',
+    'grimdark future': 'Grimdark Future',
+    gff: 'Grimdark Future: Firefight',
+    'grimdark-future-firefight': 'Grimdark Future: Firefight',
+    'grimdark future: firefight': 'Grimdark Future: Firefight',
+    aof: 'Age of Fantasy',
+    'age-of-fantasy': 'Age of Fantasy',
+    'age of fantasy': 'Age of Fantasy',
+    aofs: 'Age of Fantasy: Skirmish',
+    'age-of-fantasy-skirmish': 'Age of Fantasy: Skirmish',
+    'age of fantasy: skirmish': 'Age of Fantasy: Skirmish',
+    aofr: 'Age of Fantasy: Regiments',
+    'age-of-fantasy-regiments': 'Age of Fantasy: Regiments',
+    'age of fantasy: regiments': 'Age of Fantasy: Regiments',
+    wf: 'Grimdark Future: Warfleets',
+    gfw: 'Grimdark Future: Warfleets',
+    warfleets: 'Grimdark Future: Warfleets',
+    'grimdark-future-warfleets': 'Grimdark Future: Warfleets',
+    'grimdark future: warfleets': 'Grimdark Future: Warfleets',
+  };
+  return names[key] ?? (system.trim() || t('lists.unknown'));
+}
+
 function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElement {
   const item = document.createElement('div');
   item.className = 'saved-list';
@@ -52,7 +80,7 @@ function createListItem(saved: SavedList, cb: ListsViewCallbacks): HTMLDivElemen
 
   const meta = document.createElement('div');
   meta.className = 'saved-list-meta';
-  meta.textContent = `${saved.listPoints} / ${saved.pointsLimit} pts · ${saved.gameSystem.toUpperCase()}`;
+  meta.textContent = `${saved.listPoints} / ${saved.pointsLimit} pts`;
 
   const when = document.createElement('div');
   when.className = 'saved-list-when';
@@ -113,10 +141,30 @@ export function renderListsView(
     return;
   }
 
-  const listEl = document.createElement('div');
-  listEl.className = 'saved-lists';
+  const groups = new Map<string, SavedList[]>();
   for (const saved of lists) {
-    listEl.append(createListItem(saved, cb));
+    const system = fullSystemName(saved.payload.gameSystemSlug || saved.gameSystem);
+    const group = groups.get(system) ?? [];
+    group.push(saved);
+    groups.set(system, group);
+  }
+
+  const listEl = document.createElement('div');
+  listEl.className = 'saved-list-groups';
+  for (const [system, systemLists] of [...groups.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+    const section = document.createElement('section');
+    section.className = 'saved-list-group';
+
+    const heading = document.createElement('h2');
+    heading.className = 'saved-list-system';
+    heading.textContent = system;
+
+    const groupList = document.createElement('div');
+    groupList.className = 'saved-lists';
+    for (const saved of systemLists) groupList.append(createListItem(saved, cb));
+
+    section.append(heading, groupList);
+    listEl.append(section);
   }
   container.append(listEl);
 }
