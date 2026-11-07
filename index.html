@@ -113,19 +113,37 @@
         </div>
       </div>
 
-      <div class="print-options" role="group" aria-label="Card and print options">
-        <span class="options-title" data-i18n="opt.title">Options</span>
-        <label><input type="checkbox" id="optCards" checked> <span data-i18n="opt.cards">Include cards in print</span></label>
-        <label><input type="checkbox" id="optRules" checked> <span data-i18n="opt.rules">Include rules table in print</span></label>
-        <label><input type="checkbox" id="optSpells" checked> <span data-i18n="opt.spells">Include spells table in print</span></label>
-        <label><input type="checkbox" id="optGrayscale"> <span data-i18n="opt.grayscale">Print in grayscale</span></label>
-        <label><input type="checkbox" id="optCustomName" checked> <span data-i18n="opt.customNames">Use custom unit names</span></label>
-        <label><input type="checkbox" id="optCombine"> <span data-i18n="opt.combine">Combine similar units</span></label>
-        <div class="card-design-option">
-          <span id="cardDesignLabel" data-i18n="opt.cardDesign">Card design</span>
-          <div id="optCardDesign" class="card-design-switch" role="group" aria-labelledby="cardDesignLabel">
-            <button type="button" class="card-design-button is-active" data-card-design="classic" aria-pressed="true">Classic</button>
-            <button type="button" class="card-design-button" data-card-design="tcg" aria-pressed="false">Standard</button>
+      <div class="option-panels">
+        <div class="print-options" role="group" aria-label="Card and print options">
+          <span class="options-title" data-i18n="opt.title">Options</span>
+          <label><input type="checkbox" id="optCards" checked> <span data-i18n="opt.cards">Include cards in print</span></label>
+          <label><input type="checkbox" id="optRules" checked> <span data-i18n="opt.rules">Include rules table in print</span></label>
+          <label><input type="checkbox" id="optSpells" checked> <span data-i18n="opt.spells">Include spells table in print</span></label>
+          <label><input type="checkbox" id="optCustomName" checked> <span data-i18n="opt.customNames">Use custom unit names</span></label>
+          <label><input type="checkbox" id="optCombine"> <span data-i18n="opt.combine">Combine similar units</span></label>
+        </div>
+
+        <div id="customization-options" class="customization-options" role="group" aria-label="Customization" data-i18n-aria="opt.customization" hidden>
+          <span class="options-title" data-i18n="opt.customization">Customization</span>
+          <div id="customization-controls" class="customization-controls">
+            <div class="customization-design-column">
+              <div class="card-design-option">
+                <span id="cardDesignLabel" data-i18n="opt.cardDesign">Card design</span>
+                <div id="optCardDesign" class="card-design-switch" role="group" aria-labelledby="cardDesignLabel">
+                  <button type="button" class="card-design-button is-active" data-card-design="classic" aria-pressed="true">Classic</button>
+                  <button type="button" class="card-design-button" data-card-design="tcg" aria-pressed="false">Standard</button>
+                </div>
+              </div>
+              <div id="avatar-size-slot"></div>
+            </div>
+            <div class="customization-palette-column">
+              <div id="palette-control-mount"></div>
+              <div id="custom-palette-colors" class="custom-palette-colors" hidden>
+                <label><span data-i18n="palette.customPrimary">Primary color</span> <input type="color" id="paletteCustomC1" value="#3a3a4a"></label>
+                <label><span data-i18n="palette.customSecondary">Secondary color</span> <input type="color" id="paletteCustomC2" value="#2a6b66"></label>
+              </div>
+              <label class="grayscale-option"><input type="checkbox" id="optGrayscale"> <span data-i18n="opt.grayscale">Print in grayscale</span></label>
+            </div>
           </div>
         </div>
       </div>

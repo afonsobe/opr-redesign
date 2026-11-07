@@ -38,10 +38,17 @@ const generateButton = document.getElementById('btnGenerate') as HTMLButtonEleme
 const printButton = document.getElementById('btnPrint');
 const refreshButton = document.getElementById('btnRefresh') as HTMLButtonElement | null;
 const printOptions = document.querySelector('.print-options') as HTMLElement | null;
+const optionPanels = document.querySelector('.option-panels') as HTMLElement | null;
+const customizationOptions = document.getElementById('customization-options') as HTMLElement | null;
+const paletteControlMount = document.getElementById('palette-control-mount') as HTMLElement | null;
+const avatarSizeSlot = document.getElementById('avatar-size-slot') as HTMLElement | null;
 const includeCardsCheckbox = document.getElementById('optCards') as HTMLInputElement | null;
 const includeRulesCheckbox = document.getElementById('optRules') as HTMLInputElement | null;
 const includeSpellsCheckbox = document.getElementById('optSpells') as HTMLInputElement | null;
 const grayscaleCheckbox = document.getElementById('optGrayscale') as HTMLInputElement | null;
+const customPaletteColors = document.getElementById('custom-palette-colors') as HTMLElement | null;
+const customPaletteC1Input = document.getElementById('paletteCustomC1') as HTMLInputElement | null;
+const customPaletteC2Input = document.getElementById('paletteCustomC2') as HTMLInputElement | null;
 const combineUnitsCheckbox = document.getElementById('optCombine') as HTMLInputElement | null;
 const customNamesCheckbox = document.getElementById('optCustomName') as HTMLInputElement | null;
 const cardDesignButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-card-design]'));
@@ -73,6 +80,7 @@ let currentArmyId: string | null = null;
 let currentInput = '';
 let currentArmy: ArmyList | null = null;
 let cardDesign: 'classic' | 'tcg' = 'classic';
+let lastAppliedPalette: Palette | null = null;
 
 function getCardDesign(): 'classic' | 'tcg' {
   return cardDesign;
@@ -94,6 +102,7 @@ const paletteSelect = document.createElement('select');
 paletteSelect.id = 'optPalette';
 function paletteDisplayName(p: Palette): string {
   if (p.id === 'default') return t('palette.default');
+  if (p.id === 'custom') return t('palette.custom');
   return p.label.split(' — ')[0] ?? p.label;
 }
 
@@ -109,42 +118,102 @@ function buildPaletteOptions(): void {
 
   paletteSelect.innerHTML =
     '<option value="auto"></option>' +
+    `<optgroup label="${t('palette.general')}"><option value="default">${t('palette.default')}</option><option value="custom">${t('palette.custom')}</option></optgroup>` +
     group('Grimdark Future', 'GF') +
-    group('Age of Fantasy', 'AoF') +
-    group(t('palette.general'), 'geral');
+    group('Age of Fantasy', 'AoF');
   paletteSelect.value = previous;
 }
 buildPaletteOptions();
 
 const paletteLabel = document.createElement('label');
+paletteLabel.className = 'palette-control-label';
 const paletteLabelText = document.createElement('span');
 paletteLabelText.dataset.i18n = 'opt.palette';
-paletteLabel.append(paletteLabelText, ' ', paletteSelect);
-printOptions?.appendChild(paletteLabel);
-// Barra de tamanho da imagem: fica abaixo das opções de impressão e só aparece
-// quando há pelo menos uma foto (controlado pelo CSS).
-printOptions?.insertAdjacentElement('afterend', createAvatarSizeControl());
+paletteLabel.append(paletteLabelText, paletteSelect);
+paletteControlMount?.appendChild(paletteLabel);
+// The size control lives in the customization panel and appears only when a
+// card has an image (controlled by CSS).
+avatarSizeSlot?.appendChild(createAvatarSizeControl());
 
 function paletteStorageKey(): string {
   return `palette:${currentArmyId ?? ''}`;
 }
 
-function currentPalette(): Palette {
-  const chosen = PALETTES.find((p) => p.id === paletteSelect.value);
-  if (chosen) return chosen;
+function customPaletteStorageKey(): string {
+  return `palette-custom:${currentArmyId ?? ''}`;
+}
 
-  // Automática: primeiro pelo nome do livro do exército (ex.: "Battle Brothers"),
-  // depois, se nada combinar, pelo nome que você deu à lista.
+function isPaletteHexColor(value: unknown): value is string {
+  return typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value);
+}
+
+function readCustomPaletteColors(): { c1: string; c2: string } | null {
+  try {
+    const saved = localStorage.getItem(customPaletteStorageKey());
+    if (!saved) return null;
+    const colors = JSON.parse(saved) as { c1?: unknown; c2?: unknown };
+    return isPaletteHexColor(colors.c1) && isPaletteHexColor(colors.c2)
+      ? { c1: colors.c1, c2: colors.c2 }
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveCustomPaletteColors(): void {
+  if (!isPaletteHexColor(customPaletteC1Input?.value) || !isPaletteHexColor(customPaletteC2Input?.value)) return;
+  try {
+    localStorage.setItem(
+      customPaletteStorageKey(),
+      JSON.stringify({ c1: customPaletteC1Input.value, c2: customPaletteC2Input.value }),
+    );
+  } catch (error) {
+    console.error('Failed to save custom palette:', error);
+  }
+}
+
+function restoreCustomPaletteColors(fallback: Palette): void {
+  if (!customPaletteC1Input || !customPaletteC2Input) return;
+  const saved = readCustomPaletteColors();
+  customPaletteC1Input.value = saved?.c1 ?? fallback.c1;
+  customPaletteC2Input.value = saved?.c2 ?? fallback.c2;
+}
+
+function automaticPalette(): Palette {
+  // Automatic: first match the army book name, then the user-provided list name.
   const bookNames = (currentArmy?.armyBooks ?? []).map((book) => book.name).join(' ');
   const fromBook = detectPalette(bookNames);
   if (fromBook.id !== 'default') return fromBook;
   return detectPalette(currentArmy?.name ?? '');
 }
 
+function currentPalette(): Palette {
+  if (paletteSelect.value === 'custom') {
+    const colors = readCustomPaletteColors() ?? {
+      c1: customPaletteC1Input?.value ?? '#3a3a4a',
+      c2: customPaletteC2Input?.value ?? '#2a6b66',
+    };
+    return {
+      id: 'custom',
+      game: 'geral',
+      label: t('palette.custom'),
+      c1: colors.c1,
+      c2: colors.c2,
+      keywords: [],
+    };
+  }
+
+  const chosen = PALETTES.find((p) => p.id === paletteSelect.value);
+  if (chosen) return chosen;
+  return automaticPalette();
+}
+
 // Aplica a paleta e deixa visível, no seletor, qual está em uso.
 function refreshPalette(): void {
   const palette = currentPalette();
   applyPalette(palette);
+  lastAppliedPalette = palette;
+  if (customPaletteColors) customPaletteColors.hidden = paletteSelect.value !== 'custom';
   const autoOption = paletteSelect.options.item(0);
   if (autoOption) {
     autoOption.textContent =
@@ -154,6 +223,10 @@ function refreshPalette(): void {
   }
 }
 paletteSelect.addEventListener('change', () => {
+  if (paletteSelect.value === 'custom') {
+    restoreCustomPaletteColors(lastAppliedPalette ?? automaticPalette());
+    saveCustomPaletteColors();
+  }
   try {
     localStorage.setItem(paletteStorageKey(), paletteSelect.value);
   } catch (error) {
@@ -162,6 +235,14 @@ paletteSelect.addEventListener('change', () => {
   refreshPalette();
   persistCurrentSettings();
 });
+
+for (const input of [customPaletteC1Input, customPaletteC2Input]) {
+  input?.addEventListener('input', () => {
+    saveCustomPaletteColors();
+    refreshPalette();
+    persistCurrentSettings();
+  });
+}
 
 // Default toggle states, matching the `checked` attributes in index.html. Used
 // when a saved list predates per-army settings, so it loads predictably.
@@ -219,7 +300,9 @@ function setDocumentTitle(listName?: string): void {
 function setPrintControlsVisible(visible: boolean): void {
   if (printButton) printButton.style.display = visible ? '' : 'none';
   if (refreshButton) refreshButton.style.display = visible ? '' : 'none';
+  if (optionPanels) optionPanels.style.display = visible ? '' : 'none';
   if (printOptions) printOptions.style.display = visible ? '' : 'none';
+  if (customizationOptions) customizationOptions.hidden = !visible;
   // The welcome block greets users while no army is on screen and steps aside
   // once the cards take over.
   if (homeHero) homeHero.hidden = visible;
@@ -247,12 +330,15 @@ function displayArmy(army: ArmyList, input: string): void {
   currentArmyId = army.id || null;
   currentInput = input;
   currentArmy = army;
+  restoreCustomPaletteColors(automaticPalette());
   // Fixa o dicionário de conteúdo no sistema desta lista (evita misturar GF com GFF).
   setActiveSystem((army as { gameSystemSlug?: string }).gameSystemSlug ?? army.gameSystem);
 
     // Restaura a paleta escolhida antes para esta lista (ou "automática").
   const savedPalette = localStorage.getItem(paletteStorageKey());
-  paletteSelect.value = PALETTES.some((p) => p.id === savedPalette) ? (savedPalette as string) : 'auto';
+  paletteSelect.value = savedPalette === 'custom' || PALETTES.some((p) => p.id === savedPalette)
+    ? savedPalette ?? 'auto'
+    : 'auto';
   refreshPalette();
 
   const unitCount = renderCards(
