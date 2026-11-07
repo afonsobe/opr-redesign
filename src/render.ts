@@ -1188,6 +1188,15 @@ function orderGroups(
   return [...groups].sort((a, b) => {
     const ka = anchorOf(a.unit);
     const kb = anchorOf(b.unit);
+    const aIsHero = getRules(a.unit).some((rule) => rule.name === 'Hero');
+    const bIsHero = getRules(b.unit).some((rule) => rule.name === 'Hero');
+    if (aIsHero !== bIsHero) return aIsHero ? -1 : 1;
+
+    if (!aIsHero) {
+      const costDifference = getUnitTotalCost(b.unit) - getUnitTotalCost(a.unit);
+      if (costDifference !== 0) return costDifference;
+    }
+
     return (
       ka.name.localeCompare(kb.name, undefined, { sensitivity: 'base' }) ||
       ka.id.localeCompare(kb.id) ||
@@ -1393,7 +1402,7 @@ export function renderCards(
     if (unit.selectionId) nameBySelectionId.set(unit.selectionId, unitDisplayName(unit, useCustomNames));
   }
 
-  // Alphabetical order, with joined hero/unit pairs kept side by side.
+  // Heroes first, then other units by displayed points (descending).
   const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames);
 
   for (const group of orderedGroups) {

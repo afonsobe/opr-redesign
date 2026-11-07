@@ -957,6 +957,11 @@ body:has(.card--has-image) .avatar-size-bar {
   min-width: 0;
 }
 
+/* Heróis ficam juntos no começo tanto na página quanto na impressão. */
+.card-wrapper:has(.card--hero) {
+  order: -1;
+}
+
 /* Controles da imagem: só existem quando a carta tem foto */
 .card-toolbar {
   display: none;
@@ -1680,10 +1685,6 @@ body:has(.card--has-image) .avatar-size-bar {
     margin-bottom: 0;
   }
 
-  /* Heróis primeiro, todos juntos no começo da folha */
-  .card-wrapper:has(.card--hero) {
-    order: -1;
-  }
 }
 
 /* Tamanhos pequenos (1 e 2): mais espaço entre o subtítulo e os status.

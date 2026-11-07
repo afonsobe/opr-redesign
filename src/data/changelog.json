@@ -1,5 +1,17 @@
 [
   {
+    "date": "November 7, 2026",
+    "datePtBR": "7 de novembro de 2026",
+    "items": [
+      "**Cards now show heroes first, followed by other units in descending points order**, in both the on-screen list and print layout.",
+      "**The active palette colors are always visible** in the customization panel; changing either color automatically switches the selection to Custom."
+    ],
+    "itemsPtBR": [
+      "**As cartas agora mostram primeiro os heróis e depois as demais unidades em ordem decrescente de pontos**, tanto na página quanto na impressão.",
+      "**As cores da paleta ativa ficam sempre visíveis** no painel de personalização; ao alterar qualquer uma delas, a seleção muda automaticamente para Personalizado."
+    ]
+  },
+  {
     "date": "November 6, 2026",
     "datePtBR": "6 de novembro de 2026",
     "items": [

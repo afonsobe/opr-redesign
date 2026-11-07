@@ -213,7 +213,9 @@ function refreshPalette(): void {
   const palette = currentPalette();
   applyPalette(palette);
   lastAppliedPalette = palette;
-  if (customPaletteColors) customPaletteColors.hidden = paletteSelect.value !== 'custom';
+  if (customPaletteC1Input) customPaletteC1Input.value = palette.c1;
+  if (customPaletteC2Input) customPaletteC2Input.value = palette.c2;
+  if (customPaletteColors) customPaletteColors.hidden = false;
   const autoOption = paletteSelect.options.item(0);
   if (autoOption) {
     autoOption.textContent =
@@ -238,7 +240,14 @@ paletteSelect.addEventListener('change', () => {
 
 for (const input of [customPaletteC1Input, customPaletteC2Input]) {
   input?.addEventListener('input', () => {
+    // Editing either visible color turns the active palette into a custom one.
+    paletteSelect.value = 'custom';
     saveCustomPaletteColors();
+    try {
+      localStorage.setItem(paletteStorageKey(), 'custom');
+    } catch (error) {
+      console.error('Failed to save palette:', error);
+    }
     refreshPalette();
     persistCurrentSettings();
   });
