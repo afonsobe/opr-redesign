@@ -106,7 +106,9 @@ async function collectCurrent(gameSystem, armyIds) {
     walkWeapons(book.customWeapons || [], weapons);
     for (const spell of book.spells || []) {
       if (spell?.id && spell?.name) {
-        spells.set(spell.id, { name: spell.name, effect: spell.effect || '' });
+        // Mesma chave composta do coletor (nome::efeito).
+        const key = `${spell.name.trim()}::${(spell.effect || '').trim()}`;
+        spells.set(key, { name: spell.name, effect: spell.effect || '' });
       }
     }
     for (const [name, entry] of collectItems(book)) items.set(name, entry);

@@ -1,0 +1,10 @@
+{
+  "_nota": "Exceções explícitas e pontuais, por sistema. Cada entrada aceita UM nome alternativo EXATO que o Army Forge manda para a mesma arma (mesmo weaponId) e define a tradução a usar. Qualquer outro nome continua travado e aparece em inglês.",
+  "gff": {
+    "weapons": {
+      "4gt-lA1q": {
+        "Shock Weapons": "Armas de Choque"
+      }
+    }
+  }
+}

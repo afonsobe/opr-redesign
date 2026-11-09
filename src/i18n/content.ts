@@ -23,6 +23,7 @@
 import { getLang } from '../i18n';
 import ptBR from './content.pt-BR.json';
 import sourceEn from './content.source.json';
+import aliasesJson from './content.aliases.json';
 
 interface RuleTranslation {
   name?: string;
@@ -271,6 +272,26 @@ function ruleDescriptionTranslation(rule: {
   return undefined;
 }
 
+// Exceções pontuais (content.aliases.json): nome alternativo EXATO que o Army
+// Forge manda para a mesma arma, com a tradução a usar. Ex.: o Security Forces
+// manda "Shock Weapons" (plural) para o weaponId de "Shock Weapon".
+type AliasFile = Record<string, { weapons?: Record<string, Record<string, string>> } | undefined>;
+const aliases = aliasesJson as unknown as AliasFile;
+
+function activeSystemKey(): string | null {
+  return (
+    activeSystem ??
+    ((translations.meta?.system as string | undefined) ?? null) ??
+    (translations.meta?.gameSystem ? (GAME_SYSTEM_SLUGS[translations.meta.gameSystem] ?? null) : null)
+  );
+}
+
+function weaponAlias(weaponId: string, apiName: string | undefined): string | undefined {
+  const key = activeSystemKey();
+  if (!key) return undefined;
+  return aliases[key]?.weapons?.[weaponId]?.[norm(apiName)];
+}
+
 function weaponEntry(weapon: {
   weaponId?: string;
   id?: string;
@@ -282,24 +303,66 @@ function weaponEntry(weapon: {
   const src = sourceSection().weapons[key];
   const translated = resolveSection().weapons[key];
   if (!src || !translated?.name) return undefined;
-  // Nome da arma mudou no Army Forge: mostra o original até retraduzir.
-  if (norm(weapon.name) !== norm(src.name)) return undefined;
+  // Nome da arma mudou no Army Forge: mostra o original até retraduzir, a menos
+  // que seja uma exceção explícita registrada em content.aliases.json.
+  if (norm(weapon.name) !== norm(src.name)) {
+    const alias = weaponAlias(key, weapon.name);
+    return alias ? { ...translated, name: alias } : undefined;
+  }
   return translated;
 }
 
 type SpellField = 'name' | 'effect';
 
+// Nome (inglês) -> tradução única, para quando o efeito da API mudou mas o nome
+// continua igual a uma magia da fonte. Só vale se todas as variantes daquele
+// nome têm a mesma tradução (a trava é por campo: nome e efeito separados).
+let spellNameCache: {
+  source: TranslationSection;
+  translated: TranslationSection;
+  map: Map<string, string | null>;
+} | null = null;
+
+function unanimousSpellName(name: string): string | undefined {
+  const source = sourceSection();
+  const translated = resolveSection();
+  if (spellNameCache?.source !== source || spellNameCache?.translated !== translated) {
+    const map = new Map<string, string | null>();
+    for (const [key, src] of Object.entries(source.spells)) {
+      const label = norm(src.name);
+      const pt = translated.spells[key]?.name;
+      if (!label || !pt) continue;
+      const current = map.get(label);
+      if (current === undefined) map.set(label, pt);
+      else if (current !== pt) map.set(label, null);
+    }
+    spellNameCache = { source, translated, map };
+  }
+  return spellNameCache.map.get(norm(name)) ?? undefined;
+}
+
 function spellEntry(
   spell: { id?: string; name?: string; effect?: string },
   field: SpellField,
 ): SpellTranslation | undefined {
-  if (!active() || !spell.id) return undefined;
-  const src = sourceSection().spells[spell.id];
-  const translated = resolveSection().spells[spell.id];
-  if (!src || !translated?.name) return undefined;
-  if (norm(spell.name) !== norm(src.name)) return undefined;
-  if (field === 'name') return translated;
-  return norm(spell.effect) === norm(src.effect) ? translated : undefined;
+  // A chave é "nome::efeito" (em inglês): o Army Forge reutiliza o mesmo id de
+  // magia em livros diferentes e o mesmo nome pode ter efeitos diferentes
+  // (ex.: "Electric Tempest"). Cada variante tem a sua própria tradução.
+  if (!active() || !spell.name) return undefined;
+  const key = norm(spell.name) + '::' + norm(spell.effect);
+  const src = sourceSection().spells[key];
+  const translated = resolveSection().spells[key];
+  if (src && translated?.name && norm(spell.name) === norm(src.name)) {
+    if (field === 'name') return translated;
+    return norm(spell.effect) === norm(src.effect) ? translated : undefined;
+  }
+  // Efeito inédito na API: o efeito fica em inglês, mas o nome (que bate com a
+  // fonte) continua traduzido.
+  if (field === 'name') {
+    const name = unanimousSpellName(spell.name);
+    return name ? { name } : undefined;
+  }
+  return undefined;
 }
 
 /** Nome traduzido de uma regra (unidade ou regra especial de arma). */
@@ -386,7 +449,7 @@ export function trWeaponName(weapon: {
 }
 
 /** Nome traduzido de uma magia. */
-export function trSpellName(spell: { id?: string; name?: string }): string {
+export function trSpellName(spell: { id?: string; name?: string; effect?: string }): string {
   return spellEntry(spell, 'name')?.name || spell.name || '';
 }
 
@@ -394,7 +457,7 @@ export function trSpellName(spell: { id?: string; name?: string }): string {
  * Nome traduzido da magia seguido do termo original em inglês.
  * Ex.: "Explosão Psíquica (Psychic Blast)".
  */
-export function trSpellNameWithOriginal(spell: { id?: string; name?: string }): string {
+export function trSpellNameWithOriginal(spell: { id?: string; name?: string; effect?: string }): string {
   const entry = spellEntry(spell, 'name');
   const translated = entry?.name || spell.name || '';
   if (!entry?.name || entry.name === (spell.name || '')) return translated;

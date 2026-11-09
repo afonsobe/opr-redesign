@@ -184,7 +184,10 @@ async function collectBook(armyId, gameSystem) {
   const spells = new Map();
   for (const spell of book.spells || []) {
     if (spell?.id && spell?.name) {
-      spells.set(spell.id, { name: spell.name, effect: spell.effect || '' });
+      // Chave composta (nome::efeito) para suportar variantes do mesmo nome
+      // com efeitos diferentes entre livros (ex.: "Electric Tempest").
+      const key = `${spell.name.trim()}::${(spell.effect || '').trim()}`;
+      spells.set(key, { name: spell.name, effect: spell.effect || '' });
     }
   }
 
