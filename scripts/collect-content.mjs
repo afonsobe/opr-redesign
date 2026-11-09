@@ -100,10 +100,35 @@ function mergeSource(previous, collected, refresh) {
   return merged;
 }
 
-async function getJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url} -> HTTP ${response.status}`);
-  return response.json();
+// A API do Army Forge devolve 5xx/520 esporádicos quando muitos livros são
+// coletados em sequência. Tenta de novo com uma pequena espera antes de falhar.
+async function getJson(url, attempts = 5) {
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return response.json();
+      lastError = new Error(`${url} -> HTTP ${response.status}`);
+      if (response.status < 500 && response.status !== 429) throw lastError;
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt < attempts) {
+      await new Promise((done) => setTimeout(done, 500 * attempt));
+    }
+  }
+  throw lastError;
+}
+
+// As regras comuns são iguais para todos os livros de um sistema. Guarda uma
+// cópia por sistema para não baixar a mesma lista dezenas de vezes.
+const commonRulesCache = new Map();
+
+async function commonRules(gameSystem) {
+  if (!commonRulesCache.has(gameSystem)) {
+    commonRulesCache.set(gameSystem, getJson(`${API}/rules/common/${gameSystem}`));
+  }
+  return commonRulesCache.get(gameSystem);
 }
 
 // Percorre qualquer estrutura e devolve todo objeto que tenha `weaponId` e
@@ -126,7 +151,7 @@ async function collectBook(armyId, gameSystem) {
   // 1) Regras comuns: SOMENTE do sistema da lista (sem misturar GF com GFF, etc.).
   // Os 5 sistemas compartilham os mesmos IDs mas com textos DIFERENTES.
   const rules = new Map();
-  const data = await getJson(`${API}/rules/common/${gameSystem}`);
+  const data = await commonRules(gameSystem);
   for (const rule of data.rules || []) {
     if (rule.id && rule.name) {
       rules.set(rule.id, { name: rule.name, description: rule.description || '' });
