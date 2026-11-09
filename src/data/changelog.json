@@ -3,6 +3,18 @@
     "date": "November 8, 2026",
     "datePtBR": "8 de novembro de 2026",
     "items": [
+      "**Classic cards in the same row now share the same height:** shorter cards stretch to match the tallest card in their row, while the TCG layout keeps its fixed card size.",
+      "**Fixed a wording slip in the pt-BR dictionary:** Fortified Growth now reads `recebem PA(-1)` instead of `sofrem PA(-1)`, matching the English `get AP(-1)` and the rest of the rules."
+    ],
+    "itemsPtBR": [
+      "**As cartas clássicas de uma mesma linha agora têm a mesma altura:** as cartas mais curtas se esticam até a mais alta da linha, enquanto o layout TCG mantém o tamanho fixo.",
+      "**Correção de texto no dicionário pt-BR:** Crescimento Fortificado agora diz `recebem PA(-1)` em vez de `sofrem PA(-1)`, acompanhando o `get AP(-1)` do inglês e o restante das regras."
+    ]
+  },
+  {
+    "date": "November 8, 2026",
+    "datePtBR": "8 de novembro de 2026",
+    "items": [
       "**pt-BR dictionary now covers all 56 official GFF army books from Army Forge:** 415 special rules, 1,397 weapons, 256 spells and 652 upgrade items translated, with terms kept consistent across armies.",
       "**Translations are locked to the exact Army Forge text:** a rule, weapon, spell or item is only translated while the English text returned by Army Forge matches the collected source; otherwise the current English is shown. Spells with the same name but different effects in different armies keep separate translations, and a single exception covers Army Forge's plural `Shock Weapons`.",
       "**Terminology refinements:** deployment is now `posicionamento`, re-rolls read `rolar novamente`, the Hold action reads `Manter posição`, and a few rules were reworded for Brazilian Portuguese."
