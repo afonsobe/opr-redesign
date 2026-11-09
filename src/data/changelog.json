@@ -1,5 +1,19 @@
 [
   {
+    "date": "November 8, 2026",
+    "datePtBR": "8 de novembro de 2026",
+    "items": [
+      "**pt-BR dictionary now covers all 56 official GFF army books from Army Forge:** 415 special rules, 1,397 weapons, 256 spells and 652 upgrade items translated, with terms kept consistent across armies.",
+      "**Translations are locked to the exact Army Forge text:** a rule, weapon, spell or item is only translated while the English text returned by Army Forge matches the collected source; otherwise the current English is shown. Spells with the same name but different effects in different armies keep separate translations, and a single exception covers Army Forge's plural `Shock Weapons`.",
+      "**Terminology refinements:** deployment is now `posicionamento`, re-rolls read `rolar novamente`, the Hold action reads `Manter posição`, and a few rules were reworded for Brazilian Portuguese."
+    ],
+    "itemsPtBR": [
+      "**O dicionário pt-BR agora cobre os 56 livros oficiais de exército do GFF no Army Forge:** 415 regras especiais, 1.397 armas, 256 magias e 652 itens de melhoria traduzidos, com termos coerentes entre os exércitos.",
+      "**As traduções ficam travadas ao texto exato do Army Forge:** regra, arma, magia ou item só é traduzido enquanto o inglês retornado pelo Army Forge bater com a fonte coletada; caso contrário, aparece o inglês atual. Magias com o mesmo nome e efeitos diferentes em exércitos distintos mantêm traduções separadas, e uma única exceção cobre o plural `Shock Weapons` do Army Forge.",
+      "**Refinos de terminologia:** implantação agora é `posicionamento`, rerrolagens viram `rolar novamente`, a ação Hold aparece como `Manter posição` e algumas regras foram reescritas para o português do Brasil."
+    ]
+  },
+  {
     "date": "November 7, 2026",
     "datePtBR": "7 de novembro de 2026",
     "items": [
