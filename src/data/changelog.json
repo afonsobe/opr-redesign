@@ -1,5 +1,21 @@
 [
   {
+    "date": "November 9, 2026",
+    "datePtBR": "9 de novembro de 2026",
+    "items": [
+      "**pt-BR dictionary now covers all 49 Grimdark Future army books from Army Forge:** 414 special rules, 2,095 weapons, 196 spells and 712 upgrade items translated, with terms kept consistent across armies.",
+      "**pt-BR dictionary now covers all 41 Age of Fantasy army books from Army Forge:** 390 special rules, 1,272 weapons, 189 spells and 744 upgrade items translated, with terminology kept consistent across armies and the exact-text lock preserved.",
+      "**pt-BR dictionary now covers all 48 Age of Fantasy: Skirmish army books from Army Forge:** 394 special rules, 906 weapons, 249 spells and 646 upgrade items translated, reusing Age of Fantasy translations only where the English text is identical and keeping the exact-text lock.",
+      "**Changelog entries from the same day now share one date heading** instead of repeating the date for each release."
+    ],
+    "itemsPtBR": [
+      "**O dicionário pt-BR agora cobre os 49 livros de exército do Grimdark Future no Army Forge:** 414 regras especiais, 2.095 armas, 196 magias e 712 itens de melhoria traduzidos, com termos coerentes entre os exércitos.",
+      "**O dicionário pt-BR agora cobre os 41 livros de exército do Age of Fantasy no Army Forge:** 390 regras especiais, 1.272 armas, 189 magias e 744 itens de melhoria traduzidos, com terminologia coerente entre os exércitos e a trava pelo texto exato preservada.",
+      "**O dicionário pt-BR agora cobre os 48 livros de exército do Age of Fantasy: Skirmish no Army Forge:** 394 regras especiais, 906 armas, 249 magias e 646 itens de melhoria traduzidos, reaproveitando o Age of Fantasy apenas quando o inglês é idêntico e mantendo a trava pelo texto exato.",
+      "**Entradas do changelog do mesmo dia agora compartilham um único cabeçalho de data** em vez de repetir a data para cada lançamento."
+    ]
+  },
+  {
     "date": "November 8, 2026",
     "datePtBR": "8 de novembro de 2026",
     "items": [

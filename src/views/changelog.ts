@@ -49,7 +49,31 @@ function createEntry(entry: ChangelogEntry): HTMLDivElement {
 /** Render the changelog entries (newest first) into `container`. */
 export function renderChangelog(container: HTMLElement): void {
   container.replaceChildren();
-  for (const entry of changelog as ChangelogEntry[]) {
+  for (const entry of groupByDate(changelog as ChangelogEntry[])) {
     container.appendChild(createEntry(entry));
   }
+}
+
+// Releases published on the same day should share one date heading instead of
+// repeating it. Entries keep their original order, so the newest items stay on
+// top; the merged lists keep the English/Portuguese items aligned.
+function groupByDate(entries: ChangelogEntry[]): ChangelogEntry[] {
+  const groups = new Map<string, ChangelogEntry & { itemsPtBR: string[] }>();
+
+  for (const entry of entries) {
+    const key = entry.date;
+    const group = groups.get(key) ?? {
+      date: entry.date,
+      datePtBR: entry.datePtBR,
+      items: [],
+      itemsPtBR: [],
+    };
+
+    group.datePtBR ??= entry.datePtBR;
+    group.items.push(...entry.items);
+    group.itemsPtBR.push(...(entry.itemsPtBR ?? entry.items));
+    groups.set(key, group);
+  }
+
+  return [...groups.values()];
 }
