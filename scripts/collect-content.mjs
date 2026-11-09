@@ -37,7 +37,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
 const API = 'https://army-forge.onepagerules.com/api';
-const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6 };
+const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6, gfwf: 11 };
 
 // Slugs usados nas URLs do site (army-info, listas, etc.).
 const SYSTEM_SLUGS = {
@@ -46,14 +46,18 @@ const SYSTEM_SLUGS = {
   'age-of-fantasy': 4,
   'age-of-fantasy-skirmish': 5,
   'age-of-fantasy-regiments': 6,
+  'grimdark-future-warfleets2': 11,
+  'grimdark-future-warfleets': 11,
   gf: 2,
   gff: 3,
   aof: 4,
   aofs: 5,
   aofr: 6,
+  gfwf: 11,
 };
 
 // Ex.: .../army-info/grimdark-future-firefight/w7qor7b2kuifcyvk?armyName=Alien+Hives
+// Frotas (Warfleets): .../fleet-info/grimdark-future-warfleets2/<fleetId>?armyName=...
 function parseArmyUrl(value) {
   let url;
   try {
@@ -61,16 +65,17 @@ function parseArmyUrl(value) {
   } catch {
     throw new Error(`URL inválida: ${value}`);
   }
-  const match = url.pathname.match(/\/army-info\/([^/]+)\/([^/]+)/i);
+  const match = url.pathname.match(/\/(army-info|fleet-info)\/([^/]+)\/([^/]+)/i);
   if (!match) {
-    throw new Error('A URL precisa ser de uma página /army-info/<sistema>/<armyId>.');
+    throw new Error('A URL precisa ser de uma página /army-info/<sistema>/<armyId> ou /fleet-info/<sistema>/<fleetId>.');
   }
-  const slug = decodeURIComponent(match[1]).toLowerCase();
+  const isFleet = match[1].toLowerCase() === 'fleet-info';
+  const slug = decodeURIComponent(match[2]).toLowerCase();
   const gameSystem = SYSTEM_SLUGS[slug];
   if (!gameSystem) {
     throw new Error(`Sistema desconhecido na URL: ${slug}`);
   }
-  return { armyId: decodeURIComponent(match[2]), gameSystem };
+  return { armyId: decodeURIComponent(match[3]), gameSystem, fleet: isFleet };
 }
 
 function parseArgs(argv) {
@@ -79,6 +84,7 @@ function parseArgs(argv) {
     const key = argv[i];
     if (key === '--list') args.list = argv[++i];
     else if (key === '--army') args.army = argv[++i];
+    else if (key === '--fleet') args.fleet = argv[++i];
     else if (key === '--game') args.game = argv[++i];
     else if (key === '--url') (args.urls ||= []).push(argv[++i]);
     else if (key === '--urls-file') args.urlsFile = argv[++i];
@@ -230,6 +236,56 @@ async function collectBook(armyId, gameSystem) {
   };
 }
 
+// Livros de frota (Warfleets, gameSystem 11): vivem em /api/gfwf/<uid>, com
+// ships/heroes/titles/upgrades/weapons/specialRules (sem spells). Regras
+// comuns vêm de /rules/common/11; heróis/títulos/melhorias entram como regras
+// (id + nome + texto), pois o texto da regra é o conteúdo traduzível.
+async function collectFleetBook(fleetUid, gameSystem) {
+  const rules = new Map();
+  const data = await commonRules(gameSystem);
+  for (const rule of data.rules || []) {
+    if (rule.id && rule.name) {
+      rules.set(rule.id, { name: rule.name, description: rule.description || '' });
+    }
+  }
+
+  const book = await getJson(`${API}/gfwf/${encodeURIComponent(fleetUid)}`);
+
+  for (const rule of book.specialRules || []) {
+    if (rule?.id && rule?.name) {
+      rules.set(rule.id, { name: rule.name, description: rule.rule || rule.description || '' });
+    }
+  }
+  // Heróis, títulos e melhorias: o `rule` é a descrição da regra concedida.
+  for (const entry of [...(book.heroes || []), ...(book.titles || []), ...(book.upgrades || [])]) {
+    if (entry?.id && entry?.name) {
+      rules.set(entry.id, { name: entry.name, description: entry.rule || '' });
+    }
+  }
+
+  const weapons = new Map();
+  for (const weapon of book.weapons || []) {
+    if (weapon?.id && weapon?.name) {
+      weapons.set(weapon.id, { name: weapon.name });
+    }
+  }
+
+  // Warfleets não tem magias nem upgrades-item (naves ficam em inglês, como
+  // as unidades dos outros sistemas).
+  return {
+    meta: {
+      armyId: fleetUid,
+      gameSystem,
+      book: book.name || '',
+      collectedAt: new Date().toISOString().slice(0, 10),
+    },
+    rules,
+    weapons,
+    spells: new Map(),
+    items: new Map(),
+  };
+}
+
 // Lista de livros a coletar, sem repetir armyId.
 async function resolveTargets(args) {
   const targets = [];
@@ -252,6 +308,9 @@ async function resolveTargets(args) {
   }
   if (targets.length === 0 && args.army) {
     targets.push({ armyId: args.army, gameSystem: args.game ? Number(args.game) : undefined });
+  }
+  if (targets.length === 0 && args.fleet) {
+    targets.push({ armyId: args.fleet, gameSystem: args.game ? Number(args.game) : GAME_SYSTEM_IDS.gfwf, fleet: true });
   }
 
   const unique = [];
@@ -290,7 +349,10 @@ async function main() {
     const slug = slugFor(target.gameSystem);
     if (!slug) throw new Error(`Sistema desconhecido: ${target.gameSystem}`);
 
-    const collected = await collectBook(target.armyId, target.gameSystem);
+    const collected =
+      target.fleet || target.gameSystem === GAME_SYSTEM_IDS.gfwf
+        ? await collectFleetBook(target.armyId, target.gameSystem)
+        : await collectBook(target.armyId, target.gameSystem);
     let bucket = bySlug.get(slug);
     if (!bucket) {
       bucket = {

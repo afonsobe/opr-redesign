@@ -18,7 +18,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const API = 'https://army-forge.onepagerules.com/api';
-const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6 };
+const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6, gfwf: 11 };
 
 const args = { source: 'src/i18n/content.source.json', out: 'src/i18n/content.pt-BR.json' };
 for (let i = 0; i < process.argv.length; i += 1) {
@@ -92,6 +92,29 @@ async function collectCurrent(gameSystem, armyIds) {
   const weapons = new Map();
   const spells = new Map();
   const items = new Map();
+  // Frotas (Warfleets, gameSystem 11): vivem em /api/gfwf/<uid>, sem spells.
+  if (gameSystem === GAME_SYSTEM_IDS.gfwf) {
+    for (const armyId of armyIds) {
+      const book = await getJson(`${API}/gfwf/${encodeURIComponent(armyId)}`);
+      for (const rule of book.specialRules || []) {
+        if (rule?.id && rule?.name) {
+          rules.set(rule.id, { name: rule.name, description: rule.rule || rule.description || '' });
+        }
+      }
+      for (const entry of [...(book.heroes || []), ...(book.titles || []), ...(book.upgrades || [])]) {
+        if (entry?.id && entry?.name) {
+          rules.set(entry.id, { name: entry.name, description: entry.rule || '' });
+        }
+      }
+      for (const weapon of book.weapons || []) {
+        if (weapon?.id && weapon?.name) {
+          weapons.set(weapon.id, { name: weapon.name });
+        }
+      }
+    }
+    return { rules, weapons, spells, items };
+  }
+
   for (const armyId of armyIds) {
     const book = await getJson(
       `${API}/army-books/${encodeURIComponent(armyId)}?gameSystem=${gameSystem}`,
