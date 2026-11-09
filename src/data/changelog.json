@@ -3,6 +3,30 @@
     "date": "November 9, 2026",
     "datePtBR": "9 de novembro de 2026",
     "items": [
+      "**Warfleets lists now load and render as ship cards:** Grimdark Future Warfleets (`ftl`) lists show ship cards in both designs (move/cruise/evade/tough stats), the always-present base turret line, selected weapons, heroes, titles, systems and special rules — translated where the pt-BR dictionary covers them.",
+      "**pt-BR dictionary now covers all 41 Age of Fantasy: Regiments army books from Army Forge:** 390 special rules, 1,272 weapons, 189 spells and 744 upgrade items translated, including the Regiments-only rule texts (front rows, table edges, in-any-direction spells) with per-system translations.",
+      "**pt-BR dictionary now covers all 18 Grimdark Future Warfleets books from Army Forge:** 384 special rules and 145 weapons translated with a naval glossary (ships, squadrons, turrets, facing, ramming, cruise), reusing identical English texts only.",
+      "**Fixed Age of Fantasy: Skirmish rules that reused another system's text:** 115 rules sharing the same name but with different English text (Hero, Skirmish aura/buff templates, Tough thresholds, quantities) now show their own translation.",
+      "**Outdated translations now use a † marker instead of a long suffix,** with the explanation shown below the Special Rules, Spells and cards titles when such an entry appears.",
+      "**System names are now full everywhere:** My Lists groupings and headers show full names (e.g. Grimdark Future: Warfleets instead of `ftl` or `Warfleets2`).",
+      "**Heroes now sort by points (highest first)** in both card designs, followed by the other units.",
+      "**Palette selector now covers every Army Forge book** across all six systems, with Warhammer 40k-style colours for Grimdark and Age of Sigmar-style colours for Fantasy."
+    ],
+    "itemsPtBR": [
+      "**Listas do Warfleets agora carregam e são renderizadas como cartas de nave:** listas do Grimdark Future Warfleets (`ftl`) mostram cartas de nave nos dois designs (atributos de movimento/cruzeiro/esquiva/resistência), a linha de torreta base (sempre presente), armas escolhidas, heróis, títulos, sistemas e regras especiais — traduzidos quando o dicionário pt-BR cobre.",
+      "**O dicionário pt-BR agora cobre os 41 livros de exército do Age of Fantasy: Regiments no Army Forge:** 390 regras especiais, 1.272 armas, 189 magias e 744 itens de melhoria traduzidos, incluindo os textos exclusivos do Regiments (fileiras da frente, bordas da mesa, magias em qualquer direção) com traduções por sistema.",
+      "**O dicionário pt-BR agora cobre os 18 livros do Grimdark Future Warfleets no Army Forge:** 384 regras especiais e 145 armas traduzidas com um glossário naval (naves, esquadrões, torretas, setores, abalroamento, cruzeiro), reaproveitando apenas textos em inglês idênticos.",
+      "**Correção de regras do Age of Fantasy: Skirmish que reusavam o texto de outro sistema:** 115 regras com o mesmo nome, mas texto em inglês diferente (Herói, modelos de aura/buff do Skirmish, limiares de Resistência, quantidades) agora mostram sua própria tradução.",
+      "**Traduções desatualizadas agora usam o marcador † em vez de um sufixo longo,** com a explicação exibida logo abaixo dos títulos de Regras especiais, Magias e das cartas quando há algum item assim.",
+      "**Nomes de sistema agora completos em todos os lugares:** agrupamentos de Minhas Listas e cabeçalhos mostram nomes completos (ex.: Grimdark Future: Warfleets em vez de `ftl` ou `Warfleets2`).",
+      "**Heróis agora são ordenados por pontos (maior primeiro)** nos dois designs de cartas, seguidos das demais unidades.",
+      "**O seletor de paletas agora cobre todos os livros do Army Forge** nos seis sistemas, com cores no estilo Warhammer 40k para Grimdark e Age of Sigmar para Fantasy."
+    ]
+  },
+  {
+    "date": "November 9, 2026",
+    "datePtBR": "9 de novembro de 2026",
+    "items": [
       "**pt-BR dictionary now covers all 49 Grimdark Future army books from Army Forge:** 414 special rules, 2,095 weapons, 196 spells and 712 upgrade items translated, with terms kept consistent across armies.",
       "**pt-BR dictionary now covers all 41 Age of Fantasy army books from Army Forge:** 390 special rules, 1,272 weapons, 189 spells and 744 upgrade items translated, with terminology kept consistent across armies and the exact-text lock preserved.",
       "**pt-BR dictionary now covers all 48 Age of Fantasy: Skirmish army books from Army Forge:** 394 special rules, 906 weapons, 249 spells and 646 upgrade items translated, reusing Age of Fantasy translations only where the English text is identical and keeping the exact-text lock.",

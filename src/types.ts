@@ -125,6 +125,39 @@ export interface Spell {
   effect: string;
 }
 
+// Nave de Frota (Warfleets): o equivalente de "unit" nas listas "ftl".
+// Viram cartas próprias com estatísticas de nave (Mov/Cru/Eva/Tou).
+export interface Ship {
+  id: string;
+  att: number;
+  str: number;
+  cost: number;
+  move: number;
+  name: string;
+  class?: string;
+  evade: number;
+  range: number;
+  slots?: number;
+  tough: number;
+  cruise: number;
+  special: string[];
+  squadron: boolean;
+  xp: number;
+  count?: number;
+  notes?: string | null;
+  traits?: unknown[];
+  fleetId?: string;
+  systems?: unknown[];
+  weapons?: unknown[];
+  customName?: string;
+  selectionId: string;
+  title?: unknown;
+  hero?: unknown;
+  genericName?: string;
+  // Set by us for combined ship cards, mirroring the unit flow.
+  combinedFromHalves?: boolean;
+}
+
 export interface ArmyList {
   id: string;
   name: string;
@@ -146,6 +179,8 @@ export interface ArmyList {
   includeVehicles: boolean;
   listPoints: number;
   units: Unit[];
+  // Listas de Frota (Warfleets): presente em vez de `units` quando "ftl".
+  ships?: Ship[];
   specialRules: ArmySpecialRule[];
   forceOrgErrors: unknown[];
   spells?: Spell[];

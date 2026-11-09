@@ -440,7 +440,10 @@ async function loadArmy(): Promise<void> {
 // Units still present (even when combined into another card) are kept.
 async function pruneRemovedUnitImages(army: ArmyList): Promise<void> {
   if (!army.id) return;
-  const keep = new Set((Array.isArray(army.units) ? army.units : []).map(unitImageId));
+  const keep = new Set([
+    ...(Array.isArray(army.units) ? army.units : []).map(unitImageId),
+    ...(Array.isArray(army.ships) ? army.ships : []).map((ship) => ship.selectionId || ship.id || ''),
+  ]);
   try {
     await pruneCardImages(army.id, keep);
   } catch (error) {

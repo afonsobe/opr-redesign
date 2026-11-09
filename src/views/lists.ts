@@ -60,8 +60,11 @@ function fullSystemName(system: string): string {
     'age of fantasy: regiments': 'Age of Fantasy: Regiments',
     wf: 'Grimdark Future: Warfleets',
     gfw: 'Grimdark Future: Warfleets',
+    gfwf: 'Grimdark Future: Warfleets',
+    ftl: 'Grimdark Future: Warfleets',
     warfleets: 'Grimdark Future: Warfleets',
     'grimdark-future-warfleets': 'Grimdark Future: Warfleets',
+    'grimdark-future-warfleets2': 'Grimdark Future: Warfleets',
     'grimdark future: warfleets': 'Grimdark Future: Warfleets',
   };
   return names[key] ?? (system.trim() || t('lists.unknown'));

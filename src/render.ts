@@ -4,6 +4,8 @@ import { getLang, t, tn } from './i18n';
 // só na hora de desenhar: os dados em `army` continuam em inglês para as
 // comparações internas (Tough, AP, ligação de regras citadas etc.).
 import {
+  STALE_MARK,
+  isStaleText,
   trRuleDescription,
   trRuleGainName,
   trRuleLabel,
@@ -19,6 +21,7 @@ import type {
   ArmySpecialRule,
   ArmyList,
   SelectedUpgrade,
+  Ship,
   Unit,
   UnitRule,
   UpgradeGain,
@@ -192,6 +195,20 @@ function createSectionHeading(text: string): HTMLHeadingElement {
   heading.className = 'sheet-heading';
   heading.textContent = text;
   return heading;
+}
+
+// Nota de rodapé para traduções desatualizadas (marcadas com †). Inserida
+// logo abaixo do título de cada tabela e abaixo das cartas.
+function createStaleNote(): HTMLParagraphElement {
+  const note = document.createElement('p');
+  note.className = 'stale-note';
+  note.textContent = t('stale.note');
+  return note;
+}
+
+// Liga/desliga o † no fim de um texto (para o † ficar depois de (X)/custo).
+function stripStaleText(text: string): string {
+  return isStaleText(text) ? text.slice(0, -STALE_MARK.length) : text;
 }
 
 
@@ -1162,12 +1179,12 @@ function combineUnits(units: Unit[], useCustomNames: boolean): UnitGroup[] {
   return result;
 }
 
-// Order the cards for the sheet: alphabetically by unit name, but keeping each
-// joined Hero next to the unit it joins (Army Forge's `joinToUnit`). Every card
-// is anchored to a host: a joined hero borrows its host's name and id so the two
-// cluster together (and the hero sits just after its unit); everything else
-// anchors to itself. Sorting by (host name, host id, host-before-hero) gives an
-// A→Z list where each unit/hero pair stays side by side.
+// Order the cards for the sheet: heroes first, then other units, each block by
+// displayed points (descending). Every card is anchored to a host: a joined
+// hero borrows its host's name and id so the two cluster together (and the
+// hero sits just after its unit); everything else anchors to itself. Sorting
+// by (hero block, host name, host id, host-before-hero, points) keeps each
+// unit/hero pair side by side while equal-points ties stay A→Z.
 function orderGroups(
   groups: UnitGroup[],
   nameBySelectionId: Map<string, string>,
@@ -1192,10 +1209,8 @@ function orderGroups(
     const bIsHero = getRules(b.unit).some((rule) => rule.name === 'Hero');
     if (aIsHero !== bIsHero) return aIsHero ? -1 : 1;
 
-    if (!aIsHero) {
-      const costDifference = getUnitTotalCost(b.unit) - getUnitTotalCost(a.unit);
-      if (costDifference !== 0) return costDifference;
-    }
+    const costDifference = getUnitTotalCost(b.unit) - getUnitTotalCost(a.unit);
+    if (costDifference !== 0) return costDifference;
 
     return (
       ka.name.localeCompare(kb.name, undefined, { sensitivity: 'base' }) ||
@@ -1370,6 +1385,214 @@ function createCard(
   return card;
 }
 
+// --- Fleet (Warfleets) ships --------------------------------------------------
+// Listas "ftl" trocam `units` por `ships` (naves com estatísticas próprias).
+// O salário é um card no mesmo molde: nome + classe/espaços, custo, pílulas de
+// movimento/cruzeiro/esquiva/resistência e as regras da nave em texto corrido.
+
+function getShips(army: ArmyList): Ship[] {
+  return Array.isArray(army.ships) ? army.ships : [];
+}
+
+function shipNameOf(ship: Ship): string {
+  const name = (ship.name ?? '').trim() || 'Ship';
+  const cls = typeof ship.class === 'string' ? ship.class.trim() : '';
+  const slots = typeof ship.slots === 'number' ? ship.slots : undefined;
+  let suffix = '';
+  if (cls && slots != null) suffix = ` [${cls} ${slots}]`;
+  else if (cls) suffix = ` [${cls}]`;
+  return suffix ? `${name}${suffix}` : name;
+}
+
+function shipSpecialNames(ship: Ship): string[] {
+  return (Array.isArray(ship.special) ? ship.special : [])
+    .map((s) => (typeof s === 'string' ? s.trim() : ''))
+    .filter(Boolean);
+}
+
+// Nome traduzido de uma entrada opcional do ship (herói/título/sistema).
+// Aceita forma string ou objeto { id?, name }; devolve vazio se não houver.
+function namedEntryText(entry: unknown): string {
+  if (typeof entry === 'string') return entry.trim();
+  if (entry && typeof entry === 'object') {
+    const obj = entry as { id?: unknown; name?: unknown };
+    const name = typeof obj.name === 'string' ? obj.name.trim() : '';
+    const id = typeof obj.id === 'string' ? obj.id : undefined;
+    if (!name) return '';
+    return trRuleName({ id, name });
+  }
+  return '';
+}
+
+function createShipCard(
+  ship: Ship,
+  armyId = '',
+  design: 'classic' | 'tcg' = 'classic',
+): HTMLDivElement {
+  const card = document.createElement('div');
+  card.className = 'card';
+  if (design === 'tcg') card.classList.add('card--tcg');
+
+  card.dataset.armyId = armyId;
+  card.dataset.unitId = ship.selectionId || ship.id || '';
+
+  const count = typeof ship.count === 'number' && ship.count > 1 ? ship.count : 1;
+  const prefix = count > 1 ? `${count}x ` : '';
+  const displayName = `${prefix}${shipNameOf(ship)}`;
+  card.dataset.unitName = displayName;
+
+  const costParts = [`${ship.cost ?? 0} pts`];
+  if (typeof ship.xp === 'number' && ship.xp > 0) costParts.push(`XP ${ship.xp}`);
+  const costElement = createTextElement('card-cost', costParts.join(' · '));
+
+  const header = document.createElement('div');
+  header.className = 'card-header';
+  header.append(createTextElement('card-name', displayName));
+  header.append(costElement);
+
+  const stats = document.createElement('div');
+  stats.className = 'stats';
+  stats.append(
+    createStat(t('card.move'), `${ship.move ?? 0}"`),
+    createStat(t('card.cruise'), `${ship.cruise ?? 0}"`),
+    createStat(t('card.evade'), `${ship.evade ?? 0}+`),
+    createStat(t('card.tough'), `${ship.tough ?? 0}+`),
+  );
+
+  // Regras da nave em texto corrido (pílulas traduzidas por nome).
+  const rulesContainer = document.createElement('div');
+  rulesContainer.className = 'rules-container';
+  const pillTexts = new Set<string>();
+  for (const name of shipSpecialNames(ship)) {
+    pillTexts.add(trRuleLabel({ name }));
+  }
+  for (const extra of [ship.hero, ship.title]) {
+    const text = namedEntryText(extra);
+    if (text) pillTexts.add(text);
+  }
+  for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
+    const text = namedEntryText(sys);
+    if (text) pillTexts.add(text);
+  }
+  if (pillTexts.size === 0) {
+    rulesContainer.appendChild(createTextElement('muted', t('card.noRules')));
+  } else {
+    for (const pill of [...pillTexts].sort((a, b) => a.localeCompare(b))) {
+      const el = document.createElement('span');
+      el.className = 'rule-pill';
+      el.textContent = pill;
+      rulesContainer.appendChild(el);
+    }
+  }
+
+  // Armas da nave: a torreta base (Ran/Att/Str da nave) aparece sempre — como
+  // no Army Forge — e as armas escolhidas vêm depois.
+  const weaponsContainer = document.createElement('div');
+  weaponsContainer.className = 'weapons-container';
+  const weaponEntries = Array.isArray(ship.weapons) ? ship.weapons : [];
+  const table = document.createElement('table');
+  table.className = 'weapons-table';
+  const head = table.createTHead().insertRow();
+  for (const header of [
+    { text: t('wpn.weapon') },
+    { text: t('wpn.range'), className: 'w-num' },
+    { text: t('wpn.attacks'), className: 'w-num' },
+    { text: t('wpn.str'), className: 'w-num' },
+    { text: t('wpn.special') },
+  ]) {
+    const th = document.createElement('th');
+    if (header.className) th.className = header.className;
+    th.textContent = header.text;
+    head.appendChild(th);
+  }
+  const body = table.createTBody();
+  // Linha da torreta base da nave.
+  const turretRow = body.insertRow();
+  for (const [text, className] of [
+    [t('wpn.turret'), 'w-name'],
+    [`${ship.range ?? 0}"`, 'w-num'],
+    [String(ship.att ?? 0), 'w-num'],
+    [String(ship.str ?? 0), 'w-num'],
+    ['-', 'w-special'],
+  ] as [string, string][]) {
+    const td = turretRow.insertCell();
+    td.className = className;
+    td.textContent = text;
+  }
+  for (const entry of weaponEntries) {
+    const row = body.insertRow();
+    const w = entry as {
+      name?: unknown; range?: unknown; attacks?: unknown; str?: unknown; special?: unknown;
+      weaponId?: unknown; id?: unknown;
+    };
+    const wName =
+      typeof w.name === 'string'
+        ? trWeaponName({
+            weaponId: typeof w.weaponId === 'string' ? w.weaponId : undefined,
+            id: typeof w.id === 'string' ? w.id : undefined,
+            name: w.name,
+          })
+        : '';
+    const range = typeof w.range === 'number' ? `${w.range}"` : typeof w.range === 'string' ? (w.range.includes('"') ? w.range : `${w.range}"`) : '-';
+    const attacks = typeof w.attacks === 'number' ? String(w.attacks) : typeof w.attacks === 'string' ? w.attacks : '-';
+    const str = typeof w.str === 'number' ? String(w.str) : typeof w.str === 'string' ? w.str : '-';
+    const specials = Array.isArray(w.special) ? w.special : [];
+    const cells: [string, string][] = [
+      [wName || '-', 'w-name'],
+      [range, 'w-num'],
+      [attacks, 'w-num'],
+      [str, 'w-num'],
+      [specials.map((s) => (typeof s === 'string' ? trRuleLabel({ name: s }) : '')).filter(Boolean).join(', ') || '-', 'w-special'],
+    ];
+    for (const [text, className] of cells) {
+      const td = row.insertCell();
+      td.className = className;
+      td.textContent = text;
+    }
+  }
+  weaponsContainer.appendChild(table);
+
+  if (design === 'classic') header.append(stats);
+  card.append(header);
+  if (design === 'tcg') card.append(stats);
+
+  card.append(
+    createTextElement('section-title', t('card.specialRules')),
+    rulesContainer,
+    createTextElement('section-title', t('card.weapons')),
+    weaponsContainer,
+  );
+
+  if (ship.notes) {
+    card.appendChild(createTextElement('card-notes', String(ship.notes)));
+  }
+
+  enableCardImageUpload(card, design);
+
+  return card;
+}
+
+function shipCardHasStale(ship: Ship): boolean {
+  for (const name of shipSpecialNames(ship)) {
+    if (isStaleText(trRuleLabel({ name }))) return true;
+  }
+  for (const extra of [ship.hero, ship.title]) {
+    if (isStaleText(namedEntryText(extra))) return true;
+  }
+  for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
+    if (isStaleText(namedEntryText(sys))) return true;
+  }
+  for (const entry of Array.isArray(ship.weapons) ? ship.weapons : []) {
+    const w = entry as { weaponId?: unknown; id?: unknown; name?: unknown };
+    if (typeof w.name === 'string' && isStaleText(trWeaponName({
+      weaponId: typeof w.weaponId === 'string' ? w.weaponId : undefined,
+      id: typeof w.id === 'string' ? w.id : undefined,
+      name: w.name,
+    }))) return true;
+  }
+  return false;
+}
+
 /**
  * Fill `container` with cards. With `combineSimilar` (the default), identical
  * units collapse into a single card prefixed with their count. With
@@ -1387,6 +1610,27 @@ export function renderCards(
   container.replaceChildren();
   
   const armyId = army.id || '';
+
+  // Listas de Frota (Warfleets, "ftl"): os "ships" substituem os "units".
+  const fleetShips = getShips(army);
+  if (fleetShips.length > 0) {
+    const orderedShips = [...fleetShips].sort((a, b) => {
+      const costDiff = (b.cost ?? 0) - (a.cost ?? 0);
+      if (costDiff !== 0) return costDiff;
+      return shipNameOf(a).localeCompare(shipNameOf(b));
+    });
+    for (const ship of orderedShips) {
+      const card = createShipCard(ship, armyId, design);
+      container.appendChild(wrapCardWithToolbar(card));
+      if (design === 'tcg') fitStandardCardTitle(card);
+      void restoreCardImage(card, armyId, ship.selectionId || ship.id || '');
+    }
+    if (fleetShips.some((ship) => shipCardHasStale(ship))) {
+      container.appendChild(createStaleNote());
+    }
+    return fleetShips.length;
+  }
+
   // Fold "Combine Units" halves into single units first — that's an in-game merge
   // that applies whether or not the cosmetic "combine similar units" option is on.
   const sourceUnits = Array.isArray(army.units) ? army.units : [];
@@ -1402,7 +1646,7 @@ export function renderCards(
     if (unit.selectionId) nameBySelectionId.set(unit.selectionId, unitDisplayName(unit, useCustomNames));
   }
 
-  // Heroes first, then other units by displayed points (descending).
+  // Heroes first (descending points), then other units by displayed points (descending).
   const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames);
 
   for (const group of orderedGroups) {
@@ -1425,6 +1669,32 @@ export function renderCards(
     // stored zoom / opacity.
     void restoreCardImage(card, armyId, unitImageId(group.unit));
   }
+
+  // Armas e rótulos com rating desatualizados aparecem nas cartas; a explicação
+  // do † vai logo abaixo das cartas (próximo ao título de Regras especiais).
+  let cardsHaveStale = false;
+  for (const { unit } of orderedGroups) {
+    if (cardsHaveStale) break;
+    for (const pill of [...getRules(unit).map((r) => trRuleLabel(r)), ...getUpgradeRulePills(unit)]) {
+      if (isStaleText(pill)) { cardsHaveStale = true; break; }
+    }
+    if (cardsHaveStale) break;
+    for (const weapon of getWeapons(unit)) {
+      if (isStaleText(trWeaponName(weapon))) { cardsHaveStale = true; break; }
+      for (const rule of getWeaponSpecialRules(weapon)) {
+        if (isStaleText(trRuleLabel(rule))) { cardsHaveStale = true; break; }
+      }
+      if (cardsHaveStale) break;
+    }
+    if (cardsHaveStale) break;
+    for (const item of getUpgrades(unit)) {
+      for (const rule of Array.isArray(item.content) ? item.content : Array.isArray(item.specialRules) ? item.specialRules : []) {
+        if (isStaleText(trRuleLabel(rule as UnitRule))) { cardsHaveStale = true; break; }
+      }
+      if (cardsHaveStale) break;
+    }
+  }
+  if (cardsHaveStale) container.appendChild(createStaleNote());
 
   return units.length;
 }
@@ -1483,6 +1753,8 @@ const GAME_SYSTEM_NAMES: Record<string, string> = {
   aof: 'Age of Fantasy',
   aofs: 'Age of Fantasy: Skirmish',
   aofr: 'Age of Fantasy: Regiments',
+  ftl: 'Grimdark Future: Warfleets',
+  gfwf: 'Grimdark Future: Warfleets',
 };
 
 const SMALL_WORDS = new Set(['of', 'the', 'and']);
@@ -1499,12 +1771,13 @@ function titleCaseSlug(slug: string): string {
 
 // "grimdark-future-firefight" -> "Grimdark Future: Firefight"
 // "age-of-fantasy" -> "Age of Fantasy"
+// "grimdark-future-warfleets2" -> "Grimdark Future: Warfleets" (sem o "2")
 function gameNameFromSlug(slug: string): string {
   const base = ['grimdark-future', 'age-of-fantasy'].find(
     (prefix) => slug === prefix || slug.startsWith(`${prefix}-`),
   );
   if (!base) return titleCaseSlug(slug);
-  const rest = slug.slice(base.length + 1);
+  const rest = slug.slice(base.length + 1).replace(/\d+$/, '').trim();
   return rest ? `${titleCaseSlug(base)}: ${titleCaseSlug(rest)}` : titleCaseSlug(base);
 }
 
@@ -1560,6 +1833,10 @@ export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
   const bookCounts = new Map<string, number>();
   for (const unit of Array.isArray(army.units) ? army.units : []) {
     if (unit.armyId) bookCounts.set(unit.armyId, (bookCounts.get(unit.armyId) ?? 0) + 1);
+  }
+  for (const ship of getShips(army)) {
+    const fleetId = ship.fleetId === 'common' ? 'Xp0jnYANoRO2pFrw' : ship.fleetId;
+    if (fleetId) bookCounts.set(fleetId, (bookCounts.get(fleetId) ?? 0) + 1);
   }
   const imageBook = (army.armyBooks ?? [])
     .filter((book) => book.imageUrl)
@@ -1623,8 +1900,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
   const units = Array.isArray(army.units) ? army.units : [];
   for (const unit of units) {
-    for (const rule of getRules(unit)) usedIds.add(rule.id);
-    for (const weapon of getWeapons(unit)) {
+    for (const rule of getRules(unit)) usedIds.add(rule.id);    for (const weapon of getWeapons(unit)) {
       collect(getWeaponSpecialRules(weapon));
       collectGranted(weapon.content);
     }
@@ -1640,6 +1916,19 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
         usedIds.add(gain.id);
         grantedIds.add(gain.id);
       }
+    }
+  }
+
+  // Frotas (Warfleets): as "regras especiais" das naves são nomes soltos.
+  for (const ship of getShips(army)) {
+    for (const name of shipSpecialNames(ship)) usedNames.add(name);
+    for (const extra of [ship.hero, ship.title]) {
+      const text = namedEntryText(extra);
+      if (text) usedNames.add(text);
+    }
+    for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
+      const text = namedEntryText(sys);
+      if (text) usedNames.add(text);
     }
   }
 
@@ -1740,7 +2029,10 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    const baseName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
+    const rawName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
+    // † fica depois de (X): "Resistência(X)†" em vez de "Resistência†(X)".
+    const nameStale = isStaleText(rawName);
+    const baseName = stripStaleText(rawName);
     // Regras ranqueadas do livro mostram "(X)" (ex.: Crossing Attack(X)), como no
     // Army Forge. Em pt-BR, também explicamos que o PA pode variar como PA(X).
     const isArmorPenetration =
@@ -1748,10 +2040,10 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
     const isRated =
       isArmorPenetration ||
       (rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim()));
-    const displayName = isRated
+    const cleanDisplay = isRated
       ? `${baseName}${baseName.includes(')') ? ' ' : ''}(X)`
       : baseName;
-    nameTd.textContent = displayName;
+    nameTd.textContent = nameStale ? cleanDisplay + STALE_MARK : cleanDisplay;
     // Termo original em inglês, apenas nas tabelas, em cinza e itálico.
     const originalRuleName = rule.name?.trim() || '';
     const hasParentheticalExplanation = /\([^)]*\)/.test(baseName);
@@ -1781,7 +2073,15 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   }
 
   table.append(thead, tbody);
-    if (sorted.length > 0) section.append(createSectionHeading(t('table.specialRules')));
+  if (sorted.length > 0) {
+    section.append(createSectionHeading(t('table.specialRules')));
+    const hasStale = sorted.some(
+      (rule) =>
+        isStaleText(getLang() === 'en' ? '' : trRuleName(rule)) ||
+        isStaleText(getLang() === 'en' ? '' : trRuleDescription(rule)),
+    );
+    if (hasStale) section.append(createStaleNote());
+  }
   section.append(table);
 }
 
@@ -1823,11 +2123,14 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    const spellNameForDisplay = trSpellName(spell);
+    const rawSpellName = trSpellName(spell);
+    // † fica depois do custo: "Tempestade (5)†" em vez de "Tempestade† (5)".
+    const spellStale = isStaleText(rawSpellName);
+    const cleanSpellName = stripStaleText(rawSpellName);
     const costText = ` (${spell.threshold ?? 0})`;
-    nameTd.textContent = `${spellNameForDisplay}${costText}`;
+    nameTd.textContent = spellStale ? cleanSpellName + costText + STALE_MARK : cleanSpellName + costText;
     const originalSpellName = spell.name?.trim() || '';
-    if (originalSpellName && trSpellName(spell) !== originalSpellName) {
+    if (originalSpellName && cleanSpellName !== originalSpellName) {
       const originalSpan = document.createElement('span');
       originalSpan.className = 'rule-name-original';
       originalSpan.textContent = ` (${originalSpellName})`;
@@ -1842,6 +2145,10 @@ export function renderSpellsTable(section: HTMLElement, army: ArmyList): void {
   }
 
   table.append(thead, tbody);
-    section.append(createSectionHeading(spellsTitle));
+  section.append(createSectionHeading(spellsTitle));
+  const spellsHaveStale = sorted.some(
+    (spell) => isStaleText(trSpellName(spell)) || isStaleText(trSpellEffect(spell)),
+  );
+  if (spellsHaveStale) section.append(createStaleNote());
   section.append(table);
 }

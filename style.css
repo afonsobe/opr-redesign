@@ -1395,6 +1395,20 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   content: ": ";
 }
 
+/* Nota de rodapé para traduções desatualizadas (marcadas com †). */
+.stale-note {
+  margin: 0 0 6px;
+  font-size: 9px;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--paper-muted);
+}
+
+.cards .stale-note {
+  grid-column: 1 / -1;
+  margin: 4px 2px 0;
+}
+
 /* ---------- Celular ---------- */
 
 @media (max-width: 860px) {

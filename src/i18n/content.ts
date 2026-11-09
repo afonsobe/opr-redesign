@@ -13,9 +13,10 @@
 //
 // Segurança contra texto defasado: cada tradução só é usada quando o texto que
 // o Army Forge manda AGORA é igual (ignorando espaços nas pontas) ao texto
-// inglês registrado em content.source.json. Se a OPR mudar uma regra, o site
-// mostra o texto novo em inglês em vez de uma tradução antiga. O fluxo para
-// retraduzir está documentado em scripts/collect-content.mjs (`--refresh-source`).
+// inglês registrado em content.source.json. Se a OPR mudar um texto, o site
+// mostra a tradução do dicionário com um † no final e explica o símbolo logo
+// abaixo do título da tabela. O fluxo para retraduzir está documentado em
+// scripts/collect-content.mjs (`--refresh-source`).
 //
 // Se um id ainda não tem tradução, cai no texto original em inglês. Nunca
 // aparece vazio e nada quebra.
@@ -67,6 +68,7 @@ export const GAME_SYSTEM_IDS: Record<string, number> = {
   aof: 4,
   aofs: 5,
   aofr: 6,
+  gfwf: 11,
 };
 export const GAME_SYSTEM_SLUGS: Record<number, string> = {
   2: 'gf',
@@ -74,9 +76,10 @@ export const GAME_SYSTEM_SLUGS: Record<number, string> = {
   4: 'aof',
   5: 'aofs',
   6: 'aofr',
+  11: 'gfwf',
 };
 
-type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr';
+type LangSystemKey = 'gff' | 'gf' | 'aof' | 'aofs' | 'aofr' | 'gfwf';
 
 const translations = ptBR as TranslationFile;
 const source = sourceEn as unknown as TranslationSection;
@@ -106,8 +109,10 @@ export function setActiveSystem(gameSystem: string | number | undefined | null):
   }
   if (typeof gameSystem === 'string') {
     const lower = gameSystem.trim().toLowerCase();
-    // Accept "grimdark-future", "grimdark-future-firefight", "age-of-fantasy", etc.
-    if (lower.includes('gff') || lower.includes('firefight')) activeSystem = 'gff';
+    // Warfleets precisa vir antes de 'gf': "grimdark-future-warfleets2"
+    // contém "grimdark-future" e seria classificada como GF.
+    if (lower === 'ftl' || lower.includes('gfwf') || lower.includes('warfleet') || lower.includes('fleet')) activeSystem = 'gfwf';
+    else if (lower.includes('gff') || lower.includes('firefight')) activeSystem = 'gff';
     else if (lower.includes('aofs') || lower.includes('skirmish')) activeSystem = 'aofs';
     else if (lower.includes('aofr') || lower.includes('regiment')) activeSystem = 'aofr';
     else if (lower.includes('aof') || lower.includes('age-of-fantasy')) activeSystem = 'aof';
@@ -147,9 +152,28 @@ function active(): boolean {
 }
 
 // Comparação ignora apenas espaços nas pontas. Qualquer outra diferença
-// (palavra, pontuação, acento) invalida a tradução e mostra o inglês atual.
+// (palavra, pontuação, acento) marca a tradução como desatualizada: o site
+// mostra a tradução do dicionário com um † no final (o símbolo é explicado
+// logo abaixo do título de cada tabela).
 function norm(value: string | undefined | null): string {
   return (value ?? '').trim();
+}
+
+// Símbolo de nota de rodapé usado quando o texto atual da API não bate com a
+// fonte. É o † clássico das notas de rodapé (menos poluído que um asterísco).
+export const STALE_MARK = '†';
+
+function markStale(text: string): string {
+  return text.endsWith(STALE_MARK) ? text : text + STALE_MARK;
+}
+
+function stripStale(text: string): string {
+  return text.endsWith(STALE_MARK) ? text.slice(0, -STALE_MARK.length) : text;
+}
+
+/** true quando o texto exibido é uma tradução desatualizada (termina em †). */
+export function isStaleText(text: string | undefined | null): boolean {
+  return (text ?? '').endsWith(STALE_MARK);
 }
 
 // Texto vazio ou igual ao próprio nome é placeholder do Army Forge
@@ -162,6 +186,8 @@ function isPlaceholder(value: string | undefined, name: string | undefined): boo
 interface RuleMatch {
   translated: RuleTranslation;
   source: RuleTranslation;
+  /** true quando o nome inglês mudou na API (tradução desatualizada). */
+  stale?: boolean;
 }
 
 // Índice nome (inglês) -> entrada da fonte. Quando duas regras têm o mesmo
@@ -194,7 +220,8 @@ function sourceByName(name: string):
   return sourceByNameCache.map.get(norm(name));
 }
 
-// Devolve a tradução só quando o texto inglês atual bate com a fonte.
+// Devolve a tradução quando há entrada no dicionário. Quando o texto inglês
+// atual não bate com a fonte, a entrada vem marcada como desatualizada.
 function ruleMatch(rule: { id?: string; name?: string }): RuleMatch | undefined {
   if (!active()) return undefined;
   const label = norm(rule.name);
@@ -204,8 +231,9 @@ function ruleMatch(rule: { id?: string; name?: string }): RuleMatch | undefined 
   if (rule.id) {
     const src = sourceRules[rule.id];
     const translated = translatedRules[rule.id];
-    if (src && translated?.name && (!label || norm(src.name) === label)) {
-      return { translated, source: src };
+    if (src && translated?.name) {
+      const stale = !!label && norm(src.name) !== label;
+      return { translated, source: src, stale };
     }
   }
 
@@ -230,7 +258,10 @@ function sourceDescription(entry: RuleTranslation): string {
 }
 
 function ruleEntry(rule: { id?: string; name?: string }): RuleTranslation | undefined {
-  return ruleMatch(rule)?.translated;
+  const match = ruleMatch(rule);
+  if (!match?.translated?.name) return undefined;
+  if (match.stale) return { ...match.translated, name: markStale(match.translated.name) };
+  return match.translated;
 }
 
 function ruleDescriptionTranslation(rule: {
@@ -269,6 +300,13 @@ function ruleDescriptionTranslation(rule: {
     const original = sourceDescription(candidate.source);
     if (original && original === english) return translated;
   }
+  // Texto inglês mudou na API: mostra a tradução do dicionário marcada como
+  // desatualizada em vez do inglês novo.
+  for (const candidate of candidates) {
+    const translated = candidate.translated.description;
+    if (!translated || isPlaceholder(translated, candidate.translated.name)) continue;
+    return markStale(translated);
+  }
   return undefined;
 }
 
@@ -303,11 +341,12 @@ function weaponEntry(weapon: {
   const src = sourceSection().weapons[key];
   const translated = resolveSection().weapons[key];
   if (!src || !translated?.name) return undefined;
-  // Nome da arma mudou no Army Forge: mostra o original até retraduzir, a menos
-  // que seja uma exceção explícita registrada em content.aliases.json.
+  // Nome da arma mudou no Army Forge: mostra a tradução do dicionário marcada
+  // como desatualizada, a menos que seja uma exceção explícita registrada em
+  // content.aliases.json.
   if (norm(weapon.name) !== norm(src.name)) {
     const alias = weaponAlias(key, weapon.name);
-    return alias ? { ...translated, name: alias } : undefined;
+    return alias ? { ...translated, name: alias } : { ...translated, name: markStale(translated.name) };
   }
   return translated;
 }
@@ -341,6 +380,33 @@ function unanimousSpellName(name: string): string | undefined {
   return spellNameCache.map.get(norm(name)) ?? undefined;
 }
 
+// Primeira variante com este nome inglês (para efeito desatualizado).
+function firstSpellByName(name: string): SpellTranslation | undefined {
+  const source = sourceSection();
+  const translated = resolveSection();
+  for (const [key, src] of Object.entries(source.spells)) {
+    if (norm(src.name) === norm(name) && translated.spells[key]) return translated.spells[key];
+  }
+  return undefined;
+}
+
+// Nome pt quando o efeito inglês bate com exatamente uma tradução.
+// Usado quando o nome mudou na API mas o efeito continua igual.
+function spellNameByEffect(effect: string | undefined): string | undefined {
+  const target = norm(effect);
+  if (!target) return undefined;
+  const source = sourceSection();
+  const translated = resolveSection();
+  const names = new Set<string>();
+  for (const [key, src] of Object.entries(source.spells)) {
+    if (norm(src.effect) === target) {
+      const pt = translated.spells[key]?.name;
+      if (pt) names.add(pt);
+    }
+  }
+  return names.size === 1 ? [...names][0] : undefined;
+}
+
 function spellEntry(
   spell: { id?: string; name?: string; effect?: string },
   field: SpellField,
@@ -356,12 +422,17 @@ function spellEntry(
     if (field === 'name') return translated;
     return norm(spell.effect) === norm(src.effect) ? translated : undefined;
   }
-  // Efeito inédito na API: o efeito fica em inglês, mas o nome (que bate com a
-  // fonte) continua traduzido.
   if (field === 'name') {
+    // Nome igual (efeito inédito): continua traduzido, sem aviso.
     const name = unanimousSpellName(spell.name);
-    return name ? { name } : undefined;
+    if (name) return { name };
+    // Nome mudou mas o efeito continua igual: mostra a tradução com aviso.
+    const byEffect = spellNameByEffect(spell.effect);
+    return byEffect ? { name: markStale(byEffect) } : undefined;
   }
+  // Efeito mudou (nome igual): mostra a tradução do dicionário com aviso.
+  const first = firstSpellByName(spell.name);
+  if (first?.effect) return { name: first.name, effect: markStale(first.effect) };
   return undefined;
 }
 
@@ -374,18 +445,22 @@ export function trRuleName(rule: { id?: string; name?: string }): string {
  * Nome traduzido seguido do termo original em inglês entre parênteses.
  * Só acrescenta o original quando houver tradução e ela for diferente.
  * Ex.: "Mortal (Deadly)", "Explosão (Blast)".
+ * Quando a tradução está desatualizada, o † vem no final:
+ * "Mortal (Deadly)†".
  */
 export function trRuleNameWithOriginal(rule: { id?: string; name?: string }): string {
   const entry = ruleEntry(rule);
   const translated = entry?.name || rule.name || '';
+  const base = stripStale(translated);
+  const stale = translated.endsWith(STALE_MARK);
   if (
     !entry?.name ||
-    entry.name === (rule.name || '') ||
-    /\([^)]*\)/.test(entry.name)
+    base === (rule.name || '') ||
+    /\([^)]*\)/.test(base)
   ) {
     return translated;
   }
-  return `${entry.name} (${rule.name})`;
+  return stale ? `${base} (${rule.name})${STALE_MARK}` : `${base} (${rule.name})`;
 }
 
 /**
@@ -415,7 +490,10 @@ export function trRuleLabel(rule: {
     return rule.label || rule.name || '';
   }
   // Com tradução: aplicar o rating sobre o nome traduzido; nunca descartar.
-  return rule.rating != null ? `${entry.name}(${rule.rating})` : entry.name;
+  const stale = entry.name.endsWith(STALE_MARK);
+  const clean = stripStale(entry.name);
+  const rated = rule.rating != null ? `${clean}(${rule.rating})` : clean;
+  return stale ? markStale(rated) : rated;
 }
 
 /** Descrição traduzida de uma regra. */
@@ -456,12 +534,16 @@ export function trSpellName(spell: { id?: string; name?: string; effect?: string
 /**
  * Nome traduzido da magia seguido do termo original em inglês.
  * Ex.: "Explosão Psíquica (Psychic Blast)".
+ * Quando desatualizada, o † vem no final:
+ * "Explosão Psíquica (Psychic Blast)†".
  */
 export function trSpellNameWithOriginal(spell: { id?: string; name?: string; effect?: string }): string {
   const entry = spellEntry(spell, 'name');
   const translated = entry?.name || spell.name || '';
-  if (!entry?.name || entry.name === (spell.name || '')) return translated;
-  return `${entry.name} (${spell.name})`;
+  const base = stripStale(translated);
+  const stale = translated.endsWith(STALE_MARK);
+  if (!entry?.name || base === (spell.name || '')) return translated;
+  return stale ? `${base} (${spell.name})${STALE_MARK}` : `${base} (${spell.name})`;
 }
 
 /** Efeito traduzido de uma magia. */

@@ -11,6 +11,10 @@
 const OPR_TTS_URL = 'https://army-forge.onepagerules.com/api/tts';
 const OPR_COMMON_RULES_URL = 'https://army-forge.onepagerules.com/api/rules/common';
 const OPR_ARMY_BOOKS_URL = 'https://army-forge.onepagerules.com/api/army-books';
+const OPR_FLEETS_URL = 'https://army-forge.onepagerules.com/api/gfwf';
+
+// Uid do livro "Common" das frotas (referenciado como "common" nas listas).
+const FLEET_COMMON_UID = 'Xp0jnYANoRO2pFrw';
 
 const GAME_SYSTEM_IDS: Record<string, number> = {
   gf: 2,
@@ -18,7 +22,27 @@ const GAME_SYSTEM_IDS: Record<string, number> = {
   aof: 4,
   aofs: 5,
   aofr: 6,
+  ftl: 11,
+  gfwf: 11,
 };
+
+export interface FleetBookRuleLike {
+  id?: string;
+  name?: string;
+  rule?: string;
+  description?: string;
+}
+
+export interface FleetBookLike {
+  uid?: string;
+  name?: string;
+  version?: string | number;
+  coverImagePath?: string;
+  specialRules?: FleetBookRuleLike[];
+  heroes?: FleetBookRuleLike[];
+  titles?: FleetBookRuleLike[];
+  upgrades?: FleetBookRuleLike[];
+}
 
 export interface RuleLike {
   id?: string;
@@ -69,6 +93,8 @@ export interface ArmyPayload {
   // Usado so para exibir "(X)" na tabela de regras quando for o caso.
   commonRuleNames?: string[];
   units?: UnitLike[];
+  // Listas de Frota (Warfleets, "ftl"): os "ships" substituem os "units".
+  ships?: { fleetId?: string; [key: string]: unknown }[];
   spells?: Spell[];
   spellRuleIds?: string[];
   [key: string]: unknown;
@@ -109,13 +135,57 @@ function unitHasCaster(unit: UnitLike): boolean {
   return hasCasterRule(unit.rules) || hasCasterRule(unit.loadout);
 }
 
-// Busca o livro de cada exército usado na lista (normalmente 1; mais de um se a
-// lista misturar livros). Dele saem as magias e o nome/versão do exército.
+// Busca o livro de cada exército/frota usado na lista (normalmente 1; mais de
+// um se a lista misturar livros). Dele saem magias, regras e nome/versão.
 async function fetchBooks(
   army: ArmyPayload,
 ): Promise<{ armyId: string; book: ArmyBook }[]> {
   const id = army.gameSystem ? GAME_SYSTEM_IDS[army.gameSystem.toLowerCase()] : undefined;
   if (id === undefined) return [];
+
+  // Frotas (Warfleets, "ftl"): os "ships" identificam o livro por `fleetId`
+  // ("common" é o livro Common) e os livros vivem em /api/gfwf/<uid>.
+  if (id === 11) {
+    const ships = Array.isArray(army.ships) ? army.ships : [];
+    const fleetIds = [
+      ...new Set(
+        ships
+          .map((ship: { fleetId?: string }) => (ship.fleetId === 'common' ? FLEET_COMMON_UID : ship.fleetId))
+          .filter((value): value is string => !!value),
+      ),
+    ];
+    const results = await Promise.all(
+      fleetIds.map(async (fleetUid) => {
+        try {
+          const response = await fetch(
+            `${OPR_FLEETS_URL}/${encodeURIComponent(fleetUid)}`,
+          );
+          if (!response.ok) return null;
+          const fleet = (await response.json()) as FleetBookLike;
+          const book: ArmyBook = {
+            name: fleet.name,
+            version: fleet.version,
+            coverImagePath: fleet.coverImagePath,
+            gameSystemSlug: 'grimdark-future-warfleets2',
+            specialRules: [...(fleet.specialRules || []), ...(fleet.heroes || []), ...(fleet.titles || []), ...(fleet.upgrades || [])].map(
+              (rule) => ({
+                id: rule.id,
+                name: rule.name,
+                description: rule.rule ?? rule.description ?? '',
+              }),
+            ),
+          };
+          return { armyId: fleetUid, book };
+        } catch (error) {
+          console.error(`Failed to fetch fleet book ${fleetUid}:`, error);
+          return null;
+        }
+      }),
+    );
+    return results.filter(
+      (entry): entry is { armyId: string; book: ArmyBook } => entry !== null,
+    );
+  }
 
   const units = Array.isArray(army.units) ? army.units : [];
   const armyIds = [
