@@ -819,7 +819,7 @@
         },
         "hGd-1A2fPuyh": {
           "name": "Crescimento Fortificado",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, coloque um marcador nela no início de cada rodada se ela estiver em campo e não estiver Abalada, até um máximo de quatro marcadores. Para cada dois marcadores, inimigos que atacam esta unidade sofrem PA(-1), até um mínimo de PA(0)."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, coloque um marcador nela no início de cada rodada se ela estiver em campo e não estiver Abalada, até um máximo de quatro marcadores. Para cada dois marcadores, inimigos que atacam esta unidade recebem PA(-1), até um mínimo de PA(0)."
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",

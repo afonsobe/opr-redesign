@@ -963,6 +963,18 @@ body:has(.card--has-image) .avatar-size-bar {
   align-items: start;
 }
 
+/* Modo clássico: as cartas da mesma linha dividem a altura da linha.
+   O grid já estica cada `.card-wrapper`; fazer a carta ocupar o wrapper
+   mantém a moldura colorida alinhada com o fim da linha. Heróis e cartas
+   com imagem continuam funcionando (o fundo cobre a área extra). */
+body:not(.card-layout-tcg) .cards {
+  align-items: stretch;
+}
+
+body:not(.card-layout-tcg) .card-wrapper > .card {
+  flex: 1 1 auto;
+}
+
 .card-wrapper {
   display: flex;
   flex-direction: column;
