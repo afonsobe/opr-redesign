@@ -20,6 +20,7 @@ import { deleteCardImage, getCardImage, saveCardImage } from './db';
 import type {
   ArmySpecialRule,
   ArmyList,
+  CardDesign,
   SelectedUpgrade,
   Ship,
   Unit,
@@ -286,6 +287,38 @@ function mergeWeapons(weapons: Weapon[]): MergedWeapon[] {
   return result;
 }
 
+interface MergedItem {
+  name: string;
+  special: string;
+  count: number;
+}
+
+// Itens do loadout que não são armas (equipamentos, montarias, etc.) também
+// aparecem na carta. Mesmo perfil = uma linha só, com a quantidade somada.
+function mergeItems(items: Weapon[]): MergedItem[] {
+  const merged = new Map<string, MergedItem>();
+  const order: string[] = [];
+  for (const item of items) {
+    const originalName = item.name?.trim() || item.label?.trim() || '';
+    const name = trItemName(originalName) || originalName;
+    const itemTexts = getItemRules(item)
+      .map((text) => text?.trim())
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
+    const special = itemTexts.length > 0 ? itemTexts.join(', ') : '-';
+    const key = `${originalName}::${special}`;
+    const count = typeof item.count === 'number' ? item.count : 1;
+    const existing = merged.get(key);
+    if (existing) {
+      existing.count += count;
+      continue;
+    }
+    merged.set(key, { name, special, count });
+    order.push(key);
+  }
+  return order.map((key) => merged.get(key) as MergedItem);
+}
+
 function createWeaponsTable(weapons: MergedWeapon[], items: Weapon[] = []): HTMLTableElement {
   const table = document.createElement('table');
   table.className = 'weapons-table';
@@ -336,30 +369,7 @@ function createWeaponsTable(weapons: MergedWeapon[], items: Weapon[] = []): HTML
     itemSpecialHeader.textContent = t('wpn.special');
     itemsHeadRow.appendChild(itemSpecialHeader);
 
-    const merged = new Map<string, { name: string; special: string; count: number }>();
-    const itemOrder: string[] = [];
-    for (const item of items) {
-      const originalName = item.name?.trim() || item.label?.trim() || '';
-      const name = trItemName(originalName) || originalName;
-      const itemTexts = getItemRules(item)
-        .map((text) => text?.trim())
-        .filter(Boolean)
-        .sort((a, b) => a.localeCompare(b));
-      const special = itemTexts.length > 0 ? itemTexts.join(', ') : '-';
-      const key = `${originalName}::${special}`;
-      const count = typeof item.count === 'number' ? item.count : 1;
-      const existing = merged.get(key);
-      if (existing) {
-        existing.count += count;
-        continue;
-      }
-      merged.set(key, { name, special, count });
-      itemOrder.push(key);
-    }
-
-    for (const key of itemOrder) {
-      const entry = merged.get(key);
-      if (!entry) continue;
+    for (const entry of mergeItems(items)) {
       const row = itemsBody.insertRow();
       const cells: { text: string; className?: string; colSpan?: number }[] = [
         { text: entry.count > 1 ? `${entry.count}x ${entry.name}` : entry.name, className: 'w-name' },
@@ -382,28 +392,9 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
   const container = document.createElement('div');
   container.className = 'rules-container';
 
-  const rules = getRules(unit);
-  const upgrades = getUpgrades(unit);
-  const upgradeRulePills = getUpgradeRulePills(unit);
+  const { labels, upgradePills } = unitRuleLabels(unit);
 
-  // Regras concedidas por itens do loadout (ex.: "Camo Cloak" concedendo "Stealth").
-  const itemRuleTexts: string[] = [];
-  for (const item of upgrades) {
-    for (const text of getItemRules(item)) {
-      const trimmed = text?.trim();
-      if (trimmed) itemRuleTexts.push(trimmed);
-    }
-  }
-
-  const pillTexts = new Set<string>();
-  for (const rule of rules) {
-    const text = ruleText(rule);
-    const trimmed = text?.trim();
-    if (trimmed) pillTexts.add(trimmed);
-  }
-  for (const text of itemRuleTexts) pillTexts.add(text);
-
-  if (rules.length === 0 && itemRuleTexts.length === 0 && upgradeRulePills.length === 0) {
+  if (labels.length === 0 && upgradePills.length === 0) {
     container.appendChild(createTextElement('muted', t('card.noRules')));
     return container;
   }
@@ -418,17 +409,152 @@ function createRulesContainer(unit: Unit): HTMLDivElement {
     container.appendChild(pill);
   };
 
-  const sortedRules = Array.from(pillTexts).sort((a, b) => a.localeCompare(b));
-  for (const pill of sortedRules) addPill(pill);
-  for (const pill of upgradeRulePills) addPill(pill);
+  for (const pill of labels) addPill(pill);
+  for (const pill of upgradePills) addPill(pill);
 
   return container;
+}
+
+// Nomes das regras de uma unidade (próprias + concedidas por itens + melhorias),
+// já traduzidos, deduplicados e ordenados. Usado pelas pílulas do Classic e
+// pela coluna Regras do roster compacto.
+function unitRuleLabels(unit: Unit): { labels: string[]; upgradePills: string[] } {
+  const rules = getRules(unit);
+  const upgradePills = getUpgradeRulePills(unit);
+
+  // Regras concedidas por itens do loadout (ex.: "Camo Cloak" concedendo "Stealth").
+  const itemRuleTexts: string[] = [];
+  for (const item of getUpgrades(unit)) {
+    for (const text of getItemRules(item)) {
+      const trimmed = text?.trim();
+      if (trimmed) itemRuleTexts.push(trimmed);
+    }
+  }
+
+  const pillTexts = new Set<string>();
+  for (const rule of rules) {
+    const text = ruleText(rule);
+    const trimmed = text?.trim();
+    if (trimmed) pillTexts.add(trimmed);
+  }
+  for (const text of itemRuleTexts) pillTexts.add(text);
+
+  return {
+    labels: Array.from(pillTexts).sort((a, b) => a.localeCompare(b)),
+    upgradePills,
+  };
+}
+
+// --- Design Tabela: linha compacta (roster) ---------------------------------
+// Uma linha curta por unidade, com um cabeçalho único acima das linhas. É a
+// versão "lista de exército": nome/pontos, Qua, Def, armas e regras lado a
+// lado, sem repetir títulos de seção em cada unidade.
+
+function createRosterHeader(): HTMLDivElement {
+  const header = document.createElement('div');
+  header.className = 'roster-head';
+  const cells: [string, string][] = [
+    [t('table.unit'), 'roster-head--unit'],
+    [t('table.qua'), 'roster-head--qua'],
+    [t('table.def'), 'roster-head--def'],
+    [t('table.tough'), 'roster-head--tough'],
+    [t('table.weapons'), 'roster-head--weapons'],
+    [t('table.rules'), 'roster-head--rules'],
+  ];
+  for (const [text, className] of cells) {
+    header.appendChild(createTextElement(`roster-head-cell ${className}`, text));
+  }
+  return header;
+}
+
+function rosterQuantity(count: number): string {
+  return `${count > 0 ? count : 1}x`;
+}
+
+function rosterWeaponLine(weapon: MergedWeapon): HTMLDivElement {
+  const line = document.createElement('div');
+  line.className = 'roster-weapon';
+
+  // Tudo o que importa na mesa fica entre parênteses, como no resumo do Army
+  // Forge: "3x Slings (12\", A2, Assault)".
+  const details: string[] = [];
+  if (weapon.range !== '-') details.push(weapon.range);
+  if (weapon.attacks !== '-') details.push(weapon.attacks);
+  if (weapon.ap !== '-') details.push(`AP(${weapon.ap})`);
+  if (weapon.special !== '-') details.push(weapon.special);
+  const name = details.length > 0 ? `${weapon.name} (${details.join(', ')})` : weapon.name;
+
+  const qty = document.createElement('span');
+  qty.className = 'roster-qty';
+  qty.textContent = rosterQuantity(weapon.count);
+  line.append(qty, ` ${name}`);
+  return line;
+}
+
+function rosterItemLine(item: MergedItem): HTMLDivElement {
+  const line = document.createElement('div');
+  line.className = 'roster-weapon';
+  const name = item.special !== '-' ? `${item.name} (${item.special})` : item.name;
+  const qty = document.createElement('span');
+  qty.className = 'roster-qty';
+  qty.textContent = rosterQuantity(item.count);
+  line.append(qty, ` ${name}`);
+  return line;
+}
+
+function createRosterWeaponsCell(weapons: MergedWeapon[], items: Weapon[]): HTMLDivElement {
+  const cell = document.createElement('div');
+  cell.className = 'roster-cell roster-cell--weapons';
+  cell.dataset.label = t('table.weapons');
+
+  if (weapons.length === 0 && items.length === 0) {
+    cell.appendChild(createTextElement('muted', t('card.noWeapons')));
+    return cell;
+  }
+
+  for (const weapon of weapons) cell.appendChild(rosterWeaponLine(weapon));
+  for (const item of mergeItems(items)) cell.appendChild(rosterItemLine(item));
+  return cell;
+}
+
+function createRosterRulesCell(unit: Unit): HTMLDivElement {
+  const cell = document.createElement('div');
+  cell.className = 'roster-cell roster-cell--rules';
+  cell.dataset.label = t('table.rules');
+
+  // Tough tem coluna própria no roster; não repete na lista de regras.
+  const toughLabels = new Set(
+    getRules(unit)
+      .filter((rule) => rule.name === 'Tough')
+      .map((rule) => ruleText(rule).trim()),
+  );
+  const { labels, upgradePills } = unitRuleLabels(unit);
+  const entries = [
+    ...labels.filter((label) => !toughLabels.has(label.trim())),
+    ...upgradePills,
+  ];
+  if (entries.length === 0) {
+    cell.appendChild(createTextElement('muted', t('card.noRules')));
+    return cell;
+  }
+
+  const container = document.createElement('div');
+  container.className = 'rules-container rules-container--compact';
+  for (const entry of entries) {
+    const pill = document.createElement('span');
+    pill.className = 'rule-pill';
+    pill.textContent = entry;
+    container.appendChild(pill);
+  }
+  cell.appendChild(container);
+  return cell;
 }
 
 // Texto de uma regra da unidade para a linha de regras: nome + rating (ex.: "Tough(9)").
 function ruleText(rule: UnitRule): string {
   return trRuleLabel(rule);
 }
+
 
 // --- Card avatar image: círculo com pan / zoom / upload ----------------------
 
@@ -835,7 +961,7 @@ function enableCardImagePanZoom(card: HTMLDivElement, avatar: HTMLDivElement): v
 
 // Cria o círculo no cabeçalho da carta; clicar nele (sem imagem) abre a janela
 // de escolher arquivo.
-function enableCardImageUpload(card: HTMLDivElement, design: 'classic' | 'tcg'): void {
+function enableCardImageUpload(card: HTMLDivElement, design: CardDesign): void {
   const avatar = document.createElement('div');
   avatar.className = design === 'tcg' ? 'card-avatar card-image-area card-art' : 'card-avatar card-image-area';
   avatar.title = t('img.add');
@@ -1284,13 +1410,15 @@ function createCard(
   joinedToName = '',
   armyName = '',
   gameSystem = '',
-  design: 'classic' | 'tcg' = 'classic',
+  design: CardDesign = 'classic',
 ): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
   if (design === 'tcg') card.classList.add('card--tcg');
+  if (design === 'table') card.classList.add('card--table', 'card--roster');
   const isHero = getRules(unit).some((rule) => rule.name === 'Hero');
   if (isHero) card.classList.add('card--hero');
+  const isRoster = design === 'table';
 
   // Identify the card for image persistence. A combined card uses its first
   // unit's id, so its image is the one shown; the other units keep their own
@@ -1358,23 +1486,45 @@ function createCard(
 
   const weapons = mergeWeapons(getWeapons(unit));
   const items = getUpgrades(unit);
-  if (weapons.length === 0 && items.length === 0) {
-    weaponsContainer.appendChild(createTextElement('muted', t('card.noWeapons')));
+  if (isRoster) {
+    card.append(header);
+    // Qua/Def/Tough viram colunas próprias.
+    const quality = createStat(t('table.qua'), `${unit.quality}+`);
+    quality.classList.add('roster-stat', 'roster-stat--qua');
+    quality.title = t('card.quality');
+    const defense = createStat(t('table.def'), `${unit.defense}+`);
+    defense.classList.add('roster-stat', 'roster-stat--def');
+    defense.title = t('card.defense');
+    const tough = createStat(t('table.tough'), getTough(unit));
+    tough.classList.add('roster-stat', 'roster-stat--tough');
+    tough.title = t('card.tough');
+
+    card.append(
+      quality,
+      defense,
+      tough,
+      createRosterWeaponsCell(weapons, items),
+      createRosterRulesCell(unit),
+    );
   } else {
-    weaponsContainer.appendChild(createWeaponsTable(weapons, items));
+    if (weapons.length === 0 && items.length === 0) {
+      weaponsContainer.appendChild(createTextElement('muted', t('card.noWeapons')));
+    } else {
+      weaponsContainer.appendChild(createWeaponsTable(weapons, items));
+    }
+
+    if (design !== 'tcg') header.append(stats);
+    card.append(header);
+    if (design === 'tcg') card.append(stats);
+
+    card.append(
+      createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
+      createTextElement('section-title section-title--rules', t('card.specialRules')),
+      createRulesContainer(unit),
+      createTextElement('section-title section-title--weapons', t('card.weapons')),
+      weaponsContainer,
+    );
   }
-
-  if (design === 'classic') header.append(stats);
-  card.append(header);
-  if (design === 'tcg') card.append(stats);
-
-  card.append(
-    createTextElement('base-info', getBaseLabel(unit, armyName, gameSystem)),
-    createTextElement('section-title', t('card.specialRules')),
-    createRulesContainer(unit),
-    createTextElement('section-title', t('card.weapons')),
-    weaponsContainer,
-  );
 
   if (unit.notes) {
     card.appendChild(createTextElement('card-notes', unit.notes));
@@ -1427,11 +1577,12 @@ function namedEntryText(entry: unknown): string {
 function createShipCard(
   ship: Ship,
   armyId = '',
-  design: 'classic' | 'tcg' = 'classic',
+  design: CardDesign = 'classic',
 ): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
   if (design === 'tcg') card.classList.add('card--tcg');
+  if (design === 'table') card.classList.add('card--table');
 
   card.dataset.armyId = armyId;
   card.dataset.unitId = ship.selectionId || ship.id || '';
@@ -1459,7 +1610,7 @@ function createShipCard(
     createStat(t('card.tough'), `${ship.tough ?? 0}+`),
   );
 
-  // Regras da nave em texto corrido (pílulas traduzidas por nome).
+  // Regras da nave: pílulas traduzidas por nome.
   const rulesContainer = document.createElement('div');
   rulesContainer.className = 'rules-container';
   const pillTexts = new Set<string>();
@@ -1552,14 +1703,14 @@ function createShipCard(
   }
   weaponsContainer.appendChild(table);
 
-  if (design === 'classic') header.append(stats);
+  if (design !== 'tcg') header.append(stats);
   card.append(header);
   if (design === 'tcg') card.append(stats);
 
   card.append(
-    createTextElement('section-title', t('card.specialRules')),
+    createTextElement('section-title section-title--rules', t('card.specialRules')),
     rulesContainer,
-    createTextElement('section-title', t('card.weapons')),
+    createTextElement('section-title section-title--weapons', t('card.weapons')),
     weaponsContainer,
   );
 
@@ -1605,7 +1756,7 @@ export function renderCards(
   army: ArmyList,
   combineSimilar = true,
   useCustomNames = false,
-  design: 'classic' | 'tcg' = 'classic',
+  design: CardDesign = 'classic',
 ): number {
   container.replaceChildren();
   
@@ -1613,6 +1764,10 @@ export function renderCards(
 
   // Listas de Frota (Warfleets, "ftl"): os "ships" substituem os "units".
   const fleetShips = getShips(army);
+  // O roster compacto só vale para listas de unidades; naves mantêm o layout
+  // anterior do design Tabela.
+  const rosterMode = design === 'table' && fleetShips.length === 0;
+  container.classList.toggle('cards--roster', rosterMode);
   if (fleetShips.length > 0) {
     const orderedShips = [...fleetShips].sort((a, b) => {
       const costDiff = (b.cost ?? 0) - (a.cost ?? 0);
@@ -1625,7 +1780,8 @@ export function renderCards(
       if (design === 'tcg') fitStandardCardTitle(card);
       void restoreCardImage(card, armyId, ship.selectionId || ship.id || '');
     }
-    if (fleetShips.some((ship) => shipCardHasStale(ship))) {
+    const shipsHaveStale = orderedShips.some((ship) => shipCardHasStale(ship));
+    if (shipsHaveStale) {
       container.appendChild(createStaleNote());
     }
     return fleetShips.length;
@@ -1649,7 +1805,11 @@ export function renderCards(
   // Heroes first (descending points), then other units by displayed points (descending).
   const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames);
 
-  for (const group of orderedGroups) {
+  if (rosterMode && orderedGroups.length > 0) {
+    container.appendChild(createRosterHeader());
+  }
+
+  orderedGroups.forEach((group) => {
     const joinedToName = group.unit.joinToUnit
       ? nameBySelectionId.get(group.unit.joinToUnit) ?? ''
       : '';
@@ -1668,7 +1828,7 @@ export function renderCards(
     // Restore after wrapping so the toolbar's sliders exist to reflect the
     // stored zoom / opacity.
     void restoreCardImage(card, armyId, unitImageId(group.unit));
-  }
+  });
 
   // Armas e rótulos com rating desatualizados aparecem nas cartas; a explicação
   // do † vai logo abaixo das cartas (próximo ao título de Regras especiais).

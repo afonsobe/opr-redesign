@@ -19,7 +19,7 @@ import {
   unitImageId,
 } from './src/render';
 import { initRouter, onRouteChange, onRouteEnter } from './src/router';
-import type { ArmyList } from './src/types';
+import type { ArmyList, CardDesign } from './src/types';
 import { renderChangelog } from './src/views/changelog';
 import { renderListsView, type ListsViewCallbacks } from './src/views/lists';
 import { PALETTES, applyPalette, detectPalette, type Palette } from './src/palettes';
@@ -83,14 +83,30 @@ const DEFAULT_DOCUMENT_TITLE = document.title;
 let currentArmyId: string | null = null;
 let currentInput = '';
 let currentArmy: ArmyList | null = null;
-let cardDesign: 'classic' | 'tcg' = 'classic';
+let cardDesign: CardDesign = 'classic';
 let lastAppliedPalette: Palette | null = null;
 
-function getCardDesign(): 'classic' | 'tcg' {
+function getCardDesign(): CardDesign {
   return cardDesign;
 }
 
-function setCardDesign(design: 'classic' | 'tcg'): void {
+// Desenha a tabela de regras após as cartas.
+function syncSpecialRulesSection(): void {
+  if (!specialRulesSection) return;
+  if (!currentArmy) {
+    specialRulesSection.replaceChildren();
+    return;
+  }
+  renderSpecialRulesTable(specialRulesSection, currentArmy);
+}
+
+// Accepts the raw `data-card-design` value (or a value restored from storage)
+// and narrows it to a known design, defaulting to Classic.
+function normalizeCardDesign(value: unknown): CardDesign {
+  return value === 'tcg' || value === 'table' ? value : 'classic';
+}
+
+function setCardDesign(design: CardDesign): void {
   cardDesign = design;
   for (const button of cardDesignButtons) {
     const selected = button.dataset.cardDesign === design;
@@ -98,6 +114,7 @@ function setCardDesign(design: 'classic' | 'tcg'): void {
     button.setAttribute('aria-pressed', selected.toString());
   }
   document.body.classList.toggle('card-layout-tcg', design === 'tcg');
+  document.body.classList.toggle('card-layout-table', design === 'table');
   refreshCardBacks();
 }
 setCardDesign('classic');
@@ -310,7 +327,7 @@ function applySettings(settings?: ListSettings): void {
   if (combineUnitsCheckbox) combineUnitsCheckbox.checked = resolved.combineSimilar;
   if (customNamesCheckbox) customNamesCheckbox.checked = resolved.useCustomNames;
   if (cardBacksCheckbox) cardBacksCheckbox.checked = resolved.printCardBacks ?? false;
-  setCardDesign(resolved.cardDesign === 'tcg' ? 'tcg' : 'classic');
+  setCardDesign(normalizeCardDesign(resolved.cardDesign));
   if (includeCardsCheckbox) includeCardsCheckbox.checked = resolved.includeCards;
   if (includeRulesCheckbox) includeRulesCheckbox.checked = resolved.includeRules;
   if (includeSpellsCheckbox) includeSpellsCheckbox.checked = resolved.includeSpells;
@@ -395,7 +412,7 @@ function displayArmy(army: ArmyList, input: string): void {
   }
 
   if (armySummarySection) renderArmySummary(armySummarySection, army);
-  if (specialRulesSection) renderSpecialRulesTable(specialRulesSection, army);
+  syncSpecialRulesSection();
   if (spellsSection) renderSpellsTable(spellsSection, army);
 }
 
@@ -539,6 +556,7 @@ const reRenderCards = (): void => {
       getCardDesign(),
     );
     refreshCardBacks();
+    syncSpecialRulesSection();
   }
 };
 const onCardOptionChange = (): void => {
@@ -553,7 +571,7 @@ cardBacksCheckbox?.addEventListener('change', () => {
 });
 for (const button of cardDesignButtons) {
   button.addEventListener('click', () => {
-    setCardDesign(button.dataset.cardDesign === 'tcg' ? 'tcg' : 'classic');
+    setCardDesign(normalizeCardDesign(button.dataset.cardDesign));
     onCardOptionChange();
   });
 }

@@ -1,5 +1,19 @@
 [
   {
+    "date": "November 10, 2026",
+    "datePtBR": "10 de novembro de 2026",
+    "items": [
+      "**New compact roster for the Table design:** each unit now takes one short row under a shared header — unit and points, Quality, Defense, Toughness, weapons and rules side by side. Weapons are shortened to entries like `3x Slings (12\", A2, Assault)`, rules stay comma-separated, and only hero rows keep a tinted background.",
+      "**Mobile and print follow the roster layout:** on narrow screens each unit reflows into compact bands, and printing keeps the same columns with several rows per page on both A4 and US Letter.",
+      "**The \"Show rule text on cards\" option was removed:** the Table design always uses the compact rule names, and the Special Rules table after the cards is shown for every list again."
+    ],
+    "itemsPtBR": [
+      "**Novo roster compacto no design Tabela:** cada unidade agora ocupa uma linha curta sob um cabeçalho único — unidade e pontos, Qualidade, Defesa, Resistência, armas e regras lado a lado. As armas ficam resumidas em entradas como `3x Slings (12\", A2, Assault)`, as regras seguem separadas por vírgula e apenas as linhas de heróis mantêm fundo tingido.",
+      "**Celular e impressão acompanham o roster:** em telas estreitas cada unidade se reorganiza em faixas compactas, e a impressão mantém as mesmas colunas com várias linhas por página em A4 e US Letter.",
+      "**A opção \"Mostrar o texto das regras nas cartas\" foi removida:** o design Tabela usa sempre os nomes compactos das regras, e a tabela de Regras especiais após as cartas volta a aparecer em todas as listas."
+    ]
+  },
+  {
     "date": "November 9, 2026",
     "datePtBR": "9 de novembro de 2026",
     "items": [

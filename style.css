@@ -2209,6 +2209,465 @@ body.card-layout-tcg .cards {
   display: flex !important;
 }
 
+/* ---------- Design Tabela: Classic em coluna única ---------- */
+/* Mesmo conteúdo e ordem do Classic, mas cada unidade ocupa a largura toda
+   da folha. O corpo vira duas colunas internas (regras à esquerda, armas à
+   direita) e os status ficam à direita do cabeçalho, encurtando a carta. */
+body.card-layout-table .cards {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.card--table {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  grid-template-areas:
+    "header header"
+    "rules-title weapons-title"
+    "rules weapons"
+    "notes notes";
+  align-content: start;
+  border-left-width: 5px;
+}
+
+.card--table .card-header {
+  grid-area: header;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  padding: 8px 12px 7px;
+  column-gap: 10px;
+}
+
+.card--table .card-avatar {
+  grid-row: 1 / -1;
+}
+
+.card--table .card-name {
+  grid-row: 1;
+  font-size: 15px;
+}
+
+.card--table .card-subtitle {
+  grid-row: 2;
+  font-size: 10px;
+}
+
+.card--table .card-cost {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: end;
+  font-size: 15px;
+}
+
+/* Quality/Defense/Tough no centro do cabeçalho, entre o nome e os pontos. */
+.card--table .card-header .stats {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.card--table .card-header .stat {
+  flex: 0 0 auto;
+  min-width: 15mm;
+  padding: 2px 6px;
+}
+
+.card--table .card-header .stat-label {
+  font-size: 8px;
+}
+
+.card--table .card-header .stat-value {
+  font-size: 15px;
+}
+
+.card--table .section-title {
+  display: block;
+  margin: 0;
+  padding: 4px 12px 3px;
+  color: var(--accent-ink-2);
+  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.card--table .section-title--rules {
+  grid-area: rules-title;
+  border-right: 1px solid var(--paper-line);
+}
+
+.card--table .section-title--weapons {
+  grid-area: weapons-title;
+}
+
+.card--table .rules-container {
+  grid-area: rules;
+  padding: 5px 12px 8px;
+  font-size: 10px;
+  line-height: 1.4;
+  border-right: 1px solid var(--paper-line);
+}
+
+.card--table .rule-pill {
+  font-size: inherit;
+}
+
+.card--table .weapons-container {
+  grid-area: weapons;
+  padding: 0 12px 9px;
+}
+
+.card--table .weapons-table {
+  font-size: 10px;
+}
+
+.card--table .weapons-table th {
+  padding: 5px 6px;
+  font-size: 8.5px;
+}
+
+.card--table .weapons-table td {
+  padding: 3px 6px;
+}
+
+.card--table .weapons-table .w-name {
+  width: 30%;
+}
+
+.card--table .weapons-table .w-num {
+  width: 12mm;
+}
+
+.card--table .muted {
+  padding-left: 12px;
+  font-size: 10px;
+}
+
+.card--table .card-notes {
+  grid-area: notes;
+  padding: 6px 12px;
+  font-size: 9px;
+}
+
+/* Em telas estreitas as duas colunas internas não cabem: regras e armas
+   voltam a ser empilhadas, como no Classic. */
+@media screen and (max-width: 720px) {
+  .card--table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card--table .card-header .stats {
+    grid-column: 2 / -1;
+    grid-row: 3;
+    align-self: end;
+    justify-self: stretch;
+    justify-content: flex-start;
+    margin-top: 5px;
+  }
+
+  .card--table .section-title--rules,
+  .card--table .rules-container {
+    border-right: 0;
+  }
+
+  .card--table .section-title--weapons {
+    margin-top: 2px;
+  }
+}
+
+/* ---------- Design Tabela: roster compacto ---------- */
+/* Uma linha curta por unidade, com um cabeçalho único acima das linhas. É a
+   versão "lista de exército": nome/pontos, Qua, Def, Tough, armas e regras
+   lado a lado, sem repetir títulos de seção em cada unidade. Só as linhas de
+   heróis recebem fundo; as demais ficam limpas. */
+body.card-layout-table .cards--roster {
+  --roster-cols: minmax(0, 2.6fr) 12mm 12mm 13mm minmax(0, 3fr) minmax(0, 3.1fr);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.cards--roster .roster-head {
+  display: grid;
+  grid-template-columns: var(--roster-cols);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--c2) 15%, var(--paper-surface));
+  border: 1px solid var(--paper-line);
+  border-left: 4px solid var(--paper-line);
+  border-radius: 8px 8px 0 0;
+  break-after: avoid;
+}
+
+.roster-head-cell {
+  padding: 4px 8px;
+  color: var(--accent-ink-2);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.roster-head--qua,
+.roster-head--def,
+.roster-head--tough {
+  text-align: center;
+}
+
+/* Os heróis já vêm primeiro na ordem dos grupos; no roster o cabeçalho precisa
+   continuar sendo o primeiro item do grid. */
+.cards--roster .card-wrapper:has(.card--hero) {
+  order: 0;
+}
+
+.cards--roster .card-wrapper {
+  width: 100%;
+}
+
+.cards--roster .card--roster {
+  display: grid;
+  grid-template-columns: var(--roster-cols);
+  grid-template-areas: "unit qua def tough weapons rules";
+  align-content: stretch;
+  align-items: stretch;
+  width: 100%;
+  border-top: 0;
+  border-left-width: 4px;
+  border-radius: 0;
+  box-shadow: none;
+  break-inside: avoid;
+}
+
+.cards--roster .card--roster.card--hero {
+  background: color-mix(in srgb, var(--c1) 14%, var(--paper-surface));
+}
+
+.cards--roster .card-wrapper:last-of-type .card--roster {
+  border-radius: 0 0 8px 8px;
+}
+
+@media screen {
+  .cards--roster .card-wrapper:hover .card--roster {
+    transform: none;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-ink-2) 40%, transparent);
+  }
+}
+
+/* Coluna Unidade: nome ocupa a linha toda; subtítulo e pontos dividem a
+   segunda linha. Assim nomes longos não são espremidos pelos pontos. */
+.cards--roster .card--roster .card-header {
+  grid-area: unit;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "avatar name name"
+    "avatar sub cost"
+    "avatar joined joined";
+  align-content: center;
+  align-items: center;
+  column-gap: 7px;
+  row-gap: 1px;
+  min-width: 0;
+  padding: 4px 8px 4px 7px;
+  background: transparent;
+}
+
+.cards--roster .card--roster .card-avatar {
+  grid-area: avatar;
+  align-self: center;
+  width: 26px;
+  height: 26px;
+  border-width: 1px;
+}
+
+.cards--roster .card--roster .card-name {
+  grid-area: name;
+  font-size: 11px;
+  line-height: 1.15;
+}
+
+.cards--roster .card--roster .card-cost {
+  grid-area: cost;
+  align-self: end;
+  justify-self: end;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.cards--roster .card--roster .card-subtitle {
+  grid-area: sub;
+  margin: 0;
+  color: var(--paper-muted);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.cards--roster .card--roster .card-joined {
+  grid-area: joined;
+  margin: 1px 0 0;
+  font-size: 8px;
+}
+
+.cards--roster .card--roster .hero-badge,
+.cards--roster .card--roster .combined-badge {
+  padding: 0 3px;
+  font-size: 6px;
+}
+
+/* Qua, Def e Tough: colunas fixas e estreitas. */
+.cards--roster .card--roster .roster-stat {
+  display: flex;
+  flex: initial;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-width: 0;
+  padding: 3px 4px;
+  background: transparent;
+  border-left: 1px solid var(--paper-line);
+  text-align: center;
+}
+
+.cards--roster .card--roster .roster-stat--qua {
+  grid-area: qua;
+}
+
+.cards--roster .card--roster .roster-stat--def {
+  grid-area: def;
+}
+
+.cards--roster .card--roster .roster-stat--tough {
+  grid-area: tough;
+}
+
+.cards--roster .card--roster .roster-stat-label {
+  color: var(--paper-muted);
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.cards--roster .card--roster .roster-stat-value {
+  color: var(--paper-ink);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+/* Armas e regras: texto corrido e compacto, sem tabela interna. */
+.cards--roster .card--roster .roster-cell {
+  min-width: 0;
+  padding: 4px 8px;
+  border-left: 1px solid var(--paper-line);
+  font-size: 8.5px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.cards--roster .card--roster .roster-cell--weapons {
+  grid-area: weapons;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+}
+
+.cards--roster .card--roster .roster-cell--rules {
+  grid-area: rules;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.roster-qty {
+  font-weight: 800;
+}
+
+.cards--roster .card--roster .roster-cell .rules-container {
+  padding: 0;
+  border: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.cards--roster .card--roster .roster-cell .rule-pill {
+  font-size: inherit;
+}
+
+.cards--roster .card--roster .muted {
+  padding: 0;
+  font-size: inherit;
+}
+
+.cards--roster .card--roster .card-notes {
+  grid-area: auto;
+  grid-column: 1 / -1;
+  padding: 3px 8px 4px;
+  border-top: 1px solid var(--paper-line);
+  font-size: 8px;
+}
+
+/* Em telas estreitas, o cabeçalho compartilhado some e cada linha se organiza
+   em três faixas: unidade; Qua/Def/Tough/armas; regras. */
+@media screen and (max-width: 720px) {
+  body.card-layout-table .cards--roster {
+    --roster-cols: 12mm 12mm 12mm minmax(0, 1fr);
+  }
+
+  .cards--roster .roster-head {
+    display: none;
+  }
+
+  .cards--roster .card--roster {
+    grid-template-columns: var(--roster-cols);
+    grid-template-areas:
+      "unit unit unit unit"
+      "qua def tough weapons"
+      "rules rules rules rules";
+  }
+
+  .cards--roster .card--roster .card-header {
+    border-bottom: 1px solid var(--paper-line);
+  }
+
+  .cards--roster .card--roster .roster-cell--weapons {
+    border-top: 1px solid var(--paper-line);
+  }
+
+  .cards--roster .card--roster .roster-cell--rules {
+    border-top: 1px solid var(--paper-line);
+  }
+
+  .cards--roster .card--roster .roster-cell--weapons::before,
+  .cards--roster .card--roster .roster-cell--rules::before {
+    content: attr(data-label);
+    margin-bottom: 1px;
+    color: var(--paper-muted);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .cards--roster .card--roster .card-notes {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Melhor legibilidade apenas na prévia escura. A impressão conserva as cores
    claras e o contraste definidos nas regras-base da moldura. */
 @media screen {
@@ -2321,6 +2780,198 @@ body.card-layout-tcg .cards {
 
   body.print-grayscale .card-back {
     filter: grayscale(1);
+  }
+}
+
+/* Design Tabela na impressão: uma unidade por linha, usando toda a largura
+   útil da folha (A4 ou Letter). */
+@media print {
+  body.card-layout-table .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4mm;
+  }
+
+  body.card-layout-table .card-wrapper {
+    width: 100%;
+  }
+
+  .card--table {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    break-inside: avoid;
+  }
+
+  .card--table .card-header {
+    padding: 2mm 3mm 1.6mm;
+    column-gap: 2.5mm;
+  }
+
+  .card--table .card-header .stats {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    justify-self: center;
+    justify-content: center;
+    margin: 0;
+    gap: 1mm;
+  }
+
+  .card--table .card-header .stat {
+    flex: 0 0 auto;
+    min-width: 13mm;
+    max-width: none;
+    padding: 0.5mm 1.6mm;
+  }
+
+  .card--table .card-header .stat-label {
+    font-size: 6.4pt;
+  }
+
+  .card--table .card-header .stat-value {
+    font-size: 10pt;
+  }
+
+  /* Sem imagem a carta imprime só três colunas (nome + status + custo). */
+  .card--table:not(.card--has-image) .card-header {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .card--table:not(.card--has-image) .card-name,
+  .card--table:not(.card--has-image) .card-subtitle {
+    grid-column: 1;
+  }
+
+  .card--table:not(.card--has-image) .card-header .stats {
+    grid-column: 2;
+  }
+
+  .card--table:not(.card--has-image) .card-cost {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  .card--table .section-title {
+    padding: 1mm 3mm 0.8mm;
+    font-size: 6.5pt;
+  }
+
+  .card--table .rules-container {
+    padding: 1.2mm 3mm 1.8mm;
+    font-size: 7.2pt;
+  }
+
+  .card--table .weapons-container {
+    padding: 0 3mm 2.2mm;
+  }
+
+  .card--table .weapons-table {
+    font-size: 7.2pt;
+  }
+
+  .card--table .weapons-table th {
+    padding: 1.2mm 1.5mm;
+    font-size: 6.2pt;
+  }
+
+  .card--table .weapons-table td {
+    padding: 0.8mm 1.5mm;
+  }
+
+  .card--table .card-notes {
+    padding: 1.5mm 3mm;
+    font-size: 6.8pt;
+  }
+}
+
+/* Design Tabela (roster) na impressão: mesmas colunas da tela, em escala de
+   folha. Cada linha é curta o bastante para caber várias por página. */
+@media print {
+  body.card-layout-table .cards--roster {
+    --roster-cols: minmax(0, 2.7fr) 11mm 11mm 12mm minmax(0, 3fr) minmax(0, 3.1fr);
+    gap: 0;
+  }
+
+  .cards--roster .roster-head {
+    border-radius: 2mm 2mm 0 0;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    break-after: avoid;
+  }
+
+  .roster-head-cell {
+    padding: 0.8mm 2mm;
+    font-size: 5.6pt;
+  }
+
+  .cards--roster .card-wrapper {
+    width: 100%;
+    break-inside: avoid;
+  }
+
+  .cards--roster .card--roster {
+    border-top: 0;
+    break-inside: avoid;
+  }
+
+  .cards--roster .card-wrapper:last-of-type .card--roster {
+    border-radius: 0 0 2mm 2mm;
+  }
+
+  .cards--roster .card--roster .card-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "avatar name name"
+      "avatar sub cost"
+      "avatar joined joined";
+    column-gap: 1.5mm;
+    padding: 0.9mm 2mm;
+  }
+
+  .cards--roster .card--roster .card-avatar {
+    width: 6mm;
+    height: 6mm;
+  }
+
+  .cards--roster .card--roster .card-name {
+    grid-area: name;
+    font-size: 7.2pt;
+  }
+
+  .cards--roster .card--roster .card-cost {
+    grid-area: cost;
+    font-size: 7pt;
+  }
+
+  .cards--roster .card--roster .card-subtitle {
+    grid-area: sub;
+    font-size: 5.8pt;
+  }
+
+  .cards--roster .card--roster .card-joined {
+    grid-area: joined;
+    font-size: 5.8pt;
+  }
+
+  .cards--roster .card--roster .roster-stat {
+    padding: 0.8mm 1mm;
+  }
+
+  .cards--roster .card--roster .roster-stat-label {
+    font-size: 5pt;
+  }
+
+  .cards--roster .card--roster .roster-stat-value {
+    font-size: 8pt;
+  }
+
+  .cards--roster .card--roster .roster-cell {
+    padding: 0.9mm 2mm;
+    font-size: 6.4pt;
+    line-height: 1.2;
+  }
+
+  .cards--roster .card--roster .card-notes {
+    padding: 0.8mm 2mm;
+    font-size: 5.8pt;
   }
 }
 

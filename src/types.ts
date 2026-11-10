@@ -1,6 +1,11 @@
 // Shared shape of the Army Forge payload returned by the relay (api/). These
 // mirror the fields the front-end actually reads; the relay may include more.
 
+// How the cards are laid out. "classic" is the compact two-column layout;
+// "tcg" is the fixed 63.5 × 88 mm collectible frame; "table" is a wide,
+// single-column version of the classic sheet.
+export type CardDesign = 'classic' | 'tcg' | 'table';
+
 export interface WeaponSpecialRule {
   type: string;
   id: string;

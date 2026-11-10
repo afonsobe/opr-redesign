@@ -1,6 +1,6 @@
 import Localbase from 'localbase';
 
-import type { ArmyList } from './types';
+import type { ArmyList, CardDesign } from './types';
 
 // The per-army display/print toggles, persisted so loading a saved list restores
 // exactly how the user had it set up (e.g. "Combine similar units") rather than
@@ -8,7 +8,7 @@ import type { ArmyList } from './types';
 export interface ListSettings {
   combineSimilar: boolean;
   useCustomNames: boolean;
-  cardDesign?: 'classic' | 'tcg';
+  cardDesign?: CardDesign;
   includeCards: boolean;
   includeRules: boolean;
   includeSpells: boolean;

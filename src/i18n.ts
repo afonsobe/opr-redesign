@@ -27,6 +27,7 @@ const en = {
   'opt.customNames': 'Use custom unit names',
   'opt.combine': 'Combine similar units',
   'opt.cardDesign': 'Card design:',
+  'design.table': 'Table',
   'opt.cardBacks': 'Print card backs',
   'opt.cardBacksTitle':
     'Prints the game-system cover on the back of each card. The backs come on separate pages: print the fronts first, then flip the sheets.',
@@ -107,6 +108,12 @@ const en = {
   'table.cost': 'Cost',
   'table.spell': 'Spell',
   'table.effect': 'Effect',
+  'table.unit': 'Unit',
+  'table.qua': 'Qua',
+  'table.def': 'Def',
+  'table.tough': 'Tough',
+  'table.weapons': 'Weapons',
+  'table.rules': 'Rules',
   'stale.note':
     '† Outdated translation — the English text changed on Army Forge; the translation shown is the previous one.',
   'fo.pointsLimit': 'Points limit exceeded: {current}/{limit}',
@@ -145,10 +152,10 @@ const en = {
 
   'faq.title': 'FAQ — How to use OPR Card Generator - Redesign',
   'faq.callout':
-    '<strong>Read this first:</strong> your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. A list that was never shared cannot be read and will fail to load.',
+    '<strong>Read this first:</strong> your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. If you update the list in Army Forge, click <strong>“Share as Link”</strong> again so the card generator can pick up the current values. A list that was never shared cannot be read and will fail to load.',
   'faq.lead': 'Read this first:',
   'faq.leadSuffix':
-    ' your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. A list that was never shared cannot be read and will fail to load.',
+    ' your list only loads if you shared it in Army Forge. Open your army there, click <strong>“Share as Link”</strong>, and paste that link (or its list ID) here. If you update the list in Army Forge, click <strong>“Share as Link”</strong> again so the card generator can pick up the current values. A list that was never shared cannot be read and will fail to load.',
   'faq.generateQ': 'How do I generate cards?',
   'faq.generateA':
     'In Army Forge, open your army and click <strong>“Share as Link”</strong>. Copy the link it gives you, paste it into the box on the Home page (the bare list ID also works), and click <strong>Generate Cards</strong>. If you’ve loaded that list before, it opens instantly from your saved copy — no download needed.',
@@ -250,6 +257,7 @@ const ptBR: Record<Key, string> = {
   'opt.customNames': 'Usar nomes personalizados das unidades',
   'opt.combine': 'Combinar unidades iguais',
   'opt.cardDesign': 'Design das cartas:',
+  'design.table': 'Tabela',
   'opt.cardBacks': 'Imprimir o verso das cartas',
   'opt.cardBacksTitle':
     'Imprime a capa do sistema no verso de cada carta. Os versos saem em páginas separadas: imprima as frentes primeiro e depois vire as folhas.',
@@ -330,6 +338,12 @@ const ptBR: Record<Key, string> = {
   'table.cost': 'Custo',
   'table.spell': 'Magia',
   'table.effect': 'Efeito',
+  'table.unit': 'Unidade',
+  'table.qua': 'Qua',
+  'table.def': 'Def',
+  'table.tough': 'Res',
+  'table.weapons': 'Armas',
+  'table.rules': 'Regras',
   'stale.note':
     '† Tradução desatualizada — o texto em inglês mudou no Army Forge; a tradução exibida é a anterior.',
   'fo.pointsLimit': 'Limite de pontos excedido: {current}/{limit}',
@@ -370,10 +384,10 @@ const ptBR: Record<Key, string> = {
 
   'faq.title': 'FAQ — Como usar o OPR Card Generator - Redesign',
   'faq.callout':
-    '<strong>Leia isso primeiro:</strong> sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
+    '<strong>Leia isso primeiro:</strong> sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Se você atualizar a lista no Army Forge, clique em <strong>“Share as Link”</strong> novamente para que o gerador de cartas consiga pegar os valores atuais. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
   'faq.lead': 'Leia isso primeiro:',
   'faq.leadSuffix':
-    ' sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
+    ' sua lista só carrega se você compartilhou no Army Forge. Abra seu exército lá, clique em <strong>“Share as Link”</strong> e cole esse link (ou seu ID de lista) aqui. Se você atualizar a lista no Army Forge, clique em <strong>“Share as Link”</strong> novamente para que o gerador de cartas consiga pegar os valores atuais. Uma lista que nunca foi compartilhada não pode ser lida e vai falhar ao carregar.',
   'faq.generateQ': 'Como gero as cartas?',
   'faq.generateA':
     'No Army Forge, abra seu exército e clique em <strong>“Share as Link”</strong>. Copie o link, cole na caixa da página inicial (o ID bruto da lista também funciona) e clique em <strong>Gerar cartas</strong>. Se você já carregou essa lista antes, ela abre na hora a partir da sua cópia salva — sem precisar baixar de novo.',
