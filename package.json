@@ -6,7 +6,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html --dist-dir docs --public-url ./",
+    "build": "parcel build index.html --dist-dir docs --public-url ./ --no-source-maps",
     "typecheck": "tsc --noEmit",
     "typecheck:functions": "tsc --noEmit --project netlify/tsconfig.json",
     "api": "npm --prefix api run dev",
