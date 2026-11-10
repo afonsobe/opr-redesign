@@ -1699,6 +1699,59 @@ export function renderCards(
   return units.length;
 }
 
+// Capas oficiais do Army Forge (a mesma arte da home do app). O Army Forge não
+// expõe esses arquivos pela API, então o mapa é fixo; a chave é o código do
+// sistema e o valor é o prefixo do arquivo em army-forge.opr-cdn.com/app.
+const CARD_BACK_COVERS: Record<string, string> = {
+  gf: 'gf',
+  gff: 'gff',
+  aof: 'aof',
+  aofs: 'aofs',
+  aofr: 'aofr',
+  ftl: 'ftl',
+  gfwf: 'ftl',
+};
+
+// Escolhe a capa pelo slug do sistema (mais confiável que o código em listas
+// antigas) e cai para o código quando o slug não é reconhecido.
+function cardBackCode(army: ArmyList): string {
+  const slug = (army.gameSystemSlug || '').toLowerCase();
+  if (slug.includes('warfleet')) return 'ftl';
+  if (slug.startsWith('grimdark-future-firefight')) return 'gff';
+  if (slug.startsWith('grimdark-future')) return 'gf';
+  if (slug.startsWith('age-of-fantasy-skirmish')) return 'aofs';
+  if (slug.startsWith('age-of-fantasy-regiments')) return 'aofr';
+  if (slug.startsWith('age-of-fantasy')) return 'aof';
+
+  const code = (army.gameSystem || '').toLowerCase();
+  return CARD_BACK_COVERS[code] ?? 'gf';
+}
+
+function cardBackImageFor(army: ArmyList): string {
+  return `https://army-forge.opr-cdn.com/app/${cardBackCode(army)}_cover.jpg`;
+}
+
+/**
+ * Desenha o verso das cartas no modo Standard: uma capa do sistema por carta
+ * visível, na mesma ordem e na mesma quantidade, para que a impressão em
+ * duplex (frentes e depois versos) alinhe carta a carta.
+ */
+export function renderCardBacks(container: HTMLElement, army: ArmyList, count: number): void {
+  container.replaceChildren();
+
+  const total = Math.max(0, Math.floor(count));
+  if (total === 0) return;
+
+  const image = cardBackImageFor(army);
+  for (let index = 0; index < total; index += 1) {
+    const back = document.createElement('div');
+    back.className = 'card-back';
+    back.style.backgroundImage = `url("${image}")`;
+    back.setAttribute('aria-hidden', 'true');
+    container.appendChild(back);
+  }
+}
+
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -1818,6 +1871,80 @@ function createArmyHeaderCell(army: ArmyList, colSpan: number): HTMLTableCellEle
   return cell;
 }
 
+// --- Textos de Force Org (army.forceOrgErrors, vindos do /tts) -------------
+// O Army Forge devolve frases em inglês com parâmetros (quantidades, faixas
+// de pontos, nomes de unidades). As mensagens abaixo cobrem todas as frases
+// geradas pela validação do Army Forge (exércitos e frotas). Nomes de
+// unidades/naves ficam em inglês; o resto segue o idioma da interface. Se
+// aparecer uma frase nova, cai no aviso genérico de Force Org.
+function translateForceOrgError(message: string): string {
+  const text = message.trim();
+
+  const points = text.match(/^Points limit exceeded: (\d+)\/(\d+)$/);
+  if (points) return t('fo.pointsLimit', { current: points[1] ?? '', limit: points[2] ?? '' });
+
+  const heroes = text.match(/^Max 1 Hero per full (\d+)pts\.$/);
+  if (heroes) return t('fo.heroes', { n: heroes[1] ?? '' });
+
+  const unitsCombined = text.match(/^Max 1 unit per full (\d+)pts \(combined units count as just 1 unit\)\.$/);
+  if (unitsCombined) return t('fo.unitsCombined', { n: unitsCombined[1] ?? '' });
+
+  const units = text.match(/^Max 1 unit per full (\d+)pts\.$/);
+  if (units) return t('fo.units', { n: units[1] ?? '' });
+
+  const copies = text.match(/^Cannot have more than (\d+) copies of a particular unit \((.*)\)\.?$/);
+  if (copies) return t('fo.copies', { n: copies[1] ?? '', name: copies[2] ?? '' });
+
+  const unitPoints = text.match(/^May not bring any single unit worth more than 35% of total points \((\d+)pts\)\.$/);
+  if (unitPoints) return t('fo.maxUnitPoints', { pts: unitPoints[1] ?? '' });
+
+  if (/^Cannot combine units of unit size \[1\]\.$/.test(text)) return t('fo.cannotCombine');
+  if (/^Heroes cannot join units that only contain a single model\.$/.test(text)) return t('fo.heroSingleModel');
+  if (/^A unit can only have a maximum of one Hero attached\.$/.test(text)) return t('fo.heroAttached');
+
+  const maxModels = text.match(
+    /^Max 1 model per full (\d+)pts\. Maximum valid number of models is (\d+), current total is (\d+)\.$/,
+  );
+  if (maxModels) {
+    return t('fo.maxModels', { n: maxModels[1] ?? '', max: maxModels[2] ?? '', cur: maxModels[3] ?? '' });
+  }
+
+  const maxTough = text.match(/^Max (Models\/)?Tough is (\d+), current total is (\d+)\.$/);
+  if (maxTough) {
+    const key = maxTough[1] ? 'fo.maxToughModels' : 'fo.maxTough';
+    return t(key, { max: maxTough[2] ?? '', cur: maxTough[3] ?? '' });
+  }
+
+  if (/^Max 1 of the following upgrades per army \(not one of each!\): Sergeant, Musician or Banner\.$/.test(text)) {
+    return t('fo.upgrades');
+  }
+
+  const unique = text.match(/^(.+) is a Unique unit and may only be taken once per army\.$/);
+  if (unique) return t('fo.unique', { name: unique[1] ?? '' });
+
+  // Frotas (Grimdark Future: Warfleets)
+  const slots = text.match(/^(.+) only has (\d+) slots filled out of (\d+)\.$/);
+  if (slots) return t('fo.slots', { name: slots[1] ?? '', n: slots[2] ?? '', total: slots[3] ?? '' });
+
+  const fleetHeroes = text.match(/^Players may only bring up to 1 hero per (\d+)pts in their fleet$/);
+  if (fleetHeroes) return t('fo.fleetHeroes', { n: fleetHeroes[1] ?? '' });
+
+  const fleetDuplicates = text.match(
+    /^Players may only bring X copies of the same ship, where X is 1 per (\d+)pts in their fleet$/,
+  );
+  if (fleetDuplicates) return t('fo.fleetDuplicates', { n: fleetDuplicates[1] ?? '' });
+
+  const fleetShips = text.match(/^Fleets may only have max\. of 1 ship per (\d+)pts\.$/);
+  if (fleetShips) return t('fo.fleetShips', { n: fleetShips[1] ?? '' });
+
+  const fleetSquadrons = text.match(
+    /^Fleets may only have max\. as many squadrons as total upgrades across all ships (\d+)\.$/,
+  );
+  if (fleetSquadrons) return t('fo.fleetSquadrons', { n: fleetSquadrons[1] ?? '' });
+
+  return t('summary.forceOrgWarning');
+}
+
 // On-screen summary shown beneath the print options. Repeats the army name and
 // info line so it stays visible while scrolling through many cards. Marked
 // no-print so it never appears on the printed sheet.
@@ -1862,7 +1989,7 @@ export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
   if (forceOrgErrors.length > 0) {
     const warning = document.createElement('div');
     warning.className = 'army-force-org-warning';
-    warning.textContent = forceOrgErrors.map((message) => `⚠ ${message}`).join(' ');
+    warning.textContent = forceOrgErrors.map((message) => `⚠ ${translateForceOrgError(message)}`).join(' ');
     details.append(warning);
   }
 }

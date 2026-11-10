@@ -3,6 +3,22 @@
     "date": "November 9, 2026",
     "datePtBR": "9 de novembro de 2026",
     "items": [
+      "**Card backs are now available in the Standard design:** enable **Print card backs** in Customization to print the official art of your game system behind every card. Backs mirror the visible cards one to one, print on their own pages after the fronts (nothing else shares the sheet), keep the same 3 × 3 grid, and follow the grayscale option.",
+      "**Force Org warnings are now translated:** every validation message from Army Forge (points limit, heroes, copies, slots, Tough limits, Warfleets fleet rules and more) appears in the interface language, while unit and ship names stay in English.",
+      "**Printing now works on both A4 and US Letter:** the print layout uses the paper size selected in the browser with 6 mm margins, so the 3 × 3 card grid fits on both without changing any setting.",
+      "**Fixed false † markers on rules that mention `this weapon`:** Army Forge rewrites the quote to `this weapon/spell` in some rules; the two forms now count as the same text, so up-to-date translations no longer show the outdated marker."
+    ],
+    "itemsPtBR": [
+      "**O verso das cartas agora está disponível no design Standard:** ative **Imprimir o verso das cartas** em Personalização para imprimir a arte oficial do seu sistema atrás de cada carta. Os versos espelham as cartas visíveis uma a uma, saem em páginas próprias depois das frentes (nada mais divide a folha), mantêm a mesma grade 3 × 3 e acompanham a opção de escala de cinza.",
+      "**Avisos de Force Org agora são traduzidos:** todas as mensagens de validação do Army Forge (limite de pontos, heróis, cópias, espaços, limites de Resistência, regras de frota do Warfleets e mais) aparecem no idioma da interface, enquanto nomes de unidades e naves continuam em inglês.",
+      "**A impressão agora funciona tanto em A4 quanto em US Letter:** o layout de impressão usa o tamanho de papel escolhido no navegador com margens de 6 mm, então a grade 3 × 3 de cartas cabe nos dois sem mudar nenhuma configuração.",
+      "**Correção de marcadores † falsos em regras que citam `this weapon`:** o Army Forge reescreve a citação para `this weapon/spell` em algumas regras; as duas formas agora contam como o mesmo texto, então traduções atualizadas não mostram mais o marcador de desatualizada."
+    ]
+  },
+  {
+    "date": "November 9, 2026",
+    "datePtBR": "9 de novembro de 2026",
+    "items": [
       "**Warfleets lists now load and render as ship cards:** Grimdark Future Warfleets (`ftl`) lists show ship cards in both designs (move/cruise/evade/tough stats), the always-present base turret line, selected weapons, heroes, titles, systems and special rules — translated where the pt-BR dictionary covers them.",
       "**pt-BR dictionary now covers all 41 Age of Fantasy: Regiments army books from Army Forge:** 390 special rules, 1,272 weapons, 189 spells and 744 upgrade items translated, including the Regiments-only rule texts (front rows, table edges, in-any-direction spells) with per-system translations.",
       "**pt-BR dictionary now covers all 18 Grimdark Future Warfleets books from Army Forge:** 384 special rules and 145 weapons translated with a naval glossary (ships, squadrons, turrets, facing, ramming, cruise), reusing identical English texts only.",

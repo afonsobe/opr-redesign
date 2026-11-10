@@ -134,6 +134,10 @@
                   <button type="button" class="card-design-button" data-card-design="tcg" aria-pressed="false">Standard</button>
                 </div>
               </div>
+              <label class="card-backs-option" id="card-backs-option" data-i18n-title="opt.cardBacksTitle">
+                <input type="checkbox" id="optCardBacks">
+                <span data-i18n="opt.cardBacks">Print card backs</span>
+              </label>
               <div id="avatar-size-slot"></div>
             </div>
             <div class="customization-palette-column">
@@ -151,6 +155,14 @@
       <div id="army-summary" class="army-summary no-print"></div>
 
       <div id="cards" class="cards" aria-live="polite"></div>
+      <div id="card-backs-section" class="card-backs-section">
+        <div id="card-backs-summary" class="army-summary card-backs-summary"></div>
+        <div class="card-backs-heading">
+          <span class="card-backs-title" data-i18n="cardBacks.title">Card backs</span>
+          <span class="card-backs-hint" data-i18n="cardBacks.hint">Printed on separate pages — print the fronts first, then flip the sheets.</span>
+        </div>
+        <div id="card-backs" class="card-backs"></div>
+      </div>
       <div id="special-rules" class="special-rules-section"></div>
       <div id="spells" class="special-rules-section"></div>
 

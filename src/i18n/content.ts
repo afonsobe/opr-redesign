@@ -155,8 +155,11 @@ function active(): boolean {
 // (palavra, pontuação, acento) marca a tradução como desatualizada: o site
 // mostra a tradução do dicionário com um † no final (o símbolo é explicado
 // logo abaixo do título de cada tabela).
+// Exceção: o relay reescreve "this weapon" -> "this weapon/spell" nas regras
+// citadas por magias (igual ao Army Forge), então as duas formas contam
+// como o mesmo texto para fins de trava.
 function norm(value: string | undefined | null): string {
-  return (value ?? '').trim();
+  return (value ?? '').trim().replace(/\bthis weapon\/spell\b/g, 'this weapon');
 }
 
 // Símbolo de nota de rodapé usado quando o texto atual da API não bate com a

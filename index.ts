@@ -12,6 +12,7 @@ import {
 import {
   createAvatarSizeControl,
   renderArmySummary,
+  renderCardBacks,
   renderCards,
   renderSpecialRulesTable,
   renderSpellsTable,
@@ -52,6 +53,9 @@ const customPaletteC2Input = document.getElementById('paletteCustomC2') as HTMLI
 const combineUnitsCheckbox = document.getElementById('optCombine') as HTMLInputElement | null;
 const customNamesCheckbox = document.getElementById('optCustomName') as HTMLInputElement | null;
 const cardDesignButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-card-design]'));
+const cardBacksCheckbox = document.getElementById('optCardBacks') as HTMLInputElement | null;
+const cardBacksContainer = document.getElementById('card-backs') as HTMLElement | null;
+const cardBacksSummary = document.getElementById('card-backs-summary') as HTMLElement | null;
 const specialRulesSection = document.getElementById('special-rules');
 const spellsSection = document.getElementById('spells');
 const armySummarySection = document.getElementById('army-summary');
@@ -94,8 +98,27 @@ function setCardDesign(design: 'classic' | 'tcg'): void {
     button.setAttribute('aria-pressed', selected.toString());
   }
   document.body.classList.toggle('card-layout-tcg', design === 'tcg');
+  refreshCardBacks();
 }
 setCardDesign('classic');
+
+// Card backs only exist in the Standard design and only when the option is on.
+// They mirror the visible cards 1:1, so combined units keep their pairing.
+function refreshCardBacks(): void {
+  const enabled = getCardDesign() === 'tcg' && (cardBacksCheckbox?.checked ?? false);
+  document.body.classList.toggle('has-card-backs', enabled);
+  if (!cardBacksContainer) return;
+  if (!enabled || !currentArmy) {
+    cardBacksContainer.replaceChildren();
+    cardBacksSummary?.replaceChildren();
+    return;
+  }
+  const count = cardsContainer.querySelectorAll('.card').length;
+  renderCardBacks(cardBacksContainer, currentArmy, count);
+  // Espelha o resumo do topo da primeira página para que as frentes e os
+  // versos tenham a mesma altura útil e as páginas casem no duplex.
+  if (cardBacksSummary) renderArmySummary(cardBacksSummary, currentArmy);
+}
 
 // Seletor de paleta, criado aqui e colocado junto das opções de impressão.
 const paletteSelect = document.createElement('select');
@@ -263,6 +286,7 @@ const DEFAULT_SETTINGS: ListSettings = {
   includeRules: true,
   includeSpells: true,
   printGrayscale: false,
+  printCardBacks: false,
 };
 
 function getCurrentSettings(): ListSettings {
@@ -274,6 +298,7 @@ function getCurrentSettings(): ListSettings {
     includeRules: includeRulesCheckbox?.checked ?? DEFAULT_SETTINGS.includeRules,
     includeSpells: includeSpellsCheckbox?.checked ?? DEFAULT_SETTINGS.includeSpells,
     printGrayscale: grayscaleCheckbox?.checked ?? DEFAULT_SETTINGS.printGrayscale,
+    printCardBacks: cardBacksCheckbox?.checked ?? DEFAULT_SETTINGS.printCardBacks,
   };
 }
 
@@ -284,6 +309,7 @@ function applySettings(settings?: ListSettings): void {
   const resolved = settings ?? DEFAULT_SETTINGS;
   if (combineUnitsCheckbox) combineUnitsCheckbox.checked = resolved.combineSimilar;
   if (customNamesCheckbox) customNamesCheckbox.checked = resolved.useCustomNames;
+  if (cardBacksCheckbox) cardBacksCheckbox.checked = resolved.printCardBacks ?? false;
   setCardDesign(resolved.cardDesign === 'tcg' ? 'tcg' : 'classic');
   if (includeCardsCheckbox) includeCardsCheckbox.checked = resolved.includeCards;
   if (includeRulesCheckbox) includeRulesCheckbox.checked = resolved.includeRules;
@@ -324,6 +350,8 @@ function setMessage(message: string, type: 'loading' | 'error' | 'empty' = 'empt
   setPrintControlsVisible(false);
   setDocumentTitle();
   cardsContainer.replaceChildren();
+  cardBacksContainer?.replaceChildren();
+  document.body.classList.remove('has-card-backs');
   armySummarySection?.replaceChildren();
   specialRulesSection?.replaceChildren();
   spellsSection?.replaceChildren();
@@ -363,6 +391,7 @@ function displayArmy(army: ArmyList, input: string): void {
   } else {
     setDocumentTitle(army.gameSystem ? `${army.gameSystem.toUpperCase()} - ${army.name}` : army.name);
     setPrintControlsVisible(true);
+    refreshCardBacks();
   }
 
   if (armySummarySection) renderArmySummary(armySummarySection, army);
@@ -509,6 +538,7 @@ const reRenderCards = (): void => {
       customNamesCheckbox?.checked ?? false,
       getCardDesign(),
     );
+    refreshCardBacks();
   }
 };
 const onCardOptionChange = (): void => {
@@ -517,6 +547,10 @@ const onCardOptionChange = (): void => {
 };
 combineUnitsCheckbox?.addEventListener('change', onCardOptionChange);
 customNamesCheckbox?.addEventListener('change', onCardOptionChange);
+cardBacksCheckbox?.addEventListener('change', () => {
+  refreshCardBacks();
+  persistCurrentSettings();
+});
 for (const button of cardDesignButtons) {
   button.addEventListener('click', () => {
     setCardDesign(button.dataset.cardDesign === 'tcg' ? 'tcg' : 'classic');

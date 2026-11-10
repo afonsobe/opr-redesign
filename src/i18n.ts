@@ -27,6 +27,12 @@ const en = {
   'opt.customNames': 'Use custom unit names',
   'opt.combine': 'Combine similar units',
   'opt.cardDesign': 'Card design:',
+  'opt.cardBacks': 'Print card backs',
+  'opt.cardBacksTitle':
+    'Prints the game-system cover on the back of each card. The backs come on separate pages: print the fronts first, then flip the sheets.',
+  'cardBacks.title': 'Card backs',
+  'cardBacks.hint':
+    'Printed on separate pages — print the fronts first, then flip the sheets.',
   'opt.title': 'Options',
   'opt.customization': 'Customization',
   'opt.palette': 'Color palette:',
@@ -103,6 +109,29 @@ const en = {
   'table.effect': 'Effect',
   'stale.note':
     '† Outdated translation — the English text changed on Army Forge; the translation shown is the previous one.',
+  'fo.pointsLimit': 'Points limit exceeded: {current}/{limit}',
+  'fo.heroes': 'Max 1 Hero per full {n}pts.',
+  'fo.units': 'Max 1 unit per full {n}pts.',
+  'fo.unitsCombined': 'Max 1 unit per full {n}pts (combined units count as just 1 unit).',
+  'fo.copies': 'Cannot have more than {n} copies of a particular unit ({name}).',
+  'fo.maxUnitPoints': 'May not bring any single unit worth more than 35% of total points ({pts}pts).',
+  'fo.cannotCombine': 'Cannot combine units of unit size [1].',
+  'fo.heroSingleModel': 'Heroes cannot join units that only contain a single model.',
+  'fo.heroAttached': 'A unit can only have a maximum of one Hero attached.',
+  'fo.maxModels':
+    'Max 1 model per full {n}pts. Maximum valid number of models is {max}, current total is {cur}.',
+  'fo.maxToughModels': 'Max Models/Tough is {max}, current total is {cur}.',
+  'fo.maxTough': 'Max Tough is {max}, current total is {cur}.',
+  'fo.upgrades':
+    'Max 1 of the following upgrades per army (not one of each!): Sergeant, Musician or Banner.',
+  'fo.unique': '{name} is a Unique unit and may only be taken once per army.',
+  'fo.slots': '{name} only has {n} slots filled out of {total}.',
+  'fo.fleetHeroes': 'Players may only bring up to 1 hero per {n}pts in their fleet',
+  'fo.fleetDuplicates':
+    'Players may only bring X copies of the same ship, where X is 1 per {n}pts in their fleet',
+  'fo.fleetShips': 'Fleets may only have max. of 1 ship per {n}pts.',
+  'fo.fleetSquadrons':
+    'Fleets may only have max. as many squadrons as total upgrades across all ships {n}.',
 
   'img.add': 'Click to add an image',
   'img.drag': 'Drag to move · scroll to zoom',
@@ -221,6 +250,12 @@ const ptBR: Record<Key, string> = {
   'opt.customNames': 'Usar nomes personalizados das unidades',
   'opt.combine': 'Combinar unidades iguais',
   'opt.cardDesign': 'Design das cartas:',
+  'opt.cardBacks': 'Imprimir o verso das cartas',
+  'opt.cardBacksTitle':
+    'Imprime a capa do sistema no verso de cada carta. Os versos saem em páginas separadas: imprima as frentes primeiro e depois vire as folhas.',
+  'cardBacks.title': 'Verso das cartas',
+  'cardBacks.hint':
+    'Impressos em páginas separadas — imprima as frentes primeiro e depois vire as folhas.',
   'opt.title': 'Opções',
   'opt.customization': 'Personalização',
   'opt.palette': 'Paleta de cores:',
@@ -297,6 +332,31 @@ const ptBR: Record<Key, string> = {
   'table.effect': 'Efeito',
   'stale.note':
     '† Tradução desatualizada — o texto em inglês mudou no Army Forge; a tradução exibida é a anterior.',
+  'fo.pointsLimit': 'Limite de pontos excedido: {current}/{limit}',
+  'fo.heroes': 'Máx. 1 Herói por {n}pts completos.',
+  'fo.units': 'Máx. 1 unidade por {n}pts completos.',
+  'fo.unitsCombined':
+    'Máx. 1 unidade por {n}pts completos (unidades combinadas contam como apenas 1 unidade).',
+  'fo.copies': 'Não pode ter mais de {n} cópias de uma unidade específica ({name}).',
+  'fo.maxUnitPoints':
+    'Nenhuma unidade pode valer mais de 35% do total de pontos ({pts}pts).',
+  'fo.cannotCombine': 'Não é possível combinar unidades de tamanho [1].',
+  'fo.heroSingleModel': 'Heróis não podem se juntar a unidades com apenas um modelo.',
+  'fo.heroAttached': 'Uma unidade pode ter no máximo um Herói anexado.',
+  'fo.maxModels':
+    'Máx. 1 modelo por {n}pts completos. O número máximo válido de modelos é {max}; o total atual é {cur}.',
+  'fo.maxToughModels': 'Máx. de Resistência (Models/Tough) é {max}; o total atual é {cur}.',
+  'fo.maxTough': 'Resistência máxima é {max}; o total atual é {cur}.',
+  'fo.upgrades':
+    'Máx. 1 das seguintes melhorias por exército (não uma de cada!): Sergeant, Musician ou Banner.',
+  'fo.unique': '{name} é uma unidade Única e só pode ser escolhida uma vez por exército.',
+  'fo.slots': '{name} tem apenas {n} de {total} espaços preenchidos.',
+  'fo.fleetHeroes': 'Os jogadores só podem levar até 1 herói a cada {n}pts na frota',
+  'fo.fleetDuplicates':
+    'Os jogadores só podem levar X cópias da mesma nave, em que X é 1 a cada {n}pts na frota',
+  'fo.fleetShips': 'Frotas só podem ter no máximo 1 nave a cada {n}pts.',
+  'fo.fleetSquadrons':
+    'Frotas só podem ter no máximo tantos esquadrões quanto o total de melhorias em todas as naves ({n}).',
 
   'img.add': 'Clique para adicionar uma imagem',
   'img.drag': 'Arraste para mover · role para dar zoom',

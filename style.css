@@ -1529,12 +1529,12 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   }
 }
 
-/* ---------- Impressão: sempre folha clara, A4 ---------- */
+/* ---------- Impressão: sempre folha clara, A4 ou US Letter ---------- */
 
 @media print {
   @page {
-    size: A4;
-    margin: 9mm;
+    size: auto;
+    margin: 6mm;
   }
 
   * {
@@ -1567,6 +1567,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   }
 
   body.print-hide-cards .cards,
+  body.print-hide-cards .card-backs-section,
   body.print-hide-rules #special-rules,
   body.print-hide-spells #spells {
     display: none !important;
@@ -1874,6 +1875,89 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
 
 body.card-layout-tcg .avatar-size-bar {
   display: none;
+}
+
+/* Opção de verso: só faz sentido no design Standard. */
+.card-backs-option {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+body.card-layout-tcg .card-backs-option {
+  display: flex;
+}
+
+.card-backs-option:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+.card-backs-option input[type="checkbox"] {
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+
+/* Versos das cartas: espelham as cartas visíveis, uma capa por carta. */
+.card-backs-section {
+  display: none;
+}
+
+/* Espaçador invisível: replica a altura do resumo do exército na primeira
+   página dos versos, para que a grade caia nas mesmas posições das frentes. */
+.card-backs-section .card-backs-summary {
+  display: none !important;
+}
+
+body.has-card-backs .card-backs-section {
+  display: block;
+  margin-top: 26px;
+}
+
+.card-backs-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 10px;
+}
+
+.card-backs-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card-backs-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.card-backs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 63.5mm);
+  justify-content: center;
+  gap: 14px;
+  align-items: start;
+}
+
+.card-back {
+  width: 63.5mm;
+  height: 88mm;
+  border-radius: 3mm;
+  background-color: var(--surface-2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 2px 8px #17131844;
+  break-inside: avoid;
 }
 
 body.card-layout-tcg .cards {
@@ -2199,6 +2283,44 @@ body.card-layout-tcg .cards {
 
   .card--tcg:not(.card--has-image) .card-art {
     display: none !important;
+  }
+
+  /* Versos: páginas próprias, depois das frentes e antes das tabelas.
+     As quebras antes e depois isolam a seção, então nenhuma regra ou outro
+     conteúdo divide a folha com os versos. Mesma grade 3 × 3 para que as
+     folhas impressas coincidam carta a carta. */
+  body.has-card-backs .card-backs-section {
+    display: block;
+    margin: 0;
+    break-before: page;
+    break-after: page;
+  }
+
+  .card-backs-heading {
+    display: none;
+  }
+
+  /* Mesma altura do resumo da primeira página das frentes, sem imprimir nada. */
+  body.has-card-backs .card-backs-summary:not(:empty) {
+    display: flex !important;
+    visibility: hidden;
+  }
+
+  .card-backs {
+    grid-template-columns: repeat(3, 63.5mm);
+    justify-content: space-between;
+    gap: 0.75mm;
+  }
+
+  .card-back {
+    width: 63.5mm;
+    height: 88mm;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  body.print-grayscale .card-back {
+    filter: grayscale(1);
   }
 }
 
