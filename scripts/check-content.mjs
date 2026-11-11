@@ -20,12 +20,41 @@ import { resolve } from 'node:path';
 const API = 'https://army-forge.onepagerules.com/api';
 const GAME_SYSTEM_IDS = { gf: 2, gff: 3, aof: 4, aofs: 5, aofr: 6, gfwf: 11 };
 
-const args = { source: 'src/i18n/content.source.json', out: 'src/i18n/content.pt-BR.json' };
+const args = {
+  source: 'src/i18n/content.source.json',
+  out: 'src/i18n/content.pt-BR.json',
+  aliases: 'src/i18n/content.aliases.json',
+};
 for (let i = 0; i < process.argv.length; i += 1) {
   const key = process.argv[i];
   if (key === '--system') args.system = process.argv[++i];
   else if (key === '--source') args.source = process.argv[++i];
   else if (key === '--out') args.out = process.argv[++i];
+  else if (key === '--aliases') args.aliases = process.argv[++i];
+}
+
+// Nomes alternativos aceitos (content.aliases.json): o Army Forge manda nomes
+// diferentes para o mesmo weaponId em livros diferentes, e a comparação deve
+// tratar todos como equivalentes.
+async function loadAliases() {
+  try {
+    return JSON.parse(await readFile(resolve(args.aliases), 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+function applyWeaponAliases(systemAliases, sourceWeapons, currentWeapons) {
+  const byId = systemAliases?.weapons || {};
+  for (const [id, known] of Object.entries(byId)) {
+    const names = new Set(Object.keys(known || {}));
+    const sourceName = trimmed(sourceWeapons?.[id]?.name);
+    const current = currentWeapons.get(id);
+    if (!current || !sourceName) continue;
+    if (names.has(sourceName) && names.has(trimmed(current.name))) {
+      current.name = sourceName;
+    }
+  }
 }
 
 async function getJson(url) {
@@ -153,7 +182,15 @@ function compare(sourceMap, currentMap, fields) {
       continue;
     }
     const diff = fields.filter((field) => trimmed(src[field]) !== trimmed(cur[field]));
-    if (diff.length > 0) changed.push({ key, name: src.name || cur.name, fields: diff });
+    if (diff.length > 0) {
+      const from = {};
+      const to = {};
+      for (const field of diff) {
+        from[field] = trimmed(src[field]);
+        to[field] = trimmed(cur[field]);
+      }
+      changed.push({ key, name: src.name || cur.name, fields: diff, from, to });
+    }
   }
 
   for (const [key, cur] of currentMap) {
@@ -161,6 +198,19 @@ function compare(sourceMap, currentMap, fields) {
   }
 
   return { changed, missing, added };
+}
+
+// Prévia curta do texto, para reconhecer a mudança sem abrir o JSON.
+function preview(value, max = 80) {
+  const text = trimmed(value).replace(/\s+/g, ' ');
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+}
+
+function describeChange(entry) {
+  const details = entry.fields.map(
+    (field) => `\n        ${field}: "${preview(entry.from[field])}" → "${preview(entry.to[field])}"`,
+  );
+  return `${entry.name} (${entry.key})${details.join('')}`;
 }
 
 function list(label, entries, describe) {
@@ -186,6 +236,7 @@ function translationState(ptSection, sourceSection, fields) {
 async function main() {
   const sourceFile = JSON.parse(await readFile(resolve(args.source), 'utf8'));
   const outFile = JSON.parse(await readFile(resolve(args.out), 'utf8'));
+  const aliases = await loadAliases();
   const systems = sourceFile.systems || {};
   const slugs = Object.keys(systems).filter(
     (slug) => !args.system || slug === args.system,
@@ -211,6 +262,7 @@ async function main() {
     }
 
     const current = await collectCurrent(gameSystem, armyIds);
+    applyWeaponAliases(aliases[slug], source.weapons, current.weapons);
     const pt = outFile.systems?.[slug] || { rules: {}, weapons: {}, spells: {}, items: {} };
 
     const sections = [
@@ -223,9 +275,7 @@ async function main() {
     for (const [label, sourceMap, currentMap, fields, ptFields] of sections) {
       const result = compare(sourceMap, currentMap, fields);
       const state = translationState(pt[mapKey(label)], sourceMap, ptFields);
-      list(`${label} com texto novo na API`, result.changed, (entry) =>
-        `${entry.name} (${entry.key}): ${entry.fields.join(', ')}`,
-      );
+      list(`${label} com texto novo na API`, result.changed, describeChange);
       list(`${label} novas na API`, result.added, (entry) => `${entry.name} (${entry.key})`);
       list(`${label} removidas da API`, result.missing, (entry) => `${entry.name} (${entry.key})`);
       if (state.empty > 0) console.log(`  ${label} sem tradução: ${state.empty}`);

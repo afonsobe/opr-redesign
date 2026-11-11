@@ -3,7 +3,8 @@
   "gff": {
     "weapons": {
       "4gt-lA1q": {
-        "Shock Weapons": "Armas de Choque"
+        "Shock Weapons": "Armas de Choque",
+        "Shock Weapon": "Armas de Choque"
       }
     }
   }

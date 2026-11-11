@@ -9,7 +9,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 3,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "gff"
       },
       "rules": {
@@ -247,7 +247,7 @@
         },
         "z4QuSO_AxqDr": {
           "name": "Perito Versátil",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) ao atacar ou +1 nas rolagens de acerto ao atacar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) nas suas armas ou +1 nas rolagens de acerto ao atacar."
         },
         "zjzB46LX-QDg": {
           "name": "Reposicionamento",
@@ -299,7 +299,7 @@
         },
         "DEeVIJcfNfS6": {
           "name": "Combatente Imprevisível",
-          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "djJahpu0Ciut": {
           "name": "Infiltração",
@@ -535,7 +535,7 @@
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
-          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "IyLY1212wacW": {
           "name": "Fortificado",
@@ -1103,7 +1103,7 @@
         },
         "eOGs64JpVsP3": {
           "name": "Atirador Imprevisível",
-          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1); em um de 4 a 6, recebem +1 nas rolagens para acertar."
+          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1) nas suas armas; em um de 4 a 6, recebem +1 nas rolagens para acertar."
         },
         "gVRt_wk8DktW": {
           "name": "Perigoso",
@@ -1343,7 +1343,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "AfGDQgn8r8O1": {
           "name": "Aura de Dilacerante ao Atirar",
@@ -1643,7 +1643,7 @@
         },
         "iZkU-vhbjhbb": {
           "name": "Nascido da Vigília",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "QteJvh1g5fgV": {
           "name": "Aura de Nascido da Vigília Aprimorado",
@@ -2609,7 +2609,7 @@
           "name": "Lâminas de Braço Duplas"
         },
         "4gt-lA1q": {
-          "name": "Arma de Choque"
+          "name": "Armas de Choque"
         },
         "5D5bDvYu": {
           "name": "Pistola Amaldiçoada"
@@ -7553,7 +7553,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 2,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "gf"
       },
       "rules": {
@@ -7851,7 +7851,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "a0YtInGiUDd6": {
           "name": "Resistência",
@@ -8055,7 +8055,7 @@
         },
         "DEeVIJcfNfS6": {
           "name": "Combatente Imprevisível",
-          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "DETPYoIhE98G": {
           "name": "Aura de Carga Precisa",
@@ -8127,7 +8127,7 @@
         },
         "eOGs64JpVsP3": {
           "name": "Atirador Imprevisível",
-          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1); em um de 4 a 6, recebem +1 nas rolagens para acertar."
+          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1) nas suas armas; em um de 4 a 6, recebem +1 nas rolagens para acertar."
         },
         "ePlgVfji1dy6": {
           "name": "Aura de Inabalável",
@@ -8299,7 +8299,7 @@
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
-          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "i8mWlZpqtiNO": {
           "name": "Crescimento Defensivo",
@@ -8327,7 +8327,7 @@
         },
         "iZkU-vhbjhbb": {
           "name": "Nascido da Vigília",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "j_GcHkWDO1HP": {
           "name": "Estocada em Combate Corpo a Corpo",
@@ -9139,7 +9139,7 @@
         },
         "z4QuSO_AxqDr": {
           "name": "Perito Versátil",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) ao atacar ou +1 nas rolagens de acerto ao atacar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) nas suas armas ou +1 nas rolagens de acerto ao atacar."
         },
         "zCjAFXut7Gsg": {
           "name": "Retaliação",
@@ -17007,7 +17007,7 @@
         "armyId": "qtuyeoRfXKlNflK0",
         "gameSystem": 4,
         "book": "Wood Elves",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "aof"
       },
       "rules": {
@@ -17141,7 +17141,7 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "2xUH_d7T_Zfv": {
           "name": "Assédio",
@@ -17321,7 +17321,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "9tX9-9gULZSe": {
           "name": "Aura de Passo de Onda Aprimorado",
@@ -17505,7 +17505,7 @@
         },
         "DEeVIJcfNfS6": {
           "name": "Combatente Imprevisível",
-          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "DETPYoIhE98G": {
           "name": "Aura de Carga Precisa",
@@ -17565,7 +17565,7 @@
         },
         "eOGs64JpVsP3": {
           "name": "Atirador Imprevisível",
-          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1); em um de 4 a 6, recebem +1 nas rolagens para acertar."
+          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1) nas suas armas; em um de 4 a 6, recebem +1 nas rolagens para acertar."
         },
         "ePlgVfji1dy6": {
           "name": "Aura de Inabalável",
@@ -17725,7 +17725,7 @@
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
-          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "IEJp3a4vE0CB": {
           "name": "Destroçar",
@@ -18509,7 +18509,7 @@
         },
         "z4QuSO_AxqDr": {
           "name": "Perito Versátil",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) ao atacar ou +1 nas rolagens de acerto ao atacar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) nas suas armas ou +1 nas rolagens de acerto ao atacar."
         },
         "zCjAFXut7Gsg": {
           "name": "Retaliação",
@@ -23900,7 +23900,7 @@
         "armyId": "4SBY8ONErd3HUxle",
         "gameSystem": 5,
         "book": "Treasure Hunters",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "aofs"
       },
       "rules": {
@@ -24034,7 +24034,7 @@
         },
         "DEeVIJcfNfS6": {
           "name": "Combatente Imprevisível",
-          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "DhLjIDRrWz6-": {
           "name": "Carga Perfurante",
@@ -24054,7 +24054,7 @@
         },
         "eOGs64JpVsP3": {
           "name": "Atirador Imprevisível",
-          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1); em um de 4 a 6, recebem +1 nas rolagens para acertar."
+          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1) nas suas armas; em um de 4 a 6, recebem +1 nas rolagens para acertar."
         },
         "FAMbscK5vhSu": {
           "name": "Batedor",
@@ -24098,7 +24098,7 @@
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
-          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "IEJp3a4vE0CB": {
           "name": "Destroçar",
@@ -24326,7 +24326,7 @@
         },
         "z4QuSO_AxqDr": {
           "name": "Perito Versátil",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) ao atacar ou +1 nas rolagens de acerto ao atacar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) nas suas armas ou +1 nas rolagens de acerto ao atacar."
         },
         "-3DT6QcQoxeg": {
           "name": "Inabalável Aprimorado",
@@ -24354,7 +24354,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "fB2hm0la8zl1": {
           "name": "Matador à Distância",
@@ -24706,7 +24706,7 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
@@ -25454,7 +25454,7 @@
         },
         "0ia0aPl7hE0t": {
           "name": "Equipamento Exótico",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, ao atirar/carregar contra inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, ao atirar/carregar contra inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "LJjfHXnCppNl": {
           "name": "Aura de Equipamento Exótico Aprimorado",
@@ -29853,7 +29853,7 @@
         "armyId": "TjNtGnCDVts3l3ER",
         "gameSystem": 6,
         "book": "War Disciples",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "aofr",
         "collections": [
           {
@@ -30194,7 +30194,7 @@
         },
         "DEeVIJcfNfS6": {
           "name": "Combatente Imprevisível",
-          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Em combate corpo a corpo, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "DhLjIDRrWz6-": {
           "name": "Carga Perfurante",
@@ -30214,7 +30214,7 @@
         },
         "eOGs64JpVsP3": {
           "name": "Atirador Imprevisível",
-          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1); em um de 4 a 6, recebem +1 nas rolagens para acertar."
+          "description": "Quando atiram, role um dado e aplique um efeito a todos os modelos com esta regra: em um resultado de 1 a 3, eles recebem PA(+1) nas suas armas; em um de 4 a 6, recebem +1 nas rolagens para acertar."
         },
         "FAMbscK5vhSu": {
           "name": "Batedor",
@@ -30258,7 +30258,7 @@
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
-          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1); com 4–6, recebem +1 nas rolagens para acertar."
+          "description": "Ao atacar, role um dado e aplique um efeito a todos os modelos com esta regra: com 1–3, recebem PA(+1) nas suas armas; com 4–6, recebem +1 nas rolagens para acertar."
         },
         "IEJp3a4vE0CB": {
           "name": "Destroçar",
@@ -30522,7 +30522,7 @@
         },
         "z4QuSO_AxqDr": {
           "name": "Perito Versátil",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) ao atacar ou +1 nas rolagens de acerto ao atacar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem PA(+1) nas suas armas ou +1 nas rolagens de acerto ao atacar."
         },
         "-3DT6QcQoxeg": {
           "name": "Inabalável Aprimorado",
@@ -30554,7 +30554,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "fB2hm0la8zl1": {
           "name": "Matador à Distância",
@@ -30958,7 +30958,7 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
@@ -36953,7 +36953,7 @@
         "armyId": "aWr-VySOga3Icowr",
         "gameSystem": 11,
         "book": "Machine Cults",
-        "collectedAt": "2026-11-09",
+        "collectedAt": "2026-11-11",
         "system": "gfwf"
       },
       "rules": {

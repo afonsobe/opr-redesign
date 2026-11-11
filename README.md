@@ -70,6 +70,67 @@ yarn typecheck  # type-check the front-end
 
 On Windows PowerShell, use `yarn.cmd` if the execution policy blocks `yarn.ps1`.
 
+## Updating the Portuguese content dictionary (pt-BR)
+
+Unit, weapon, spell and rule text always comes **live from the Army Forge API**,
+so an OPR update shows up in English with no rebuild. The pt-BR dictionary is a
+snapshot bundled with the app (`src/i18n/content.pt-BR.json`), validated against
+the English snapshot in `src/i18n/content.source.json`:
+
+- English text equal to the snapshot → the translation is used.
+- English text changed since the snapshot → the old translation is shown with a
+  trailing `†` ("outdated"; the mark is explained under the table titles).
+- No translation yet → the English text is shown.
+
+Procedure after an OPR update:
+
+1. **See what changed** (live API vs. snapshot):
+
+   ```sh
+   npm run i18n:check                # all systems
+   npm run i18n:check -- --system gfwf
+   ```
+
+   It lists changed, new and removed terms, with a short `old → new` preview,
+   plus how many entries have no translation.
+
+2. **Refresh the English snapshot** and create empty entries for new terms:
+
+   ```sh
+   npm run i18n:collect:all -- --refresh-source
+   npm run i18n:collect:all -- --system gfwf --refresh-source
+   ```
+
+   This re-collects every book already recorded in `content.source.json`; it
+   never overwrites existing translations.
+
+3. **Read the exact diff**: `git diff src/i18n/content.source.json` shows the old
+   and new English text of every changed entry.
+
+4. **Translate** the changed/new entries in `src/i18n/content.pt-BR.json`. Key
+   formats:
+
+   - `rules.<ruleId>` → `{ "name": "...", "description": "..." }`
+   - `weapons.<weaponId>` → `{ "name": "..." }` (weapon id, not unit id)
+   - `spells["<English name>::<English effect>"]` → `{ "name": "...", "effect": "..." }`
+   - `items["<English name>"]` → `"tradução"`
+
+5. **Verify** with `npm run i18n:check` — it should print
+   `Tudo em dia: a fonte bate com a API e as traduções continuam válidas.`
+   Entries left empty are shown in English and counted separately (not failures).
+
+6. Build and publish as usual (`npm run typecheck && npm run build`, commit
+   `docs/` and push).
+
+Terms removed from the API are reported but kept in the snapshot; they are
+unused and can be deleted by hand if you want to tidy the JSON.
+
+If the API uses **two different names for the same weapon** (same `weaponId`,
+different books), add both names to `src/i18n/content.aliases.json` under
+`<system>.weapons.<weaponId>`, each mapped to the same translation. The check
+treats listed names as equivalent and the app keeps translating the weapon
+whichever name a book sends.
+
 ## Deploy
 
 `yarn build` outputs the site into `docs/`; commit it and push. GitHub Pages

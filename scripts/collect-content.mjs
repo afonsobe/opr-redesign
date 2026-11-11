@@ -6,6 +6,9 @@
 //   node scripts/collect-content.mjs --url "https://army-forge.onepagerules.com/army-info/grimdark-future-firefight/w7qor7b2kuifcyvk?armyName=Alien+Hives"
 //   node scripts/collect-content.mjs --urls-file urls.txt
 //   node scripts/collect-content.mjs --list h-6aOj95jEaW --refresh-source
+//   node scripts/collect-content.mjs --all                       # todos os livros já registrados
+//   node scripts/collect-content.mjs --all --system gfwf         # só um sistema
+//   node scripts/collect-content.mjs --all --refresh-source      # aceita o inglês novo da API
 //
 // `--url` pode ser repetido e `--urls-file` lê uma URL por linha (ignora
 // linhas vazias e começadas por #). Todos os livros são coletados numa
@@ -88,6 +91,8 @@ function parseArgs(argv) {
     else if (key === '--game') args.game = argv[++i];
     else if (key === '--url') (args.urls ||= []).push(argv[++i]);
     else if (key === '--urls-file') args.urlsFile = argv[++i];
+    else if (key === '--all') args.all = true;
+    else if (key === '--system') args.system = argv[++i];
     else if (key === '--out') args.out = argv[++i];
     else if (key === '--source') args.source = argv[++i];
     else if (key === '--refresh-source') args.refreshSource = true;
@@ -312,6 +317,38 @@ async function resolveTargets(args) {
   if (targets.length === 0 && args.fleet) {
     targets.push({ armyId: args.fleet, gameSystem: args.game ? Number(args.game) : GAME_SYSTEM_IDS.gfwf, fleet: true });
   }
+  // --all: repete a coleta de todos os livros já registrados na fonte, sem
+  // precisar montar uma lista de URLs. É o caminho normal para atualizar o
+  // dicionário depois de uma atualização da OPR.
+  if (args.all) {
+    let file = {};
+    try {
+      file = JSON.parse(await readFile(resolve(args.source), 'utf8'));
+    } catch {
+      /* fonte ainda não existe */
+    }
+    for (const [slug, section] of Object.entries(file.systems || {})) {
+      if (args.system && slug !== args.system) continue;
+      const gameSystem = section.meta?.gameSystem ?? GAME_SYSTEM_IDS[slug];
+      if (!gameSystem) continue;
+      const collections = Array.isArray(section.meta?.collections)
+        ? section.meta.collections
+        : [{ armyId: section.meta?.armyId }];
+      for (const entry of collections) {
+        if (!entry?.armyId) continue;
+        targets.push({
+          armyId: entry.armyId,
+          gameSystem,
+          fleet: gameSystem === GAME_SYSTEM_IDS.gfwf,
+        });
+      }
+    }
+    if (targets.length === 0) {
+      throw new Error(
+        `Nenhum livro registrado em ${args.source}${args.system ? ` para o sistema ${args.system}` : ''}.`,
+      );
+    }
+  }
 
   const unique = [];
   const seen = new Set();
@@ -321,8 +358,9 @@ async function resolveTargets(args) {
         'Não consegui descobrir o armyId/gameSystem de uma das URLs. Use --army e --game.',
       );
     }
-    if (seen.has(target.armyId)) continue;
-    seen.add(target.armyId);
+    const id = `${target.gameSystem}:${target.armyId}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
     unique.push(target);
   }
   return unique;
@@ -337,7 +375,7 @@ async function main() {
 
   if (targets.length === 0) {
     console.error(
-      'Informe --url <página army-info>, --urls-file <arquivo>, --list <id-da-lista> ou --army <armyId> --game <2..6>.',
+      'Informe --url <página army-info>, --urls-file <arquivo>, --list <id-da-lista>, --army <armyId> --game <2..6> ou --all.',
     );
     process.exit(1);
   }
@@ -444,7 +482,9 @@ async function main() {
     // Preserve existing translations and add new API terms as empty entries.
     const previousSection = existingSystems[slug] || {};
     const section = {
-      meta: { ...collected.meta, system: slug },
+      // Keep extra bookkeeping already present (e.g. `collections`) and refresh
+      // the rest with what was just collected.
+      meta: { ...previousSection.meta, ...collected.meta, system: slug },
       rules: { ...(previousSection.rules || {}) },
       weapons: { ...(previousSection.weapons || {}) },
       spells: { ...(previousSection.spells || {}) },
