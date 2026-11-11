@@ -3,6 +3,18 @@
     "date": "November 11, 2026",
     "datePtBR": "11 de novembro de 2026",
     "items": [
+      "**pt-BR rules refreshed after the latest Army Forge update:** 31 descriptions across Grimdark Future, Firefight, Age of Fantasy, Skirmish and Regiments were re-translated (Unpredictable, Unpredictable Fighter/Shooter, Versatile Warrior/Expert, Watchborn, Vinci Tech and Exotic Gear), so they no longer carry the outdated `†` marker. The wording change is small: AP bonuses now read as `AP(+1) on their weapons`.",
+      "**“Shock Weapons” (Firefight):** Army Forge sends two names for the same weapon (`Shock Weapons` and `Shock Weapon`); both now translate to **Armas de Choque**."
+    ],
+    "itemsPtBR": [
+      "**Regras em pt-BR atualizadas após a última atualização do Army Forge:** 31 descrições em Grimdark Future, Firefight, Age of Fantasy, Skirmish e Regiments foram retraduzidas (Imprevisível, Combatente/Atirador Imprevisível, Combatente/Perito Versátil, Nascido da Vigília, Tecnologia Vinci e Equipamento Exótico), então não mostram mais o marcador `†` de desatualizado. A mudança de texto é pequena: os bônus de PA agora aparecem como `PA(+1) nas suas armas`.",
+      "**“Shock Weapons” (Firefight):** o Army Forge manda dois nomes para a mesma arma (`Shock Weapons` e `Shock Weapon`); ambos agora traduzem para **Armas de Choque**."
+    ]
+  },
+  {
+    "date": "November 11, 2026",
+    "datePtBR": "11 de novembro de 2026",
+    "items": [
       "**Ship points now match Army Forge:** the cost on each Warfleets card is the ship's total (base cost plus hero/title), so a Greatsword Ship with Prime Crew shows 85 pts instead of 80. The hero/title row keeps the `+N pts` breakdown.",
       "**Cards are still sorted by their total cost,** so a ship with a title or hero moves up accordingly.",
       "**Weapon rows show the firing arc icon** used by Army Forge (front, side, rear or turret), with a translated tooltip and accessible label.",
