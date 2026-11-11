@@ -223,6 +223,45 @@ function sourceByName(name: string):
   return sourceByNameCache.map.get(norm(name));
 }
 
+// Regras do livro no idioma-fonte (inglês), usadas como reserva quando o Army
+// Forge não manda uma regra citada em `army.specialRules` (ex.: Twin-Fire e
+// Deadly nas listas de Warfleets). A tradução continua sendo aplicada pelos
+// helpers normais (`trRuleName`, `trRuleDescription`).
+export interface SourceRuleEntry {
+  id: string;
+  name: string;
+  description: string;
+}
+
+function sourceRuleDescription(entry: RuleTranslation): string {
+  const description = (entry.description ?? '').trim();
+  const name = (entry.name ?? '').trim();
+  if (description && description !== name) return description;
+  const generic = name ? sourceByName(name) : undefined;
+  if (!generic || generic.entry === entry) return description;
+  return (generic.entry.description ?? '').trim();
+}
+
+export function listSourceRules(): SourceRuleEntry[] {
+  return Object.entries(sourceSection().rules)
+    .map(([id, entry]) => ({
+      id,
+      name: (entry.name ?? '').trim(),
+      description: sourceRuleDescription(entry),
+    }))
+    .filter((entry) => entry.name);
+}
+
+export function findSourceRuleByName(name: string): SourceRuleEntry | undefined {
+  const hit = sourceByName(name);
+  if (!hit) return undefined;
+  return {
+    id: hit.id,
+    name: (hit.entry.name ?? '').trim(),
+    description: sourceRuleDescription(hit.entry),
+  };
+}
+
 // Devolve a tradução quando há entrada no dicionário. Quando o texto inglês
 // atual não bate com a fonte, a entrada vem marcada como desatualizada.
 function ruleMatch(rule: { id?: string; name?: string }): RuleMatch | undefined {

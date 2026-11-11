@@ -1312,6 +1312,112 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   white-space: nowrap;
 }
 
+/* Naves (Warfleets): seções com caixas de dano. Cada sistema/arma é uma
+   melhoria e leva caixas; herói/título mostram o custo à parte. */
+.card--ship .ship-body,
+.card--ship .ship-body-main,
+.card--ship .ship-body-weapons {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card--ship .section-title {
+  display: block;
+  margin: 0;
+  padding: 3px 8px 2px;
+  color: var(--accent-ink-2);
+  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.card--ship .ship-upgrade-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 3px 8px 5px;
+}
+
+.card--ship .ship-upgrade {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+/* A vida do esquadrão é a única "seção" que também é um medidor, então o
+   rótulo usa a mesma barra das demais seções e as caixas ficam à direita. */
+.card--ship .ship-damage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 3px 8px 2px;
+  color: var(--accent-ink-2);
+  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.card--ship .ship-damage .dmg-box {
+  width: 9px;
+  height: 9px;
+}
+
+.card--ship .ship-upgrade-name {
+  min-width: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.card--ship .ship-upgrade-cost {
+  margin-left: auto;
+  color: var(--accent-ink);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.card--ship .ship-upgrade .dmg-boxes {
+  margin-left: auto;
+}
+
+.dmg-boxes {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+
+.dmg-box {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--paper-ink);
+  border-radius: 1.5px;
+  background: var(--paper-surface);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.weapons-table .w-dmg {
+  width: 38px;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .muted {
   padding-left: 8px;
   font-size: 9px;
@@ -2309,6 +2415,60 @@ body.card-layout-tcg .cards {
   width: 7mm;
 }
 
+.card--tcg .weapons-table .w-dmg {
+  width: 8mm;
+}
+
+.card--tcg .ship-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.card--tcg .ship-body-main {
+  flex: 0 0 auto;
+}
+
+.card--tcg .ship-body-weapons {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.card--tcg .ship-upgrade-list {
+  gap: 0.3mm;
+  padding: 0.4mm 1mm;
+}
+
+.card--tcg .ship-upgrade {
+  gap: 0.6mm;
+  font-size: 5.2pt;
+  line-height: 1.1;
+}
+
+.card--tcg .ship-damage {
+  gap: 0.6mm;
+  padding: 0.6mm 1mm 0.4mm;
+  font-size: 4.8pt;
+}
+
+.card--tcg .ship-damage .dmg-box {
+  width: 1.4mm;
+  height: 1.4mm;
+}
+
+.card--tcg .dmg-boxes {
+  gap: 0.3mm;
+}
+
+.card--tcg .dmg-box {
+  width: 1.3mm;
+  height: 1.3mm;
+  border-width: 0.2mm;
+  border-radius: 0.3mm;
+}
+
 .card--tcg .card-notes {
   flex: 0 0 auto;
   max-height: 9mm;
@@ -2461,6 +2621,55 @@ body.card-layout-table .cards {
 
 .card--table .weapons-table .w-num {
   width: 12mm;
+}
+
+/* Naves no design Tabela: as seções ficam em duas colunas (regras à esquerda,
+   armas à direita), sem o grid de áreas usado pelas unidades. */
+.card--ship.card--table {
+  display: flex;
+  flex-direction: column;
+}
+
+.card--ship.card--table .ship-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.card--ship.card--table .ship-body-weapons {
+  min-width: 0;
+  border-left: 1px solid var(--paper-line);
+}
+
+.card--ship.card--table .section-title--rules {
+  border-right: 0;
+}
+
+.card--ship.card--table .rules-container {
+  border-right: 0;
+}
+
+.card--ship.card--table .ship-upgrade-list {
+  gap: 3px;
+  padding: 5px 12px 7px;
+}
+
+.card--ship.card--table .ship-upgrade {
+  font-size: 10px;
+}
+
+.card--ship.card--table .ship-damage {
+  padding: 5px 12px 4px;
+  font-size: 9px;
+}
+
+.card--ship.card--table .dmg-box {
+  width: 9px;
+  height: 9px;
+}
+
+.card--ship.card--table .weapons-table .w-dmg {
+  width: 16mm;
 }
 
 .card--table .muted {

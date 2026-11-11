@@ -130,6 +130,37 @@ export interface Spell {
   effect: string;
 }
 
+// Uma melhoria de nave (sistema, herói ou título). O Army Forge manda o texto
+// da regra junto da seleção; `damage` é o dano já marcado na lista, não a
+// capacidade de caixas (que vem do texto ou do padrão de 2).
+export interface ShipUpgradeEntry {
+  id?: string;
+  name: string;
+  rule?: string;
+  cost?: number;
+  damage?: number;
+}
+
+export interface ShipSystem extends ShipUpgradeEntry {}
+
+export interface ShipHeroTitle extends ShipUpgradeEntry {
+  id: string;
+  cost?: number;
+}
+
+// Arma montada numa nave. `facing` segue o Army Forge: 0 = frente, 1 = lateral,
+// 2 = traseira. A torreta padrão da nave não entra aqui (não é melhoria).
+export interface ShipWeapon {
+  id?: string;
+  name: string;
+  range: string | number;
+  attacks: string | number;
+  str: string | number;
+  special?: string[];
+  facing?: number;
+  damage?: number;
+}
+
 // Nave de Frota (Warfleets): o equivalente de "unit" nas listas "ftl".
 // Viram cartas próprias com estatísticas de nave (Mov/Cru/Eva/Tou).
 export interface Ship {
@@ -152,12 +183,12 @@ export interface Ship {
   notes?: string | null;
   traits?: unknown[];
   fleetId?: string;
-  systems?: unknown[];
-  weapons?: unknown[];
+  systems?: ShipSystem[];
+  weapons?: ShipWeapon[];
   customName?: string;
   selectionId: string;
-  title?: unknown;
-  hero?: unknown;
+  title?: ShipHeroTitle | null;
+  hero?: ShipHeroTitle | null;
   genericName?: string;
   // Set by us for combined ship cards, mirroring the unit flow.
   combinedFromHalves?: boolean;

@@ -5,7 +5,9 @@ import { getLang, t, tn } from './i18n';
 // comparações internas (Tough, AP, ligação de regras citadas etc.).
 import {
   STALE_MARK,
+  findSourceRuleByName,
   isStaleText,
+  listSourceRules,
   trRuleDescription,
   trRuleGainName,
   trRuleLabel,
@@ -23,6 +25,9 @@ import type {
   CardDesign,
   SelectedUpgrade,
   Ship,
+  ShipHeroTitle,
+  ShipSystem,
+  ShipWeapon,
   Unit,
   UnitRule,
   UpgradeGain,
@@ -1544,8 +1549,8 @@ function getShips(army: ArmyList): Ship[] {
   return Array.isArray(army.ships) ? army.ships : [];
 }
 
-function shipNameOf(ship: Ship): string {
-  const name = (ship.name ?? '').trim() || 'Ship';
+function shipNameOf(ship: Ship, nameOverride?: string): string {
+  const name = (nameOverride ?? ship.name ?? '').trim() || 'Ship';
   const cls = typeof ship.class === 'string' ? ship.class.trim() : '';
   const slots = typeof ship.slots === 'number' ? ship.slots : undefined;
   let suffix = '';
@@ -1560,37 +1565,292 @@ function shipSpecialNames(ship: Ship): string[] {
     .filter(Boolean);
 }
 
-// Nome traduzido de uma entrada opcional do ship (herói/título/sistema).
-// Aceita forma string ou objeto { id?, name }; devolve vazio se não houver.
-function namedEntryText(entry: unknown): string {
+// Nome/ID/texto/custo crus de uma entrada opcional da nave (herói, título,
+// sistema ou trait). O nome em inglês é o que o Army Forge usa nas comparações
+// com `army.specialRules`; a tradução acontece só na hora de desenhar.
+function shipEntryName(entry: unknown): string {
   if (typeof entry === 'string') return entry.trim();
   if (entry && typeof entry === 'object') {
-    const obj = entry as { id?: unknown; name?: unknown };
-    const name = typeof obj.name === 'string' ? obj.name.trim() : '';
-    const id = typeof obj.id === 'string' ? obj.id : undefined;
-    if (!name) return '';
-    return trRuleName({ id, name });
+    const name = (entry as { name?: unknown }).name;
+    return typeof name === 'string' ? name.trim() : '';
   }
   return '';
 }
 
+function shipEntryId(entry: unknown): string | undefined {
+  if (entry && typeof entry === 'object') {
+    const id = (entry as { id?: unknown }).id;
+    return typeof id === 'string' ? id : undefined;
+  }
+  return undefined;
+}
+
+function shipEntryRule(entry: unknown): string {
+  if (entry && typeof entry === 'object') {
+    const rule = (entry as { rule?: unknown }).rule;
+    return typeof rule === 'string' ? rule.trim() : '';
+  }
+  return '';
+}
+
+function shipEntryCost(entry: unknown): number | undefined {
+  if (entry && typeof entry === 'object') {
+    const cost = (entry as { cost?: unknown }).cost;
+    return typeof cost === 'number' ? cost : undefined;
+  }
+  return undefined;
+}
+
+function getShipSystems(ship: Ship): ShipSystem[] {
+  return Array.isArray(ship.systems) ? ship.systems : [];
+}
+
+function getShipWeapons(ship: Ship): ShipWeapon[] {
+  return Array.isArray(ship.weapons) ? ship.weapons : [];
+}
+
+// Herói e título são opcionais e vêm como objetos; a ordem segue o Army Forge
+// (herói antes de título) e o custo é mostrado à parte, sem somar ao custo base
+// da nave — o PDF do Army Forge imprime só o custo base.
+function getShipHeroTitles(ship: Ship): ShipHeroTitle[] {
+  const entries: ShipHeroTitle[] = [];
+  for (const entry of [ship.hero, ship.title]) {
+    const name = shipEntryName(entry);
+    if (!name) continue;
+    entries.push({
+      id: shipEntryId(entry) ?? '',
+      name,
+      rule: shipEntryRule(entry),
+      cost: shipEntryCost(entry),
+    });
+  }
+  return entries;
+}
+
+function shipTraitNames(ship: Ship): string[] {
+  return (Array.isArray(ship.traits) ? ship.traits : [])
+    .map((entry) => shipEntryName(entry))
+    .filter(Boolean);
+}
+
+// Todos os nomes de regra que a nave referencia: sistemas, herói/título,
+// especiais da nave, traits e as regras especiais das armas. É a lista usada
+// para montar a tabela de Regras especiais e o verso da carta.
+function shipRuleNames(ship: Ship): string[] {
+  const names: string[] = [];
+  for (const system of getShipSystems(ship)) names.push(system.name);
+  for (const entry of getShipHeroTitles(ship)) names.push(entry.name);
+  names.push(...shipSpecialNames(ship), ...shipTraitNames(ship));
+  for (const weapon of getShipWeapons(ship)) {
+    for (const special of Array.isArray(weapon.special) ? weapon.special : []) {
+      if (typeof special === 'string') names.push(special.trim());
+    }
+  }
+  return [...new Set(names.filter(Boolean))];
+}
+
+// Textos de regra que o próprio payload da nave traz (sistemas e heróis/títulos).
+// Servem para resolver a capacidade de caixas mesmo quando a lista salva não tem
+// a regra em `army.specialRules`.
+function shipInlineRules(ship: Ship): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const system of getShipSystems(ship)) {
+    if (system.name && system.rule) map.set(system.name.trim(), system.rule);
+  }
+  for (const entry of getShipHeroTitles(ship)) {
+    if (entry.name && entry.rule) map.set(entry.name, entry.rule);
+  }
+  return map;
+}
+
+function findArmyRule(army: ArmyList, name: string): ArmySpecialRule | undefined {
+  return (Array.isArray(army.specialRules) ? army.specialRules : []).find(
+    (rule) => (rule.name ?? '').trim() === name,
+  );
+}
+
+function shipRuleText(army: ArmyList, ship: Ship | undefined, name: string): string {
+  const inline = ship ? shipInlineRules(ship).get(name) : undefined;
+  if (inline) return inline;
+  const rule = findArmyRule(army, name);
+  if (rule?.description && rule.description.trim() && rule.description.trim() !== rule.name) {
+    return rule.description;
+  }
+  return findSourceRuleByName(name)?.description ?? '';
+}
+
+// Nome traduzido de uma entrada opcional do ship (herói/título/sistema).
+function namedEntryText(entry: unknown): string {
+  const name = shipEntryName(entry);
+  return name ? trRuleName({ id: shipEntryId(entry), name }) : '';
+}
+
+// Quantas caixas de dano uma melhoria suporta. O padrão é 2; o texto da regra
+// manda em casos como Armored Plating (4) ou Crumple Hulls (3). Esquadrões usam
+// "Takes X damage to be destroyed" e alguns são destruídos com 1 dano.
+function damageCapacityFromText(text: string, fallback = 2): number {
+  const explicit = text.match(/takes?\s+(\d+)\s+damage to be (?:disabled|destroyed)/i);
+  if (explicit) return Number(explicit[1]);
+  if (/destroyed if it takes any damage/i.test(text)) return 1;
+  return fallback;
+}
+
+// Regras como Hardened (anões) aumentam em 1 a capacidade de TODOS os sistemas.
+function shipHasHardenedSystems(army: ArmyList, ship: Ship): boolean {
+  for (const name of shipRuleNames(ship)) {
+    if (name === 'Hardened') return true;
+    if (/Systems take \+1 damage to be disabled/i.test(shipRuleText(army, ship, name))) return true;
+  }
+  return false;
+}
+
+function shipSystemCapacity(army: ArmyList, ship: Ship, system: ShipSystem): number {
+  const text = (system.rule ?? '').trim() || shipRuleText(army, ship, system.name);
+  const base = damageCapacityFromText(text);
+  return shipHasHardenedSystems(army, ship) ? base + 1 : base;
+}
+
+function shipWeaponCapacity(army: ArmyList, ship: Ship, weapon: ShipWeapon): number {
+  return damageCapacityFromText(shipRuleText(army, ship, weapon.name));
+}
+
+function shipSquadronCapacity(army: ArmyList, ship: Ship): number {
+  // Só as regras da própria unidade falam da vida do esquadrão; um sistema ou
+  // arma com "takes X damage to be disabled" não é a vida da unidade.
+  const names = [
+    ...shipSpecialNames(ship),
+    ...shipTraitNames(ship),
+    ...getShipHeroTitles(ship).map((entry) => entry.name),
+  ];
+  for (const name of names) {
+    const text = shipRuleText(army, ship, name);
+    const explicit = text.match(/takes?\s+(\d+)\s+damage to be destroyed/i);
+    if (explicit) return Number(explicit[1]);
+    if (/destroyed if it takes any damage/i.test(text)) return 1;
+  }
+  return 2;
+}
+
+// O Army Forge nem sempre manda em `army.specialRules` todas as regras que a
+// frota referencia (ex.: Twin-Fire e Deadly em Warfleets). O pool completa a
+// lista com o dicionário do livro e, a partir das descrições, inclui regras
+// citadas por outras (Particle Cannon cita Deadly). Devolve também os nomes
+// usados, já sem tradução, para a tabela e o verso das cartas filtrarem certo.
+function fleetRulePool(
+  army: ArmyList,
+  ships: Ship[],
+): { pool: ArmySpecialRule[]; names: string[] } {
+  const pool = Array.isArray(army.specialRules) ? [...army.specialRules] : [];
+  const ids = new Set(pool.map((rule) => rule.id).filter(Boolean));
+  const names = new Set<string>();
+  for (const ship of ships) {
+    for (const name of shipRuleNames(ship)) names.add(name);
+  }
+
+  const addSourceRule = (name: string): void => {
+    const source = findSourceRuleByName(name);
+    if (!source) return;
+    if (!(source.id && ids.has(source.id))) {
+      pool.push({
+        id: source.id,
+        name: source.name,
+        aliasedRuleId: null,
+        description: source.description,
+        hasRating: null,
+        coreType: null,
+        targetType: 0,
+      });
+      if (source.id) ids.add(source.id);
+    }
+    names.add(source.name);
+  };
+
+  const poolNames = new Set(
+    pool.map((rule) => (rule.name ?? '').trim()).filter(Boolean),
+  );
+  for (const name of [...names]) {
+    if (!poolNames.has(name)) addSourceRule(name);
+  }
+
+  // Expansão de regras citadas: só as descrições das regras realmente usadas
+  // alimentam a busca, para não puxar regras de entradas alheias à frota.
+  const byName = new Map<string, ArmySpecialRule>();
+  for (const rule of pool) {
+    const name = (rule.name ?? '').trim();
+    if (name) byName.set(name, rule);
+  }
+  const candidates = listSourceRules();
+  const referenced = new Set<string>();
+  for (const name of [...names]) {
+    const description = (byName.get(name)?.description ?? '').trim();
+    if (!description || description === name) continue;
+    for (const candidate of candidates) {
+      if (!candidate.name || names.has(candidate.name)) continue;
+      if (new RegExp(`\\b${escapeRegExp(candidate.name)}\\b`).test(description)) {
+        referenced.add(candidate.name);
+      }
+    }
+  }
+  for (const name of referenced) addSourceRule(name);
+
+  return { pool, names: [...names] };
+}
+
+// Caixas de dano impressas na carta. Cada melhoria (sistema ou arma) suporta 2
+// por padrão; o texto da regra manda em exceções (Armored Plating = 4) e
+// esquadrões usam a capacidade de "Takes X damage to be destroyed".
+function createDamageBoxes(capacity: number): HTMLSpanElement {
+  const boxes = document.createElement('span');
+  boxes.className = 'dmg-boxes';
+  for (let index = 0; index < Math.max(0, capacity); index += 1) {
+    const box = document.createElement('span');
+    box.className = 'dmg-box';
+    boxes.appendChild(box);
+  }
+  return boxes;
+}
+
+function createShipUpgradeRow(
+  name: string,
+  options: { capacity?: number; cost?: number } = {},
+): HTMLDivElement {
+  const row = document.createElement('div');
+  row.className = 'ship-upgrade';
+  row.appendChild(createTextElement('ship-upgrade-name', name));
+  if (options.capacity != null) row.appendChild(createDamageBoxes(options.capacity));
+  if (options.cost != null && options.cost > 0) {
+    row.appendChild(createTextElement('ship-upgrade-cost', t('card.upgradePoints', { n: options.cost })));
+  }
+  return row;
+}
+
 function createShipCard(
   ship: Ship,
+  army: ArmyList,
   armyId = '',
   design: CardDesign = 'classic',
+  useCustomNames = false,
 ): HTMLDivElement {
   const card = document.createElement('div');
-  card.className = 'card';
+  card.className = 'card card--ship';
   if (design === 'tcg') card.classList.add('card--tcg');
   if (design === 'table') card.classList.add('card--table');
+  if (ship.squadron) card.classList.add('card--squadron');
 
   card.dataset.armyId = armyId;
   card.dataset.unitId = ship.selectionId || ship.id || '';
 
   const count = typeof ship.count === 'number' && ship.count > 1 ? ship.count : 1;
   const prefix = count > 1 ? `${count}x ` : '';
-  const displayName = `${prefix}${shipNameOf(ship)}`;
+  const customName = (ship.customName ?? '').trim();
+  const nameOverride = useCustomNames && customName ? customName : undefined;
+  const displayName = `${prefix}${shipNameOf(ship, nameOverride)}`;
   card.dataset.unitName = displayName;
+
+  const heroTitles = getShipHeroTitles(ship);
+  const systems = getShipSystems(ship);
+  const specialNames = [...shipSpecialNames(ship), ...shipTraitNames(ship)];
+  const weaponEntries = getShipWeapons(ship);
 
   const costParts = [`${ship.cost ?? 0} pts`];
   if (typeof ship.xp === 'number' && ship.xp > 0) costParts.push(`XP ${ship.xp}`);
@@ -1606,113 +1866,159 @@ function createShipCard(
   stats.append(
     createStat(t('card.move'), `${ship.move ?? 0}"`),
     createStat(t('card.cruise'), `${ship.cruise ?? 0}"`),
-    createStat(t('card.evade'), `${ship.evade ?? 0}+`),
-    createStat(t('card.tough'), `${ship.tough ?? 0}+`),
+    // O PDF do Army Forge mostra os valores sem "+" (Evade 2 / Tough 2).
+    createStat(t('card.evade'), String(ship.evade ?? 0)),
+    createStat(t('card.tough'), String(ship.tough ?? 0)),
   );
 
-  // Regras da nave: pílulas traduzidas por nome.
-  const rulesContainer = document.createElement('div');
-  rulesContainer.className = 'rules-container';
-  const pillTexts = new Set<string>();
-  for (const name of shipSpecialNames(ship)) {
-    pillTexts.add(trRuleLabel({ name }));
+  if (design !== 'tcg') header.append(stats);
+  card.append(header);
+  if (design === 'tcg') card.append(stats);
+
+  const body = document.createElement('div');
+  body.className = 'ship-body';
+
+  // Coluna principal: dano de esquadrão, herói/título, sistemas e as regras
+  // especiais da própria nave. As armas ficam na coluna da direita no design
+  // Tabela e empilhadas nos demais.
+  const main = document.createElement('div');
+  main.className = 'ship-body-main';
+
+  if (ship.squadron) {
+    const damage = document.createElement('div');
+    damage.className = 'ship-damage';
+    damage.append(
+      createTextElement('ship-damage-label', t('card.squadronDamage')),
+      createDamageBoxes(shipSquadronCapacity(army, ship)),
+    );
+    main.appendChild(damage);
   }
-  for (const extra of [ship.hero, ship.title]) {
-    const text = namedEntryText(extra);
-    if (text) pillTexts.add(text);
+
+  if (heroTitles.length > 0) {
+    main.appendChild(
+      createTextElement('section-title section-title--hero', t('card.heroTitle')),
+    );
+    const list = document.createElement('div');
+    list.className = 'ship-upgrade-list';
+    for (const entry of heroTitles) {
+      list.appendChild(
+        createShipUpgradeRow(namedEntryText(entry), {
+          cost: typeof entry.cost === 'number' ? entry.cost : undefined,
+        }),
+      );
+    }
+    main.appendChild(list);
   }
-  for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
-    const text = namedEntryText(sys);
-    if (text) pillTexts.add(text);
+
+  if (systems.length > 0) {
+    main.appendChild(
+      createTextElement('section-title section-title--systems', t('card.systems')),
+    );
+    const list = document.createElement('div');
+    list.className = 'ship-upgrade-list';
+    for (const system of systems) {
+      list.appendChild(
+        createShipUpgradeRow(namedEntryText(system), {
+          capacity: shipSystemCapacity(army, ship, system),
+        }),
+      );
+    }
+    main.appendChild(list);
   }
-  if (pillTexts.size === 0) {
-    rulesContainer.appendChild(createTextElement('muted', t('card.noRules')));
-  } else {
+
+  if (specialNames.length > 0) {
+    main.appendChild(
+      createTextElement('section-title section-title--rules', t('card.specialRules')),
+    );
+    const rulesContainer = document.createElement('div');
+    rulesContainer.className = 'rules-container';
+    const pillTexts = new Set<string>();
+    for (const name of specialNames) pillTexts.add(trRuleLabel({ name }));
     for (const pill of [...pillTexts].sort((a, b) => a.localeCompare(b))) {
       const el = document.createElement('span');
       el.className = 'rule-pill';
       el.textContent = pill;
       rulesContainer.appendChild(el);
     }
+    main.appendChild(rulesContainer);
   }
 
   // Armas da nave: a torreta base (Ran/Att/Str da nave) aparece sempre — como
-  // no Army Forge — e as armas escolhidas vêm depois.
+  // no Army Forge — e as armas escolhidas vêm depois. A torreta não é uma
+  // melhoria, então fica sem caixas de dano.
+  const weaponsWrap = document.createElement('div');
+  weaponsWrap.className = 'ship-body-weapons';
+  weaponsWrap.appendChild(
+    createTextElement('section-title section-title--weapons', t('card.weapons')),
+  );
   const weaponsContainer = document.createElement('div');
   weaponsContainer.className = 'weapons-container';
-  const weaponEntries = Array.isArray(ship.weapons) ? ship.weapons : [];
   const table = document.createElement('table');
   table.className = 'weapons-table';
   const head = table.createTHead().insertRow();
-  for (const header of [
+  for (const column of [
     { text: t('wpn.weapon') },
     { text: t('wpn.range'), className: 'w-num' },
     { text: t('wpn.attacks'), className: 'w-num' },
     { text: t('wpn.str'), className: 'w-num' },
+    { text: t('wpn.damage'), className: 'w-num w-dmg' },
     { text: t('wpn.special') },
   ]) {
     const th = document.createElement('th');
-    if (header.className) th.className = header.className;
-    th.textContent = header.text;
+    if (column.className) th.className = column.className;
+    th.textContent = column.text;
     head.appendChild(th);
   }
-  const body = table.createTBody();
-  // Linha da torreta base da nave.
-  const turretRow = body.insertRow();
+  const tableBody = table.createTBody();
+  const turretRow = tableBody.insertRow();
   for (const [text, className] of [
     [t('wpn.turret'), 'w-name'],
     [`${ship.range ?? 0}"`, 'w-num'],
     [String(ship.att ?? 0), 'w-num'],
     [String(ship.str ?? 0), 'w-num'],
+    ['-', 'w-num w-dmg'],
     ['-', 'w-special'],
   ] as [string, string][]) {
     const td = turretRow.insertCell();
     td.className = className;
     td.textContent = text;
   }
-  for (const entry of weaponEntries) {
-    const row = body.insertRow();
-    const w = entry as {
-      name?: unknown; range?: unknown; attacks?: unknown; str?: unknown; special?: unknown;
-      weaponId?: unknown; id?: unknown;
-    };
-    const wName =
-      typeof w.name === 'string'
-        ? trWeaponName({
-            weaponId: typeof w.weaponId === 'string' ? w.weaponId : undefined,
-            id: typeof w.id === 'string' ? w.id : undefined,
-            name: w.name,
-          })
-        : '';
-    const range = typeof w.range === 'number' ? `${w.range}"` : typeof w.range === 'string' ? (w.range.includes('"') ? w.range : `${w.range}"`) : '-';
-    const attacks = typeof w.attacks === 'number' ? String(w.attacks) : typeof w.attacks === 'string' ? w.attacks : '-';
-    const str = typeof w.str === 'number' ? String(w.str) : typeof w.str === 'string' ? w.str : '-';
-    const specials = Array.isArray(w.special) ? w.special : [];
-    const cells: [string, string][] = [
-      [wName || '-', 'w-name'],
-      [range, 'w-num'],
-      [attacks, 'w-num'],
-      [str, 'w-num'],
-      [specials.map((s) => (typeof s === 'string' ? trRuleLabel({ name: s }) : '')).filter(Boolean).join(', ') || '-', 'w-special'],
-    ];
-    for (const [text, className] of cells) {
-      const td = row.insertCell();
-      td.className = className;
-      td.textContent = text;
+  for (const weapon of weaponEntries) {
+    const row = tableBody.insertRow();
+    const range =
+      typeof weapon.range === 'number'
+        ? `${weapon.range}"`
+        : weapon.range.includes('"')
+          ? weapon.range
+          : `${weapon.range}"`;
+    const attacks = String(weapon.attacks);
+    const str = String(weapon.str);
+    const specials = Array.isArray(weapon.special) ? weapon.special : [];
+
+    const nameCell = row.insertCell();
+    nameCell.className = 'w-name';
+    nameCell.textContent = trWeaponName(weapon) || '-';
+    for (const text of [range, attacks, str]) {
+      const cell = row.insertCell();
+      cell.className = 'w-num';
+      cell.textContent = text;
     }
+    const damageCell = row.insertCell();
+    damageCell.className = 'w-num w-dmg';
+    damageCell.appendChild(createDamageBoxes(shipWeaponCapacity(army, ship, weapon)));
+    const specialCell = row.insertCell();
+    specialCell.className = 'w-special';
+    specialCell.textContent =
+      specials
+        .map((special) => trRuleLabel({ name: special }))
+        .filter(Boolean)
+        .join(', ') || '-';
   }
   weaponsContainer.appendChild(table);
+  weaponsWrap.appendChild(weaponsContainer);
 
-  if (design !== 'tcg') header.append(stats);
-  card.append(header);
-  if (design === 'tcg') card.append(stats);
-
-  card.append(
-    createTextElement('section-title section-title--rules', t('card.specialRules')),
-    rulesContainer,
-    createTextElement('section-title section-title--weapons', t('card.weapons')),
-    weaponsContainer,
-  );
+  body.append(main, weaponsWrap);
+  card.append(body);
 
   if (ship.notes) {
     card.appendChild(createTextElement('card-notes', String(ship.notes)));
@@ -1724,22 +2030,20 @@ function createShipCard(
 }
 
 function shipCardHasStale(ship: Ship): boolean {
-  for (const name of shipSpecialNames(ship)) {
+  for (const name of [...shipSpecialNames(ship), ...shipTraitNames(ship)]) {
     if (isStaleText(trRuleLabel({ name }))) return true;
   }
-  for (const extra of [ship.hero, ship.title]) {
-    if (isStaleText(namedEntryText(extra))) return true;
+  for (const entry of getShipHeroTitles(ship)) {
+    if (isStaleText(namedEntryText(entry))) return true;
   }
-  for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
-    if (isStaleText(namedEntryText(sys))) return true;
+  for (const system of getShipSystems(ship)) {
+    if (isStaleText(namedEntryText(system))) return true;
   }
-  for (const entry of Array.isArray(ship.weapons) ? ship.weapons : []) {
-    const w = entry as { weaponId?: unknown; id?: unknown; name?: unknown };
-    if (typeof w.name === 'string' && isStaleText(trWeaponName({
-      weaponId: typeof w.weaponId === 'string' ? w.weaponId : undefined,
-      id: typeof w.id === 'string' ? w.id : undefined,
-      name: w.name,
-    }))) return true;
+  for (const weapon of getShipWeapons(ship)) {
+    if (isStaleText(trWeaponName(weapon))) return true;
+    for (const special of Array.isArray(weapon.special) ? weapon.special : []) {
+      if (isStaleText(trRuleLabel({ name: special }))) return true;
+    }
   }
   return false;
 }
@@ -1775,7 +2079,7 @@ export function renderCards(
       return shipNameOf(a).localeCompare(shipNameOf(b));
     });
     for (const ship of orderedShips) {
-      const card = createShipCard(ship, armyId, design);
+      const card = createShipCard(ship, army, armyId, design, useCustomNames);
       container.appendChild(wrapCardWithToolbar(card));
       if (design === 'tcg') fitStandardCardTitle(card);
       void restoreCardImage(card, armyId, ship.selectionId || ship.id || '');
@@ -1961,34 +2265,32 @@ function unitRulesForBack(unit: Unit, army: ArmyList): CardBackRuleEntry[] {
 // Regras de uma nave (Warfleets). Os nomes vêm soltos na própria nave; quando o
 // livro traz uma descrição com o mesmo nome, ela é usada. AP não se aplica.
 function shipRulesForBack(ship: Ship, army: ArmyList): CardBackRuleEntry[] {
-  const rawName = (entry: unknown): string => {
-    if (typeof entry === 'string') return entry.trim();
-    if (entry && typeof entry === 'object') {
-      const name = (entry as { name?: unknown }).name;
-      return typeof name === 'string' ? name.trim() : '';
-    }
-    return '';
-  };
-
-  const usedNames = new Set<string>(shipSpecialNames(ship));
-  for (const extra of [ship.hero, ship.title]) {
-    const name = rawName(extra);
-    if (name) usedNames.add(name);
+  const fleet = fleetRulePool(army, [ship]);
+  const usedIds = new Set<string>();
+  const usedNames = new Set<string>(fleet.names);
+  for (const system of getShipSystems(ship)) {
+    if (system.id) usedIds.add(system.id);
   }
-  for (const system of Array.isArray(ship.systems) ? ship.systems : []) {
-    const name = rawName(system);
-    if (name) usedNames.add(name);
+  for (const entry of getShipHeroTitles(ship)) {
+    if (entry.id) usedIds.add(entry.id);
+  }
+  for (const trait of Array.isArray(ship.traits) ? ship.traits : []) {
+    const id = shipEntryId(trait);
+    if (id) usedIds.add(id);
   }
 
-  const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
-  const commonRuleNames = new Set<string>();
-  const entries = resolveRulesForUse(armySpecialRules, new Set(), usedNames, new Set()).map((rule) =>
+  const commonRuleNames = new Set(
+    (Array.isArray(army.commonRuleNames) ? army.commonRuleNames : [])
+      .map((name) => name.trim())
+      .filter(Boolean),
+  );
+  const entries = resolveRulesForUse(fleet.pool, usedIds, usedNames, new Set()).map((rule) =>
     cardBackRuleEntry(rule, commonRuleNames),
   );
 
   // Nomes sem entrada no livro ainda aparecem no verso, sem descrição.
   const seen = new Set(entries.map((entry) => entry.name));
-  for (const name of usedNames) {
+  for (const name of fleet.names) {
     const label = trRuleLabel({ name });
     if (!label || seen.has(label)) continue;
     seen.add(label);
@@ -2528,15 +2830,21 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
   }
 
   // Frotas (Warfleets): as "regras especiais" das naves são nomes soltos.
-  for (const ship of getShips(army)) {
-    for (const name of shipSpecialNames(ship)) usedNames.add(name);
-    for (const extra of [ship.hero, ship.title]) {
-      const text = namedEntryText(extra);
-      if (text) usedNames.add(text);
+  // Os nomes em inglês são os mesmos que `army.specialRules` usa; traduzir aqui
+  // faria a busca falhar e a tabela perder as regras dos sistemas e das armas.
+  const ships = getShips(army);
+  const fleet = fleetRulePool(army, ships);
+  for (const name of fleet.names) usedNames.add(name);
+  for (const ship of ships) {
+    for (const system of getShipSystems(ship)) {
+      if (system.id) usedIds.add(system.id);
     }
-    for (const sys of Array.isArray(ship.systems) ? ship.systems : []) {
-      const text = namedEntryText(sys);
-      if (text) usedNames.add(text);
+    for (const entry of getShipHeroTitles(ship)) {
+      if (entry.id) usedIds.add(entry.id);
+    }
+    for (const trait of Array.isArray(ship.traits) ? ship.traits : []) {
+      const id = shipEntryId(trait);
+      if (id) usedIds.add(id);
     }
   }
 
@@ -2567,7 +2875,12 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
       }
     }
   }
-  const sorted = resolveRulesForUse(armySpecialRules, usedIds, usedNames, grantedIds);
+  const sorted = resolveRulesForUse(
+    fleet.pool,
+    usedIds,
+    usedNames,
+    grantedIds,
+  );
 
   const table = document.createElement('table');
   table.className = 'special-rules-table';

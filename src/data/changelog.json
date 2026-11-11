@@ -3,6 +3,22 @@
     "date": "November 11, 2026",
     "datePtBR": "11 de novembro de 2026",
     "items": [
+      "**Warfleets ship cards now show the full Army Forge sheet:** each ship gets **Hero / Title**, **Systems** and **Weapons** sections, with the hero or title in its own row and its cost as `+N pts` next to the ship's base cost.",
+      "**Weapons table gains a DMG column** with one damage box per weapon and per system: 2 by default, 4 for Armored Plating, +1 per Hardened, 3 for Heavy / Wraith Frame and 1 for Detonation squadrons. Heroes and titles carry no boxes.",
+      "**Squadron damage is a section bar:** the DAMAGE row uses the same title bar as the other sections, with its boxes right-aligned.",
+      "**Stats match Army Forge exactly:** Move, Cruise, Evade and Tough print without the old `+` prefix, and rules only referenced in a weapon description (such as Deadly or Twin-Fire) are expanded in the rules table and on the card back."
+    ],
+    "itemsPtBR": [
+      "**As cartas de nave do Warfleets agora mostram a ficha completa do Army Forge:** cada nave ganha as seções **Herói / Título**, **Sistemas** e **Armas**, com o herói ou título em uma linha própria e seu custo como `+N pts` ao lado do custo base da nave.",
+      "**A tabela de armas ganhou a coluna DMG** com uma caixa de dano por arma e por sistema: 2 por padrão, 4 em Placas Blindadas, +1 por Hardened, 3 em Heavy / Wraith Frame e 1 em esquadrões com Detonation. Heróis e títulos não levam caixas.",
+      "**O dano do esquadrão virou uma barra de seção:** a linha DAMAGE usa a mesma barra de título das outras seções, com as caixas alinhadas à direita.",
+      "**Os atributos batem exatamente com o Army Forge:** Move, Cruise, Evade e Tough saem sem o antigo prefixo `+`, e regras apenas citadas na descrição de uma arma (como Deadly ou Twin-Fire) são expandidas na tabela de regras e no verso da carta."
+    ]
+  },
+  {
+    "date": "November 11, 2026",
+    "datePtBR": "11 de novembro de 2026",
+    "items": [
       "**Unit rules on card backs (Standard):** enable **Print card backs**, then **Unit rules on card backs** to print each unit's special rules behind the card instead of the system cover. Each back lists the unit's own rules plus those from its weapons, items and upgrades, with referenced rules expanded; Armor Penetration (AP) is always included.",
       "**Card backs follow the Special Rules table look:** rule names use the same accent color (light and dark themes), the original English term appears in parentheses in gray italics, descriptions are justified and separated by a soft divider.",
       "**Text shrinks to fit the card:** if a unit has too many rules or long descriptions, the back's font size is reduced automatically (down to 2pt) so nothing is clipped from the 63.5 × 88 mm card.",
