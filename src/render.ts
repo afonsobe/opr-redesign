@@ -712,6 +712,258 @@ export function createAvatarSizeControl(): HTMLDivElement {
   return bar;
 }
 
+// --- Tamanho das cartas do design Standard (63,5 × 88 mm por padrão) --------
+
+const CARD_SIZE_KEY = 'tcgCardSize';
+export const DEFAULT_CARD_WIDTH_MM = 63.5;
+export const DEFAULT_CARD_HEIGHT_MM = 88;
+const MIN_CARD_MM = 30;
+const MAX_CARD_MM = 300;
+
+interface CardSize {
+  width: number;
+  height: number;
+}
+
+interface CardSizePreset extends CardSize {
+  id: string;
+  label: string;
+}
+
+// Tamanhos de carta mais comuns em jogos de tabuleiro. O Standard é o padrão;
+// os demais servem de atalho, e qualquer valor pode ser digitado à mão.
+const CARD_SIZE_PRESETS: CardSizePreset[] = [
+  { id: 'standard', label: 'Standard', width: 63.5, height: 88 },
+  { id: 'tarot', label: 'Tarot', width: 70, height: 120 },
+  { id: 'usa', label: 'USA', width: 56, height: 87 },
+  { id: 'euro', label: 'Euro', width: 59, height: 92 },
+  { id: 'mini-usa', label: 'Mini USA', width: 41, height: 63 },
+  { id: 'mini', label: 'Mini', width: 44, height: 67 },
+  { id: 'bridge', label: 'Bridge', width: 57, height: 89 },
+];
+
+const cardSizeControls: Array<{
+  width: HTMLInputElement;
+  height: HTMLInputElement;
+  preset: HTMLSelectElement;
+}> = [];
+
+function formatCardMm(value: number): string {
+  return Number.isInteger(value) ? String(value) : value.toFixed(1);
+}
+
+function matchingCardPreset(size: CardSize): string {
+  const match = CARD_SIZE_PRESETS.find(
+    (preset) =>
+      Math.abs(preset.width - size.width) < 0.05 &&
+      Math.abs(preset.height - size.height) < 0.05,
+  );
+  return match?.id ?? 'custom';
+}
+
+function parseCardMm(value: string): number | null {
+  const parsed = parseFloat(value.replace(',', '.'));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function clampCardMm(value: number): number {
+  return Math.round(Math.min(MAX_CARD_MM, Math.max(MIN_CARD_MM, value)) * 10) / 10;
+}
+
+function loadCardSize(): CardSize {
+  try {
+    const raw = localStorage.getItem(CARD_SIZE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as { width?: unknown; height?: unknown };
+      return {
+        width:
+          typeof parsed.width === 'number'
+            ? clampCardMm(parsed.width)
+            : DEFAULT_CARD_WIDTH_MM,
+        height:
+          typeof parsed.height === 'number'
+            ? clampCardMm(parsed.height)
+            : DEFAULT_CARD_HEIGHT_MM,
+      };
+    }
+  } catch (error) {
+    console.error('Failed to read card size:', error);
+  }
+  return { width: DEFAULT_CARD_WIDTH_MM, height: DEFAULT_CARD_HEIGHT_MM };
+}
+
+let cardSize = loadCardSize();
+
+// O conteúdo é desenhado no tamanho base (63,5 × 88 mm) e escalado junto com a
+// largura; a altura fica independente para caber no papel escolhido. Sem zoom,
+// a carta manteria os tipos pequenos e sobraria (ou faltaria) espaço.
+function applyCardSize(): void {
+  const root = document.documentElement.style;
+  const scale = cardSize.width / DEFAULT_CARD_WIDTH_MM;
+  root.setProperty('--tcg-card-w', `${cardSize.width}mm`);
+  root.setProperty('--tcg-card-h', `${cardSize.height}mm`);
+  root.setProperty('--tcg-scale', scale.toFixed(5));
+  root.setProperty('--tcg-base-h', `${(cardSize.height / scale).toFixed(4)}mm`);
+  // Na impressão, cabem tantas cartas por linha quantas couberem na largura
+  // útil da A4 com margem de 6 mm (198 mm). Letter é mais larga, então também
+  // serve.
+  const gap = 0.75;
+  const columns = Math.max(1, Math.floor((198 + gap) / (cardSize.width + gap)));
+  root.setProperty('--tcg-print-cols', String(columns));
+}
+applyCardSize();
+
+function saveCardSize(): void {
+  try {
+    localStorage.setItem(CARD_SIZE_KEY, JSON.stringify(cardSize));
+  } catch (error) {
+    console.error('Failed to save card size:', error);
+  }
+}
+
+function syncCardSizeInputs(): void {
+  const presetId = matchingCardPreset(cardSize);
+  for (const control of cardSizeControls) {
+    control.width.value = String(cardSize.width);
+    control.height.value = String(cardSize.height);
+    control.preset.value = presetId;
+  }
+}
+
+// Mantém o seletor coerente com os campos sem reescrever o que está sendo
+// digitado (só depois que o campo perde o foco os valores são normalizados).
+function syncCardSizePreset(): void {
+  const presetId = matchingCardPreset(cardSize);
+  for (const control of cardSizeControls) control.preset.value = presetId;
+}
+
+function setCardSize(width: number, height: number): void {
+  cardSize = { width: clampCardMm(width), height: clampCardMm(height) };
+  applyCardSize();
+  saveCardSize();
+  syncCardSizeInputs();
+}
+
+/** Campos de largura e altura (mm) da carta do design Standard. */
+export function createCardSizeControl(): HTMLDivElement {
+  const bar = document.createElement('div');
+  bar.className = 'card-size-bar';
+
+  const label = document.createElement('span');
+  label.className = 'card-size-label';
+  label.dataset.i18n = 'cardsize.label';
+  label.textContent = t('cardsize.label');
+
+  const presetField = document.createElement('label');
+  presetField.className = 'card-size-preset-field';
+  const presetText = document.createElement('span');
+  presetText.className = 'card-size-field-label';
+  presetText.dataset.i18n = 'cardsize.preset';
+  presetText.textContent = t('cardsize.preset');
+  const presetSelect = document.createElement('select');
+  presetSelect.className = 'card-size-preset';
+  presetSelect.dataset.i18nAria = 'cardsize.preset';
+  presetSelect.setAttribute('aria-label', t('cardsize.preset'));
+  for (const preset of CARD_SIZE_PRESETS) {
+    const option = document.createElement('option');
+    option.value = preset.id;
+    option.textContent = `${preset.label} — ${formatCardMm(preset.width)} × ${formatCardMm(preset.height)} mm`;
+    presetSelect.appendChild(option);
+  }
+  const customOption = document.createElement('option');
+  customOption.value = 'custom';
+  customOption.dataset.i18n = 'cardsize.custom';
+  customOption.textContent = t('cardsize.custom');
+  presetSelect.appendChild(customOption);
+  presetField.append(presetText, presetSelect);
+
+  const fields = document.createElement('div');
+  fields.className = 'card-size-fields';
+
+  const makeField = (i18n: 'cardsize.width' | 'cardsize.height'): HTMLInputElement => {
+    const field = document.createElement('label');
+    field.className = 'card-size-field';
+    const text = document.createElement('span');
+    text.className = 'card-size-field-label';
+    text.dataset.i18n = i18n;
+    text.textContent = t(i18n);
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.className = 'card-size-input';
+    input.min = String(MIN_CARD_MM);
+    input.max = String(MAX_CARD_MM);
+    input.step = '0.1';
+    input.inputMode = 'decimal';
+    input.dataset.i18nAria = i18n;
+    input.setAttribute('aria-label', t(i18n));
+    field.append(text, input);
+    fields.appendChild(field);
+    return input;
+  };
+
+  const widthInput = makeField('cardsize.width');
+  const times = document.createElement('span');
+  times.className = 'card-size-times';
+  times.textContent = '×';
+  fields.appendChild(times);
+  const heightInput = makeField('cardsize.height');
+
+  presetSelect.addEventListener('change', () => {
+    if (presetSelect.value === 'custom') {
+      widthInput.focus();
+      widthInput.select();
+      return;
+    }
+    const preset = CARD_SIZE_PRESETS.find((item) => item.id === presetSelect.value);
+    if (preset) setCardSize(preset.width, preset.height);
+  });
+
+  const reset = document.createElement('button');
+  reset.type = 'button';
+  reset.className = 'card-size-reset';
+  reset.dataset.i18n = 'cardsize.reset';
+  reset.textContent = t('cardsize.reset');
+  reset.addEventListener('click', () =>
+    setCardSize(DEFAULT_CARD_WIDTH_MM, DEFAULT_CARD_HEIGHT_MM),
+  );
+  fields.appendChild(reset);
+
+  // Enquanto o usuário digita, aplica só valores completos e dentro da faixa;
+  // ao sair do campo, completa o que faltar e normaliza os dois campos.
+  const commit = (normalize: boolean): void => {
+    const width = parseCardMm(widthInput.value);
+    const height = parseCardMm(heightInput.value);
+    if (width == null || height == null) {
+      if (normalize) syncCardSizeInputs();
+      return;
+    }
+    const outOfRange =
+      width < MIN_CARD_MM ||
+      width > MAX_CARD_MM ||
+      height < MIN_CARD_MM ||
+      height > MAX_CARD_MM;
+    if (outOfRange) {
+      if (normalize) setCardSize(width, height);
+      return;
+    }
+    cardSize = { width, height };
+    applyCardSize();
+    saveCardSize();
+    if (normalize) syncCardSizeInputs();
+    else syncCardSizePreset();
+  };
+  for (const input of [widthInput, heightInput]) {
+    input.addEventListener('input', () => commit(false));
+    input.addEventListener('change', () => commit(true));
+  }
+
+  cardSizeControls.push({ width: widthInput, height: heightInput, preset: presetSelect });
+  syncCardSizeInputs();
+
+  bar.append(label, presetField, fields);
+  return bar;
+}
+
 
 // O círculo onde a imagem aparece.
 function getAvatar(card: HTMLDivElement): HTMLDivElement | null {
@@ -1610,8 +1862,9 @@ function getShipWeapons(ship: Ship): ShipWeapon[] {
 }
 
 // Herói e título são opcionais e vêm como objetos; a ordem segue o Army Forge
-// (herói antes de título) e o custo é mostrado à parte, sem somar ao custo base
-// da nave — o PDF do Army Forge imprime só o custo base.
+// (herói antes de título). O custo deles entra no total da nave, como o Army
+// Forge mostra na lista, e a linha de herói/título exibe o valor como +N pts
+// para deixar claro quanto do total vem deles.
 function getShipHeroTitles(ship: Ship): ShipHeroTitle[] {
   const entries: ShipHeroTitle[] = [];
   for (const entry of [ship.hero, ship.title]) {
@@ -1625,6 +1878,13 @@ function getShipHeroTitles(ship: Ship): ShipHeroTitle[] {
     });
   }
   return entries;
+}
+
+// Custo total da nave como o Army Forge mostra na lista: base + herói/título.
+// Sistemas e armas são sempre gratuitos nas regras de Warfleets.
+function getShipTotalCost(ship: Ship): number {
+  const base = typeof ship.cost === 'number' ? ship.cost : 0;
+  return base + getShipHeroTitles(ship).reduce((sum, entry) => sum + (entry.cost ?? 0), 0);
 }
 
 function shipTraitNames(ship: Ship): string[] {
@@ -1810,11 +2070,53 @@ function createDamageBoxes(capacity: number): HTMLSpanElement {
   return boxes;
 }
 
+// O Army Forge marca o arco de tiro antes do nome de cada arma com um ícone:
+// seta para cima = frente, setas para os lados = lateral, seta para baixo =
+// traseira e quadrado = torreta (atira em todas as direções). `facing` segue o
+// mesmo código do Army Forge (0 = frente, 1 = lateral, 2 = traseira).
+type ShipFacingKind = 'front' | 'side' | 'rear' | 'turret';
+
+function shipFacingKind(facing: number | undefined): ShipFacingKind {
+  if (facing === 0) return 'front';
+  if (facing === 1) return 'side';
+  if (facing === 2) return 'rear';
+  return 'turret';
+}
+
+function shipFacingLabel(kind: ShipFacingKind): string {
+  if (kind === 'front') return t('wpn.facing.front');
+  if (kind === 'side') return t('wpn.facing.side');
+  if (kind === 'rear') return t('wpn.facing.rear');
+  return t('wpn.turret');
+}
+
+function createShipFacingIcon(facing: number | undefined): HTMLSpanElement {
+  const kind = shipFacingKind(facing);
+  const label = shipFacingLabel(kind);
+  const shapes: Record<ShipFacingKind, string> = {
+    front: '<path d="M7 2.9 10.2 6.3H8.2v5H5.8v-5H3.8Z"/>',
+    side:
+      '<path d="M1.6 7 4.4 4.3v2.1h2.2v1.2H4.4v2.1Z"/>' +
+      '<path d="M12.4 7 9.6 4.3v2.1H7.4v1.2h2.2v2.1Z"/>',
+    rear: '<path d="M7 11.1 3.8 7.7h2v-5h2.4v5h2Z"/>',
+    turret: '<rect x="3.7" y="3.7" width="6.6" height="6.6" rx="1.1"/>',
+  };
+  const icon = document.createElement('span');
+  icon.className = `w-facing w-facing--${kind}`;
+  icon.title = label;
+  icon.setAttribute('role', 'img');
+  icon.setAttribute('aria-label', label);
+  icon.innerHTML =
+    '<svg viewBox="0 0 14 14" aria-hidden="true" focusable="false">' +
+    '<circle cx="7" cy="7" r="6.1" fill="none" stroke="currentColor" stroke-width="1.1"/>' +
+    `<g fill="currentColor">${shapes[kind]}</g></svg>`;
+  return icon;
+}
+
 function createShipUpgradeRow(
   name: string,
   options: { capacity?: number; cost?: number } = {},
-): HTMLDivElement {
-  const row = document.createElement('div');
+): HTMLDivElement {  const row = document.createElement('div');
   row.className = 'ship-upgrade';
   row.appendChild(createTextElement('ship-upgrade-name', name));
   if (options.capacity != null) row.appendChild(createDamageBoxes(options.capacity));
@@ -1852,7 +2154,7 @@ function createShipCard(
   const specialNames = [...shipSpecialNames(ship), ...shipTraitNames(ship)];
   const weaponEntries = getShipWeapons(ship);
 
-  const costParts = [`${ship.cost ?? 0} pts`];
+  const costParts = [`${getShipTotalCost(ship)} pts`];
   if (typeof ship.xp === 'number' && ship.xp > 0) costParts.push(`XP ${ship.xp}`);
   const costElement = createTextElement('card-cost', costParts.join(' · '));
 
@@ -1971,8 +2273,10 @@ function createShipCard(
   }
   const tableBody = table.createTBody();
   const turretRow = tableBody.insertRow();
+  const turretNameCell = turretRow.insertCell();
+  turretNameCell.className = 'w-name';
+  turretNameCell.append(createShipFacingIcon(undefined), t('wpn.turret'));
   for (const [text, className] of [
-    [t('wpn.turret'), 'w-name'],
     [`${ship.range ?? 0}"`, 'w-num'],
     [String(ship.att ?? 0), 'w-num'],
     [String(ship.str ?? 0), 'w-num'],
@@ -1997,7 +2301,10 @@ function createShipCard(
 
     const nameCell = row.insertCell();
     nameCell.className = 'w-name';
-    nameCell.textContent = trWeaponName(weapon) || '-';
+    nameCell.append(
+      createShipFacingIcon(weapon.facing),
+      trWeaponName(weapon) || '-',
+    );
     for (const text of [range, attacks, str]) {
       const cell = row.insertCell();
       cell.className = 'w-num';
@@ -2074,7 +2381,7 @@ export function renderCards(
   container.classList.toggle('cards--roster', rosterMode);
   if (fleetShips.length > 0) {
     const orderedShips = [...fleetShips].sort((a, b) => {
-      const costDiff = (b.cost ?? 0) - (a.cost ?? 0);
+      const costDiff = getShipTotalCost(b) - getShipTotalCost(a);
       if (costDiff !== 0) return costDiff;
       return shipNameOf(a).localeCompare(shipNameOf(b));
     });

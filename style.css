@@ -7,6 +7,13 @@
   --c1: #7a1f4a;
   --c2: #2a6b66;
   --avatar-size: 58px;
+  /* Cartas do design Standard: 63,5 × 88 mm por padrão. O JS sobrescreve
+     estas variáveis conforme o tamanho escolhido na Customization. */
+  --tcg-card-w: 63.5mm;
+  --tcg-card-h: 88mm;
+  --tcg-scale: 1;
+  --tcg-base-h: 88mm;
+  --tcg-print-cols: 3;
 
   /* Interface — tema claro */
   --bg: #f3f4f9;
@@ -853,6 +860,105 @@ body:has(.card--has-image) .avatar-size-bar {
   border-color: var(--accent);
 }
 
+/* Tamanho customizado das cartas do design Standard. Só aparece quando o
+   design Standard está ativo, já que os outros não usam cartas físicas. */
+.customization-design-column .card-size-bar {
+  margin: 0;
+  padding: 8px 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.card-size-bar {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+body.card-layout-tcg .card-size-bar {
+  display: flex;
+}
+
+.card-size-label {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.card-size-fields {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card-size-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.card-size-preset-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.card-size-preset {
+  width: 100%;
+  min-height: 32px;
+  padding: 5px 6px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.card-size-input {
+  width: 62px;
+  padding: 5px 6px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.card-size-times {
+  padding-bottom: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.card-size-reset {
+  padding: 5px 9px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.card-size-reset:hover {
+  background: var(--surface-2);
+}
+
 /* Cores de destaque sobre o "papel". No tema claro são as cores da paleta;
    no escuro (só na tela) são clareadas para manter a leitura confortável.
    O verso com regras usa as mesmas cores da seção de Regras especiais. */
@@ -1304,6 +1410,23 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
 .weapons-table .w-name {
   width: 36%;
   font-weight: bold;
+}
+
+/* Arco de tiro da arma (o mesmo ícone do Army Forge): frente, lateral,
+   traseira ou torreta. */
+.weapons-table .w-facing {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 3px;
+  color: var(--paper-ink);
+  vertical-align: -2px;
+}
+
+.weapons-table .w-facing svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .weapons-table .w-num {
@@ -2078,15 +2201,17 @@ body.has-card-backs .card-backs-section {
 
 .card-backs {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 63.5mm);
+  grid-template-columns: repeat(auto-fill, var(--tcg-card-w));
   justify-content: center;
   gap: 14px;
   align-items: start;
 }
 
 .card-back {
+  /* Mesmo tamanho das frentes: o verso acompanha o ajuste do Standard. */
+  zoom: var(--tcg-scale);
   width: 63.5mm;
-  height: 88mm;
+  height: var(--tcg-base-h);
   border-radius: 3mm;
   background-color: var(--surface-2);
   background-position: center;
@@ -2182,7 +2307,7 @@ body.has-card-backs .card-backs-section {
 }
 
 body.card-layout-tcg .cards {
-  grid-template-columns: repeat(auto-fill, 63.5mm);
+  grid-template-columns: repeat(auto-fill, var(--tcg-card-w));
   justify-content: center;
   gap: 14px;
 }
@@ -2191,8 +2316,11 @@ body.card-layout-tcg .cards {
   --tcg-frame: color-mix(in srgb, var(--c1) 72%, #171318);
   --tcg-gold: #c9a75b;
   --tcg-parchment: var(--paper);
+  /* O conteúdo é desenhado no tamanho base e o zoom acompanha a largura; a
+     altura vem separada para permitir formatos diferentes do 63,5 × 88 mm. */
+  zoom: var(--tcg-scale);
   width: 63.5mm;
-  height: 88mm;
+  height: var(--tcg-base-h);
   padding: 1.6mm;
   gap: 1mm;
   border: 1.5mm solid var(--tcg-frame);
@@ -2417,6 +2545,13 @@ body.card-layout-tcg .cards {
 
 .card--tcg .weapons-table .w-dmg {
   width: 8mm;
+}
+
+.card--tcg .weapons-table .w-facing {
+  width: 2.1mm;
+  height: 2.1mm;
+  margin-right: 0.5mm;
+  vertical-align: -0.6mm;
 }
 
 .card--tcg .ship-body {
@@ -2670,6 +2805,13 @@ body.card-layout-table .cards {
 
 .card--ship.card--table .weapons-table .w-dmg {
   width: 16mm;
+}
+
+.card--ship.card--table .weapons-table .w-facing {
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  vertical-align: -2.5px;
 }
 
 .card--table .muted {
@@ -3046,20 +3188,20 @@ body.card-layout-table .cards--roster {
 
 @media print {
   body.card-layout-tcg .cards {
-    grid-template-columns: repeat(3, 63.5mm);
+    grid-template-columns: repeat(var(--tcg-print-cols), var(--tcg-card-w));
     justify-content: space-between;
     gap: 0.75mm;
   }
 
   body.card-layout-tcg .card-wrapper {
-    width: 63.5mm;
+    width: var(--tcg-card-w);
     gap: 0;
     break-inside: avoid;
   }
 
   .card--tcg {
     width: 63.5mm;
-    height: 88mm;
+    height: var(--tcg-base-h);
     box-shadow: none;
     break-inside: avoid;
   }
@@ -3090,14 +3232,14 @@ body.card-layout-table .cards--roster {
   }
 
   .card-backs {
-    grid-template-columns: repeat(3, 63.5mm);
+    grid-template-columns: repeat(var(--tcg-print-cols), var(--tcg-card-w));
     justify-content: space-between;
     gap: 0.75mm;
   }
 
   .card-back {
     width: 63.5mm;
-    height: 88mm;
+    height: var(--tcg-base-h);
     box-shadow: none;
     break-inside: avoid;
   }

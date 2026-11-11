@@ -3,6 +3,22 @@
     "date": "November 11, 2026",
     "datePtBR": "11 de novembro de 2026",
     "items": [
+      "**Ship points now match Army Forge:** the cost on each Warfleets card is the ship's total (base cost plus hero/title), so a Greatsword Ship with Prime Crew shows 85 pts instead of 80. The hero/title row keeps the `+N pts` breakdown.",
+      "**Cards are still sorted by their total cost,** so a ship with a title or hero moves up accordingly.",
+      "**Weapon rows show the firing arc icon** used by Army Forge (front, side, rear or turret), with a translated tooltip and accessible label.",
+      "**Custom card size in the Standard design:** the Customization panel gains a preset list (Standard, Tarot, USA, Euro, Mini, Mini USA and Bridge) plus width and height fields in millimetres (default 63.5 × 88 mm). The setting persists, scales the card content and applies to the printed cards, the print grid and the card backs."
+    ],
+    "itemsPtBR": [
+      "**Os pontos das naves agora batem com o Army Forge:** o custo em cada carta do Warfleets é o total da nave (custo base mais herói/título), então uma Greatsword Ship com Prime Crew mostra 85 pts em vez de 80. A linha de herói/título continua mostrando o detalhamento como `+N pts`.",
+      "**As cartas continuam ordenadas pelo custo total,** então uma nave com título ou herói sobe na ordem conforme o valor.",
+      "**As linhas de arma mostram o ícone de arco de tiro** usado pelo Army Forge (frente, lateral, traseira ou torreta), com tooltip e rótulo acessível traduzidos.",
+      "**Tamanho customizado da carta no design Standard:** o painel de Customization ganha uma lista de predefinições (Standard, Tarot, USA, Euro, Mini, Mini USA e Bridge) e campos de largura e altura em milímetros (padrão 63,5 × 88 mm). O ajuste fica salvo, escala o conteúdo da carta e vale para as cartas impressas, a grade de impressão e os versos."
+    ]
+  },
+  {
+    "date": "November 11, 2026",
+    "datePtBR": "11 de novembro de 2026",
+    "items": [
       "**Warfleets ship cards now show the full Army Forge sheet:** each ship gets **Hero / Title**, **Systems** and **Weapons** sections, with the hero or title in its own row and its cost as `+N pts` next to the ship's base cost.",
       "**Weapons table gains a DMG column** with one damage box per weapon and per system: 2 by default, 4 for Armored Plating, +1 per Hardened, 3 for Heavy / Wraith Frame and 1 for Detonation squadrons. Heroes and titles carry no boxes.",
       "**Squadron damage is a section bar:** the DAMAGE row uses the same title bar as the other sections, with its boxes right-aligned.",

@@ -11,6 +11,7 @@ import {
 } from './src/db';
 import {
   createAvatarSizeControl,
+  createCardSizeControl,
   renderArmySummary,
   renderCardBacks,
   renderCards,
@@ -43,6 +44,7 @@ const optionPanels = document.querySelector('.option-panels') as HTMLElement | n
 const customizationOptions = document.getElementById('customization-options') as HTMLElement | null;
 const paletteControlMount = document.getElementById('palette-control-mount') as HTMLElement | null;
 const avatarSizeSlot = document.getElementById('avatar-size-slot') as HTMLElement | null;
+const cardSizeSlot = document.getElementById('card-size-slot') as HTMLElement | null;
 const includeCardsCheckbox = document.getElementById('optCards') as HTMLInputElement | null;
 const includeRulesCheckbox = document.getElementById('optRules') as HTMLInputElement | null;
 const includeSpellsCheckbox = document.getElementById('optSpells') as HTMLInputElement | null;
@@ -186,6 +188,8 @@ paletteControlMount?.appendChild(paletteLabel);
 // The size control lives in the customization panel and appears only when a
 // card has an image (controlled by CSS).
 avatarSizeSlot?.appendChild(createAvatarSizeControl());
+// O tamanho customizado das cartas só aparece no design Standard (via CSS).
+cardSizeSlot?.appendChild(createCardSizeControl());
 
 function paletteStorageKey(): string {
   return `palette:${currentArmyId ?? ''}`;
