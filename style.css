@@ -854,10 +854,12 @@ body:has(.card--has-image) .avatar-size-bar {
 }
 
 /* Cores de destaque sobre o "papel". No tema claro são as cores da paleta;
-   no escuro (só na tela) são clareadas para manter a leitura confortável. */
+   no escuro (só na tela) são clareadas para manter a leitura confortável.
+   O verso com regras usa as mesmas cores da seção de Regras especiais. */
 .card,
 .army-summary,
-.special-rules-section {
+.special-rules-section,
+.card-back--rules {
   --accent-ink: var(--c1);
   --accent-ink-2: var(--c2);
 }
@@ -865,7 +867,8 @@ body:has(.card--has-image) .avatar-size-bar {
 @media screen {
   :root[data-theme="dark"] .card,
   :root[data-theme="dark"] .army-summary,
-  :root[data-theme="dark"] .special-rules-section {
+  :root[data-theme="dark"] .special-rules-section,
+  :root[data-theme="dark"] .card-back--rules {
     --accent-ink: color-mix(in srgb, var(--c1) 55%, #ffffff);
     --accent-ink-2: color-mix(in srgb, var(--c2) 55%, #ffffff);
   }
@@ -1363,6 +1366,10 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   display: block;
   columns: 2;
   column-gap: 18px;
+  /* Regras e magias têm muito texto corrido: justificar deixa as colunas com
+     as duas bordas alinhadas, em qualquer design. */
+  text-align: justify;
+  text-wrap: pretty;
 }
 
 .special-rules-table tbody tr {
@@ -1576,6 +1583,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   body.print-grayscale .card,
   body.print-grayscale .army-summary:not(:empty),
   body.print-grayscale .special-rules-section,
+  body.print-grayscale .card-backs-section,
   body.print-grayscale #spells {
     filter: grayscale(1);
   }
@@ -1877,27 +1885,49 @@ body.card-layout-tcg .avatar-size-bar {
   display: none;
 }
 
-/* Opção de verso: só faz sentido no design Standard. */
-.card-backs-option {
+/* Grupo dos versos: só faz sentido no design Standard. As duas opções dividem o
+   mesmo retângulo; a de regras fica visível, mas desabilitada, até o verso ser
+   ligado. */
+.card-backs-group {
   display: none;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+body.card-layout-tcg .card-backs-group {
+  display: flex;
+}
+
+.card-backs-option {
+  display: flex;
   align-items: center;
   gap: 7px;
   padding: 8px 10px;
   color: var(--text);
   font-size: 12px;
   font-weight: 600;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 9px;
   cursor: pointer;
 }
 
-body.card-layout-tcg .card-backs-option {
-  display: flex;
+.card-backs-option + .card-backs-option {
+  border-top: 1px solid var(--border);
 }
 
 .card-backs-option:hover {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.card-backs-option.is-disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.card-backs-option.is-disabled:hover {
+  background: transparent;
 }
 
 .card-backs-option input[type="checkbox"] {
@@ -1958,6 +1988,91 @@ body.has-card-backs .card-backs-section {
   background-size: cover;
   box-shadow: 0 2px 8px #17131844;
   break-inside: avoid;
+}
+
+/* Verso com as regras da unidade: mesmo formato da carta, sem a capa. */
+.card-back--rules {
+  border: 1.5mm solid color-mix(in srgb, var(--c1) 72%, #171318);
+  background-color: var(--paper);
+  color: var(--paper-ink);
+  overflow: hidden;
+}
+
+.card-back-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+  height: 100%;
+  padding: 3mm 2.6mm 2.6mm;
+}
+
+.card-back-panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5mm;
+  padding-bottom: 1.2mm;
+  border-bottom: 0.3mm solid var(--paper-line);
+}
+
+.card-back-unit-name {
+  font-size: 7pt;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.card-back-rules-title {
+  color: var(--accent-ink);
+  font-size: 5.2pt;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.card-back-rules {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  font-size: 5.8pt;
+  line-height: 1.28;
+}
+
+.card-back-rule {
+  margin: 0;
+  padding: 0.5mm 0;
+  /* Bloco estreito: justificar alinha as bordas e melhora a leitura do verso. */
+  text-align: justify;
+  text-wrap: pretty;
+}
+
+/* Linha suave entre uma regra e a seguinte, para separar a leitura. */
+.card-back-rule + .card-back-rule {
+  border-top: 0.2mm solid color-mix(in srgb, var(--paper-line) 75%, transparent);
+}
+
+.card-back-rule:first-child {
+  padding-top: 0;
+}
+
+.card-back-rule:last-child {
+  padding-bottom: 0;
+}
+
+.card-back-rule strong {
+  color: var(--accent-ink);
+}
+
+/* Termo original em inglês entre parênteses, no mesmo estilo da tabela. */
+.card-back-rule .rule-name-original {
+  color: var(--muted-ink, #888);
+  font-style: italic;
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.card-back-rules .muted {
+  color: var(--paper-ink);
+  opacity: 0.7;
 }
 
 body.card-layout-tcg .cards {

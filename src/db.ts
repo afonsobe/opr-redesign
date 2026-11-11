@@ -14,6 +14,8 @@ export interface ListSettings {
   includeSpells: boolean;
   printGrayscale?: boolean;
   printCardBacks?: boolean;
+  // Só vale no design Standard: usa o verso para as regras da unidade.
+  printRulesBacks?: boolean;
 }
 
 // A saved army list: lightweight metadata for the listing plus the full relay

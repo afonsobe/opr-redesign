@@ -1,5 +1,23 @@
 [
   {
+    "date": "November 11, 2026",
+    "datePtBR": "11 de novembro de 2026",
+    "items": [
+      "**Unit rules on card backs (Standard):** enable **Print card backs**, then **Unit rules on card backs** to print each unit's special rules behind the card instead of the system cover. Each back lists the unit's own rules plus those from its weapons, items and upgrades, with referenced rules expanded; Armor Penetration (AP) is always included.",
+      "**Card backs follow the Special Rules table look:** rule names use the same accent color (light and dark themes), the original English term appears in parentheses in gray italics, descriptions are justified and separated by a soft divider.",
+      "**Text shrinks to fit the card:** if a unit has too many rules or long descriptions, the back's font size is reduced automatically (down to 2pt) so nothing is clipped from the 63.5 × 88 mm card.",
+      "**Grayscale printing now covers card backs too.**",
+      "**Justified text in the rules and spells tables:** the Special Rules and Spells tables (Classic, Standard and Table designs) now use justified text with more balanced line wrapping."
+    ],
+    "itemsPtBR": [
+      "**Regras da unidade no verso das cartas (Standard):** ative **Imprimir o verso das cartas** e depois **Regras da unidade no verso** para imprimir as regras especiais de cada unidade atrás da carta, no lugar da capa do sistema. Cada verso lista as regras da própria unidade e também as das armas, itens e melhorias, com as regras citadas expandidas; a Penetração de Armadura (PA) entra sempre.",
+      "**O verso segue o visual da tabela de Regras especiais:** nomes de regra com a mesma cor de destaque (temas claro e escuro), termo original em inglês entre parênteses em cinza e itálico, descrições justificadas e separadas por uma linha suave.",
+      "**O texto diminui para caber na carta:** se a unidade tiver muitas regras ou descrições longas, o tamanho da fonte do verso é reduzido automaticamente (até 2pt) para nada ser cortado dos 63,5 × 88 mm.",
+      "**A impressão em escala de cinza agora também cobre os versos das cartas.**",
+      "**Texto justificado nas tabelas de regras e magias:** as tabelas de Regras especiais e Magias (designs Clássico, Standard e Tabela) agora usam texto justificado com quebra de linha mais equilibrada."
+    ]
+  },
+  {
     "date": "November 10, 2026",
     "datePtBR": "10 de novembro de 2026",
     "items": [

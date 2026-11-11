@@ -31,7 +31,11 @@ const en = {
   'opt.cardBacks': 'Print card backs',
   'opt.cardBacksTitle':
     'Prints the game-system cover on the back of each card. The backs come on separate pages: print the fronts first, then flip the sheets.',
+  'opt.rulesBacks': 'Unit rules on card backs',
+  'opt.rulesBacksTitle':
+    'Standard design only, with card backs enabled. Replaces the system cover with that unit\'s special rules and their full text. AP, which applies to every unit, is always included.',
   'cardBacks.title': 'Card backs',
+  'cardBacks.rulesTitle': 'Special rules',
   'cardBacks.hint':
     'Printed on separate pages — print the fronts first, then flip the sheets.',
   'opt.title': 'Options',
@@ -261,7 +265,11 @@ const ptBR: Record<Key, string> = {
   'opt.cardBacks': 'Imprimir o verso das cartas',
   'opt.cardBacksTitle':
     'Imprime a capa do sistema no verso de cada carta. Os versos saem em páginas separadas: imprima as frentes primeiro e depois vire as folhas.',
+  'opt.rulesBacks': 'Regras da unidade no verso',
+  'opt.rulesBacksTitle':
+    'Apenas no design Standard, com o verso das cartas ligado. Troca a capa do sistema pelas regras especiais daquela unidade e seus textos completos. AP, que vale para todas as unidades, entra sempre.',
   'cardBacks.title': 'Verso das cartas',
+  'cardBacks.rulesTitle': 'Regras especiais',
   'cardBacks.hint':
     'Impressos em páginas separadas — imprima as frentes primeiro e depois vire as folhas.',
   'opt.title': 'Opções',

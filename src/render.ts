@@ -1891,24 +1891,288 @@ function cardBackImageFor(army: ArmyList): string {
   return `https://army-forge.opr-cdn.com/app/${cardBackCode(army)}_cover.jpg`;
 }
 
+// Junta ids/nomes de regras de uma cadeia de `content` (regras concedidas por
+// armas e itens). Quando `grantedIds` é passado, essas regras contam como
+// concedidas e alimentam a expansão de regras citadas na descrição.
+function collectRuleRefs(
+  entries: WeaponSpecialRule[] | undefined,
+  usedIds: Set<string>,
+  usedNames: Set<string>,
+  grantedIds?: Set<string>,
+): void {
+  if (!Array.isArray(entries)) return;
+  for (const entry of entries) {
+    if (entry.id) {
+      usedIds.add(entry.id);
+      grantedIds?.add(entry.id);
+    }
+    if (entry.name) usedNames.add(entry.name);
+    collectRuleRefs(entry.content, usedIds, usedNames, grantedIds);
+  }
+}
+
+interface CardBackRuleEntry {
+  name: string;
+  /** Termo original em inglês, exibido entre parênteses como na tabela. */
+  original?: string;
+  description: string;
+}
+
+// Regras de uma unidade para o verso: próprias, das armas, dos itens e as
+// concedidas por melhorias. AP entra sempre — vale para todas as unidades.
+function unitRulesForBack(unit: Unit, army: ArmyList): CardBackRuleEntry[] {
+  const usedIds = new Set<string>();
+  const usedNames = new Set<string>();
+  const grantedIds = new Set<string>();
+
+  for (const rule of getRules(unit)) {
+    if (rule.id) usedIds.add(rule.id);
+    if (rule.name) usedNames.add(rule.name);
+  }
+  for (const weapon of getWeapons(unit)) {
+    collectRuleRefs(getWeaponSpecialRules(weapon), usedIds, usedNames);
+    collectRuleRefs(weapon.content, usedIds, usedNames, grantedIds);
+  }
+  for (const upgrade of getUpgrades(unit)) {
+    collectRuleRefs(getWeaponSpecialRules(upgrade), usedIds, usedNames);
+    collectRuleRefs(upgrade.content, usedIds, usedNames, grantedIds);
+  }
+  for (const { gain } of getUpgradeRuleGains(unit)) {
+    if (gain.id) {
+      usedIds.add(gain.id);
+      grantedIds.add(gain.id);
+    }
+    if (gain.name) usedNames.add(gain.name);
+  }
+  // AP é comum a todas as unidades: o verso sempre traz a explicação.
+  usedNames.add('AP');
+
+  const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
+  const commonRuleNames = new Set(
+    (Array.isArray(army.commonRuleNames) ? army.commonRuleNames : [])
+      .map((name) => name.trim())
+      .filter(Boolean),
+  );
+  return resolveRulesForUse(armySpecialRules, usedIds, usedNames, grantedIds).map((rule) =>
+    cardBackRuleEntry(rule, commonRuleNames),
+  );
+}
+
+// Regras de uma nave (Warfleets). Os nomes vêm soltos na própria nave; quando o
+// livro traz uma descrição com o mesmo nome, ela é usada. AP não se aplica.
+function shipRulesForBack(ship: Ship, army: ArmyList): CardBackRuleEntry[] {
+  const rawName = (entry: unknown): string => {
+    if (typeof entry === 'string') return entry.trim();
+    if (entry && typeof entry === 'object') {
+      const name = (entry as { name?: unknown }).name;
+      return typeof name === 'string' ? name.trim() : '';
+    }
+    return '';
+  };
+
+  const usedNames = new Set<string>(shipSpecialNames(ship));
+  for (const extra of [ship.hero, ship.title]) {
+    const name = rawName(extra);
+    if (name) usedNames.add(name);
+  }
+  for (const system of Array.isArray(ship.systems) ? ship.systems : []) {
+    const name = rawName(system);
+    if (name) usedNames.add(name);
+  }
+
+  const armySpecialRules = Array.isArray(army.specialRules) ? army.specialRules : [];
+  const commonRuleNames = new Set<string>();
+  const entries = resolveRulesForUse(armySpecialRules, new Set(), usedNames, new Set()).map((rule) =>
+    cardBackRuleEntry(rule, commonRuleNames),
+  );
+
+  // Nomes sem entrada no livro ainda aparecem no verso, sem descrição.
+  const seen = new Set(entries.map((entry) => entry.name));
+  for (const name of usedNames) {
+    const label = trRuleLabel({ name });
+    if (!label || seen.has(label)) continue;
+    seen.add(label);
+    entries.push({ name: label, description: '' });
+  }
+  return entries.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Formata o nome exibido de uma regra: traduzido quando há tradução, com "(X)"
+// nas regras ranqueadas e com o † da tradução desatualizada. Também devolve o
+// termo original em inglês para o parêntese — usado na tabela de Regras
+// especiais e no verso das cartas, para os dois ficarem iguais.
+function ruleNameDisplay(
+  rule: ArmySpecialRule,
+  commonRuleNames: Set<string>,
+): { display: string; original: string; stale: boolean } {
+  const rawName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
+  const stale = isStaleText(rawName);
+  const baseName = stripStaleText(rawName);
+  const isArmorPenetration = getLang() !== 'en' && (rule.name ?? '').trim() === 'AP';
+  const isRated =
+    isArmorPenetration ||
+    (rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim()));
+  const display = isRated
+    ? `${baseName}${baseName.includes(')') ? ' ' : ''}(X)`
+    : baseName;
+
+  const originalRuleName = rule.name?.trim() || '';
+  const hasParentheticalExplanation = /\([^)]*\)/.test(baseName);
+  const showOriginal =
+    getLang() !== 'en' &&
+    originalRuleName !== '' &&
+    baseName !== originalRuleName &&
+    (isArmorPenetration || !hasParentheticalExplanation);
+
+  return { display, original: showOriginal ? originalRuleName : '', stale };
+}
+
+function cardBackRuleEntry(rule: ArmySpecialRule, commonRuleNames: Set<string>): CardBackRuleEntry {
+  const { display, original, stale } = ruleNameDisplay(rule, commonRuleNames);
+
+  const fallback = (rule as unknown as { __fallbackDesc?: string }).__fallbackDesc ?? '';
+  const translated = getLang() === 'en' ? (rule.description ?? '') : trRuleDescription(rule);
+  const isPlaceholder =
+    translated.trim() === (rule.name ?? '') || translated.trim() === (rule.description ?? '');
+  const description = (fallback && isPlaceholder ? fallback : translated).trim();
+
+  return {
+    name: stale ? display + STALE_MARK : display,
+    original,
+    description,
+  };
+}
+
+// Monta o painel impresso no verso: nome da unidade, título e a lista
+// "Regra: descrição" correspondente àquela unidade.
+function createCardBackRulesPanel(unitName: string, entries: CardBackRuleEntry[]): HTMLDivElement {
+  const panel = document.createElement('div');
+  panel.className = 'card-back-panel';
+
+  const head = document.createElement('div');
+  head.className = 'card-back-panel-head';
+  head.append(
+    createTextElement('card-back-unit-name', unitName),
+    createTextElement('card-back-rules-title', t('cardBacks.rulesTitle')),
+  );
+
+  const list = document.createElement('div');
+  list.className = 'card-back-rules';
+  if (entries.length === 0) {
+    list.appendChild(createTextElement('muted', t('card.noRules')));
+  } else {
+    for (const entry of entries) {
+      const paragraph = document.createElement('p');
+      paragraph.className = 'card-back-rule';
+      const name = document.createElement('strong');
+      name.textContent = entry.name;
+      if (entry.original) {
+        const original = document.createElement('span');
+        original.className = 'rule-name-original';
+        original.textContent = ` (${entry.original})`;
+        name.appendChild(original);
+      }
+      paragraph.appendChild(name);
+      if (entry.description) {
+        paragraph.append(': ', entry.description);
+      }
+      list.appendChild(paragraph);
+    }
+  }
+
+  panel.append(head, list);
+  return panel;
+}
+
+// Reduz a fonte do verso até o conteúdo caber no cartão (caixa fixa de
+// 63,5 × 88 mm). Busca o maior tamanho que cabe entre 5,8pt e 2pt: textos longos
+// (muitas regras ou descrições compridas) encolhem o quanto for preciso em vez
+// de vazar. O `overflow: hidden` do CSS é só o último recurso.
+//
+// A medição usa as caixas da última regra e da lista, e não `scrollHeight`:
+// como a lista tem `overflow: hidden`, o `scrollHeight` satura na altura da
+// caixa e "parece caber" mesmo com a última linha já cortada.
+function fitCardBackRules(back: HTMLElement): void {
+  const list = back.querySelector<HTMLElement>('.card-back-rules');
+  const last = list?.lastElementChild as HTMLElement | null | undefined;
+  if (!list || !last) return;
+  // Fora do documento (ou com a seção oculta) as caixas medem zero: nesse caso
+  // mantemos o tamanho padrão em vez de encolher tudo para o mínimo.
+  if (list.getBoundingClientRect().height <= 0) return;
+  // Folga de ~1mm: sem ela a última linha encosta na borda e o arredondamento
+  // da impressão pode cortá-la.
+  const slack = 4;
+  const fits = (size: number): boolean => {
+    list.style.fontSize = `${size}pt`;
+    const listBox = list.getBoundingClientRect();
+    const padding = parseFloat(getComputedStyle(list).paddingBottom) || 0;
+    const lastBox = last.getBoundingClientRect();
+    return lastBox.bottom <= listBox.bottom - padding - slack;
+  };
+  const max = 5.8;
+  const min = 2;
+  if (fits(max)) return;
+  let low = min;
+  let high = max;
+  for (let step = 0; step < 14; step += 1) {
+    const mid = (low + high) / 2;
+    if (fits(mid)) low = mid;
+    else high = mid;
+  }
+  list.style.fontSize = `${low}pt`;
+}
+
 /**
- * Desenha o verso das cartas no modo Standard: uma capa do sistema por carta
- * visível, na mesma ordem e na mesma quantidade, para que a impressão em
- * duplex (frentes e depois versos) alinhe carta a carta.
+ * Desenha o verso das cartas no modo Standard: um verso por carta visível, na
+ * mesma ordem e na mesma quantidade, para que a impressão em duplex (frentes e
+ * depois versos) alinhe carta a carta. Por padrão o verso é a capa do sistema;
+ * com `rulesOnBack`, mostra as regras especiais daquela unidade.
  */
-export function renderCardBacks(container: HTMLElement, army: ArmyList, count: number): void {
+export function renderCardBacks(
+  container: HTMLElement,
+  army: ArmyList,
+  cards: Element[],
+  rulesOnBack = false,
+): void {
   container.replaceChildren();
 
-  const total = Math.max(0, Math.floor(count));
-  if (total === 0) return;
+  if (cards.length === 0) return;
 
   const image = cardBackImageFor(army);
-  for (let index = 0; index < total; index += 1) {
+  // Os cartões carregam o id da unidade/nave que representam; unidades fundidas
+  // pela regra "Combine Units" aparecem já mescladas, como nas frentes.
+  const units = mergeJoinedUnits(Array.isArray(army.units) ? army.units : []);
+  const unitById = new Map(units.map((unit) => [unitImageId(unit), unit]));
+  const shipById = new Map(
+    getShips(army).map((ship) => [ship.selectionId || ship.id || '', ship]),
+  );
+
+  for (const card of cards) {
     const back = document.createElement('div');
     back.className = 'card-back';
-    back.style.backgroundImage = `url("${image}")`;
     back.setAttribute('aria-hidden', 'true');
+
+    if (!rulesOnBack) {
+      back.style.backgroundImage = `url("${image}")`;
+      container.appendChild(back);
+      continue;
+    }
+
+    const element = card as HTMLElement;
+    const unitId = element.dataset.unitId ?? '';
+    const unit = unitById.get(unitId);
+    const ship = unit ? undefined : shipById.get(unitId);
+    const unitName = element.dataset.unitName ?? unit?.name ?? ship?.name ?? '';
+    const entries = unit
+      ? unitRulesForBack(unit, army)
+      : ship
+        ? shipRulesForBack(ship, army)
+        : [];
+
+    back.classList.add('card-back--rules');
+    back.appendChild(createCardBackRulesPanel(unitName, entries));
     container.appendChild(back);
+    fitCardBackRules(back);
   }
 }
 
@@ -2154,6 +2418,63 @@ export function renderArmySummary(section: HTMLElement, army: ArmyList): void {
   }
 }
 
+// Resolve as regras que uma lista/unidade referencia para as entradas reais de
+// `army.specialRules`: acha por id (ou id alternativo) e por nome, completa a
+// descrição de instâncias ranqueadas com o texto genérico, puxa regras citadas
+// por habilidades concedidas, deduplica por nome e ordena pelo nome traduzido.
+// Compartilhado pela tabela de Regras especiais e pelo verso de carta com regras.
+function resolveRulesForUse(
+  armySpecialRules: ArmySpecialRule[],
+  usedIds: Set<string>,
+  usedNames: Set<string>,
+  grantedIds: Set<string>,
+): ArmySpecialRule[] {
+  const used = armySpecialRules.filter(
+    (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)) || (r.name != null && usedNames.has(r.name)),
+  );
+  // Army Forge ships rated instances (e.g. CQes0mDvF4bV AP hasRating:true, desc='AP')
+  // whose description is just the name. The explanatory text lives on the
+  // generic common rule (e.g. 17crjK7P6_w6 AP). Fall back by name so the table
+  // shows the full text instead of AP:AP in the ACTIVE language.
+  // Elements below: { rule, fallbackDesc? }
+  type WithFallback = { rule: ArmySpecialRule; fallbackDesc?: string };
+  const genericByName: Map<string, WithFallback> = new Map();
+  for (const rule of armySpecialRules) {
+    if (!rule.name) continue;
+    if (rule.hasRating !== true && rule.description && rule.description.trim() && rule.description.trim() !== rule.name) {
+      if (!genericByName.has(rule.name)) genericByName.set(rule.name, { rule });
+    }
+  }
+  const withGenericDesc: (ArmySpecialRule & { __fallbackDesc?: string })[] = used.map((rule) => {
+    const desc = (rule.description ?? '').trim();
+    if (desc && desc !== rule.name) return rule;
+    const wb = rule.name ? genericByName.get(rule.name) : undefined;
+    if (!wb || wb.rule === rule) return rule;
+    // Copy the generic description (English text) onto the rated instance,
+    // so trRuleDescription can still translate it in pt-BR or return it
+    // in English for en-US.
+    return { ...rule, __fallbackDesc: wb.rule.description } as ArmySpecialRule & { __fallbackDesc?: string };
+  });
+  const expanded = expandGrantedRules(
+    withGenericDesc as unknown as ArmySpecialRule[],
+    grantedIds,
+    armySpecialRules,
+  );
+  // Rated rules (AP, Regeneration Aura, ...) exist as one army.specialRules entry
+  // per X value, but the table shows the generic name/description without the
+  // rating, so distinct-X instances of the same rule would otherwise print as
+  // identical duplicate rows.
+  const seenNames = new Set<string>();
+  const deduped = expanded.filter((rule) => {
+    if (seenNames.has(rule.name)) return false;
+    seenNames.add(rule.name);
+    return true;
+  });
+  // Ordena pelo nome que o usuário vê (traduzido quando disponível). A
+  // deduplicação acima continua usando o nome em inglês, que é o dado estável.
+  return deduped.sort((a, b) => trRuleName(a).localeCompare(trRuleName(b)));
+}
+
 export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): void {
   section.replaceChildren();
 
@@ -2246,50 +2567,7 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
       }
     }
   }
-  const used = armySpecialRules.filter(
-    (r) => usedIds.has(r.id) || (r.aliasedRuleId != null && usedIds.has(r.aliasedRuleId)) || (r.name != null && usedNames.has(r.name)),
-  );
-  // Army Forge ships rated instances (e.g. CQes0mDvF4bV AP hasRating:true, desc='AP')
-  // whose description is just the name. The explanatory text lives on the
-  // generic common rule (e.g. 17crjK7P6_w6 AP). Fall back by name so the table
-  // shows the full text instead of AP:AP in the ACTIVE language.
-  // Elements below: { rule, fallbackDesc? }
-  type WithFallback = { rule: ArmySpecialRule; fallbackDesc?: string };
-  const genericByName: Map<string, WithFallback> = new Map();
-  for (const rule of armySpecialRules) {
-    if (!rule.name) continue;
-    if (rule.hasRating !== true && rule.description && rule.description.trim() && rule.description.trim() !== rule.name) {
-      if (!genericByName.has(rule.name)) genericByName.set(rule.name, { rule });
-    }
-  }
-  const withGenericDesc: (ArmySpecialRule & { __fallbackDesc?: string })[] = used.map((rule) => {
-    const desc = (rule.description ?? '').trim();
-    if (desc && desc !== rule.name) return rule;
-    const wb = rule.name ? genericByName.get(rule.name) : undefined;
-    if (!wb || wb.rule === rule) return rule;
-    // Copy the generic description (English text) onto the rated instance,
-    // so trRuleDescription can still translate it in pt-BR or return it
-    // in English for en-US.
-    return { ...rule, __fallbackDesc: wb.rule.description } as ArmySpecialRule & { __fallbackDesc?: string };
-  });
-  const expanded = expandGrantedRules(
-    withGenericDesc as unknown as ArmySpecialRule[],
-    grantedIds,
-    armySpecialRules,
-  );
-  // Rated rules (AP, Regeneration Aura, ...) exist as one army.specialRules entry
-  // per X value, but the table shows the generic name/description without the
-  // rating, so distinct-X instances of the same rule would otherwise print as
-  // identical duplicate rows.
-  const seenNames = new Set<string>();
-  const deduped = expanded.filter((rule) => {
-    if (seenNames.has(rule.name)) return false;
-    seenNames.add(rule.name);
-    return true;
-  });
-  // Ordena pelo nome que o usuário vê (traduzido quando disponível). A
-  // deduplicação acima continua usando o nome em inglês, que é o dado estável.
-  const sorted = deduped.sort((a, b) => trRuleName(a).localeCompare(trRuleName(b)));
+  const sorted = resolveRulesForUse(armySpecialRules, usedIds, usedNames, grantedIds);
 
   const table = document.createElement('table');
   table.className = 'special-rules-table';
@@ -2316,33 +2594,14 @@ export function renderSpecialRulesTable(section: HTMLElement, army: ArmyList): v
 
     const nameTd = document.createElement('td');
     nameTd.className = 'rule-name';
-    const rawName = getLang() === 'en' ? (rule.name ?? '') : trRuleName(rule);
     // † fica depois de (X): "Resistência(X)†" em vez de "Resistência†(X)".
-    const nameStale = isStaleText(rawName);
-    const baseName = stripStaleText(rawName);
-    // Regras ranqueadas do livro mostram "(X)" (ex.: Crossing Attack(X)), como no
-    // Army Forge. Em pt-BR, também explicamos que o PA pode variar como PA(X).
-    const isArmorPenetration =
-      getLang() !== 'en' && (rule.name ?? '').trim() === 'AP';
-    const isRated =
-      isArmorPenetration ||
-      (rule.hasRating === true && !commonRuleNames.has((rule.name ?? '').trim()));
-    const cleanDisplay = isRated
-      ? `${baseName}${baseName.includes(')') ? ' ' : ''}(X)`
-      : baseName;
-    nameTd.textContent = nameStale ? cleanDisplay + STALE_MARK : cleanDisplay;
+    const { display, original, stale } = ruleNameDisplay(rule, commonRuleNames);
+    nameTd.textContent = stale ? display + STALE_MARK : display;
     // Termo original em inglês, apenas nas tabelas, em cinza e itálico.
-    const originalRuleName = rule.name?.trim() || '';
-    const hasParentheticalExplanation = /\([^)]*\)/.test(baseName);
-    const shouldShowOriginal =
-      getLang() !== 'en' &&
-      originalRuleName &&
-      baseName !== originalRuleName &&
-      (isArmorPenetration || !hasParentheticalExplanation);
-    if (shouldShowOriginal) {
+    if (original) {
       const originalSpan = document.createElement('span');
       originalSpan.className = 'rule-name-original';
-      originalSpan.textContent = ` (${originalRuleName})`;
+      originalSpan.textContent = ` (${original})`;
       nameTd.appendChild(originalSpan);
     }
 

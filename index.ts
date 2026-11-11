@@ -54,6 +54,7 @@ const combineUnitsCheckbox = document.getElementById('optCombine') as HTMLInputE
 const customNamesCheckbox = document.getElementById('optCustomName') as HTMLInputElement | null;
 const cardDesignButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-card-design]'));
 const cardBacksCheckbox = document.getElementById('optCardBacks') as HTMLInputElement | null;
+const rulesBacksCheckbox = document.getElementById('optRulesBacks') as HTMLInputElement | null;
 const cardBacksContainer = document.getElementById('card-backs') as HTMLElement | null;
 const cardBacksSummary = document.getElementById('card-backs-summary') as HTMLElement | null;
 const specialRulesSection = document.getElementById('special-rules');
@@ -121,8 +122,19 @@ setCardDesign('classic');
 
 // Card backs only exist in the Standard design and only when the option is on.
 // They mirror the visible cards 1:1, so combined units keep their pairing.
+// With "unit rules on card backs" they show each unit's special rules instead
+// of the system cover.
 function refreshCardBacks(): void {
-  const enabled = getCardDesign() === 'tcg' && (cardBacksCheckbox?.checked ?? false);
+  const backsOn = cardBacksCheckbox?.checked ?? false;
+  // A opção de regras fica sempre visível no Standard, mas só pode ser usada
+  // depois de ligar o verso das cartas.
+  if (rulesBacksCheckbox) {
+    rulesBacksCheckbox.disabled = !backsOn;
+    rulesBacksCheckbox
+      .closest('.rules-backs-option')
+      ?.classList.toggle('is-disabled', !backsOn);
+  }
+  const enabled = getCardDesign() === 'tcg' && backsOn;
   document.body.classList.toggle('has-card-backs', enabled);
   if (!cardBacksContainer) return;
   if (!enabled || !currentArmy) {
@@ -130,8 +142,8 @@ function refreshCardBacks(): void {
     cardBacksSummary?.replaceChildren();
     return;
   }
-  const count = cardsContainer.querySelectorAll('.card').length;
-  renderCardBacks(cardBacksContainer, currentArmy, count);
+  const cards = Array.from(cardsContainer.querySelectorAll('.card'));
+  renderCardBacks(cardBacksContainer, currentArmy, cards, rulesBacksCheckbox?.checked ?? false);
   // Espelha o resumo do topo da primeira página para que as frentes e os
   // versos tenham a mesma altura útil e as páginas casem no duplex.
   if (cardBacksSummary) renderArmySummary(cardBacksSummary, currentArmy);
@@ -304,6 +316,7 @@ const DEFAULT_SETTINGS: ListSettings = {
   includeSpells: true,
   printGrayscale: false,
   printCardBacks: false,
+  printRulesBacks: false,
 };
 
 function getCurrentSettings(): ListSettings {
@@ -316,6 +329,7 @@ function getCurrentSettings(): ListSettings {
     includeSpells: includeSpellsCheckbox?.checked ?? DEFAULT_SETTINGS.includeSpells,
     printGrayscale: grayscaleCheckbox?.checked ?? DEFAULT_SETTINGS.printGrayscale,
     printCardBacks: cardBacksCheckbox?.checked ?? DEFAULT_SETTINGS.printCardBacks,
+    printRulesBacks: rulesBacksCheckbox?.checked ?? DEFAULT_SETTINGS.printRulesBacks,
   };
 }
 
@@ -327,6 +341,7 @@ function applySettings(settings?: ListSettings): void {
   if (combineUnitsCheckbox) combineUnitsCheckbox.checked = resolved.combineSimilar;
   if (customNamesCheckbox) customNamesCheckbox.checked = resolved.useCustomNames;
   if (cardBacksCheckbox) cardBacksCheckbox.checked = resolved.printCardBacks ?? false;
+  if (rulesBacksCheckbox) rulesBacksCheckbox.checked = resolved.printRulesBacks ?? false;
   setCardDesign(normalizeCardDesign(resolved.cardDesign));
   if (includeCardsCheckbox) includeCardsCheckbox.checked = resolved.includeCards;
   if (includeRulesCheckbox) includeRulesCheckbox.checked = resolved.includeRules;
@@ -566,6 +581,10 @@ const onCardOptionChange = (): void => {
 combineUnitsCheckbox?.addEventListener('change', onCardOptionChange);
 customNamesCheckbox?.addEventListener('change', onCardOptionChange);
 cardBacksCheckbox?.addEventListener('change', () => {
+  refreshCardBacks();
+  persistCurrentSettings();
+});
+rulesBacksCheckbox?.addEventListener('change', () => {
   refreshCardBacks();
   persistCurrentSettings();
 });
