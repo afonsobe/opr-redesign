@@ -2306,6 +2306,54 @@ body.has-card-backs .card-backs-section {
   opacity: 0.7;
 }
 
+/* Carta de magias (frente, Standard): mesma moldura das unidades; o corpo é a
+   lista de magias, com o mesmo estilo de leitura dos versos com regras. */
+.card--tcg.card--spells .card-spells-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1mm 1.2mm 0.8mm;
+  overflow: hidden;
+}
+
+.card--tcg.card--spells .card-back-rules {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Verso da carta de magias: a capa do sistema com o rótulo perto da base (a
+   arte das capas já tem o título na parte de cima). */
+.card-back--spells {
+  position: relative;
+}
+
+/* Mesma fonte em todos os sistemas: Felina T26 Gothic, a do título das capas do
+   Grimdark Future. A original fica na frente para quem a tiver instalada; as do
+   sistema fazem o papel dela (serifa larga e de contraste alto). O texto é branco
+   como o das capas do Army Forge. */
+.card-back-spells-label {
+  position: absolute;
+  top: 88.5%;
+  left: 50%;
+  padding: 1.6mm 3.6mm;
+  border: 0.35mm solid #e8d9b4b3;
+  border-radius: 2mm;
+  background: #171318c4;
+  color: #ffffff;
+  font-family: 'FelinaT26 Gothic', Cinzel, Constantia, 'Palatino Linotype',
+    'Book Antiqua', Georgia, serif;
+  font-size: 13pt;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
 body.card-layout-tcg .cards {
   grid-template-columns: repeat(auto-fill, var(--tcg-card-w));
   justify-content: center;
@@ -3213,7 +3261,8 @@ body.card-layout-table .cards--roster {
   /* Versos: páginas próprias, depois das frentes e antes das tabelas.
      As quebras antes e depois isolam a seção, então nenhuma regra ou outro
      conteúdo divide a folha com os versos. Mesma grade 3 × 3 para que as
-     folhas impressas coincidam carta a carta. */
+     folhas impressas coincidam carta a carta; as colunas são espelhadas logo
+     abaixo para casar com a folha virada no duplex. */
   body.has-card-backs .card-backs-section {
     display: block;
     margin: 0;
@@ -3235,6 +3284,11 @@ body.card-layout-table .cards--roster {
     grid-template-columns: repeat(var(--tcg-print-cols), var(--tcg-card-w));
     justify-content: space-between;
     gap: 0.75mm;
+    /* Duplex: ao virar a folha no eixo vertical (borda longa), a coluna da
+       esquerda da frente cai na direita do verso. Inverter a direção da grade
+       espelha as colunas dentro de cada linha, então cada verso cai sobre a
+       carta certa. As linhas (e as quebras de página) continuam na mesma ordem. */
+    direction: rtl;
   }
 
   .card-back {
@@ -3242,6 +3296,9 @@ body.card-layout-table .cards--roster {
     height: var(--tcg-base-h);
     box-shadow: none;
     break-inside: avoid;
+    /* A grade é RTL só para espelhar as posições; o conteúdo do verso continua
+       sendo lido da esquerda para a direita. */
+    direction: ltr;
   }
 
   body.print-grayscale .card-back {

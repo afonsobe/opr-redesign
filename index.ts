@@ -122,6 +122,12 @@ function setCardDesign(design: CardDesign): void {
 }
 setCardDesign('classic');
 
+// A carta de referência de magias na frente depende das duas opções: ela só
+// existe quando as regras vão no verso (e o verso está ligado).
+function rulesOnBackEnabled(): boolean {
+  return (cardBacksCheckbox?.checked ?? false) && (rulesBacksCheckbox?.checked ?? false);
+}
+
 // Card backs only exist in the Standard design and only when the option is on.
 // They mirror the visible cards 1:1, so combined units keep their pairing.
 // With "unit rules on card backs" they show each unit's special rules instead
@@ -420,6 +426,7 @@ function displayArmy(army: ArmyList, input: string): void {
     combineUnitsCheckbox?.checked ?? true,
     customNamesCheckbox?.checked ?? false,
     getCardDesign(),
+    rulesOnBackEnabled(),
   );
 
   if (unitCount === 0) {
@@ -573,6 +580,7 @@ const reRenderCards = (): void => {
       combineUnitsCheckbox?.checked ?? true,
       customNamesCheckbox?.checked ?? false,
       getCardDesign(),
+      rulesOnBackEnabled(),
     );
     refreshCardBacks();
     syncSpecialRulesSection();
@@ -584,14 +592,10 @@ const onCardOptionChange = (): void => {
 };
 combineUnitsCheckbox?.addEventListener('change', onCardOptionChange);
 customNamesCheckbox?.addEventListener('change', onCardOptionChange);
-cardBacksCheckbox?.addEventListener('change', () => {
-  refreshCardBacks();
-  persistCurrentSettings();
-});
-rulesBacksCheckbox?.addEventListener('change', () => {
-  refreshCardBacks();
-  persistCurrentSettings();
-});
+// As duas opções de verso mudam a frente também: a carta de magias entra/sai
+// junto das unidades conforme "Regras da unidade no verso".
+cardBacksCheckbox?.addEventListener('change', onCardOptionChange);
+rulesBacksCheckbox?.addEventListener('change', onCardOptionChange);
 for (const button of cardDesignButtons) {
   button.addEventListener('click', () => {
     setCardDesign(normalizeCardDesign(button.dataset.cardDesign));
@@ -670,7 +674,10 @@ if (changelogEntries) renderChangelog(changelogEntries);
 if (homeHelp && faqView) {
   const heading = document.createElement('h2');
   heading.className = 'home-help-title';
-  heading.textContent = 'New here? How to use OPR Card Generator';
+  // Precisa da marcação de i18n para o título acompanhar a troca de idioma,
+  // como o conteúdo da FAQ clonado logo abaixo.
+  heading.dataset.i18n = 'home.helpTitle';
+  heading.textContent = t('home.helpTitle');
   homeHelp.appendChild(heading);
   for (const node of Array.from(faqView.querySelectorAll('.faq-callout, .faq-section'))) {
     homeHelp.appendChild(node.cloneNode(true));

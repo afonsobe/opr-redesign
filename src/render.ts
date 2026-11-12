@@ -28,6 +28,7 @@ import type {
   ShipHeroTitle,
   ShipSystem,
   ShipWeapon,
+  Spell,
   Unit,
   UnitRule,
   UpgradeGain,
@@ -2368,6 +2369,7 @@ export function renderCards(
   combineSimilar = true,
   useCustomNames = false,
   design: CardDesign = 'classic',
+  rulesOnBack = false,
 ): number {
   container.replaceChildren();
   
@@ -2441,6 +2443,22 @@ export function renderCards(
     void restoreCardImage(card, armyId, unitImageId(group.unit));
   });
 
+  // Carta de referência das magias, junto das unidades: só existe no Standard e
+  // quando as regras vão no verso (é a opção que a habilita). O verso dela é a
+  // capa do sistema com o rótulo "Magias".
+  const spells = Array.isArray(army.spells) ? army.spells : [];
+  const showSpellsCard = rulesOnBack && design === 'tcg' && spells.length > 0;
+  if (showSpellsCard) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'card-wrapper';
+    const card = createSpellsCard(army, spells);
+    wrapper.appendChild(card);
+    container.appendChild(wrapper);
+    fitStandardCardTitle(card);
+    // Encaixa o texto no cartão; a medição exige a carta já no documento.
+    fitCardBackRules(card);
+  }
+
   // Armas e rótulos com rating desatualizados aparecem nas cartas; a explicação
   // do † vai logo abaixo das cartas (próximo ao título de Regras especiais).
   let cardsHaveStale = false;
@@ -2464,6 +2482,12 @@ export function renderCards(
       }
       if (cardsHaveStale) break;
     }
+  }
+  // O † também pode vir de uma magia traduzida com o inglês desatualizado.
+  if (!cardsHaveStale && showSpellsCard) {
+    cardsHaveStale = spells.some(
+      (spell) => isStaleText(trSpellName(spell)) || isStaleText(trSpellEffect(spell)),
+    );
   }
   if (cardsHaveStale) container.appendChild(createStaleNote());
 
@@ -2693,6 +2717,72 @@ function createCardBackRulesPanel(unitName: string, entries: CardBackRuleEntry[]
   return panel;
 }
 
+// Título usado na carta de magias: o mesmo da tabela ("Magias - <livro>") ou,
+// sem os livros na lista, apenas "Magias".
+function spellsCardTitle(army: ArmyList): string {
+  const bookNames = (army.armyBooks ?? [])
+    .map((book) => (book?.name ?? '').trim())
+    .filter(Boolean);
+  return bookNames.length > 0
+    ? t('table.spellsArmy', { book: bookNames.join(' + ') })
+    : t('table.spells');
+}
+
+// Monta a carta de magias que entra junto das unidades (frente): a mesma moldura
+// das cartas de unidade, com as magias da lista no corpo. O verso dela fica por
+// conta de `renderCardBacks` (capa do sistema com o rótulo "Magias").
+function createSpellsCard(army: ArmyList, spells: Spell[]): HTMLDivElement {
+  const card = document.createElement('div');
+  card.className = 'card card--tcg card--spells';
+  // Marca a carta para o verso saber que é a de magias, não uma unidade.
+  card.dataset.spellCard = 'true';
+  const title = spellsCardTitle(army);
+  card.dataset.unitName = title;
+
+  const header = document.createElement('div');
+  header.className = 'card-header';
+  header.append(
+    createTextElement('card-name', title),
+    createTextElement('card-subtitle', t('cardBacks.spellsTitle')),
+  );
+
+  const body = document.createElement('div');
+  body.className = 'card-spells-body';
+  const list = document.createElement('div');
+  list.className = 'card-back-rules';
+  // Mesma ordem da tabela de magias: custo e, depois, nome.
+  const sorted = [...spells].sort(
+    (a, b) => a.threshold - b.threshold || trSpellName(a).localeCompare(trSpellName(b)),
+  );
+  for (const spell of sorted) {
+    const paragraph = document.createElement('p');
+    paragraph.className = 'card-back-rule';
+
+    const name = document.createElement('strong');
+    const rawName = trSpellName(spell);
+    // † fica depois do custo, como na tabela: "Tempestade (5)†".
+    const stale = isStaleText(rawName);
+    const cleanName = stripStaleText(rawName);
+    name.textContent = `${cleanName} (${spell.threshold ?? 0})${stale ? STALE_MARK : ''}`;
+    const originalName = spell.name?.trim() || '';
+    if (originalName && cleanName !== originalName) {
+      const original = document.createElement('span');
+      original.className = 'rule-name-original';
+      original.textContent = ` (${originalName})`;
+      name.appendChild(original);
+    }
+
+    paragraph.appendChild(name);
+    const effect = trSpellEffect(spell);
+    if (effect) paragraph.append(': ', effect);
+    list.appendChild(paragraph);
+  }
+
+  body.appendChild(list);
+  card.append(header, body);
+  return card;
+}
+
 // Reduz a fonte do verso até o conteúdo caber no cartão (caixa fixa de
 // 63,5 × 88 mm). Busca o maior tamanho que cabe entre 5,8pt e 2pt: textos longos
 // (muitas regras ou descrições compridas) encolhem o quanto for preciso em vez
@@ -2733,9 +2823,10 @@ function fitCardBackRules(back: HTMLElement): void {
 
 /**
  * Desenha o verso das cartas no modo Standard: um verso por carta visível, na
- * mesma ordem e na mesma quantidade, para que a impressão em duplex (frentes e
- * depois versos) alinhe carta a carta. Por padrão o verso é a capa do sistema;
- * com `rulesOnBack`, mostra as regras especiais daquela unidade.
+ * mesma quantidade e na mesma ordem de leitura. A impressão em duplex espelha
+ * as colunas de cada linha (ver CSS), para que, ao virar a folha, cada verso
+ * caia sobre a frente certa. Por padrão o verso é a capa do sistema; com
+ * `rulesOnBack`, mostra as regras especiais daquela unidade.
  */
 export function renderCardBacks(
   container: HTMLElement,
@@ -2768,6 +2859,15 @@ export function renderCardBacks(
     }
 
     const element = card as HTMLElement;
+    // A carta de magias não é uma unidade: recebe a capa do sistema com o
+    // rótulo perto da base, para manter o pareamento 1:1 do duplex.
+    if (element.dataset.spellCard === 'true') {
+      back.classList.add('card-back--spells');
+      back.style.backgroundImage = `url("${image}")`;
+      back.appendChild(createTextElement('card-back-spells-label', t('table.spells')));
+      container.appendChild(back);
+      continue;
+    }
     const unitId = element.dataset.unitId ?? '';
     const unit = unitById.get(unitId);
     const ship = unit ? undefined : shipById.get(unitId);

@@ -15,6 +15,7 @@ const en = {
     'Paste a shared Army Forge link and get one printable card per unit — stats, special rules and weapons included. Free, no sign-up.',
   'home.inputLabel': 'Army Forge shared link or list ID',
   'home.placeholder': 'Paste your shared Army Forge link or list ID...',
+  'home.helpTitle': 'New here? How to use OPR Card Generator',
   'btn.generate': 'Generate Cards',
   'btn.refresh': 'Refresh List',
   'btn.refreshTitle': 'Pull the latest version from Army Forge',
@@ -30,14 +31,15 @@ const en = {
   'design.table': 'Table',
   'opt.cardBacks': 'Print card backs',
   'opt.cardBacksTitle':
-    'Prints the game-system cover on the back of each card. The backs come on separate pages: print the fronts first, then flip the sheets.',
+    'Prints the game-system cover on the back of each card. The backs come on separate pages: print the fronts first, then flip the sheets on the long edge so the cards line up.',
   'opt.rulesBacks': 'Unit rules on card backs',
   'opt.rulesBacksTitle':
     'Standard design only, with card backs enabled. Replaces the system cover with that unit\'s special rules and their full text. AP, which applies to every unit, is always included.',
   'cardBacks.title': 'Card backs',
   'cardBacks.rulesTitle': 'Special rules',
+  'cardBacks.spellsTitle': 'Spell rules',
   'cardBacks.hint':
-    'Printed on separate pages — print the fronts first, then flip the sheets.',
+    'Printed on separate pages — print the fronts first, then flip the sheets on the long edge.',
   'opt.title': 'Options',
   'opt.customization': 'Customization',
   'opt.palette': 'Color palette:',
@@ -263,6 +265,7 @@ const ptBR: Record<Key, string> = {
     'Cole um link compartilhado do Army Forge e receba uma carta imprimível por unidade — com atributos, regras especiais e armas. Grátis, sem cadastro.',
   'home.inputLabel': 'Link compartilhado do Army Forge ou ID da lista',
   'home.placeholder': 'Cole o link compartilhado do Army Forge ou o ID da lista...',
+  'home.helpTitle': 'Novo por aqui? Como usar o OPR Card Generator',
   'btn.generate': 'Gerar cartas',
   'btn.refresh': 'Atualizar lista',
   'btn.refreshTitle': 'Buscar a versão mais recente no Army Forge',
@@ -278,14 +281,15 @@ const ptBR: Record<Key, string> = {
   'design.table': 'Tabela',
   'opt.cardBacks': 'Imprimir o verso das cartas',
   'opt.cardBacksTitle':
-    'Imprime a capa do sistema no verso de cada carta. Os versos saem em páginas separadas: imprima as frentes primeiro e depois vire as folhas.',
+    'Imprime a capa do sistema no verso de cada carta. Os versos saem em páginas separadas: imprima as frentes primeiro e depois vire as folhas pela borda longa, para as cartas ficarem alinhadas.',
   'opt.rulesBacks': 'Regras da unidade no verso',
   'opt.rulesBacksTitle':
     'Apenas no design Standard, com o verso das cartas ligado. Troca a capa do sistema pelas regras especiais daquela unidade e seus textos completos. AP, que vale para todas as unidades, entra sempre.',
   'cardBacks.title': 'Verso das cartas',
   'cardBacks.rulesTitle': 'Regras especiais',
+  'cardBacks.spellsTitle': 'Regras de magia',
   'cardBacks.hint':
-    'Impressos em páginas separadas — imprima as frentes primeiro e depois vire as folhas.',
+    'Impressos em páginas separadas — imprima as frentes primeiro e depois vire as folhas pela borda longa.',
   'opt.title': 'Opções',
   'opt.customization': 'Personalização',
   'opt.palette': 'Paleta de cores:',

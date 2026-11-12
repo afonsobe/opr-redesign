@@ -1,5 +1,19 @@
 [
   {
+    "date": "November 12, 2026",
+    "datePtBR": "12 de novembro de 2026",
+    "items": [
+      "**Spells reference card in the Standard design:** when card backs and unit rules on card backs are both on, the set gains an extra card listing every spell of the list (cost and full text), in the same style as the unit cards. Its back is the system cover labelled **Spells**.",
+      "**Card backs are now mirrored for duplex printing:** each back page flips its columns, so after printing the fronts and turning the sheets on the long edge, every back lands on the correct card — including the extra spells card. The alignment stays the same for any number of columns and any custom card size.",
+      "**The Home help title now follows the language:** “New here? How to use OPR Card Generator” is translated to pt-BR like the rest of the FAQ content."
+    ],
+    "itemsPtBR": [
+      "**Carta de referência de magias no design Standard:** com o verso das cartas e as regras da unidade no verso ligados, o conjunto ganha uma carta extra com todas as magias da lista (custo e texto completo), no mesmo estilo das cartas de unidade. O verso dela é a capa do sistema com o rótulo **Magias**.",
+      "**O verso das cartas agora é espelhado para impressão em duplex:** cada página de verso inverte as colunas, então, depois de imprimir as frentes e virar as folhas pela borda longa, cada verso cai sobre a carta certa — inclusive o da carta extra de magias. O alinhamento se mantém com qualquer número de colunas e qualquer tamanho de carta.",
+      "**O título de ajuda da Home agora acompanha o idioma:** “Novo por aqui? Como usar o OPR Card Generator” é traduzido para pt-BR como o restante do conteúdo da FAQ."
+    ]
+  },
+  {
     "date": "November 11, 2026",
     "datePtBR": "11 de novembro de 2026",
     "items": [
