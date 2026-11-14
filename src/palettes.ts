@@ -2,8 +2,8 @@ export interface Palette {
   id: string;
   game: 'GF' | 'AoF' | 'geral';
   label: string;
-  c1: string; // cor principal: heróis, pontos, títulos
-  c2: string; // cor secundária: unidades comuns
+  c1: string; // cor principal: unidades base, pontos, títulos
+  c2: string; // cor secundária: heróis
   keywords: string[]; // palavras do nome da lista que ativam a paleta no modo automático
 }
 

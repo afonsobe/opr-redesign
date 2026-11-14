@@ -1,5 +1,15 @@
 [
   {
+    "date": "November 14, 2026",
+    "datePtBR": "14 de novembro de 2026",
+    "items": [
+      "**Unit card colors are inverted:** base units now use the army's primary color while heroes use the secondary one. This applies to every army palette and all three card designs (Classic, Standard and Table/roster). Everything outside the unit cards — army summary, rules and spells tables, card backs and the roster header — keeps the previous colors."
+    ],
+    "itemsPtBR": [
+      "**As cores das cartas de unidade foram invertidas:** as unidades base agora usam a cor principal do exército e os heróis, a secundária. Vale para todas as paletas de exército e para os três estilos de carta (Classic, Standard e Table/roster). Tudo fora das cartas de unidade — resumo do exército, tabelas de regras e magias, versos e cabeçalho do roster — mantém as cores anteriores."
+    ]
+  },
+  {
     "date": "November 12, 2026",
     "datePtBR": "12 de novembro de 2026",
     "items": [

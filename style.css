@@ -1168,6 +1168,11 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
 }
 
 .card {
+  /* Cor de identidade da carta: a principal nas unidades base e a secundária
+     nos heróis. `--card-accent` acompanha o tema (texto e bordas) e
+     `--card-accent-raw` guarda a cor pura da paleta para fundos e molduras. */
+  --card-accent: var(--accent-ink);
+  --card-accent-raw: var(--c1);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1177,26 +1182,27 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   color: var(--paper-ink);
   background: var(--paper);
   border: 1px solid var(--paper-line);
-  border-left: 4px solid var(--accent-ink-2);
+  border-left: 4px solid var(--card-accent);
   border-radius: 8px;
   box-shadow: var(--shadow);
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
-/* Heróis usam a cor principal */
+/* Heróis usam a cor secundária; as unidades base, a principal. */
 .card.card--hero {
-  --c2: var(--c1);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c1) 48%, var(--paper-surface)), var(--shadow);
+  --card-accent: var(--accent-ink-2);
+  --card-accent-raw: var(--c2);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent-raw) 48%, var(--paper-surface)), var(--shadow);
 }
 
 .hero-badge {
   display: inline-block;
   padding: 1px 4px;
-  border: 1px solid var(--c1);
+  border: 1px solid var(--card-accent-raw);
   border-radius: 4px;
-  background: color-mix(in srgb, var(--c1) 12%, var(--paper-surface));
-  color: var(--accent-ink-2);
+  background: color-mix(in srgb, var(--card-accent-raw) 12%, var(--paper-surface));
+  color: var(--card-accent);
   font-size: 7px;
   font-weight: 800;
   line-height: 1.1;
@@ -1234,7 +1240,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   width: var(--avatar-size);
   height: var(--avatar-size);
   border-radius: 50%;
-  border: 2px solid var(--accent-ink-2);
+  border: 2px solid var(--card-accent);
   overflow: hidden;
   cursor: pointer;
   touch-action: none;
@@ -1285,7 +1291,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   grid-column: 2;
   font-size: 9px;
   font-weight: 600;
-  color: var(--accent-ink-2);
+  color: var(--card-accent);
   overflow-wrap: anywhere;
 }
 
@@ -1294,7 +1300,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   grid-row: 1;
   font-size: 12.5px;
   font-weight: bold;
-  color: var(--accent-ink);
+  color: var(--card-accent);
   white-space: nowrap;
 }
 
@@ -1303,14 +1309,14 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   margin-top: 3px;
   font-size: 9px;
   font-weight: bold;
-  color: var(--accent-ink-2);
+  color: var(--card-accent);
 }
 
 .combined-badge {
   display: inline-block;
   padding: 0 5px;
   border-radius: 8px;
-  background: var(--c1);
+  background: var(--card-accent-raw);
   color: #fff;
   font-size: 9px;
   font-weight: bold;
@@ -1341,7 +1347,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   justify-content: center;
   gap: 4px;
   padding: 2px 4px;
-  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 16%, var(--paper-surface));
 }
 
 .stat-label {
@@ -1396,7 +1402,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   font-weight: bold;
   text-align: left;
   color: var(--paper-ink);
-  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 16%, var(--paper-surface));
   border-bottom: 1px solid var(--paper-line);
 }
 
@@ -1449,8 +1455,8 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   display: block;
   margin: 0;
   padding: 3px 8px 2px;
-  color: var(--accent-ink-2);
-  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  color: var(--card-accent);
+  background: color-mix(in srgb, var(--card-accent-raw) 12%, var(--paper-surface));
   border-top: 1px solid var(--paper-line);
   border-bottom: 1px solid var(--paper-line);
   font-size: 8px;
@@ -1483,8 +1489,8 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   justify-content: space-between;
   gap: 6px;
   padding: 3px 8px 2px;
-  color: var(--accent-ink-2);
-  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  color: var(--card-accent);
+  background: color-mix(in srgb, var(--card-accent-raw) 12%, var(--paper-surface));
   border-top: 1px solid var(--paper-line);
   border-bottom: 1px solid var(--paper-line);
   font-size: 8px;
@@ -1507,7 +1513,7 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
 
 .card--ship .ship-upgrade-cost {
   margin-left: auto;
-  color: var(--accent-ink);
+  color: var(--card-accent);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -2361,7 +2367,7 @@ body.card-layout-tcg .cards {
 }
 
 .card--tcg {
-  --tcg-frame: color-mix(in srgb, var(--c1) 72%, #171318);
+  --tcg-frame: color-mix(in srgb, var(--card-accent-raw) 72%, #171318);
   --tcg-gold: #c9a75b;
   --tcg-parchment: var(--paper);
   /* O conteúdo é desenhado no tamanho base e o zoom acompanha a largura; a
@@ -2378,8 +2384,8 @@ body.card-layout-tcg .cards {
 }
 
 .card--tcg.card--hero {
-  --tcg-frame: color-mix(in srgb, var(--c1) 82%, #100d12);
-  --tcg-gold: color-mix(in srgb, var(--c1) 48%, #fff);
+  --tcg-frame: color-mix(in srgb, var(--card-accent-raw) 82%, #100d12);
+  --tcg-gold: color-mix(in srgb, var(--card-accent-raw) 48%, #fff);
 }
 
 .card--tcg.card--hero .hero-badge {
@@ -2402,9 +2408,9 @@ body.card-layout-tcg .cards {
   column-gap: 1mm;
   align-items: center;
   padding: 0.6mm 0.9mm;
-  border: 0.35mm solid var(--c1);
+  border: 0.35mm solid var(--card-accent-raw);
   border-radius: 1mm;
-  background: linear-gradient(110deg, color-mix(in srgb, var(--c1) 86%, #171318), var(--tcg-frame));
+  background: linear-gradient(110deg, color-mix(in srgb, var(--card-accent-raw) 86%, #171318), var(--tcg-frame));
   color: #fff8e8;
   overflow: hidden;
 }
@@ -2462,7 +2468,7 @@ body.card-layout-tcg .cards {
   height: 23mm;
   align-items: center;
   justify-content: center;
-  border: 0.7mm solid var(--c1);
+  border: 0.7mm solid var(--card-accent-raw);
   border-radius: 1mm;
   background:
     radial-gradient(ellipse at 50% 40%, #ffffff7a, transparent 60%),
@@ -2505,7 +2511,7 @@ body.card-layout-tcg .cards {
   padding: 0.7mm 1mm;
   border: 0.3mm solid var(--paper-line);
   border-radius: 1mm;
-  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 16%, var(--paper-surface));
 }
 
 .card--tcg > .stats .stat-label {
@@ -2532,7 +2538,7 @@ body.card-layout-tcg .cards {
   margin: 0.3mm 0 0;
   padding: 0.4mm 1mm;
   border-bottom: 0.25mm solid var(--paper-line);
-  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 16%, var(--paper-surface));
   color: var(--paper-ink);
   font-family: inherit;
   font-size: 5.2pt;
@@ -2571,7 +2577,7 @@ body.card-layout-tcg .cards {
 .card--tcg .weapons-table th {
   padding: 0.3mm 0.5mm;
   border-bottom: 0.25mm solid var(--paper-line);
-  background: color-mix(in srgb, var(--c2) 16%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 16%, var(--paper-surface));
   color: var(--paper-ink);
   font-size: 4.4pt;
   line-height: 1;
@@ -2748,8 +2754,8 @@ body.card-layout-table .cards {
   display: block;
   margin: 0;
   padding: 4px 12px 3px;
-  color: var(--accent-ink-2);
-  background: color-mix(in srgb, var(--c2) 12%, var(--paper-surface));
+  color: var(--card-accent);
+  background: color-mix(in srgb, var(--card-accent-raw) 12%, var(--paper-surface));
   border-top: 1px solid var(--paper-line);
   border-bottom: 1px solid var(--paper-line);
   font-size: 9.5px;
@@ -2963,7 +2969,7 @@ body.card-layout-table .cards--roster {
 }
 
 .cards--roster .card--roster.card--hero {
-  background: color-mix(in srgb, var(--c1) 14%, var(--paper-surface));
+  background: color-mix(in srgb, var(--card-accent-raw) 14%, var(--paper-surface));
 }
 
 .cards--roster .card-wrapper:last-of-type .card--roster {
@@ -2973,7 +2979,7 @@ body.card-layout-table .cards--roster {
 @media screen {
   .cards--roster .card-wrapper:hover .card--roster {
     transform: none;
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-ink-2) 40%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--card-accent) 40%, transparent);
   }
 }
 
