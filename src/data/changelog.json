@@ -1,5 +1,15 @@
 [
   {
+    "date": "November 19, 2026",
+    "datePtBR": "19 de novembro de 2026",
+    "items": [
+      "**Updated the Flying rule to match Army Forge:** the GFF and AoFS descriptions no longer say the unit ignores Difficult and Dangerous terrain only when it doesn't start its move there. The translated text was updated along with the English source."
+    ],
+    "itemsPtBR": [
+      "**Regra Voador atualizada para acompanhar o Army Forge:** as descrições de GFF e AoFS não dizem mais que a unidade ignora terreno Difícil e Perigoso apenas quando não inicia o movimento nele. O texto traduzido foi atualizado junto com a fonte em inglês."
+    ]
+  },
+  {
     "date": "November 14, 2026",
     "datePtBR": "14 de novembro de 2026",
     "items": [

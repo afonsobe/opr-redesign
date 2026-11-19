@@ -301,7 +301,7 @@
         },
         "-QJdqJEKjIpE": {
           "name": "Flying",
-          "description": "May move through units and terrain, and ignores the effects of Difficult and Dangerous terrain it doesn’t start its move in.This unit automatically passes jumping rolls."
+          "description": "May move through units and terrain, and ignores the effects of Difficult and Dangerous terrain. This unit automatically passes jumping rolls."
         },
         "09SoiR1HuW7u": {
           "name": "Precise",
@@ -24892,7 +24892,7 @@
         },
         "-QJdqJEKjIpE": {
           "name": "Flying",
-          "description": "May move through units and terrain, and ignores the effects of Difficult and Dangerous terrain it doesn’t start its move in.This unit automatically passes jumping rolls."
+          "description": "May move through units and terrain, and ignores the effects of Difficult and Dangerous terrain. This unit automatically passes jumping rolls."
         },
         "09SoiR1HuW7u": {
           "name": "Precise",

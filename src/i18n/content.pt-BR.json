@@ -23,7 +23,7 @@
         },
         "-QJdqJEKjIpE": {
           "name": "Voador",
-          "description": "Pode se mover através de unidades e terrenos e ignora os efeitos de terreno Difícil e Perigoso nos quais não iniciou o movimento. Esta unidade passa automaticamente em rolagens de Salto."
+          "description": "Pode se mover através de unidades e terrenos e ignora os efeitos de terreno Difícil e Perigoso. Esta unidade passa automaticamente em rolagens de Salto."
         },
         "0bcGY4Xr4NE0": {
           "name": "Postura Defensiva",
@@ -23918,7 +23918,7 @@
         },
         "-QJdqJEKjIpE": {
           "name": "Voador",
-          "description": "Pode se mover através de unidades e terrenos e ignora os efeitos de terreno Difícil e Perigoso nos quais não iniciou o movimento. Esta unidade passa automaticamente em rolagens de Salto."
+          "description": "Pode se mover através de unidades e terrenos e ignora os efeitos de terreno Difícil e Perigoso. Esta unidade passa automaticamente em rolagens de Salto."
         },
         "09SoiR1HuW7u": {
           "name": "Preciso",
