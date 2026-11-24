@@ -9,7 +9,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 3,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "gff"
       },
       "rules": {
@@ -7553,7 +7553,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 2,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "gf"
       },
       "rules": {
@@ -17007,7 +17007,7 @@
         "armyId": "qtuyeoRfXKlNflK0",
         "gameSystem": 4,
         "book": "Wood Elves",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "aof"
       },
       "rules": {
@@ -22388,6 +22388,21 @@
         },
         "zYXej5Az": {
           "name": "Garras de Carnicária"
+        },
+        "6547075e": {
+          "name": "Lâmina Amarga"
+        },
+        "8Km9F2Oi": {
+          "name": "Pistolas Purificadoras"
+        },
+        "f8mRYpE5": {
+          "name": "Espada de Prata"
+        },
+        "ofp6J3wQ": {
+          "name": "Cajado Rosnador"
+        },
+        "St8x6mX_": {
+          "name": "Clava Devastadora"
         }
       },
       "spells": {
@@ -23892,7 +23907,14 @@
         "Wolf Mount": "Montura de Lobo",
         "Wolf": "Lobo",
         "Wyvern": "Wyvern",
-        "Zombie Dragon": "Dragão Zumbi"
+        "Zombie Dragon": "Dragão Zumbi",
+        "Endless Horde": "Horda Sem Fim",
+        "Painted Duchess": "Duquesa Pintada",
+        "Stitched Minions": "Serviçais Costurados",
+        "Tyrant of Svalidraz - Leader": "Tirano de Svalidraz - Líder",
+        "Tyrant of Svalidraz": "Tirano de Svalidraz",
+        "Undead Hunter - Leader": "Caçador de Mortos-Vivos - Líder",
+        "Undead Hunter": "Caçador de Mortos-Vivos"
       }
     },
     "aofs": {
@@ -23900,7 +23922,7 @@
         "armyId": "4SBY8ONErd3HUxle",
         "gameSystem": 5,
         "book": "Treasure Hunters",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "aofs"
       },
       "rules": {
@@ -28199,6 +28221,21 @@
         },
         "QQ0Ujcfe": {
           "name": "Cajado do Bruxo"
+        },
+        "6547075e": {
+          "name": "Lâmina Amarga"
+        },
+        "8Km9F2Oi": {
+          "name": "Pistolas Purificadoras"
+        },
+        "f8mRYpE5": {
+          "name": "Espada de Prata"
+        },
+        "ofp6J3wQ": {
+          "name": "Cajado Rosnador"
+        },
+        "St8x6mX_": {
+          "name": "Clava Devastadora"
         }
       },
       "spells": {
@@ -29845,7 +29882,14 @@
         "Top Raptor": "Rapina de Elite",
         "Treasure Guard": "Guarda do Tesouro",
         "Trophy Hunter": "Caçador de Troféus",
-        "Vulture's Mark": "Marca do Abutre"
+        "Vulture's Mark": "Marca do Abutre",
+        "Endless Horde": "Horda Sem Fim",
+        "Painted Duchess": "Duquesa Pintada",
+        "Stitched Minions": "Serviçais Costurados",
+        "Tyrant of Svalidraz - Leader": "Tirano de Svalidraz - Líder",
+        "Tyrant of Svalidraz": "Tirano de Svalidraz",
+        "Undead Hunter - Leader": "Caçador de Mortos-Vivos - Líder",
+        "Undead Hunter": "Caçador de Mortos-Vivos"
       }
     },
     "aofr": {
@@ -29853,7 +29897,7 @@
         "armyId": "TjNtGnCDVts3l3ER",
         "gameSystem": 6,
         "book": "War Disciples",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "aofr",
         "collections": [
           {
@@ -35441,6 +35485,21 @@
         },
         "zRzrhJJp": {
           "name": "Nudilo de Mandíbula"
+        },
+        "6547075e": {
+          "name": "Lâmina Amarga"
+        },
+        "8Km9F2Oi": {
+          "name": "Pistolas Purificadoras"
+        },
+        "f8mRYpE5": {
+          "name": "Espada de Prata"
+        },
+        "ofp6J3wQ": {
+          "name": "Cajado Rosnador"
+        },
+        "St8x6mX_": {
+          "name": "Clava Devastadora"
         }
       },
       "spells": {
@@ -36945,7 +37004,14 @@
         "Volcanic Banner": "Banner Vulcânico",
         "Volcanic Lizard": "Lagarto Vulcânico",
         "Volcanic Monk": "Monge Vulcânico",
-        "Lord of War": "Senhor da Guerra"
+        "Lord of War": "Senhor da Guerra",
+        "Endless Horde": "Horda Sem Fim",
+        "Painted Duchess": "Duquesa Pintada",
+        "Stitched Minions": "Serviçais Costurados",
+        "Tyrant of Svalidraz - Leader": "Tirano de Svalidraz - Líder",
+        "Tyrant of Svalidraz": "Tirano de Svalidraz",
+        "Undead Hunter - Leader": "Caçador de Mortos-Vivos - Líder",
+        "Undead Hunter": "Caçador de Mortos-Vivos"
       }
     },
     "gfwf": {
@@ -36953,7 +37019,7 @@
         "armyId": "aWr-VySOga3Icowr",
         "gameSystem": 11,
         "book": "Machine Cults",
-        "collectedAt": "2026-11-11",
+        "collectedAt": "2026-11-24",
         "system": "gfwf"
       },
       "rules": {
