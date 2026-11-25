@@ -570,6 +570,11 @@ for (const checkbox of [includeCardsCheckbox, includeRulesCheckbox, includeSpell
 }
 applyPrintToggles();
 
+// Nomes renomeados na hora de imprimir vivem só no DOM/Map do renderizador.
+// Quando há versos com regras, eles leem o nome da frente: atualizamos só eles,
+// sem re-renderizar as cartas (o que perderia o foco de quem está digitando).
+document.addEventListener('card-name-change', () => refreshCardBacks());
+
 // Unlike the print toggles, these change the cards themselves, so re-render the
 // army on screen (no re-fetch needed) whenever either flips.
 const reRenderCards = (): void => {

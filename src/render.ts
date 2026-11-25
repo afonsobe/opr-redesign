@@ -43,6 +43,29 @@ export function unitImageId(unit: Unit): string {
   return unit.selectionId || unit.id || '';
 }
 
+// Nomes editados na hora de imprimir vivem só em memória: nunca vão para o
+// localStorage (nem para a lista em si). A chave inclui o id da lista para que
+// duas listas com selection ids iguais não compartilhem o mesmo apelido.
+const temporaryNames = new Map<string, string>();
+
+function nameKey(armyId: string, id: string): string {
+  return `${armyId}::${id}`;
+}
+
+function storedName(key: string): string {
+  return temporaryNames.get(key) ?? '';
+}
+
+function storeName(key: string, value: string): void {
+  const cleaned = value.replace(/\s+/g, ' ').trim();
+  if (cleaned) temporaryNames.set(key, cleaned);
+  else temporaryNames.delete(key);
+}
+
+function shipImageId(ship: Ship): string {
+  return ship.selectionId || ship.id || '';
+}
+
 // --- Unit data helpers -------------------------------------------------------
 
 function getRules(unit: Unit) {
@@ -1427,7 +1450,7 @@ function wrapCardWithToolbar(card: HTMLDivElement): HTMLDivElement {
 // The custom name only joins the signature when it's actually shown, so that
 // renamed units stay on their own card then but merge with their twins when
 // custom names are hidden.
-function unitSignature(unit: Unit, useCustomNames: boolean): string {
+function unitSignature(unit: Unit, useCustomNames: boolean, armyId = ''): string {
   const rules = getRules(unit)
     .map((rule) => `${rule.name}:${rule.rating ?? ''}`)
     .sort();
@@ -1438,6 +1461,8 @@ function unitSignature(unit: Unit, useCustomNames: boolean): string {
   return JSON.stringify({
     name: unit.name,
     custom: useCustomNames ? unit.customName ?? '' : '',
+    // Um apelido temporário também separa a unidade das gêmeas ao re-renderizar.
+    temporaryName: storedName(nameKey(armyId, unitImageId(unit))),
     generic: unit.genericName,
     // Keep heroes joined to different units on separate cards — otherwise two
     // identical heroes would collapse into one and lose their distinct marker.
@@ -1459,9 +1484,18 @@ function unitDisplayName(unit: Unit, useCustomNames: boolean): string {
   return customName || unit.name || t('card.unnamed');
 }
 
+// Nome que realmente aparece na carta: o apelido temporário tem prioridade
+// sobre o nome personalizado do Army Forge e sobre o nome do livro.
+function effectiveUnitName(unit: Unit, useCustomNames: boolean, armyId = ''): string {
+  return storedName(nameKey(armyId, unitImageId(unit))) || unitDisplayName(unit, useCustomNames);
+}
+
 interface UnitGroup {
   unit: Unit;
   count: number;
+  // Todas as unidades representadas por este card (o "3x" é cosmético). Um
+  // apelido digitado no card combinado vale para cada uma delas.
+  ids: string[];
 }
 
 // OPR's "Combine Units" special rule fuses two same-type units into one larger
@@ -1542,20 +1576,21 @@ const MAX_COMBINE = 3;
 // Units combine regardless of how many models they have — the card just stands
 // in for several identical units to save paper — but at most MAX_COMBINE share a
 // card, so a fourth identical unit starts a fresh group.
-function combineUnits(units: Unit[], useCustomNames: boolean): UnitGroup[] {
+function combineUnits(units: Unit[], useCustomNames: boolean, armyId = ''): UnitGroup[] {
   const result: UnitGroup[] = [];
   // The current not-yet-full group for each signature, so a fourth duplicate
   // opens a new card instead of overflowing the third.
   const openGroup = new Map<string, UnitGroup>();
 
   for (const unit of units) {
-    const signature = unitSignature(unit, useCustomNames);
+    const signature = unitSignature(unit, useCustomNames, armyId);
     const existing = openGroup.get(signature);
     if (existing && existing.count < MAX_COMBINE) {
       existing.count += 1;
+      existing.ids.push(unitImageId(unit));
       continue;
     }
-    const group: UnitGroup = { unit, count: 1 };
+    const group: UnitGroup = { unit, count: 1, ids: [unitImageId(unit)] };
     openGroup.set(signature, group);
     result.push(group);
   }
@@ -1573,6 +1608,7 @@ function orderGroups(
   groups: UnitGroup[],
   nameBySelectionId: Map<string, string>,
   useCustomNames: boolean,
+  armyId = '',
 ): UnitGroup[] {
   const anchorOf = (unit: Unit) => {
     const host = unit.joinToUnit;
@@ -1580,7 +1616,7 @@ function orderGroups(
     return {
       name: isJoinedHero
         ? nameBySelectionId.get(host as string) ?? ''
-        : unitDisplayName(unit, useCustomNames),
+        : effectiveUnitName(unit, useCustomNames, armyId),
       id: isJoinedHero ? (host as string) : unit.selectionId || '',
       role: isJoinedHero ? 1 : 0, // host unit first, joined hero right after it
     };
@@ -1660,6 +1696,56 @@ function fitStandardCardTitle(card: HTMLElement): void {
   measure.remove();
 }
 
+// Só o nome (base) é editável. O prefixo "3x " e o sufixo "[5]" ficam como
+// nós de texto irmãos, fora do contenteditable — o usuário não consegue alterar
+// a quantidade de unidades/modelos. Nada disso é gravado: o Map acima vive até
+// o recarregamento da página.
+function createNameEditor(
+  initialName: string,
+  fallbackName: string,
+  commit: (cleanName: string, final: boolean) => void,
+): HTMLSpanElement {
+  const editor = document.createElement('span');
+  editor.className = 'card-name-edit';
+  editor.contentEditable = 'true';
+  editor.spellcheck = false;
+  editor.setAttribute('role', 'textbox');
+  editor.setAttribute('aria-label', t('card.editName'));
+  editor.title = t('card.editNameTitle');
+  editor.textContent = initialName;
+  if (initialName !== fallbackName) editor.classList.add('is-edited');
+
+  let lastCommitted = initialName;
+  const apply = (raw: string, rewrite: boolean): void => {
+    const clean = raw.replace(/\s+/g, ' ').trim();
+    const shown = clean || fallbackName;
+    lastCommitted = clean;
+    editor.classList.toggle('is-edited', Boolean(clean) && clean !== fallbackName);
+    commit(clean, rewrite);
+    if (rewrite && editor.textContent !== shown) editor.textContent = shown;
+  };
+
+  editor.addEventListener('input', () => apply(editor.textContent ?? '', false));
+  editor.addEventListener('blur', () => apply(editor.textContent ?? '', true));
+  editor.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      editor.blur();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      editor.textContent = lastCommitted || fallbackName;
+      apply(editor.textContent, true);
+    }
+  });
+  editor.addEventListener('paste', (event) => {
+    event.preventDefault();
+    const text = event.clipboardData?.getData('text/plain') ?? '';
+    document.execCommand('insertText', false, text.replace(/\s+/g, ' '));
+  });
+
+  return editor;
+}
+
 function createCard(
   unit: Unit,
   count = 1,
@@ -1669,6 +1755,7 @@ function createCard(
   armyName = '',
   gameSystem = '',
   design: CardDesign = 'classic',
+  groupIds: string[] = [],
 ): HTMLDivElement {
   const card = document.createElement('div');
   card.className = 'card';
@@ -1689,7 +1776,8 @@ function createCard(
   // and drop `name` to the subtitle (as Army Forge does); otherwise show the
   // book name over the generic name.
   const customName = useCustomNames ? unit.customName?.trim() : '';
-  const baseName = unitDisplayName(unit, useCustomNames);
+  const baseName = effectiveUnitName(unit, useCustomNames, armyId);
+  const originalBaseName = unitDisplayName(unit, useCustomNames);
   const subtitle = customName ? unit.name : subtitleFromGenericName(unit.genericName);
   // A combined card stands in for `count` identical units but keeps the original
   // card's profile, points and loadout — combining is purely cosmetic (to save
@@ -1718,9 +1806,24 @@ function createCard(
     costElement.append(' ', badge);
   }
 
+  const nameElement = createTextElement('card-name', '');
+  if (prefix) nameElement.append(document.createTextNode(prefix));
+  const renameIds = groupIds.length > 0 ? groupIds : [unitImageId(unit)];
+  const syncName = (clean: string, final: boolean): void => {
+    for (const id of renameIds) storeName(nameKey(armyId, id), clean);
+    const shown = clean || originalBaseName;
+    card.dataset.unitName = `${prefix}${shown} [${unit.size}]`;
+    if (final) {
+      document.dispatchEvent(new CustomEvent('card-name-change'));
+      if (design === 'tcg') fitStandardCardTitle(card);
+    }
+  };
+  nameElement.append(createNameEditor(baseName, originalBaseName, syncName));
+  nameElement.append(document.createTextNode(` [${unit.size}]`));
+
   const header = document.createElement('div');
   header.className = 'card-header';
-  header.append(createTextElement('card-name', displayName));
+  header.append(nameElement);
   if (subtitle) header.append(createTextElement('card-subtitle', subtitle));
   header.append(costElement);
 
@@ -1802,14 +1905,18 @@ function getShips(army: ArmyList): Ship[] {
   return Array.isArray(army.ships) ? army.ships : [];
 }
 
-function shipNameOf(ship: Ship, nameOverride?: string): string {
-  const name = (nameOverride ?? ship.name ?? '').trim() || 'Ship';
+function shipNameSuffix(ship: Ship): string {
   const cls = typeof ship.class === 'string' ? ship.class.trim() : '';
   const slots = typeof ship.slots === 'number' ? ship.slots : undefined;
-  let suffix = '';
-  if (cls && slots != null) suffix = ` [${cls} ${slots}]`;
-  else if (cls) suffix = ` [${cls}]`;
-  return suffix ? `${name}${suffix}` : name;
+  if (cls && slots != null) return ` [${cls} ${slots}]`;
+  if (cls) return ` [${cls}]`;
+  return '';
+}
+
+function effectiveShipName(ship: Ship, useCustomNames: boolean, armyId = ''): string {
+  const temporary = storedName(nameKey(armyId, shipImageId(ship)));
+  const custom = useCustomNames ? ship.customName?.trim() : '';
+  return temporary || custom || ship.name?.trim() || 'Ship';
 }
 
 function shipSpecialNames(ship: Ship): string[] {
@@ -2145,9 +2252,11 @@ function createShipCard(
 
   const count = typeof ship.count === 'number' && ship.count > 1 ? ship.count : 1;
   const prefix = count > 1 ? `${count}x ` : '';
-  const customName = (ship.customName ?? '').trim();
-  const nameOverride = useCustomNames && customName ? customName : undefined;
-  const displayName = `${prefix}${shipNameOf(ship, nameOverride)}`;
+  const originalBaseName =
+    (useCustomNames ? ship.customName?.trim() : '') || ship.name?.trim() || 'Ship';
+  const baseName = effectiveShipName(ship, useCustomNames, armyId);
+  const suffix = shipNameSuffix(ship);
+  const displayName = `${prefix}${baseName}${suffix}`;
   card.dataset.unitName = displayName;
 
   const heroTitles = getShipHeroTitles(ship);
@@ -2159,9 +2268,23 @@ function createShipCard(
   if (typeof ship.xp === 'number' && ship.xp > 0) costParts.push(`XP ${ship.xp}`);
   const costElement = createTextElement('card-cost', costParts.join(' · '));
 
+  const nameElement = createTextElement('card-name', '');
+  if (prefix) nameElement.append(document.createTextNode(prefix));
+  const syncName = (clean: string, final: boolean): void => {
+    storeName(nameKey(armyId, shipImageId(ship)), clean);
+    const shown = clean || originalBaseName;
+    card.dataset.unitName = `${prefix}${shown}${suffix}`;
+    if (final) {
+      document.dispatchEvent(new CustomEvent('card-name-change'));
+      if (design === 'tcg') fitStandardCardTitle(card);
+    }
+  };
+  nameElement.append(createNameEditor(baseName, originalBaseName, syncName));
+  nameElement.append(document.createTextNode(suffix));
+
   const header = document.createElement('div');
   header.className = 'card-header';
-  header.append(createTextElement('card-name', displayName));
+  header.append(nameElement);
   header.append(costElement);
 
   const stats = document.createElement('div');
@@ -2385,7 +2508,9 @@ export function renderCards(
     const orderedShips = [...fleetShips].sort((a, b) => {
       const costDiff = getShipTotalCost(b) - getShipTotalCost(a);
       if (costDiff !== 0) return costDiff;
-      return shipNameOf(a).localeCompare(shipNameOf(b));
+      return effectiveShipName(a, useCustomNames, armyId).localeCompare(
+        effectiveShipName(b, useCustomNames, armyId),
+      );
     });
     for (const ship of orderedShips) {
       const card = createShipCard(ship, army, armyId, design, useCustomNames);
@@ -2405,18 +2530,20 @@ export function renderCards(
   const sourceUnits = Array.isArray(army.units) ? army.units : [];
   const units = mergeJoinedUnits(sourceUnits);
   const groups = combineSimilar
-    ? combineUnits(units, useCustomNames)
-    : units.map((unit) => ({ unit, count: 1 }));
+    ? combineUnits(units, useCustomNames, armyId)
+    : units.map((unit) => ({ unit, count: 1, ids: [unitImageId(unit)] }));
 
   // Resolve each `joinToUnit` (a selectionId) to the host unit's name, so a
   // joined hero's card can name the unit it fights with — as Army Forge does.
   const nameBySelectionId = new Map<string, string>();
   for (const unit of sourceUnits) {
-    if (unit.selectionId) nameBySelectionId.set(unit.selectionId, unitDisplayName(unit, useCustomNames));
+    if (unit.selectionId) {
+      nameBySelectionId.set(unit.selectionId, effectiveUnitName(unit, useCustomNames, armyId));
+    }
   }
 
   // Heroes first (descending points), then other units by displayed points (descending).
-  const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames);
+  const orderedGroups = orderGroups(groups, nameBySelectionId, useCustomNames, armyId);
 
   if (rosterMode && orderedGroups.length > 0) {
     container.appendChild(createRosterHeader());
@@ -2435,6 +2562,7 @@ export function renderCards(
       army.name || '',
       army.gameSystem || '',
       design,
+      group.ids,
     );
     container.appendChild(wrapCardWithToolbar(card));
     if (design === 'tcg') fitStandardCardTitle(card);

@@ -1287,6 +1287,33 @@ body:not(.card-layout-tcg) .card-wrapper > .card {
   overflow-wrap: anywhere;
 }
 
+/* Só esta parte do título pode ser renomeada. O "3x " e o "[5]" continuam
+   sendo texto normal, fora do span editável. */
+.card-name-edit {
+  border-radius: 3px;
+  outline: none;
+  cursor: text;
+  text-decoration: underline dotted transparent;
+  text-underline-offset: 2px;
+}
+
+.card-name-edit:hover,
+.card-name-edit:focus,
+.card-name-edit.is-edited {
+  background: rgba(127, 127, 127, 0.13);
+  text-decoration-color: var(--card-accent);
+}
+
+@media print {
+  .card-name-edit,
+  .card-name-edit:hover,
+  .card-name-edit:focus {
+    background: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+}
+
 .card-subtitle {
   grid-column: 2;
   font-size: 9px;
