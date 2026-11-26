@@ -1,5 +1,15 @@
 [
   {
+    "date": "November 26, 2026",
+    "datePtBR": "26 de novembro de 2026",
+    "items": [
+      "**pt-BR translations synced with the latest Army Forge update:** 290 rule descriptions were re-translated across all five land systems and Warfleets to match the new wording — `the closest valid target` replaces the old 9\"/6\" range condition, and rules now apply `as long as they haven't moved during their activation`. Renamed rules (`Ignores Regeneration`, `Ignores Cover` and their aura/shooting variants) and `Immobile` were updated as well. The new terms `Brutal Gunner`, `Enhanced Brutal Gunner` and `Sgt. Carbine` were translated, and rules removed from the API were dropped from the dictionary."
+    ],
+    "itemsPtBR": [
+      "**Traduções pt-BR sincronizadas com a mais recente atualização do Army Forge:** 290 descrições de regras foram retraduzidas nos cinco sistemas terrestres e em Warfleets para acompanhar a nova redação — `o alvo válido mais próximo` substitui a antiga condição de alcance 9\"/6\", e as regras agora se aplicam `desde que não tenham se movido durante sua ativação`. Regras renomeadas (`Ignora Regeneração`, `Ignora Cobertura` e suas variantes de aura/ao atirar) e `Immobile` também foram atualizadas. Os novos termos `Atirador Brutal`, `Atirador Brutal Aprimorado` e `Carabina de Sargento` foram traduzidos, e regras removidas da API saíram do dicionário."
+    ]
+  },
+  {
     "date": "November 25, 2026",
     "datePtBR": "25 de novembro de 2026",
     "items": [

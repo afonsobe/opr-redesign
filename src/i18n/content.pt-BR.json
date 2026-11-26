@@ -9,7 +9,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 3,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "gff"
       },
       "rules": {
@@ -39,7 +39,7 @@
         },
         "1TMBPe40kx2b": {
           "name": "Encobrimento em Combate",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra é alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
         },
         "2atvlmICQSCV": {
           "name": "Destemido",
@@ -134,7 +134,7 @@
           "description": "Em combate corpo a corpo com este modelo, inimigos contam como tendo sofrido +X ferimentos ao verificar quem venceu."
         },
         "efmjJPTe0Yzd": {
-          "name": "Anti-Cobertura",
+          "name": "Ignora Cobertura",
           "description": "Esta arma ignora Cobertura."
         },
         "FAMbscK5vhSu": {
@@ -159,7 +159,7 @@
         },
         "HWtnPV9LQF1D": {
           "name": "Imóvel",
-          "description": "Só pode usar ações de Manter posição."
+          "description": "Não pode se mover nem ser movido, e só pode usar ações de Manter posição."
         },
         "IEJp3a4vE0CB": {
           "name": "Destroçar",
@@ -287,7 +287,7 @@
         },
         "cgCroTrOmiv-": {
           "name": "Vínculo de Colmeia",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "CK9TIa7vdehO": {
           "name": "Aura de Fúria",
@@ -323,11 +323,11 @@
         },
         "kiXI7plPE_mK": {
           "name": "Vínculo de Colmeia Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Vínculo de Colmeia, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Vínculo de Colmeia, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "LbpquFUyGSZ7": {
           "name": "Valoroso",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "nLQCr5OiSlYz": {
           "name": "Conjurador de Grupo",
@@ -355,7 +355,7 @@
         },
         "TbjUdR-OJZPw": {
           "name": "Valoroso Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "WNMH1ZiQXSz-": {
           "name": "Canalizador de Magia",
@@ -367,11 +367,11 @@
         },
         "2W8l0OXSjju6": {
           "name": "Berserker Aprimorado",
-          "description": "Se este modelo tiver Berserker, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Berserker, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Berserker, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Berserker, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "5NeMSSj7-Pp5": {
           "name": "Violento Aprimorado",
-          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "8haZ36fXvnzn": {
           "name": "Aura de Furtividade",
@@ -379,7 +379,7 @@
         },
         "8UUSt1RIIyEa": {
           "name": "Caçador de Badlands Aprimorado",
-          "description": "Se este modelo tiver Caçador de Badlands, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Caçador de Badlands, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Caçador de Badlands, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Caçador de Badlands, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "a9j1Pje6TLBi": {
           "name": "Aura de Tiro Rápido",
@@ -427,7 +427,7 @@
         },
         "haWppj0rUxS8": {
           "name": "Caçador de Badlands",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "hnsVQyx3ylMf": {
           "name": "Devastação",
@@ -447,11 +447,11 @@
         },
         "MEAjk171GPmF": {
           "name": "Brutal",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "mxQ1fCGgPccn": {
           "name": "Berserker",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "n3CNLjq67GHI": {
           "name": "Marca de Combate Perfurante",
@@ -459,7 +459,7 @@
         },
         "Nbo5DTQufMoB": {
           "name": "Brutal Aprimorado",
-          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "r0MEI7V18zNs": {
           "name": "Instintivo",
@@ -471,7 +471,7 @@
         },
         "WHJ8A7LzHUR6": {
           "name": "Violento",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "xeJDKejG4QZN": {
           "name": "Desintegrar",
@@ -523,11 +523,11 @@
         },
         "eXtrmDIR9dEp": {
           "name": "Defesa Versátil",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\" de distância, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
+          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra for atacada, desde que não tenham se movido durante sua ativação neste round, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
         },
         "gnpURIvLqjw9": {
           "name": "Devoto",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "Hzn5j1NxKI8h": {
           "name": "Nascido do Sangue Aprimorado",
@@ -575,7 +575,7 @@
         },
         "w7sENXkksVpG": {
           "name": "Devoto Aprimorado",
-          "description": "Se este modelo tiver Devoto, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Devoto (e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devoto, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Devoto (e não apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "Ww4ehASqnek0": {
           "name": "Flagelo",
@@ -595,14 +595,14 @@
         },
         "_tP0jExjizvc": {
           "name": "Encoberto",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "-eXDDTCrrQ6n": {
           "name": "Esquiva",
           "description": "Se a maioria dos modelos nesta unidade tiver esta regra, enquanto ela não estiver Fatigada, unidades inimigas sofrem -1 nas rolagens para acertar em combate corpo a corpo contra ela."
         },
         "0TfnG5G4JEv0": {
-          "name": "Anti-Regeneração",
+          "name": "Ignora Regeneração",
           "description": "Esta arma ignora Regeneração."
         },
         "3RJ8ZvQphXk5": {
@@ -611,7 +611,7 @@
         },
         "4mB0rwGnMVgJ": {
           "name": "Atrelado à Mudança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "7-nw0-TRmYAv": {
           "name": "Guardião Aprimorado",
@@ -631,7 +631,7 @@
         },
         "95k3zdp_EzoN": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "AB3FAl-SEUYP": {
           "name": "Aura de Imparável em Combate",
@@ -647,7 +647,7 @@
         },
         "COaU7nmOC6VG": {
           "name": "Atrelado à Mudança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "D7ChSWl5R2We": {
           "name": "Guardião",
@@ -707,7 +707,7 @@
         },
         "okU8qW-h2rau": {
           "name": "Encobrimento à Distância",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
         },
         "ozCLWcof36wD": {
           "name": "Ataque e Fuga",
@@ -795,7 +795,7 @@
         },
         "5G44ZDmQG-N5": {
           "name": "Atrelado à Guerra Aprimorado",
-          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "7F4391rzKx2g": {
           "name": "Aniquilar",
@@ -823,7 +823,7 @@
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",
-          "description": "Quando este modelo atira em ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "kwB4FVytZQXE": {
           "name": "Bônus de Ataques Precisos",
@@ -895,7 +895,7 @@
         },
         "2hXA8X1Xlrmc": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Encoberto (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "2xUH_d7T_Zfv": {
           "name": "Assédio",
@@ -907,7 +907,7 @@
         },
         "dXr70idM6Vjk": {
           "name": "Visor de Mira Aprimorado",
-          "description": "Se este modelo tiver Visor de Mira, sempre recebe +1 nas rolagens para acertar por Visor de Mira (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
+          "description": "Se este modelo tiver Visor de Mira, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Visor de Mira (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "fB2hm0la8zl1": {
           "name": "Matador à Distância",
@@ -919,15 +919,11 @@
         },
         "hjaNnUHsY3f5": {
           "name": "Visor de Mira",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "lOJdfdPgbhdT": {
           "name": "Observador de Precisão",
           "description": "Uma vez por ativação, antes de atacar, escolha uma unidade inimiga a até 30\" e na linha de visão deste modelo e role um dado. Em 4+, coloque um marcador nela. Unidades aliadas podem remover marcadores do alvo antes de rolar para acertar para receber +X nas rolagens para acertar ao atacá-lo, sendo X o número de marcadores removidos."
-        },
-        "lwWYwB3HRTPi": {
-          "name": "Atirador de Precisão",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
         },
         "M8KFBuLeTrck": {
           "name": "Ataque e Fuga Aprimorado",
@@ -935,7 +931,7 @@
         },
         "QjUvdTBYv0Nd": {
           "name": "Nascido das Trevas",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "R4q13TqqwTPC": {
           "name": "Aura de Visor de Mira Aprimorado",
@@ -967,15 +963,11 @@
         },
         "yaEXlHySt7no": {
           "name": "Nascido das Trevas Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Nascido das Trevas, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Nascido das Trevas (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Nascido das Trevas, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Nascido das Trevas (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "YMQxz2ssYCBj": {
           "name": "Encoberto",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
-        },
-        "ySpZadCu08yk": {
-          "name": "Atirador de Precisão Aprimorado",
-          "description": "Se este modelo tiver Atirador de Precisão, sempre recebe +1 nas rolagens para acertar por Atirador de Precisão (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "amQphBHWOeJs": {
           "name": "Aura de Rápido",
@@ -986,8 +978,8 @@
           "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Firme Aprimorado. Se este modelo for morto, as unidades escolhidas que estiverem em campo perdem a regra."
         },
         "d1E7eizUnPoz": {
-          "name": "Anti-Cobertura ao Atirar",
-          "description": "Este modelo recebe Anti-Cobertura em suas armas ao atirar."
+          "name": "Ignora Cobertura ao Atirar",
+          "description": "Este modelo recebe Ignora Cobertura em suas armas ao atirar."
         },
         "E5F5-E62wIqI": {
           "name": "Aura de Infiltração",
@@ -995,11 +987,11 @@
         },
         "gD2_znglqhNw": {
           "name": "Firme",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "HJtyt929ob_Q": {
-          "name": "Aura Anti-Cobertura ao Atirar",
-          "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Anti-Cobertura em suas armas ao atirar. Se este modelo for morto, as unidades escolhidas que estiverem em campo perdem a regra."
+          "name": "Aura de Ignora Cobertura ao Atirar",
+          "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Ignora Cobertura em suas armas ao atirar. Se este modelo for morto, as unidades escolhidas que estiverem em campo perdem a regra."
         },
         "leFm23MTiJxO": {
           "name": "Rápido",
@@ -1011,15 +1003,15 @@
         },
         "rMKm6JKLIxgn": {
           "name": "Firme Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "UBOoMTJY8qfD": {
           "name": "Protegido Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "zTfg9msVpfJ0": {
           "name": "Protegido",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "-6osYnOq7DGV": {
           "name": "Contra-Ataque em Combate Corpo a Corpo",
@@ -1074,8 +1066,8 @@
           "description": "Para cada resultado não modificado de 6 para acertar ao atacar, este modelo pode fazer +1 ataque com essa arma. Esta regra não se aplica a ataques gerados assim."
         },
         "4NiNnvh-brLp": {
-          "name": "Aura Anti-Cobertura ao Atirar",
-          "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Anti-Cobertura em suas armas ao atirar. Se este modelo for morto, as unidades escolhidas que estiverem em campo perdem a regra."
+          "name": "Aura de Ignora Cobertura ao Atirar",
+          "description": "A unidade deste modelo e até 2 unidades aliadas escolhidas antes do início do jogo recebem Ignora Cobertura em suas armas ao atirar. Se este modelo for morto, as unidades escolhidas que estiverem em campo perdem a regra."
         },
         "Dpclj8rsDSRd": {
           "name": "Combatente Preciso",
@@ -1139,15 +1131,15 @@
         },
         "5grD2FDFdNSn": {
           "name": "Combatente Perfurante",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "mJiexOF2tUvD": {
           "name": "Combatente Perfurante Aprimorado",
-          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "wjTOj41tskFD": {
           "name": "Devastação",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "Zi1Zgge5ptMw": {
           "name": "Aura de Devastação Aprimorado",
@@ -1155,7 +1147,7 @@
         },
         "ZqYITWnZUc45": {
           "name": "Devastação Aprimorado",
-          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "5bc5xNmd5M14": {
           "name": "Nobre",
@@ -1187,7 +1179,7 @@
         },
         "4NMqPbqMvE4C": {
           "name": "Manter a Linha Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "55Si47u6jTtb": {
           "name": "Bônus de Entrincheirado",
@@ -1223,7 +1215,7 @@
         },
         "Sdcb8VAeTxji": {
           "name": "Manter a Linha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "wHfLIdlnEQ1a": {
           "name": "Entrincheirado",
@@ -1275,11 +1267,11 @@
         },
         "jgyVEAzjbDDh": {
           "name": "Infectado",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos das armas recebem 1 ferida extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos das armas recebem 1 ferida extra."
         },
         "JQmfgK02rJLK": {
           "name": "Infectado Aprimorado",
-          "description": "Se este modelo tiver Infectado, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear de Infectado (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Infectado, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear de Infectado (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "Ql2vwvAiWaor": {
           "name": "Aura de Atirador Imprevisível",
@@ -1315,15 +1307,15 @@
         },
         "Anx9Iim2k-Ws": {
           "name": "Proteção Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "Lz_ncVgCX5R8": {
           "name": "Cavaleiro Nato",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "rUzMGpacephz": {
           "name": "Cavaleiro Nato Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Cavaleiro Nato, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Cavaleiro Nato (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Cavaleiro Nato, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Cavaleiro Nato (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "wnEVftbtVtw5": {
           "name": "Aura de Cavaleiro Nato Aprimorado",
@@ -1331,7 +1323,7 @@
         },
         "zu6H7MyN3f8U": {
           "name": "Proteção",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "0Z-OGtDpajc3": {
           "name": "Evasão Aterrada",
@@ -1343,7 +1335,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "AfGDQgn8r8O1": {
           "name": "Aura de Dilacerante ao Atirar",
@@ -1355,15 +1347,15 @@
         },
         "eYZyOr9wu0jr": {
           "name": "Névoa da Máquina Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Névoa da Máquina, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Névoa da Máquina (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Névoa da Máquina, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Névoa da Máquina (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "S8IZt-d0Sgwk": {
           "name": "Névoa da Máquina",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que as atirem ou carreguem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que as atirem ou carreguem sofrem -1 nas rolagens para acertar."
         },
         "s5A-Pvdby0wT": {
           "name": "Olhos Cibernéticos",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "SzljHEX27s-v": {
           "name": "Marca de Alcance de Tiro Aumentado",
@@ -1375,19 +1367,19 @@
         },
         "zNOav_FqYQie": {
           "name": "Olhos Cibernéticos Aprimorado",
-          "description": "Se este modelo tiver Olhos Cibernéticos, ele sempre recebe +1 nas rolagens para acertar por Olhos Cibernéticos (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
+          "description": "Se este modelo tiver Olhos Cibernéticos, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Olhos Cibernéticos (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "x0gFQEwammM_": {
           "name": "Endurecido em Batalha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "B1i8BBWNU3L0": {
           "name": "Feroz Aprimorado",
-          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "cygZBh3MtWs1": {
           "name": "Feroz",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "DETPYoIhE98G": {
           "name": "Aura de Carga Precisa",
@@ -1555,7 +1547,7 @@
         },
         "DkFg1ochRDYR": {
           "name": "Operativo Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Operativo Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Operativo Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Operativo Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Operativo Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "DXab0T1mtWak": {
           "name": "Aura de Operativo Sombrio Aprimorado",
@@ -1563,15 +1555,15 @@
         },
         "xgtq7JJUEwfA": {
           "name": "Operativo Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "-aKAI5i_wXbf": {
           "name": "Equipamento de Segurança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Equipamento de Segurança, eles sempre recebem +1 nas rolagens de Defesa de Equipamento de Segurança (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Equipamento de Segurança, eles sempre recebem +1 nas rolagens de Defesa de Equipamento de Segurança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "2naIlnOv22Ls": {
           "name": "Equipamento de Segurança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "h7dMwwRg46QD": {
           "name": "Aura de Equipamento de Segurança Aprimorado",
@@ -1611,7 +1603,7 @@
         },
         "df-9jrAw7ytM": {
           "name": "Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "j_GcHkWDO1HP": {
           "name": "Estocada em Combate Corpo a Corpo",
@@ -1635,15 +1627,15 @@
         },
         "ZGxUXLWSGkCv": {
           "name": "Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Combatente Versátil (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "iZkU-vhbjhbb": {
           "name": "Nascido da Vigília",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "QteJvh1g5fgV": {
           "name": "Aura de Nascido da Vigília Aprimorado",
@@ -1651,7 +1643,7 @@
         },
         "rIgfEKIxk1CA": {
           "name": "Nascido da Vigília Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Vigia, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Vigia (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "MmLijhHpEF37": {
           "name": "Nascido do Lobo Aprimorado",
@@ -1672,6 +1664,14 @@
         "KTetx0KIX3i-": {
           "name": "Marca de Matador",
           "description": "Uma vez por ativação, antes de atacar, escolha até 3 unidades inimigas a até 18\" na linha de visão; contra elas, unidades aliadas recebem Matador uma vez (na próxima vez que o efeito se aplicar)."
+        },
+        "b-Wgt5kP05T-": {
+          "name": "Atirador Brutal",
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+        },
+        "rBNwDwSM_r5I": {
+          "name": "Atirador Brutal Aprimorado",
+          "description": "Se este modelo tiver Atirador Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 de Atirador Brutal (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         }
       },
       "weapons": {
@@ -3120,9 +3120,6 @@
         },
         "49phSUJb": {
           "name": "Espada de Energia de Sargento"
-        },
-        "49sJl0Ta": {
-          "name": "Fuzil Longo de Sargento"
         },
         "55BYSuPp": {
           "name": "Bastões de Plasma"
@@ -5865,6 +5862,9 @@
         },
         "VMJQ6ffT": {
           "name": "Mordidas Frenéticas"
+        },
+        "vKvs3cbG": {
+          "name": "Carabina de Sargento"
         }
       },
       "spells": {
@@ -7553,7 +7553,7 @@
         "armyId": "i4ZEAmqeFSfAcw3f",
         "gameSystem": 2,
         "book": "Wormhole Daemons",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "gf"
       },
       "rules": {
@@ -7571,7 +7571,7 @@
         },
         "_tP0jExjizvc": {
           "name": "Encoberto",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "-05w6vRgH2k9": {
           "name": "Aura de Dilacerante em Combate",
@@ -7606,7 +7606,7 @@
           "description": "Este modelo e a sua unidade recebem Encobrimento em Combate."
         },
         "0TfnG5G4JEv0": {
-          "name": "Anti-Regeneração",
+          "name": "Ignora Regeneração",
           "description": "Esta arma ignora Regeneração."
         },
         "0Z-OGtDpajc3": {
@@ -7651,7 +7651,7 @@
         },
         "1TMBPe40kx2b": {
           "name": "Encobrimento em Combate",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra é alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
         },
         "21dbpSjSDeOY": {
           "name": "Guerreiro do Clã",
@@ -7675,7 +7675,7 @@
         },
         "2hXA8X1Xlrmc": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Encoberto (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "2xUH_d7T_Zfv": {
           "name": "Assédio",
@@ -7711,15 +7711,15 @@
         },
         "4mB0rwGnMVgJ": {
           "name": "Atrelado à Mudança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "4NiNnvh-brLp": {
-          "name": "Aura Anti-Cobertura ao Atirar",
-          "description": "Este modelo e a sua unidade recebem Anti-Cobertura nas suas armas ao atirar."
+          "name": "Aura de Ignora Cobertura ao Atirar",
+          "description": "Este modelo e a sua unidade recebem Ignora Cobertura nas suas armas ao atirar."
         },
         "4NMqPbqMvE4C": {
           "name": "Manter a Linha Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "4Q1owB6yNFz1": {
           "name": "Amplificador de Magia",
@@ -7739,11 +7739,11 @@
         },
         "5G44ZDmQG-N5": {
           "name": "Atrelado à Guerra Aprimorado",
-          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5grD2FDFdNSn": {
           "name": "Combatente Perfurante",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "5L4WYDhAN6bU": {
           "name": "Defesa Aterrada",
@@ -7751,7 +7751,7 @@
         },
         "5NeMSSj7-Pp5": {
           "name": "Violento Aprimorado",
-          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "5v6oaGfrdf29": {
           "name": "Surto",
@@ -7831,7 +7831,7 @@
         },
         "95k3zdp_EzoN": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "97aE8SunQBTq": {
           "name": "Purga",
@@ -7851,7 +7851,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "a0YtInGiUDd6": {
           "name": "Resistência",
@@ -7903,7 +7903,7 @@
         },
         "Anx9Iim2k-Ws": {
           "name": "Proteção Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "anyZ2FHtdAVO": {
           "name": "Combatente de Ataque e Fuga",
@@ -7919,7 +7919,7 @@
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Combatente Versátil (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "Aw2kbPkBywee": {
           "name": "Aura de Contra-Ataque em Combate",
@@ -7935,7 +7935,7 @@
         },
         "B1i8BBWNU3L0": {
           "name": "Feroz Aprimorado",
-          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "B5RGOPajK6Lr": {
           "name": "Aura de Combatente Preciso",
@@ -8007,7 +8007,7 @@
         },
         "cgCroTrOmiv-": {
           "name": "Vínculo de Colmeia",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "CJ2mI46Tp-al": {
           "name": "Alcance Extra",
@@ -8023,7 +8023,7 @@
         },
         "COaU7nmOC6VG": {
           "name": "Atrelado à Mudança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "CQes0mDvF4bV": {
           "name": "PA (Penetração de Armadura)",
@@ -8039,11 +8039,11 @@
         },
         "cygZBh3MtWs1": {
           "name": "Feroz",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "d1E7eizUnPoz": {
-          "name": "Anti-Cobertura ao Atirar",
-          "description": "Este modelo recebe Anti-Cobertura em suas armas ao atirar."
+          "name": "Ignora Cobertura ao Atirar",
+          "description": "Este modelo recebe Ignora Cobertura em suas armas ao atirar."
         },
         "D7ChSWl5R2We": {
           "name": "Guardião",
@@ -8063,7 +8063,7 @@
         },
         "df-9jrAw7ytM": {
           "name": "Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "DHH5wUzR-hlM": {
           "name": "Aura de Nascido do Sangue Aprimorado",
@@ -8095,7 +8095,7 @@
         },
         "dXr70idM6Vjk": {
           "name": "Visor de Mira Aprimorado",
-          "description": "Se este modelo tiver Visor de Mira, sempre recebe +1 nas rolagens para acertar por Visor de Mira (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
+          "description": "Se este modelo tiver Visor de Mira, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Visor de Mira (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "E-2e-rVm1WAz": {
           "name": "Aura de Precisão Aterrada",
@@ -8110,7 +8110,7 @@
           "description": "Este modelo e a sua unidade recebem Infiltração."
         },
         "efmjJPTe0Yzd": {
-          "name": "Anti-Cobertura",
+          "name": "Ignora Cobertura",
           "description": "Esta arma ignora Cobertura."
         },
         "EgdF_3MSddXR": {
@@ -8139,7 +8139,7 @@
         },
         "eXtrmDIR9dEp": {
           "name": "Defesa Versátil",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\" de distância, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
+          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra for atacada, desde que não tenham se movido durante sua ativação neste round, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
         },
         "EYbEdB0ST9lf": {
           "name": "Aura de Feroz Aprimorado",
@@ -8151,7 +8151,7 @@
         },
         "eYZyOr9wu0jr": {
           "name": "Névoa da Máquina Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Névoa da Máquina, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Névoa da Máquina (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Névoa da Máquina, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Névoa da Máquina (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "F_1wfmpAyYwT": {
           "name": "Autodestruição",
@@ -8215,7 +8215,7 @@
         },
         "gD2_znglqhNw": {
           "name": "Firme",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "GgPKQ4tKFRIC": {
           "name": "Desajeitado",
@@ -8223,7 +8223,7 @@
         },
         "gnpURIvLqjw9": {
           "name": "Devoto",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "gOFh4u_LGrwP": {
           "name": "Aura de Emboscada",
@@ -8271,11 +8271,11 @@
         },
         "hjaNnUHsY3f5": {
           "name": "Visor de Mira",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "HJtyt929ob_Q": {
-          "name": "Aura Anti-Cobertura ao Atirar",
-          "description": "Este modelo e a sua unidade recebem Anti-Cobertura nas suas armas ao atirar."
+          "name": "Aura de Ignora Cobertura ao Atirar",
+          "description": "Este modelo e a sua unidade recebem Ignora Cobertura nas suas armas ao atirar."
         },
         "HMiVg3VVLQv3": {
           "name": "Alvo Perfurável",
@@ -8291,7 +8291,7 @@
         },
         "HWtnPV9LQF1D": {
           "name": "Imóvel",
-          "description": "Só pode usar ações de Manter posição."
+          "description": "Não pode se mover nem ser movido, e só pode usar ações de Manter posição."
         },
         "Hzn5j1NxKI8h": {
           "name": "Nascido do Sangue Aprimorado",
@@ -8327,7 +8327,7 @@
         },
         "iZkU-vhbjhbb": {
           "name": "Nascido da Vigília",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "j_GcHkWDO1HP": {
           "name": "Estocada em Combate Corpo a Corpo",
@@ -8347,7 +8347,7 @@
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",
-          "description": "Quando este modelo atira em ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "jdxaM66DHbMQ": {
           "name": "Destrutivo",
@@ -8355,7 +8355,7 @@
         },
         "jgyVEAzjbDDh": {
           "name": "Infectado",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos das armas recebem 1 ferida extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos das armas recebem 1 ferida extra."
         },
         "JKjtSSAto56J": {
           "name": "Aura de Arrancada",
@@ -8371,7 +8371,7 @@
         },
         "JQmfgK02rJLK": {
           "name": "Infectado Aprimorado",
-          "description": "Se este modelo tiver Infectado, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear de Infectado (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Infectado, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear de Infectado (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "JSKVyurtWIyW": {
           "name": "Andarilho",
@@ -8395,7 +8395,7 @@
         },
         "kiXI7plPE_mK": {
           "name": "Vínculo de Colmeia Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Vínculo de Colmeia, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Vínculo de Colmeia, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "kpuEyaul7J3Z": {
           "name": "Reposicionamento por Emboscada",
@@ -8439,7 +8439,7 @@
         },
         "LbpquFUyGSZ7": {
           "name": "Valoroso",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "Ldhtmr4H8b6G": {
           "name": "Lento",
@@ -8473,13 +8473,9 @@
           "name": "Teleporte",
           "description": "Uma vez por ativação, antes de atacar, você pode colocar este modelo em qualquer lugar totalmente a até 3\" de sua posição ao usar ações de Avanço/Carga, ou totalmente a até 6\" de sua posição ao usar ações de Corrida."
         },
-        "lwWYwB3HRTPi": {
-          "name": "Atirador de Precisão",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
-        },
         "Lz_ncVgCX5R8": {
           "name": "Cavaleiro Nato",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "m4BLeFXB-kOb": {
           "name": "Aura de Guerrilha Aprimorado",
@@ -8491,7 +8487,7 @@
         },
         "MEAjk171GPmF": {
           "name": "Brutal",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "mETdyZ__yMVj": {
           "name": "Curar",
@@ -8507,7 +8503,7 @@
         },
         "mJiexOF2tUvD": {
           "name": "Combatente Perfurante Aprimorado",
-          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "MK_o4HpuB-pL": {
           "name": "Penalidade de Terreno Perigoso",
@@ -8539,7 +8535,7 @@
         },
         "Nbo5DTQufMoB": {
           "name": "Brutal Aprimorado",
-          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "NEYp25CGvZl3": {
           "name": "Correria",
@@ -8607,7 +8603,7 @@
         },
         "okU8qW-h2rau": {
           "name": "Encobrimento à Distância",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
         },
         "OOowoGdbpTCn": {
           "name": "Aura de Evasivo",
@@ -8687,7 +8683,7 @@
         },
         "QjUvdTBYv0Nd": {
           "name": "Nascido das Trevas",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "ql-dzbuQgTT4": {
           "name": "Predador Aprimorado",
@@ -8767,7 +8763,7 @@
         },
         "rIgfEKIxk1CA": {
           "name": "Nascido da Vigília Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Vigia, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Vigia (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "rJSSHbaRMID4": {
           "name": "Baliza de Emboscada",
@@ -8779,7 +8775,7 @@
         },
         "rMKm6JKLIxgn": {
           "name": "Firme Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "rMMd0maHg-AZ": {
           "name": "Marca de Indireto",
@@ -8803,7 +8799,7 @@
         },
         "rUzMGpacephz": {
           "name": "Cavaleiro Nato Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Cavaleiro Nato, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Cavaleiro Nato (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Cavaleiro Nato, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Cavaleiro Nato (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "rVZfbTlIyt7L": {
           "name": "Aura de Atirador de Ataque e Fuga",
@@ -8819,7 +8815,7 @@
         },
         "S8IZt-d0Sgwk": {
           "name": "Névoa da Máquina",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que as atirem ou carreguem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que as atirem ou carreguem sofrem -1 nas rolagens para acertar."
         },
         "s97hkNZ91jnd": {
           "name": "Bônus de Sombrio Aprimorado",
@@ -8827,7 +8823,7 @@
         },
         "Sdcb8VAeTxji": {
           "name": "Manter a Linha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "sGmLaPbLpSvT": {
           "name": "Agente Inquisitorial",
@@ -8875,7 +8871,7 @@
         },
         "TbjUdR-OJZPw": {
           "name": "Valoroso Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "Tdyu4Tn-rFN6": {
           "name": "Aura de Batedor",
@@ -8911,7 +8907,7 @@
         },
         "UBOoMTJY8qfD": {
           "name": "Protegido Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "UEYz0htkjsxv": {
           "name": "Aura de Feito de Velocidade",
@@ -8999,7 +8995,7 @@
         },
         "w7sENXkksVpG": {
           "name": "Devoto Aprimorado",
-          "description": "Se este modelo tiver Devoto, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Devoto (e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devoto, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Devoto (e não apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "wC-cYJcNqGqv": {
           "name": "Aura de Nascido das Trevas Aprimorado",
@@ -9019,11 +9015,11 @@
         },
         "WHJ8A7LzHUR6": {
           "name": "Violento",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "wjTOj41tskFD": {
           "name": "Devastação",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "wnEVftbtVtw5": {
           "name": "Aura de Cavaleiro Nato Aprimorado",
@@ -9099,7 +9095,7 @@
         },
         "yaEXlHySt7no": {
           "name": "Nascido das Trevas Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Nascido das Trevas, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Nascido das Trevas (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Nascido das Trevas, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Nascido das Trevas (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "YfecqBW3YoNG": {
           "name": "Fortificado Aprimorado",
@@ -9115,7 +9111,7 @@
         },
         "YMQxz2ssYCBj": {
           "name": "Encoberto",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "ynbkYi-zak_C": {
           "name": "Bônus de Regeneração",
@@ -9124,10 +9120,6 @@
         "ypbYeykEKH3C": {
           "name": "Nascido do Sangue",
           "description": "Para cada resultado não modificado de 6 para acertar ao atacar, este modelo pode fazer 1 ataque adicional com essa arma. Esta regra não se aplica aos ataques gerados dessa forma."
-        },
-        "ySpZadCu08yk": {
-          "name": "Atirador de Precisão Aprimorado",
-          "description": "Se este modelo tiver Atirador de Precisão, sempre recebe +1 nas rolagens para acertar por Atirador de Precisão (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
         },
         "Yt2R4sh8SXM0": {
           "name": "Aura de Vínculo de Colmeia Aprimorado",
@@ -9155,7 +9147,7 @@
         },
         "ZGxUXLWSGkCv": {
           "name": "Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "ZHykLbU6nUWl": {
           "name": "Procriação",
@@ -9191,15 +9183,15 @@
         },
         "ZqYITWnZUc45": {
           "name": "Devastação Aprimorado",
-          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "zTfg9msVpfJ0": {
           "name": "Protegido",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "zu6H7MyN3f8U": {
           "name": "Proteção",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "zVconc6Qb-g9": {
           "name": "Impacto Pesado",
@@ -9212,6 +9204,14 @@
         "Zx4mWN0SbmK8": {
           "name": "Confiável",
           "description": "Ataca com Qualidade 2+."
+        },
+        "b-Wgt5kP05T-": {
+          "name": "Atirador Brutal",
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+        },
+        "rBNwDwSM_r5I": {
+          "name": "Atirador Brutal Aprimorado",
+          "description": "Se este modelo tiver Atirador Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 de Atirador Brutal (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         }
       },
       "weapons": {
@@ -9775,9 +9775,6 @@
         },
         "49phSUJb": {
           "name": "Espada de Energia de Sargento"
-        },
-        "49sJl0Ta": {
-          "name": "Fuzil Longo de Sargento"
         },
         "4aj_Wkh0": {
           "name": "Canhão de Moto de Assalto"
@@ -15499,6 +15496,9 @@
         },
         "zZg8IItJ": {
           "name": "Canhão Destroçador Gêmeo"
+        },
+        "vKvs3cbG": {
+          "name": "Carabina de Sargento"
         }
       },
       "spells": {
@@ -17007,7 +17007,7 @@
         "armyId": "qtuyeoRfXKlNflK0",
         "gameSystem": 4,
         "book": "Wood Elves",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "aof"
       },
       "rules": {
@@ -17033,7 +17033,7 @@
         },
         "_tP0jExjizvc": {
           "name": "Encoberto",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "-05w6vRgH2k9": {
           "name": "Aura de Dilacerante em Combate",
@@ -17049,7 +17049,7 @@
         },
         "-7w3e1QuLK47": {
           "name": "Destruidor",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "-eXDDTCrrQ6n": {
           "name": "Esquiva",
@@ -17080,7 +17080,7 @@
           "description": "Este modelo e a sua unidade recebem Encobrimento em Combate."
         },
         "0TfnG5G4JEv0": {
-          "name": "Anti-Regeneração",
+          "name": "Ignora Regeneração",
           "description": "Esta arma ignora Regeneração."
         },
         "13WU-Xq3Pu8E": {
@@ -17113,7 +17113,7 @@
         },
         "1TMBPe40kx2b": {
           "name": "Encobrimento em Combate",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra é alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
         },
         "2_ZDkK-pfpQz": {
           "name": "Guerreiro Real Aprimorado",
@@ -17133,7 +17133,7 @@
         },
         "2hXA8X1Xlrmc": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Encoberto (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "2qrLBSm3trGM": {
           "name": "Velocidade Aterrada",
@@ -17141,7 +17141,7 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "2xUH_d7T_Zfv": {
           "name": "Assédio",
@@ -17181,11 +17181,11 @@
         },
         "4mB0rwGnMVgJ": {
           "name": "Atrelado à Mudança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "4NMqPbqMvE4C": {
           "name": "Manter a Linha Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "4Q1owB6yNFz1": {
           "name": "Amplificador de Magia",
@@ -17193,7 +17193,7 @@
         },
         "4rzxsYvWU9Ge": {
           "name": "Véu Selvagem",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "5bc5xNmd5M14": {
           "name": "Nobre",
@@ -17201,11 +17201,11 @@
         },
         "5G44ZDmQG-N5": {
           "name": "Atrelado à Guerra Aprimorado",
-          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5grD2FDFdNSn": {
           "name": "Combatente Perfurante",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "5L4WYDhAN6bU": {
           "name": "Defesa Aterrada",
@@ -17213,7 +17213,7 @@
         },
         "5NeMSSj7-Pp5": {
           "name": "Violento Aprimorado",
-          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "5v6oaGfrdf29": {
           "name": "Surto",
@@ -17293,7 +17293,7 @@
         },
         "9_lez8f1QHeD": {
           "name": "Sortudo",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
         },
         "9042COVrLCsI": {
           "name": "Limitado",
@@ -17301,7 +17301,7 @@
         },
         "95k3zdp_EzoN": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "97aE8SunQBTq": {
           "name": "Purga",
@@ -17321,7 +17321,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "9tX9-9gULZSe": {
           "name": "Aura de Passo de Onda Aprimorado",
@@ -17369,7 +17369,7 @@
         },
         "Anx9Iim2k-Ws": {
           "name": "Proteção Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "anyZ2FHtdAVO": {
           "name": "Combatente de Ataque e Fuga",
@@ -17385,7 +17385,7 @@
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Combatente Versátil (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "Aw2kbPkBywee": {
           "name": "Aura de Contra-Ataque em Combate",
@@ -17401,11 +17401,11 @@
         },
         "B1i8BBWNU3L0": {
           "name": "Feroz Aprimorado",
-          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "B2JtpsnBmE7N": {
           "name": "Espírito Empíreo",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "B5RGOPajK6Lr": {
           "name": "Aura de Combatente Preciso",
@@ -17481,7 +17481,7 @@
         },
         "COaU7nmOC6VG": {
           "name": "Atrelado à Mudança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "CQes0mDvF4bV": {
           "name": "PA (Penetração de Armadura)",
@@ -17493,7 +17493,7 @@
         },
         "cygZBh3MtWs1": {
           "name": "Feroz",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "d-ulc2LOuS0E": {
           "name": "Guardião Aprimorado",
@@ -17513,7 +17513,7 @@
         },
         "df-9jrAw7ytM": {
           "name": "Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "DhLjIDRrWz6-": {
           "name": "Carga Perfurante",
@@ -17552,7 +17552,7 @@
           "description": "Este modelo e a sua unidade recebem Ossificado Aprimorado."
         },
         "efmjJPTe0Yzd": {
-          "name": "Anti-Cobertura",
+          "name": "Ignora Cobertura",
           "description": "Esta arma ignora Cobertura."
         },
         "EgdF_3MSddXR": {
@@ -17577,7 +17577,7 @@
         },
         "eXtrmDIR9dEp": {
           "name": "Defesa Versátil",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\" de distância, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
+          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra for atacada, desde que não tenham se movido durante sua ativação neste round, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
         },
         "EYbEdB0ST9lf": {
           "name": "Aura de Feroz Aprimorado",
@@ -17613,7 +17613,7 @@
         },
         "fdufdlkSe5d4": {
           "name": "Espírito Empíreo Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "FF5ddXgx75lI": {
           "name": "Assalto",
@@ -17641,7 +17641,7 @@
         },
         "gD2_znglqhNw": {
           "name": "Firme",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "GgPKQ4tKFRIC": {
           "name": "Desajeitado",
@@ -17673,7 +17673,7 @@
         },
         "h_TEDAiM7Cy-": {
           "name": "Bucaneiro",
-          "description": "Ao atirar em inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "h-Cj1XrX00JE": {
           "name": "Resistência a Magia",
@@ -17721,7 +17721,7 @@
         },
         "HWtnPV9LQF1D": {
           "name": "Imóvel",
-          "description": "Só pode usar ações de Manter posição."
+          "description": "Não pode se mover nem ser movido, e só pode usar ações de Manter posição."
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
@@ -17757,7 +17757,7 @@
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",
-          "description": "Quando este modelo atira em ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "jdxaM66DHbMQ": {
           "name": "Destrutivo",
@@ -17765,7 +17765,7 @@
         },
         "Jg7RPJ4J63wm": {
           "name": "Bucaneiro Aprimorado",
-          "description": "Se este modelo tiver Bucaneiro, ele sempre recebe +1 nas rolagens para acertar por Bucaneiro (em vez de apenas ao atirar a mais de 9\" de distância)."
+          "description": "Se este modelo tiver Bucaneiro, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Bucaneiro (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "JoOCVPx1xT1G": {
           "name": "Furioso",
@@ -17789,7 +17789,7 @@
         },
         "KbbLvs-sSSPi": {
           "name": "Bênção Angelical Aprimorada",
-          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas quando forem alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "KdgwlPb8LuD2": {
           "name": "Rápido",
@@ -17845,7 +17845,7 @@
         },
         "LbpquFUyGSZ7": {
           "name": "Valoroso",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "Ldhtmr4H8b6G": {
           "name": "Lento",
@@ -17879,10 +17879,6 @@
           "name": "Teleporte",
           "description": "Uma vez por ativação, antes de atacar, você pode colocar este modelo em qualquer lugar totalmente a até 3\" de sua posição ao usar ações de Avanço/Carga, ou totalmente a até 6\" de sua posição ao usar ações de Corrida."
         },
-        "lwWYwB3HRTPi": {
-          "name": "Atirador de Precisão",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
-        },
         "M5maCzVafoAm": {
           "name": "Aura de Tecnologia Vinci Aprimorada",
           "description": "Este modelo e a sua unidade recebem Tecnologia Vinci Aprimorada."
@@ -17901,11 +17897,11 @@
         },
         "mCYGI3sU3jKI": {
           "name": "Bênção Angelical",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e a unidade foi alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância, ele é ignorado em 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e os modelos não se moveram durante sua ativação neste round, ele é ignorado em 6+."
         },
         "MEAjk171GPmF": {
           "name": "Brutal",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "mETdyZ__yMVj": {
           "name": "Curar",
@@ -17913,7 +17909,7 @@
         },
         "mJiexOF2tUvD": {
           "name": "Combatente Perfurante Aprimorado",
-          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "MK_o4HpuB-pL": {
           "name": "Penalidade de Terreno Perigoso",
@@ -17957,7 +17953,7 @@
         },
         "Nbo5DTQufMoB": {
           "name": "Brutal Aprimorado",
-          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "NEYp25CGvZl3": {
           "name": "Correria",
@@ -17977,7 +17973,7 @@
         },
         "nNQIbm2XPcnO": {
           "name": "Destruidor Aprimorado",
-          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "nr0R125ptwEZ": {
           "name": "Aura de Teleporte",
@@ -18037,7 +18033,7 @@
         },
         "okU8qW-h2rau": {
           "name": "Encobrimento à Distância",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
         },
         "OOowoGdbpTCn": {
           "name": "Aura de Evasivo",
@@ -18125,7 +18121,7 @@
         },
         "qQNXJkFzIjyq": {
           "name": "Véu Selvagem Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Véu Selvagem (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sempre sofrem -4\"/-2\" no alcance ao mirar neles por Véu Selvagem (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "qrG_DXJez5Dg": {
           "name": "Músico",
@@ -18185,7 +18181,7 @@
         },
         "rMKm6JKLIxgn": {
           "name": "Firme Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "rMMd0maHg-AZ": {
           "name": "Marca de Indireto",
@@ -18217,7 +18213,7 @@
         },
         "Sdcb8VAeTxji": {
           "name": "Manter a Linha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "sH-AvEKrwe98": {
           "name": "Golpe de Recuo",
@@ -18249,7 +18245,7 @@
         },
         "SRqOGpHoX9GN": {
           "name": "Sortudo Aprimorado",
-          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "sScPMcGqrk5Q": {
           "name": "Aura de Matador à Distância",
@@ -18269,7 +18265,7 @@
         },
         "TbjUdR-OJZPw": {
           "name": "Valoroso Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "Tdyu4Tn-rFN6": {
           "name": "Aura de Batedor",
@@ -18293,7 +18289,7 @@
         },
         "UBOoMTJY8qfD": {
           "name": "Protegido Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "UEYz0htkjsxv": {
           "name": "Aura de Feito de Velocidade",
@@ -18389,7 +18385,7 @@
         },
         "WHJ8A7LzHUR6": {
           "name": "Violento",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "wixW3wum01ao": {
           "name": "Grande Estandarte",
@@ -18397,7 +18393,7 @@
         },
         "wjTOj41tskFD": {
           "name": "Devastação",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "WNMH1ZiQXSz-": {
           "name": "Canalizador de Magia",
@@ -18409,7 +18405,7 @@
         },
         "wSFy7E1LVgy7": {
           "name": "Tecnologia Vinci Aprimorada",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Tecnologia Vinci, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Tecnologia Vinci (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "wsqfB0fq69eG": {
           "name": "Blindado",
@@ -18485,7 +18481,7 @@
         },
         "YMQxz2ssYCBj": {
           "name": "Encoberto",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "ymrWMYEn2noy": {
           "name": "Aura de Combatente Versátil",
@@ -18498,10 +18494,6 @@
         "ypa2nY7DC-X0": {
           "name": "Feito de Precisão",
           "description": "Uma vez por jogo, quando esta unidade atacar, você pode usar esta regra para que todos os modelos com esta regra nela recebam +1 nas rolagens para acertar."
-        },
-        "ySpZadCu08yk": {
-          "name": "Atirador de Precisão Aprimorado",
-          "description": "Se este modelo tiver Atirador de Precisão, sempre recebe +1 nas rolagens para acertar por Atirador de Precisão (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
         },
         "ywXKQKPOLjTF": {
           "name": "Estandarte",
@@ -18525,7 +18517,7 @@
         },
         "ZGxUXLWSGkCv": {
           "name": "Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "ZHykLbU6nUWl": {
           "name": "Procriação",
@@ -18545,15 +18537,15 @@
         },
         "ZqYITWnZUc45": {
           "name": "Devastação Aprimorado",
-          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "zTfg9msVpfJ0": {
           "name": "Protegido",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "zu6H7MyN3f8U": {
           "name": "Proteção",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "zUTRifMzhyrR": {
           "name": "Bestial Aprimorado",
@@ -18570,6 +18562,14 @@
         "Zx4mWN0SbmK8": {
           "name": "Confiável",
           "description": "Ataca com Qualidade 2+."
+        },
+        "b-Wgt5kP05T-": {
+          "name": "Atirador Brutal",
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+        },
+        "rBNwDwSM_r5I": {
+          "name": "Atirador Brutal Aprimorado",
+          "description": "Se este modelo tiver Atirador Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 de Atirador Brutal (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         }
       },
       "weapons": {
@@ -23922,7 +23922,7 @@
         "armyId": "4SBY8ONErd3HUxle",
         "gameSystem": 5,
         "book": "Treasure Hunters",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "aofs"
       },
       "rules": {
@@ -23951,7 +23951,7 @@
           "description": "Inimigos que carregam esta unidade sofrem -X no total de rolagens de Impacto, a menos que esta unidade esteja Fatigada."
         },
         "0TfnG5G4JEv0": {
-          "name": "Anti-Regeneração",
+          "name": "Ignora Regeneração",
           "description": "Esta arma ignora Regeneração."
         },
         "17crjK7P6_w6": {
@@ -23964,7 +23964,7 @@
         },
         "2hXA8X1Xlrmc": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Encoberto (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "3FeiOe3krHMa": {
           "name": "Aeronave",
@@ -23980,7 +23980,7 @@
         },
         "4rzxsYvWU9Ge": {
           "name": "Véu Selvagem",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "5L4WYDhAN6bU": {
           "name": "Defesa Aterrada",
@@ -24067,7 +24067,7 @@
           "description": "Em combate corpo a corpo com este modelo, inimigos contam como tendo sofrido +X ferimentos ao verificar quem venceu."
         },
         "efmjJPTe0Yzd": {
-          "name": "Anti-Cobertura",
+          "name": "Ignora Cobertura",
           "description": "Esta arma ignora Cobertura."
         },
         "EgdF_3MSddXR": {
@@ -24116,7 +24116,7 @@
         },
         "HWtnPV9LQF1D": {
           "name": "Imóvel",
-          "description": "Só pode usar ações de Manter posição."
+          "description": "Não pode se mover nem ser movido, e só pode usar ações de Manter posição."
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
@@ -24164,7 +24164,7 @@
         },
         "qQNXJkFzIjyq": {
           "name": "Véu Selvagem Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Véu Selvagem (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sempre sofrem -4\"/-2\" no alcance ao mirar neles por Véu Selvagem (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "qrG_DXJez5Dg": {
           "name": "Músico",
@@ -24220,7 +24220,7 @@
         },
         "YMQxz2ssYCBj": {
           "name": "Encoberto",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "ywXKQKPOLjTF": {
           "name": "Estandarte",
@@ -24276,11 +24276,11 @@
         },
         "_tP0jExjizvc": {
           "name": "Encoberto",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "4mB0rwGnMVgJ": {
           "name": "Atrelado à Mudança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "8zBpM3Wjey08": {
           "name": "Aura de Combatente Imprevisível",
@@ -24288,11 +24288,11 @@
         },
         "95k3zdp_EzoN": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "COaU7nmOC6VG": {
           "name": "Atrelado à Mudança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "ePlgVfji1dy6": {
           "name": "Aura de Inabalável",
@@ -24300,7 +24300,7 @@
         },
         "eXtrmDIR9dEp": {
           "name": "Defesa Versátil",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\" de distância, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
+          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra for atacada, desde que não tenham se movido durante sua ativação neste round, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
         },
         "j93FkLXMCk8v": {
           "name": "Inabalável",
@@ -24316,7 +24316,7 @@
         },
         "okU8qW-h2rau": {
           "name": "Encobrimento à Distância",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
         },
         "oZewV0wGuebE": {
           "name": "Aura de Encobrimento à Distância",
@@ -24364,7 +24364,7 @@
         },
         "1TMBPe40kx2b": {
           "name": "Encobrimento em Combate",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra é alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
         },
         "27DHOeVHMwrj": {
           "name": "Matador",
@@ -24376,7 +24376,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "fB2hm0la8zl1": {
           "name": "Matador à Distância",
@@ -24556,11 +24556,11 @@
         },
         "5G44ZDmQG-N5": {
           "name": "Atrelado à Guerra Aprimorado",
-          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5NeMSSj7-Pp5": {
           "name": "Violento Aprimorado",
-          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "97aE8SunQBTq": {
           "name": "Purga",
@@ -24580,7 +24580,7 @@
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",
-          "description": "Quando este modelo atira em ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "n8vjv0oBZDAL": {
           "name": "Frenesi Defensivo",
@@ -24592,7 +24592,7 @@
         },
         "WHJ8A7LzHUR6": {
           "name": "Violento",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "wnrz_-SUmR8_": {
           "name": "Aura de Combatente Perfurante",
@@ -24728,11 +24728,11 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Combatente Versátil (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "B-9jnnFp54f9": {
           "name": "Aura de Fortificado",
@@ -24760,7 +24760,7 @@
         },
         "wSFy7E1LVgy7": {
           "name": "Tecnologia Vinci Aprimorada",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Tecnologia Vinci, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Tecnologia Vinci (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "amQphBHWOeJs": {
           "name": "Aura de Rápido",
@@ -24780,7 +24780,7 @@
         },
         "gD2_znglqhNw": {
           "name": "Firme",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "GgPKQ4tKFRIC": {
           "name": "Desajeitado",
@@ -24796,7 +24796,7 @@
         },
         "rMKm6JKLIxgn": {
           "name": "Firme Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "sngB_5QsJLaW": {
           "name": "Carga Precisa",
@@ -24804,11 +24804,11 @@
         },
         "UBOoMTJY8qfD": {
           "name": "Protegido Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "zTfg9msVpfJ0": {
           "name": "Protegido",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "8haZ36fXvnzn": {
           "name": "Aura de Furtividade",
@@ -24844,7 +24844,7 @@
         },
         "B2JtpsnBmE7N": {
           "name": "Espírito Empíreo",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "bcByy3kGe34w": {
           "name": "Etéreo",
@@ -24856,7 +24856,7 @@
         },
         "fdufdlkSe5d4": {
           "name": "Espírito Empíreo Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "O2Cd7OibBBA5": {
           "name": "Sem Retirada",
@@ -24924,7 +24924,7 @@
         },
         "9_lez8f1QHeD": {
           "name": "Sortudo",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
         },
         "AfGDQgn8r8O1": {
           "name": "Aura de Dilacerante ao Atirar",
@@ -24940,11 +24940,11 @@
         },
         "MEAjk171GPmF": {
           "name": "Brutal",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "Nbo5DTQufMoB": {
           "name": "Brutal Aprimorado",
-          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "nr0R125ptwEZ": {
           "name": "Aura de Teleporte",
@@ -24960,11 +24960,11 @@
         },
         "SRqOGpHoX9GN": {
           "name": "Sortudo Aprimorado",
-          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5grD2FDFdNSn": {
           "name": "Combatente Perfurante",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "dlk9Q7howUDr": {
           "name": "Atirador Perfurante",
@@ -24972,7 +24972,7 @@
         },
         "mJiexOF2tUvD": {
           "name": "Combatente Perfurante Aprimorado",
-          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "QWzGAg9RpE2D": {
           "name": "Aura de Alcance de Tiro Aumentado",
@@ -24980,7 +24980,7 @@
         },
         "wjTOj41tskFD": {
           "name": "Devastação",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "WNMH1ZiQXSz-": {
           "name": "Canalizador de Magia",
@@ -24992,7 +24992,7 @@
         },
         "ZqYITWnZUc45": {
           "name": "Devastação Aprimorado",
-          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "5bc5xNmd5M14": {
           "name": "Nobre",
@@ -25032,7 +25032,7 @@
         },
         "4NMqPbqMvE4C": {
           "name": "Manter a Linha Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "eU6uz90H82Sw": {
           "name": "Alcance Estendido de Bônus",
@@ -25056,15 +25056,15 @@
         },
         "LbpquFUyGSZ7": {
           "name": "Valoroso",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "Sdcb8VAeTxji": {
           "name": "Manter a Linha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "TbjUdR-OJZPw": {
           "name": "Valoroso Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "XWsun1sjt2ql": {
           "name": "Bônus de Corrida Rápida",
@@ -25080,7 +25080,7 @@
         },
         "Anx9Iim2k-Ws": {
           "name": "Proteção Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "E8tvOAPUp2lA": {
           "name": "Bônus de Bênção Angelical Aprimorada",
@@ -25088,7 +25088,7 @@
         },
         "KbbLvs-sSSPi": {
           "name": "Bênção Angelical Aprimorada",
-          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas quando forem alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "M6r8eZ54PXbo": {
           "name": "Bônus de Combatente Versátil",
@@ -25096,7 +25096,7 @@
         },
         "mCYGI3sU3jKI": {
           "name": "Bênção Angelical",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e a unidade foi alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância, ele é ignorado em 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e os modelos não se moveram durante sua ativação neste round, ele é ignorado em 6+."
         },
         "N0JRcI01vSBT": {
           "name": "Morte",
@@ -25108,7 +25108,7 @@
         },
         "zu6H7MyN3f8U": {
           "name": "Proteção",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "6uuhxngLr8N7": {
           "name": "Aura de Legião Real Aprimorada",
@@ -25128,7 +25128,7 @@
         },
         "-7w3e1QuLK47": {
           "name": "Destruidor",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "39l6ePjLFmcw": {
           "name": "Aura de Destruidor Aprimorado",
@@ -25140,7 +25140,7 @@
         },
         "nNQIbm2XPcnO": {
           "name": "Destruidor Aprimorado",
-          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "Q5lDzth8JVEb": {
           "name": "Feito Perfurante",
@@ -25156,11 +25156,11 @@
         },
         "B1i8BBWNU3L0": {
           "name": "Feroz Aprimorado",
-          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "cygZBh3MtWs1": {
           "name": "Feroz",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "EYbEdB0ST9lf": {
           "name": "Aura de Feroz Aprimorado",
@@ -25260,7 +25260,7 @@
         },
         "df-9jrAw7ytM": {
           "name": "Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "jdxaM66DHbMQ": {
           "name": "Destrutivo",
@@ -25268,19 +25268,15 @@
         },
         "ZGxUXLWSGkCv": {
           "name": "Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "h_TEDAiM7Cy-": {
           "name": "Bucaneiro",
-          "description": "Ao atirar em inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "Jg7RPJ4J63wm": {
           "name": "Bucaneiro Aprimorado",
-          "description": "Se este modelo tiver Bucaneiro, ele sempre recebe +1 nas rolagens para acertar por Bucaneiro (em vez de apenas ao atirar a mais de 9\" de distância)."
-        },
-        "lwWYwB3HRTPi": {
-          "name": "Atirador de Precisão",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Se este modelo tiver Bucaneiro, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Bucaneiro (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "Mtcp44LF96k9": {
           "name": "Aura de Bucaneiro Aprimorado",
@@ -25289,10 +25285,6 @@
         "y47PXwakTSji": {
           "name": "Alcance Versátil",
           "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem +4\" de alcance ao atirar ou movem +2\" ao usar Corrida/Carga."
-        },
-        "ySpZadCu08yk": {
-          "name": "Atirador de Precisão Aprimorado",
-          "description": "Se este modelo tiver Atirador de Precisão, sempre recebe +1 nas rolagens para acertar por Atirador de Precisão (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
         },
         "a6Ze2uaBlNHX": {
           "name": "Controle Mental",
@@ -25372,7 +25364,7 @@
         },
         "6_xfGV4PiLe1": {
           "name": "Selvagem Aprimorado",
-          "description": "Se este modelo tiver Selvagem, o alvo sempre sofre acertos em resultados não modificados de 6 para acertar de Selvagem (em vez de apenas ao atirar/carregar contra inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Selvagem, o alvo sempre sofre acertos em resultados não modificados de 6 para acertar de Selvagem (em vez de apenas ao atirar/carregar contra o alvo válido mais próximo)."
         },
         "af-WuhTCCUVk": {
           "name": "Marca de Tiro Perfurante",
@@ -25384,7 +25376,7 @@
         },
         "xpz_j0Y8jYOq": {
           "name": "Selvagem",
-          "description": "Quando este modelo atira/carrega contra inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira/carrega contra o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "0Z-OGtDpajc3": {
           "name": "Evasão Aterrada",
@@ -25392,7 +25384,7 @@
         },
         "9NrhGurKS7I8": {
           "name": "Névoa Sombria",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem/carregarem contra eles a mais de 9\"/6\" de distância recebem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem/carregarem contra eles recebem -1 nas rolagens para acertar."
         },
         "KTetx0KIX3i-": {
           "name": "Marca de Matador",
@@ -25400,7 +25392,7 @@
         },
         "lwze7IEEFK8Q": {
           "name": "Névoa Sombria Aprimorada",
-          "description": "Se a maioria dos modelos nesta unidade tiver Névoa Sombria, os inimigos que os atacarem sempre recebem -1 nas rolagens para acertar de Névoa Sombria (em vez de apenas ao atirar/carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Névoa Sombria, os inimigos que os atacarem sempre recebem -1 nas rolagens para acertar de Névoa Sombria (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "Qlz-D_4zfEEh": {
           "name": "Aura de Névoa Sombria Aprimorada",
@@ -25428,7 +25420,7 @@
         },
         "x0gFQEwammM_": {
           "name": "Endurecido em Batalha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "58bWJyFqRsC3": {
           "name": "Assalto da União",
@@ -25464,7 +25456,7 @@
         },
         "XUtLjcGZG6Vn": {
           "name": "Tenaz",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Defesa quando forem alvo de tiros/cargas a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "yMqhP2haFe5A": {
           "name": "Aura de Tenaz Aprimorado",
@@ -25472,11 +25464,11 @@
         },
         "yTzMAhBLKKzA": {
           "name": "Tenaz Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Tenaz, eles sempre recebem +1 nas rolagens de Defesa de Tenaz (em vez de apenas quando forem alvo de tiros/cargas a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Tenaz, eles sempre recebem +1 nas rolagens de Defesa de Tenaz (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "0ia0aPl7hE0t": {
           "name": "Equipamento Exótico",
-          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, ao atirar/carregar contra inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, ao atirar/carregar contra o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "LJjfHXnCppNl": {
           "name": "Aura de Equipamento Exótico Aprimorado",
@@ -25488,7 +25480,7 @@
         },
         "usTT05D3qg9_": {
           "name": "Equipamento Exótico Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar/carregar contra inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Equipamento Exótico, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Equipamento Exótico (em vez de apenas ao atirar/carregar contra o alvo válido mais próximo)."
         },
         "Pa5Mr2ioVZIf": {
           "name": "Corredor Aprimorado",
@@ -25501,6 +25493,14 @@
         "Ywz0UdkamH-k": {
           "name": "Corredor",
           "description": "Move +1\" ao usar Avanço e +2\" ao usar Corrida/Carga."
+        },
+        "b-Wgt5kP05T-": {
+          "name": "Atirador Brutal",
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+        },
+        "rBNwDwSM_r5I": {
+          "name": "Atirador Brutal Aprimorado",
+          "description": "Se este modelo tiver Atirador Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 de Atirador Brutal (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         }
       },
       "weapons": {
@@ -29897,7 +29897,7 @@
         "armyId": "TjNtGnCDVts3l3ER",
         "gameSystem": 6,
         "book": "War Disciples",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "aofr",
         "collections": [
           {
@@ -30133,7 +30133,7 @@
           "description": "Inimigos que carregam esta unidade pela frente sofrem -X no total de rolagens de Impacto por modelo com esta regra nas duas fileiras da frente, a menos que esta unidade esteja Fatigada."
         },
         "0TfnG5G4JEv0": {
-          "name": "Anti-Regeneração",
+          "name": "Ignora Regeneração",
           "description": "Esta arma ignora Regeneração."
         },
         "17crjK7P6_w6": {
@@ -30146,7 +30146,7 @@
         },
         "2hXA8X1Xlrmc": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Encoberto (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, unidades inimigas que atirarem ou carregarem contra ela sempre sofrem -4\"/-2\" no alcance ao mirar neles por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "3FeiOe3krHMa": {
           "name": "Aeronave",
@@ -30162,7 +30162,7 @@
         },
         "4rzxsYvWU9Ge": {
           "name": "Véu Selvagem",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "5L4WYDhAN6bU": {
           "name": "Defesa Aterrada",
@@ -30249,7 +30249,7 @@
           "description": "Em combate corpo a corpo com este modelo, inimigos contam como tendo sofrido +X ferimentos ao verificar quem venceu."
         },
         "efmjJPTe0Yzd": {
-          "name": "Anti-Cobertura",
+          "name": "Ignora Cobertura",
           "description": "Esta arma ignora Cobertura."
         },
         "EgdF_3MSddXR": {
@@ -30298,7 +30298,7 @@
         },
         "HWtnPV9LQF1D": {
           "name": "Imóvel",
-          "description": "Só pode usar ações de Manter posição."
+          "description": "Não pode se mover nem ser movido, e só pode usar ações de Manter posição."
         },
         "i40cKJoXJ7zm": {
           "name": "Imprevisível",
@@ -30354,7 +30354,7 @@
         },
         "qQNXJkFzIjyq": {
           "name": "Véu Selvagem Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sofrem -8\"/-4\" no alcance, até um mínimo de 6\", por Véu Selvagem (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Véu Selvagem, unidades inimigas que a atirarem ou carregarem sempre sempre sofrem -4\"/-2\" no alcance ao mirar neles por Véu Selvagem (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "qrG_DXJez5Dg": {
           "name": "Músico",
@@ -30410,7 +30410,7 @@
         },
         "YMQxz2ssYCBj": {
           "name": "Encoberto",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é escolhida como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem escolhidos como alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" no alcance, até um mínimo de 6\"."
         },
         "ywXKQKPOLjTF": {
           "name": "Estandarte",
@@ -30486,11 +30486,11 @@
         },
         "_tP0jExjizvc": {
           "name": "Encoberto",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "4mB0rwGnMVgJ": {
           "name": "Atrelado à Mudança",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "8zBpM3Wjey08": {
           "name": "Aura de Combatente Imprevisível",
@@ -30498,11 +30498,11 @@
         },
         "95k3zdp_EzoN": {
           "name": "Encoberto Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Encoberto, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Encoberto (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "COaU7nmOC6VG": {
           "name": "Atrelado à Mudança Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Atrelado à Mudança, inimigos que a atacarem sempre sofrem -1 nas rolagens para acertar por Atrelado à Mudança (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "ePlgVfji1dy6": {
           "name": "Aura de Inabalável",
@@ -30510,7 +30510,7 @@
         },
         "eXtrmDIR9dEp": {
           "name": "Defesa Versátil",
-          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra é alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\" de distância, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
+          "description": "Quando uma unidade em que a maioria dos modelos tem esta regra for atacada, desde que não tenham se movido durante sua ativação neste round, escolha um efeito: a unidade recebe +1 nas rolagens de Defesa, ou as unidades inimigas sofrem -1 nas rolagens de acerto contra ela. Observação: você pode escolher um efeito diferente a cada vez que a unidade for atacada."
         },
         "j93FkLXMCk8v": {
           "name": "Inabalável",
@@ -30534,7 +30534,7 @@
         },
         "okU8qW-h2rau": {
           "name": "Encobrimento à Distância",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando for alvo de uma unidade inimiga para tiro, essa unidade inimiga sofre -4\" de alcance, até um mínimo de 6\"."
         },
         "oZewV0wGuebE": {
           "name": "Aura de Encobrimento à Distância",
@@ -30586,7 +30586,7 @@
         },
         "1TMBPe40kx2b": {
           "name": "Encobrimento em Combate",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra é alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de carga por uma unidade inimiga, essa unidade inimiga sofre -2\" de alcance, para um mínimo de 6\"."
         },
         "27DHOeVHMwrj": {
           "name": "Matador",
@@ -30598,7 +30598,7 @@
         },
         "9Te72f48wJyw": {
           "name": "Combatente Versátil",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, quando atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "fB2hm0la8zl1": {
           "name": "Matador à Distância",
@@ -30794,11 +30794,11 @@
         },
         "5G44ZDmQG-N5": {
           "name": "Atrelado à Guerra Aprimorado",
-          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Atrelado à Guerra, inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Atrelado à Guerra (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5NeMSSj7-Pp5": {
           "name": "Violento Aprimorado",
-          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Violento, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear da regra Violento, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "97aE8SunQBTq": {
           "name": "Purga",
@@ -30818,7 +30818,7 @@
         },
         "jbhpErfecvEY": {
           "name": "Atrelado à Guerra",
-          "description": "Quando este modelo atira em ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "n8vjv0oBZDAL": {
           "name": "Frenesi Defensivo",
@@ -30834,7 +30834,7 @@
         },
         "WHJ8A7LzHUR6": {
           "name": "Violento",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "wnrz_-SUmR8_": {
           "name": "Aura de Combatente Perfurante",
@@ -31002,11 +31002,11 @@
         },
         "2Ut-u9mj5a2t": {
           "name": "Tecnologia Vinci",
-          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar inimigos a mais de 9\"/6\" de distância, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
+          "description": "Quando esta unidade for ativada, escolha um efeito: até o fim da ativação, ao atirar ou carregar o alvo válido mais próximo, todos os modelos com esta regra nela recebem PA(+1) nas suas armas ou +1 nas rolagens para acertar."
         },
         "asZsQqR_73or": {
           "name": "Combatente Versátil Aprimorado",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar de Combatente Versátil (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "B-9jnnFp54f9": {
           "name": "Aura de Fortificado",
@@ -31038,7 +31038,7 @@
         },
         "wSFy7E1LVgy7": {
           "name": "Tecnologia Vinci Aprimorada",
-          "description": "Se este modelo tiver Ataque Versátil, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Ataque Versátil (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Tecnologia Vinci, ele sempre recebe PA(+1) ou +1 nas rolagens para acertar por Tecnologia Vinci (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "amQphBHWOeJs": {
           "name": "Aura de Rápido",
@@ -31058,7 +31058,7 @@
         },
         "gD2_znglqhNw": {
           "name": "Firme",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "GgPKQ4tKFRIC": {
           "name": "Desajeitado",
@@ -31074,7 +31074,7 @@
         },
         "rMKm6JKLIxgn": {
           "name": "Firme Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Firme, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "sngB_5QsJLaW": {
           "name": "Carga Precisa",
@@ -31082,11 +31082,11 @@
         },
         "UBOoMTJY8qfD": {
           "name": "Protegido Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, e não apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver Protegido, a unidade sempre recebe +1 nas rolagens de Defesa dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "zTfg9msVpfJ0": {
           "name": "Protegido",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Defesa desde que não tenham se movido durante sua ativação neste round."
         },
         "8haZ36fXvnzn": {
           "name": "Aura de Furtividade",
@@ -31126,7 +31126,7 @@
         },
         "B2JtpsnBmE7N": {
           "name": "Espírito Empíreo",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, unidades inimigas que atirarem nela ou a carregarem a mais de 9\"/6\" de distância sofrem -1 nas rolagens para acertar."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, unidades inimigas que atirarem nela ou a carregarem sofrem -1 nas rolagens para acertar."
         },
         "bcByy3kGe34w": {
           "name": "Etéreo",
@@ -31138,7 +31138,7 @@
         },
         "fdufdlkSe5d4": {
           "name": "Espírito Empíreo Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas ao atirar ou carregar a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Espírito Empíreo, inimigos que a atacam sempre sofrem -1 nas rolagens para acertar por Espírito Empíreo (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "O2Cd7OibBBA5": {
           "name": "Sem Retirada",
@@ -31218,7 +31218,7 @@
         },
         "9_lez8f1QHeD": {
           "name": "Sortudo",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (apenas o acerto original conta como 6 para regras especiais)."
         },
         "AfGDQgn8r8O1": {
           "name": "Aura de Dilacerante ao Atirar",
@@ -31230,11 +31230,11 @@
         },
         "MEAjk171GPmF": {
           "name": "Brutal",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "Nbo5DTQufMoB": {
           "name": "Brutal Aprimorado",
-          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância."
+          "description": "Se este modelo tiver Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Brutal, e não apenas ao atirar ou carregar o alvo válido mais próximo."
         },
         "nr0R125ptwEZ": {
           "name": "Aura de Teleporte",
@@ -31246,11 +31246,11 @@
         },
         "SRqOGpHoX9GN": {
           "name": "Sortudo Aprimorado",
-          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Sortudo, o alvo sempre sofre acertos em resultados não modificados de acerto de 6 por Sortudo (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "5grD2FDFdNSn": {
           "name": "Combatente Perfurante",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "dlk9Q7howUDr": {
           "name": "Atirador Perfurante",
@@ -31258,7 +31258,7 @@
         },
         "mJiexOF2tUvD": {
           "name": "Combatente Perfurante Aprimorado",
-          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Combatente Perfurante, ele sempre recebe PA(+1) dessa regra (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "QWzGAg9RpE2D": {
           "name": "Aura de Alcance de Tiro Aumentado",
@@ -31270,7 +31270,7 @@
         },
         "wjTOj41tskFD": {
           "name": "Devastação",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, suas armas recebem PA(+1)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, suas armas recebem PA(+1)."
         },
         "Zi1Zgge5ptMw": {
           "name": "Aura de Devastação Aprimorado",
@@ -31278,7 +31278,7 @@
         },
         "ZqYITWnZUc45": {
           "name": "Devastação Aprimorado",
-          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Devastação, ele sempre recebe PA(+1) dela (em vez de apenas quando atira ou carrega o alvo válido mais próximo)."
         },
         "5bc5xNmd5M14": {
           "name": "Nobre",
@@ -31318,7 +31318,7 @@
         },
         "4NMqPbqMvE4C": {
           "name": "Manter a Linha Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Manter a Linha, eles sempre recebem +1 nas rolagens de Teste de Moral dessa regra (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "eU6uz90H82Sw": {
           "name": "Alcance Estendido de Bônus",
@@ -31342,15 +31342,15 @@
         },
         "LbpquFUyGSZ7": {
           "name": "Valoroso",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, a unidade recebe +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "Sdcb8VAeTxji": {
           "name": "Manter a Linha",
-          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, eles recebem +1 nas rolagens de Teste de Moral desde que não tenham se movido durante sua ativação neste round."
         },
         "TbjUdR-OJZPw": {
           "name": "Valoroso Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, e não apenas quando for alvo de tiros a mais de 9\" ou de uma carga iniciada a mais de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver Valoroso, a unidade sempre recebe o +1 nas rolagens de Teste de Moral dessa regra, em vez de apenas desde que não tenham se movido durante sua ativação."
         },
         "XTLizAKBVOIZ": {
           "name": "Bônus de Defesa",
@@ -31366,7 +31366,7 @@
         },
         "Anx9Iim2k-Ws": {
           "name": "Proteção Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas quando for alvo de tiros ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Proteção, eles sempre ignoram ferimentos de tiros/cargas em rolagens de 6+ de Proteção (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "E8tvOAPUp2lA": {
           "name": "Bônus de Bênção Angelical Aprimorada",
@@ -31374,7 +31374,7 @@
         },
         "KbbLvs-sSSPi": {
           "name": "Bênção Angelical Aprimorada",
-          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas quando forem alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância)."
+          "description": "Se a maioria dos modelos nesta unidade tiver Bênção Angelical, eles sempre ignoram ferimentos de tiro/carga em rolagens de 6+ por Bênção Angelical (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "KTetx0KIX3i-": {
           "name": "Marca de Matador",
@@ -31386,7 +31386,7 @@
         },
         "mCYGI3sU3jKI": {
           "name": "Bênção Angelical",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e a unidade foi alvo de tiro ou de uma carga iniciada a mais de 9\"/6\" de distância, ele é ignorado em 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofrer ferimentos, role um dado para cada um. Se o ferimento foi de uma magia, ele é ignorado em 2+. Se o ferimento não foi de uma magia, e os modelos não se moveram durante sua ativação neste round, ele é ignorado em 6+."
         },
         "N0JRcI01vSBT": {
           "name": "Morte",
@@ -31398,7 +31398,7 @@
         },
         "zu6H7MyN3f8U": {
           "name": "Proteção",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e a unidade foi alvo de tiros/carga a mais de 9\"/6\" de distância, ele é ignorado com 6+."
+          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra sofre ferimentos, role um dado para cada um. Se o ferimento veio de uma magia, ele é ignorado com 2+. Se não veio de uma magia e os modelos não se moveram durante sua ativação neste round, ele é ignorado com 6+."
         },
         "6uuhxngLr8N7": {
           "name": "Aura de Legião Real Aprimorada",
@@ -31418,7 +31418,7 @@
         },
         "-7w3e1QuLK47": {
           "name": "Destruidor",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 1 ao bloquear acertos de armas causam 1 ferimento extra."
         },
         "39l6ePjLFmcw": {
           "name": "Aura de Destruidor Aprimorado",
@@ -31442,7 +31442,7 @@
         },
         "nNQIbm2XPcnO": {
           "name": "Destruidor Aprimorado",
-          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Destruidor, os inimigos sempre sofrem ferimentos em resultados não modificados de 1 ao bloquear por Destruidor (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "oFAQZkhWt9EQ": {
           "name": "Músico-Mor",
@@ -31462,11 +31462,11 @@
         },
         "B1i8BBWNU3L0": {
           "name": "Feroz Aprimorado",
-          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar inimigos a mais de 9\"/6\" de distância)."
+          "description": "Se este modelo tiver Feroz, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 da regra Feroz (em vez de apenas ao atirar ou carregar o alvo válido mais próximo)."
         },
         "cygZBh3MtWs1": {
           "name": "Feroz",
-          "description": "Quando este modelo atira ou carrega inimigos a mais de 9\"/6\" de distância, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+          "description": "Quando este modelo atira ou carrega o alvo válido mais próximo, resultados não modificados de 6 para acertar causam 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "EYbEdB0ST9lf": {
           "name": "Aura de Feroz Aprimorado",
@@ -31586,7 +31586,7 @@
         },
         "df-9jrAw7ytM": {
           "name": "Sombrio",
-          "description": "Quando uma unidade onde a maioria dos modelos tem esta regra for alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
+          "description": "Se a maioria dos modelos nesta unidade tiver esta regra, desde que não tenham se movido durante sua ativação neste round, quando forem alvo de tiros ou carga por uma unidade inimiga, essa unidade inimiga sofre -4\"/-2\" de alcance até um mínimo de 6\"."
         },
         "jdxaM66DHbMQ": {
           "name": "Destrutivo",
@@ -31594,19 +31594,15 @@
         },
         "ZGxUXLWSGkCv": {
           "name": "Sombrio Aprimorado",
-          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sofrem -8\"/-4\" de alcance até um mínimo de 6\" por Sombrio (em vez de apenas -4\"/-2\")."
+          "description": "Se a maioria dos modelos nesta unidade tiver Sombrio, inimigos que a atirem ou carreguem sempre sempre sofrem -4\"/-2\" de alcance ao mirar neles por Sombrio (em vez de apenas desde que não tenham se movido durante sua ativação)."
         },
         "h_TEDAiM7Cy-": {
           "name": "Bucaneiro",
-          "description": "Ao atirar em inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
         },
         "Jg7RPJ4J63wm": {
           "name": "Bucaneiro Aprimorado",
-          "description": "Se este modelo tiver Bucaneiro, ele sempre recebe +1 nas rolagens para acertar por Bucaneiro (em vez de apenas ao atirar a mais de 9\" de distância)."
-        },
-        "lwWYwB3HRTPi": {
-          "name": "Atirador de Precisão",
-          "description": "Ao atirar contra inimigos a mais de 9\" de distância, este modelo recebe +1 nas rolagens para acertar."
+          "description": "Se este modelo tiver Bucaneiro, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 por Bucaneiro (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         },
         "Mtcp44LF96k9": {
           "name": "Aura de Bucaneiro Aprimorado",
@@ -31615,10 +31611,6 @@
         "y47PXwakTSji": {
           "name": "Alcance Versátil",
           "description": "Quando esta unidade é ativada, escolha um efeito: até o fim da ativação, todos os modelos com esta regra nesta unidade recebem +4\" de alcance ao atirar ou movem +2\" ao usar Corrida/Carga."
-        },
-        "ySpZadCu08yk": {
-          "name": "Atirador de Precisão Aprimorado",
-          "description": "Se este modelo tiver Atirador de Precisão, sempre recebe +1 nas rolagens para acertar por Atirador de Precisão (em vez de apenas ao atirar contra inimigos a mais de 9\" de distância)."
         },
         "E0qBVMoArk5C": {
           "name": "Bônus de Morto-Vivo Amaldiçoado Aprimorado",
@@ -31667,6 +31659,14 @@
         "6EBrtUCjjYPT": {
           "name": "Combatente Sanguinário",
           "description": "Para cada resultado não modificado de 1 que os inimigos rolarem ao bloquear acertos das armas deste modelo em combate corpo a corpo, este modelo pode rolar +1 ataque com essa arma. Esta regra não se aplica a ataques recém-gerados."
+        },
+        "b-Wgt5kP05T-": {
+          "name": "Atirador Brutal",
+          "description": "Quando este modelo atira contra o alvo válido mais próximo, resultado não modificado de 6 para acertar causa 1 acerto extra (só o acerto original conta como 6 para regras especiais)."
+        },
+        "rBNwDwSM_r5I": {
+          "name": "Atirador Brutal Aprimorado",
+          "description": "Se este modelo tiver Atirador Brutal, o alvo sempre sofre acertos em resultados de acerto não modificados de 6 de Atirador Brutal (em vez de apenas ao atirar contra o alvo válido mais próximo)."
         }
       },
       "weapons": {
@@ -37019,7 +37019,7 @@
         "armyId": "aWr-VySOga3Icowr",
         "gameSystem": 11,
         "book": "Machine Cults",
-        "collectedAt": "2026-11-24",
+        "collectedAt": "2026-11-26",
         "system": "gfwf"
       },
       "rules": {
